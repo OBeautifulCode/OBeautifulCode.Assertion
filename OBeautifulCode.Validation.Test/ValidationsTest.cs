@@ -7,79 +7,68 @@
 namespace OBeautifulCode.Validation.Recipes.Test
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     using Xunit;
 
     public static class ValidationsTest
     {
-        [Fact]
-        public static void Test()
-        {
-            string value = null;
-            value.Must().NotBeNull();
-        }
-
-        [Fact]
-        public static void Test2()
-        {
-            string value = " \r\n ";
-            value.Must().NotBeNull().And().NotBeNullOrWhiteSpace();
-        }
-
-        [Fact]
-        public static void Test3()
-        {
-            string something = " \r\n ";
-            new { something }.Must().NotBeNullOrWhiteSpace();
-        }
-
-        [Fact]
+        [Fact(Skip = "true")]
         public static void Test4()
         {
-            string test = null;
-            TypeNameLower(test);
-
-            var something = new[] { "asdf", null };
-
-            new { something }.Must().NotBeNull().And().NotBeEmpty().And().NotContainAnyNulls();
-            new { something }.Must().NotBeEmpty().And().NotContainAnyNulls();
-
-            something.Named("asdf").Must().NotBeNull();
-
-            // x.TryGetValue("asf", out object output).Named("somename").Must().BeTrue();
-
-            // test the following:
-            // Guid, Guid? DateTime, DateTime?, string, decimal, decimal?, custom object
-
-            // all value types (including struct) should throw the InvalidCastException
-            Guid.NewGuid().Must().BeNull();
-
-            // do a reflection unit test to the static methods and Validation methods
-
-            // support this with strong types:
-            // don't support multiple validations
-            // Must.NotBeNull(new { something }, "something", "because");
-
-            // test with Struct
-            // test nullables
-            // BeDefault()
-            // NotBeEmptyEnumerable => NotBeEmpty
-            // NotBeEmptyString
-            // NotBeNullOrWhiteSpace
-            // NotContainAnyNullElements => NotContainAnyNulls
-
-            // (x.IsValidMetricTree).Named("").new {somethingElse = something}).Named("somethingElse").Must();
-
-            // write test case on this - for string not null or whitespace, put null check after we validate that it's a string or before?
+            // Be, NotBe (func<bool>)
+            // BeNull, NotBeNull
+            // BeFalse, NotBeFalse, BeTrue, NotBeTrue
+            // NotBeEmpty, BeEmpty (string, guid, enumerable)
+            // NotBeWhiteSpace, BeWhiteSpace
+            // NotBeNullOrWhiteSpace, BeNullOrWhiteSpace
+            // BeDefault, NotBeDefault
+            // ContainSomeNulls, NotContainAnyNulls
+            // Contain, NotContain  (string, IEnumerable)
+            // BeInRange(min,max),  NotBeInRange(min,max)
+            // BeLessThan, NotBeLessThan
+            // BeLessThanOrEqualTo, NotBeLessThanOrEqualTo
+            // BeGreaterThan, NotBeGreaterThan
+            // BeGreaterThanOrEqualTo, NotBeGreaterThanOrEqualTo
+            // NotBeEqualTo, BeEqualTo
         }
 
-        private static string TypeNameLower(object o)
+        private static void Test(Guid guidValue)
         {
-            var type = o.GetType();
-            var result = type.Name;
-            return result;
+            guidValue.Must();
+            guidValue.Named("namedGuidValue").Must();
+            new { guidValue }.Must();
+        }
+
+        private static void Test(Guid? nullableGuidValue)
+        {
+        }
+
+        private static void Test(DateTime dateTimeValue)
+        {
+        }
+
+        private static void Test(DateTime? nullableDateTimeValue)
+        {
+        }
+
+        private static void Test(decimal decimalValue)
+        {
+        }
+
+        private static void Test(decimal? nullableDecimalValue)
+        {
+        }
+
+        private static void Test(string stringValue)
+        {
+        }
+
+        private static void Test(TestObject testObjectValue)
+        {
+        }
+
+        private class TestObject
+        {
         }
     }
 }
