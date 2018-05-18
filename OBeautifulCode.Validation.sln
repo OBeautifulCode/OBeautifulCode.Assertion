@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.ParameterValidation", "OBeautifulCode.ParameterValidation\OBeautifulCode.ParameterValidation.csproj", "{DEAA68EF-AD9D-4498-A738-2D9E20474782}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.Validation", "OBeautifulCode.Validation\OBeautifulCode.Validation.csproj", "{DEAA68EF-AD9D-4498-A738-2D9E20474782}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5FD3125-7EB7-4311-AB2E-407A5C38584C}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.ParameterValidation.Test", "OBeautifulCode.ParameterValidation.Test\OBeautifulCode.ParameterValidation.Test.csproj", "{7A6A386D-906D-406B-9AC3-0E59E7F62340}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.Validation.Test", "OBeautifulCode.Validation.Test\OBeautifulCode.Validation.Test.csproj", "{7A6A386D-906D-406B-9AC3-0E59E7F62340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

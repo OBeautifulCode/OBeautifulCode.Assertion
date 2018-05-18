@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.ParameterValidation.Test
+namespace OBeautifulCode.Validation.Test
 {
     using System;
     using System.Collections.Generic;
