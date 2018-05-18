@@ -7,7 +7,8 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.ParameterValidation
+// ReSharper disable once CheckNamespace
+namespace OBeautifulCode.ParameterValidation.Recipes
 {
     /// <summary>
     /// Extension methods.
