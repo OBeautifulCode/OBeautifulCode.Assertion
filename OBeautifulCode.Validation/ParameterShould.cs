@@ -25,6 +25,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Unknown (default).
         /// </summary>
+        // ReSharper disable once UnusedMember.Global
         Unknown,
 
         /// <summary>
