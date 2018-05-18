@@ -1,0 +1,14 @@
+﻿<package>
+  <metadata>
+    <id>OBeautifulCode.Validation.Recipes.ParameterValidator</id>
+    <description>Validates parameters.</description>
+    <tags>parameter parameters argument arguments validation</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Validation/master/OBeautifulCode.Validation/nuget-icon.png</iconUrl>
+  </metadata>
+  <files>
+    <file src="Parameter.cs" target="content\net461\.recipes\OBeautifulCode.Validation\Parameter.cs" />
+    <file src="ParameterValidation.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidation.cs" />
+    <file src="ParameterValidator.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidator.cs" />
+    <file src="ValidatedNotNullAttribute.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ValidatedNotNullAttribute.cs" />
+  </files>
+</package>

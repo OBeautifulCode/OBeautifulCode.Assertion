@@ -1,0 +1,7 @@
+﻿<package>
+  <metadata>
+    <description>Provides validation-related convenience/helper methods.</description>
+    <tags>validation</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Validation/master/OBeautifulCode.Validation/nuget-icon.png</iconUrl>
+  </metadata>
+</package>
