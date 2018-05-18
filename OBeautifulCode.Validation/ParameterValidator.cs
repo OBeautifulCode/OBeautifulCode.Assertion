@@ -10,6 +10,7 @@
 namespace OBeautifulCode.Validation.Recipes
 {
     using System;
+    using System.Collections;
 
     using static System.FormattableString;
 
@@ -123,8 +124,11 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter)
         {
             ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
-            
-            // check that it's an enumerable here?
+
+            if ((parameter.Value != null) && (!(parameter.Value is IEnumerable)))
+            {
+                ThrowOnUnexpectedType(nameof(Each), nameof(IEnumerable));
+            }
 
             parameter.HasBeenEached = true;
             return parameter;
@@ -212,6 +216,13 @@ namespace OBeautifulCode.Validation.Recipes
                 //     not expected or not throwing when expected).
                 throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
             }
+        }
+
+        internal static void ThrowOnUnexpectedType(
+            string validationName,
+            string expectedType)
+        {
+            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not of type {expectedType}"));
         }
     }
 }

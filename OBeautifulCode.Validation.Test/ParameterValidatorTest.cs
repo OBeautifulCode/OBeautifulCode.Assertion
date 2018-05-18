@@ -7,6 +7,7 @@
 namespace OBeautifulCode.Validation.Recipes.Test
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -14,6 +15,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.AutoFakeItEasy;
     using OBeautifulCode.Math.Recipes;
 
     using Xunit;
@@ -104,7 +106,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_not_been_named()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenNamed = false).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenNamed).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
@@ -271,8 +273,86 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ParameterComparer.Equals(expected, actual).Should().BeTrue();
         }
 
-        private static IReadOnlyCollection<Parameter> BuildParametersWithAllCombinationsOfFlags()
+        [Fact]
+        public static void Each___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenMusted).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
+        }
+
+        [Fact]
+        public static void Each___Should_throw_InvalidOperationException___When_parameter_has_been_eached()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenEached).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
+        }
+
+        [Fact]
+        public static void Each___Should_throw_InvalidCastException___When_parameter_Value_is_not_an_IEnumerable()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidCastException>();
+                actual.Message.Should().Be("called Each() on an object that is not of type IEnumerable");
+            }
+        }
+
+        [Fact]
+        public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached_and_Value_is_an_IEnumerable()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+
+            var expecteds = parameters.Select(_ =>
+            {
+                var result = _.Clone();
+                result.HasBeenEached = true;
+                return result;
+            }).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => _.Each()).ToList();
+
+            // Assert
+            actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+        }
+
+        private static IReadOnlyCollection<Parameter> BuildParametersWithAllCombinationsOfFlags(
+            Type valueType = null,
+            bool valueCanBeNull = true)
+        {
+            if (valueType == null)
+            {
+                valueType = typeof(object);
+            }
+
             var flags = new[] { true, false };
             var result = new List<Parameter>();
 
@@ -286,7 +366,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         {
                             var parameter = new Parameter
                             {
-                                Value = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<object>() : null,
+                                Value = valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
                                 Name = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
                                 HasBeenNamed = nameFlag,
                                 HasBeenMusted = mustFlag,
