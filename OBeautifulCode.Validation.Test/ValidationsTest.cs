@@ -4,11 +4,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Validation.Test
+namespace OBeautifulCode.Validation.Recipes.Test
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using Xunit;
 
     public static class ValidationsTest
@@ -16,8 +17,8 @@ namespace OBeautifulCode.Validation.Test
         [Fact]
         public static void Test()
         {
-            string value = " \r\n ";
-            value.Named("myName").Must().NotBeNull().And().NotBeNullOrWhiteSpace();
+            string value = null;
+            value.Must().NotBeNull();
         }
 
         [Fact]
@@ -37,6 +38,9 @@ namespace OBeautifulCode.Validation.Test
         [Fact]
         public static void Test4()
         {
+            string test = null;
+            TypeNameLower(test);
+
             var something = new[] { "asdf", null };
 
             new { something }.Must().NotBeNull().And().NotBeEmpty().And().NotContainAnyNulls();
@@ -44,8 +48,7 @@ namespace OBeautifulCode.Validation.Test
 
             something.Named("asdf").Must().NotBeNull();
 
-            var x = new Dictionary<object, object>();
-            x.TryGetValue("asf", out object output).Named("somename").Must().BeTrue();
+            // x.TryGetValue("asf", out object output).Named("somename").Must().BeTrue();
 
             // test the following:
             // Guid, Guid? DateTime, DateTime?, string, decimal, decimal?, custom object
@@ -57,7 +60,7 @@ namespace OBeautifulCode.Validation.Test
 
             // support this with strong types:
             // don't support multiple validations
-            Must.NotBeNull(new { something }, "something", "because");
+            // Must.NotBeNull(new { something }, "something", "because");
 
             // test with Struct
             // test nullables
@@ -67,8 +70,16 @@ namespace OBeautifulCode.Validation.Test
             // NotBeNullOrWhiteSpace
             // NotContainAnyNullElements => NotContainAnyNulls
 
-            (x.IsValidMetricTree).Named("").new {somethingElse = something}).Named("somethingElse").Must();
+            // (x.IsValidMetricTree).Named("").new {somethingElse = something}).Named("somethingElse").Must();
 
             // write test case on this - for string not null or whitespace, put null check after we validate that it's a string or before?
         }
+
+        private static string TypeNameLower(object o)
+        {
+            var type = o.GetType();
+            var result = type.Name;
+            return result;
+        }
     }
+}

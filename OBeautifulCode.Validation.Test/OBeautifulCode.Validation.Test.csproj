@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="ValidationsTest.cs" />
+    <Compile Include="ValidationsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBeautifulCode.Validation\OBeautifulCode.Validation.csproj">

@@ -17,12 +17,16 @@ namespace OBeautifulCode.Validation.Recipes
     /// <remarks>
     /// See <a href="http://esmithy.net/2011/03/15/suppressing-ca1062/" />
     /// </remarks>
+    [AttributeUsage(AttributeTargets.Parameter)]
 #if !OBeautifulCodeValidationRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Validation", "See package version number")]
+    internal
+#else
+    public
 #endif
-    internal sealed class ValidatedNotNullAttribute : Attribute
+        sealed class ValidatedNotNullAttribute : Attribute
     {
     }
 }

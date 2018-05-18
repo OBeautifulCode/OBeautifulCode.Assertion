@@ -12,6 +12,7 @@ namespace OBeautifulCode.Validation.Recipes
 {
     using System;
     using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
 
     using static System.FormattableString;
 
@@ -40,6 +41,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             if (!ReferenceEquals(parameter.Value, null))
             {
                 throw new ArgumentException(because ?? Invariant($"parameter is not null"), parameter.Name);
@@ -60,6 +63,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             if (ReferenceEquals(parameter.Value, null))
             {
                 throw new ArgumentNullException(parameter.Name, because);
@@ -80,6 +85,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             if (!ReferenceEquals(parameter.Value, null))
             {
                 if (parameter.Value is string valueAsString)
@@ -110,6 +117,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull();
 
             if (parameter.Value is string valueAsString)
@@ -135,10 +144,13 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "The heuristic for this validation requires this unused variable.")]
         public static Parameter BeEmpty(
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull();
 
             if (parameter.Value is IEnumerable valueAsEnumerable)
@@ -164,10 +176,13 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "The heuristic for this validation requires this unused variable.")]
         public static Parameter NotBeEmpty(
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull();
 
             if (parameter.Value is IEnumerable valueAsEnumerable)
@@ -199,6 +214,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull();
 
             if (parameter.Value is IEnumerable valueAsEnumerable)
@@ -233,6 +250,8 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull();
 
             if (parameter.Value is IEnumerable valueAsEnumerable)
@@ -265,10 +284,29 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
+            ThrowOnNullParameter(parameter);
+
             parameter.NotBeNull(because);
             parameter.NotBeEmpty(because);
             parameter.NotContainAnyNulls(because);
             return parameter;
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This is a rare and good use of raising reserved exception types.  See comments in-line below.")]
+        private static void ThrowOnNullParameter(
+            Parameter parameter)
+        {
+            if (parameter == null)
+            {
+                // We throw a NullReferenceException rather than an ArgumentNullException so that this category of
+                // problem (inproper use of the framework), can be clearly differentiated from a validation failure
+                // (which will throw ArgumentException or some derivative) by the caller.
+                // If we didn't throw here, then NullReferenceException would be thrown soon after, when the parameter
+                // gets used, except that it would not have a nice message like the one below.  In addition, we would
+                // have to sprinkle Code Analysis suppressions throughout this file, for CA1062.
+                throw new NullReferenceException(Invariant($"{nameof(parameter)} is null.  All {nameof(Validations)} require a properly constructed {nameof(Parameter)}.  Most likely you are using the framework improperly.  Chain your {nameof(Validations)} after calling {nameof(Validator.Must)}() or {nameof(Validator.Named)}(...) on the object you are validating (e.g. myObject.{nameof(Validator.Must)}().{nameof(NotBeNull)}())."));
+            }
         }
 
         private static void ThrowOnUnexpectedType(
