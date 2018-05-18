@@ -344,6 +344,53 @@ namespace OBeautifulCode.Validation.Recipes.Test
             actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
         }
 
+        [Fact]
+        public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenMusted).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
+        }
+
+        [Fact]
+        public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_validated()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenValidated).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
+        }
+
+        [Fact]
+        public static void And___Should_return_same_parameter___When_parameter_is_musted_and_valudated()
+        {
+            // Arrange
+            var expecteds = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => _.HasBeenValidated).ToList();
+
+            // Act
+            var actuals = expecteds.Select(_ => _.And()).ToList();
+
+            // Assert
+            actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+        }
+
         private static IReadOnlyCollection<Parameter> BuildParametersWithAllCombinationsOfFlags(
             Type valueType = null,
             bool valueCanBeNull = true)

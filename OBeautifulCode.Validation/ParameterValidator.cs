@@ -114,11 +114,12 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Specifies another validation.
+        /// Specifies that the validations should be applied by iterating
+        /// over the <see cref="IEnumerable"/> parameter value.
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <returns>
-        /// The parameter to validate.
+        /// The parameter who's value should be iterated over when applying validations.
         /// </returns>
         public static Parameter Each(
             [ValidatedNotNull] this Parameter parameter)
@@ -144,7 +145,7 @@ namespace OBeautifulCode.Validation.Recipes
         public static Parameter And(
             [ValidatedNotNull] this Parameter parameter)
         {
-            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);          
+            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);
             return parameter;
         }
 
