@@ -7,7 +7,6 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-// ReSharper disable once CheckNamespace
 namespace OBeautifulCode.Validation.Recipes
 {
     /// <summary>
