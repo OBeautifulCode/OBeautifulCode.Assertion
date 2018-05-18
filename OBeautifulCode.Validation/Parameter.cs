@@ -9,6 +9,8 @@
 
 namespace OBeautifulCode.Validation.Recipes
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Represents a parameter that is being validated.
     /// </summary>
@@ -31,5 +33,27 @@ namespace OBeautifulCode.Validation.Recipes
         /// Gets or sets the name of the parameter.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Named(object, string)"/> has been called.
+        /// </summary>
+        public bool HasBeenNamed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Must(object)"/> has been called.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        public bool HasBeenMusted { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Each(Parameter)"/> has been called.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
+        public bool HasBeenEached { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether at least one validation has been performed on the paramter.
+        /// </summary>
+        public bool HasBeenValidated { get; set; }
     }
 }

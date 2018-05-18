@@ -9,6 +9,10 @@
 
 namespace OBeautifulCode.Validation.Recipes
 {
+    using System;
+
+    using static System.FormattableString;
+
     /// <summary>
     /// Extension methods.
     /// </summary>
@@ -23,6 +27,11 @@ namespace OBeautifulCode.Validation.Recipes
         static class ParameterValidator
     {
         /// <summary>
+        /// Exception message that's thrown when there is an improper usage of the framework.
+        /// </summary>
+        public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly.  See: https://github.com/OBeautifulCode/OBeautifulCode.Validation for documentation on proper usage.";
+
+        /// <summary>
         /// Specifies the name of the parameter.
         /// </summary>
         /// <param name="value">The value of the parameter.</param>
@@ -34,10 +43,16 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this object value,
             string name)
         {
+            if (value is Parameter parameter)
+            {
+                ThrowOnImproperUseOfFramework(parameter, ParameterShould.NotExist);
+            }
+
             var result = new Parameter
             {
                 Value = value,
                 Name = name,
+                HasBeenNamed = true,
             };
 
             return result;
@@ -54,9 +69,11 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this object value)
         {
             // it a parameter itself? pass-thru
-            if (value is Parameter passThru)
+            if (value is Parameter parameter)
             {
-                return passThru;
+                ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
+                parameter.HasBeenMusted = true;
+                return parameter;
             }
 
             if (value != null)
@@ -74,9 +91,14 @@ namespace OBeautifulCode.Validation.Recipes
                         {
                             Value = properties[0].GetValue(value, null),
                             Name = properties[0].Name,
+                            HasBeenMusted = true,
                         };
 
                         return parameterInAnonymousObject;
+                    }
+                    else
+                    {
+                        ThrowOnImproperUseOfFramework(null);
                     }
                 }
             }
@@ -84,6 +106,7 @@ namespace OBeautifulCode.Validation.Recipes
             var directParameter = new Parameter
             {
                 Value = value,
+                HasBeenMusted = true,
             };
 
             return directParameter;
@@ -96,10 +119,99 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The parameter to validate.
         /// </returns>
+        public static Parameter Each(
+            [ValidatedNotNull] this Parameter parameter)
+        {
+            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
+            
+            // check that it's an enumerable here?
+
+            parameter.HasBeenEached = true;
+            return parameter;
+        }
+
+        /// <summary>
+        /// Specifies another validation.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns>
+        /// The parameter to validate.
+        /// </returns>
         public static Parameter And(
             [ValidatedNotNull] this Parameter parameter)
         {
+            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);          
             return parameter;
+        }
+
+        internal static void ThrowOnImproperUseOfFramework(
+            [ValidatedNotNull] Parameter parameter,
+            params ParameterShould[] parameterShoulds)
+        {
+            bool shouldThrow = false;
+            if (parameter == null)
+            {
+                shouldThrow = true;
+            }
+            else
+            {
+                foreach (var parameterShould in parameterShoulds)
+                {
+                    switch (parameterShould)
+                    {
+                        case ParameterShould.NotExist:
+                            shouldThrow = true;
+                            break;
+                        case ParameterShould.BeNamed:
+                            shouldThrow = !parameter.HasBeenNamed;
+                            break;
+                        case ParameterShould.NotBeNamed:
+                            shouldThrow = parameter.HasBeenNamed;
+                            break;
+                        case ParameterShould.BeMusted:
+                            shouldThrow = !parameter.HasBeenMusted;
+                            break;
+                        case ParameterShould.NotBeMusted:
+                            shouldThrow = parameter.HasBeenMusted;
+                            break;
+                        case ParameterShould.BeEached:
+                            shouldThrow = !parameter.HasBeenEached;
+                            break;
+                        case ParameterShould.NotBeEached:
+                            shouldThrow = parameter.HasBeenEached;
+                            break;
+                        case ParameterShould.BeValidated:
+                            shouldThrow = !parameter.HasBeenValidated;
+                            break;
+                        case ParameterShould.NotBeValidated:
+                            shouldThrow = parameter.HasBeenValidated;
+                            break;
+                        default:
+                            shouldThrow = true;
+                            break;
+                    }
+
+                    if (shouldThrow)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (shouldThrow)
+            {
+                // We throw a InvalidOperationException rather than an ArgumentException so that this category of
+                // problem (inproper use of the framework), can be clearly differentiated from a validation failure
+                // (which will throw ArgumentException or some derivative) by the caller.
+                // If we didn't throw here:
+                //   - if parameter == null then NullReferenceException would be thrown soon after, when the parameter
+                //     gets used, except that it would not have a nice message like the one below.  In addition, we would
+                //     have to sprinkle Code Analysis suppressions throughout the project, for CA1062.
+                //   - if parameter != null then the user doesn't understand how the framework is designed to be used
+                //     and what the framework's limiations are.  Some negative outcome might occur (throwing when
+                //     not expected or not throwing when expected).
+                throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
+            }
         }
     }
 }
