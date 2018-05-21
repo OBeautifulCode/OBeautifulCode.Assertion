@@ -76,7 +76,7 @@
     <Compile Include="Common.cs" />
     <Compile Include="ParameterEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationsTest.cs" />
+    <Compile Include="ParameterValidationsTest.cs" />
     <Compile Include="ParameterValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>

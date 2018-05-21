@@ -11,7 +11,6 @@ namespace OBeautifulCode.Validation.Recipes
 {
     using System;
     using System.Collections;
-    using System.Diagnostics.CodeAnalysis;
 
     using static System.FormattableString;
 
@@ -28,6 +27,8 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static class ParameterValidation
     {
+        private delegate void CheckParameter(object parameterValue, string parameterName, string because, bool isElementInEnumerable);
+
         /// <summary>
         /// Validates that the parameter is null.
         /// </summary>
@@ -40,13 +41,7 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
-            ThrowOnNullParameter(parameter);
-
-            if (!ReferenceEquals(parameter.Value, null))
-            {
-                throw new ArgumentException(because ?? Invariant($"parameter is not null"), parameter.Name);
-            }
-
+            parameter.Validate(BeNull, because);
             return parameter;
         }
 
@@ -62,257 +57,84 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             string because = null)
         {
-            ThrowOnNullParameter(parameter);
-
-            if (ReferenceEquals(parameter.Value, null))
-            {
-                throw new ArgumentNullException(parameter.Name, because);
-            }
-
+            parameter.Validate(NotBeNull, because);
             return parameter;
         }
 
-        /// <summary>
-        /// Validates that a <see cref="string"/> is null or white space.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        public static Parameter BeNullOrWhiteSpace(
+        private static void Validate(
             this Parameter parameter,
-            string because = null)
+            CheckParameter checkParameter,
+            string because)
         {
-            ThrowOnNullParameter(parameter);
+            ParameterValidator.ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted);
 
-            if (!ReferenceEquals(parameter.Value, null))
+            if (parameter.HasBeenEached)
             {
-                if (parameter.Value is string valueAsString)
+                if (parameter.Value is IEnumerable valueAsEnumerable)
                 {
-                    if (!string.IsNullOrWhiteSpace(valueAsString))
+                    foreach (var element in valueAsEnumerable)
                     {
-                        throw new ArgumentException(because ?? Invariant($"{nameof(String)} parameter is not null and not white space"), parameter.Name);
+                        checkParameter(element, parameter.Name, because, isElementInEnumerable: true);
                     }
                 }
                 else
                 {
-                    ThrowOnUnexpectedType(nameof(NotBeNullOrWhiteSpace), nameof(String));
-                }
-            }
-
-            return parameter;
-        }
-
-        /// <summary>
-        /// Validates that a <see cref="string"/> is not null or white space.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        public static Parameter NotBeNullOrWhiteSpace(
-            this Parameter parameter,
-            string because = null)
-        {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull();
-
-            if (parameter.Value is string valueAsString)
-            {
-                if (string.IsNullOrWhiteSpace(valueAsString))
-                {
-                    throw new ArgumentException(because ?? Invariant($"{nameof(String)} parameter is white space"), parameter.Name);
+                    // Each() calls:
+                    // - ThrowOnImproperUseOfFramework when the parameter value is null
+                    // - ThrowOnUnexpectedType when the parameter value is not an Enumerable
+                    // so if we get here, the caller is trying to hack the framework
+                    ParameterValidator.ThrowOnImproperUseOfFramework();
                 }
             }
             else
             {
-                ThrowOnUnexpectedType(nameof(NotBeNullOrWhiteSpace), nameof(String));
+                checkParameter(parameter.Value, parameter.Name, because, isElementInEnumerable: false);
             }
 
-            return parameter;
+            parameter.HasBeenValidated = true;
         }
 
-        /// <summary>
-        /// Validates that an <see cref="IEnumerable"/> is empty.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "The heuristic for this validation requires this unused variable.")]
-        public static Parameter BeEmpty(
-            this Parameter parameter,
-            string because = null)
+        private static string BuildExceptionMessage(
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            string exceptionMessageSuffix)
         {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull();
-
-            if (parameter.Value is IEnumerable valueAsEnumerable)
+            if (because != null)
             {
-                foreach (var unused in valueAsEnumerable)
-                {
-                    throw new ArgumentException(because ?? Invariant($"{nameof(IEnumerable)} parameter is not empty"), parameter.Name);
-                }
-            }
-            else
-            {
-                ThrowOnUnexpectedType(nameof(NotBeEmpty), nameof(IEnumerable));
+                return because;
             }
 
-            return parameter;
+            var parameterNameQualifier = parameterName == null ? string.Empty : Invariant($" '{parameterName}'");
+            var enumerableQualifier = isElementInEnumerable ? " contains an element that" : string.Empty;
+            var result = Invariant($"parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}");
+            return result;
         }
 
-        /// <summary>
-        /// Validates that an <see cref="IEnumerable"/> is not empty.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "The heuristic for this validation requires this unused variable.")]
-        public static Parameter NotBeEmpty(
-            this Parameter parameter,
-            string because = null)
+        private static void BeNull(
+            object parameterValue,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
         {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull();
-
-            if (parameter.Value is IEnumerable valueAsEnumerable)
+            if (!ReferenceEquals(parameterValue, null))
             {
-                foreach (var unused in valueAsEnumerable)
-                {
-                    return parameter;
-                }
-
-                throw new ArgumentException(because ?? Invariant($"{nameof(IEnumerable)} parameter is empty"), parameter.Name);
-            }
-            else
-            {
-                ThrowOnUnexpectedType(nameof(NotBeEmpty), nameof(IEnumerable));
-            }
-
-            return parameter;
-        }
-
-        /// <summary>
-        /// Validates that an <see cref="IEnumerable"/> contains at least one null elements.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        public static Parameter ContainSomeNulls(
-            this Parameter parameter,
-            string because = null)
-        {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull();
-
-            if (parameter.Value is IEnumerable valueAsEnumerable)
-            {
-                foreach (var element in valueAsEnumerable)
-                {
-                    if (ReferenceEquals(element, null))
-                    {
-                        return parameter;
-                    }
-                }
-
-                throw new ArgumentException(because ?? Invariant($"{nameof(IEnumerable)} parameter does not contain any null elements"), parameter.Name);
-            }
-            else
-            {
-                ThrowOnUnexpectedType(nameof(NotBeEmpty), nameof(IEnumerable));
-            }
-
-            return parameter;
-        }
-
-        /// <summary>
-        /// Validates that an <see cref="IEnumerable"/> does not contain any null elements.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        public static Parameter NotContainAnyNulls(
-            this Parameter parameter,
-            string because = null)
-        {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull();
-
-            if (parameter.Value is IEnumerable valueAsEnumerable)
-            {
-                foreach (var element in valueAsEnumerable)
-                {
-                    if (ReferenceEquals(element, null))
-                    {
-                        throw new ArgumentException(because ?? Invariant($"{nameof(IEnumerable)} parameter contains a null element"), parameter.Name);
-                    }
-                }
-            }
-            else
-            {
-                ThrowOnUnexpectedType(nameof(NotBeEmpty), nameof(IEnumerable));
-            }
-
-            return parameter;
-        }
-
-        /// <summary>
-        /// Validates that an <see cref="IEnumerable"/> is not null, not empty, and does not contain any null elements.
-        /// </summary>
-        /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
-        /// <returns>
-        /// The validated parameter.
-        /// </returns>
-        public static Parameter NotBeNullNorEmptyNorContainAnyNulls(
-            this Parameter parameter,
-            string because = null)
-        {
-            ThrowOnNullParameter(parameter);
-
-            parameter.NotBeNull(because);
-            parameter.NotBeEmpty(because);
-            parameter.NotContainAnyNulls(because);
-            return parameter;
-        }
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This is a rare and good use of raising reserved exception types.  See comments in-line below.")]
-        private static void ThrowOnNullParameter(
-            Parameter parameter)
-        {
-            if (parameter == null)
-            {
-                // We throw a NullReferenceException rather than an ArgumentNullException so that this category of
-                // problem (inproper use of the framework), can be clearly differentiated from a validation failure
-                // (which will throw ArgumentException or some derivative) by the caller.
-                // If we didn't throw here, then NullReferenceException would be thrown soon after, when the parameter
-                // gets used, except that it would not have a nice message like the one below.  In addition, we would
-                // have to sprinkle Code Analysis suppressions throughout this file, for CA1062.
-                throw new NullReferenceException(Invariant($"{nameof(parameter)} is null.  All {nameof(ParameterValidation)} methods require a properly constructed {nameof(Parameter)}.  Most likely you are using the framework improperly.  Chain your {nameof(ParameterValidation)} method(s) after calling {nameof(ParameterValidator.Must)}() or {nameof(ParameterValidator.Named)}(...) on the object that you are validating (e.g. myObject.{nameof(ParameterValidator.Must)}().{nameof(NotBeNull)}())."));
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not null");
+                throw new ArgumentException(exceptionMessage);
             }
         }
 
-        private static void ThrowOnUnexpectedType(
-            string validationName,
-            string expectedType)
+        private static void NotBeNull(
+            object parameterValue,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
         {
-            throw new InvalidCastException(Invariant($"called {validationName} on an object that is not of type {expectedType}"));
+            if (!ReferenceEquals(parameterValue, null))
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is null");
+                throw new ArgumentException(exceptionMessage);
+            }
         }
     }
 }

@@ -23,5 +23,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             return result;
         }
+
+        public static Parameter CloneWithHasBeenValidated(
+            this Parameter parameter)
+        {
+            var result = parameter.Clone();
+            result.HasBeenValidated = true;
+            return result;
+        }
     }
 }
