@@ -1,12 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Common.cs" company="OBeautifulCode">
+// <copyright file="TestCommon.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OBeautifulCode.Validation.Recipes.Test
 {
-    public static class Common
+    public static class TestCommon
     {
         public static Parameter Clone(
             this Parameter parameter)
