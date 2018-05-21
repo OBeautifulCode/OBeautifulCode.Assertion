@@ -42,16 +42,17 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void Named___Should_set_create_Parameter_and_set_Value_to_value_and_Name_to_name_and_HasBeenNamed_to_true___When_value_not_of_type_Parameter()
+        public static void Named___Should_create_Parameter_and_set_Value_to_value_and_ValueType_to_TParameterValue_and_Name_to_name_and_HasBeenNamed_to_true___When_value_not_of_type_Parameter()
         {
             // Arrange
             string nullValue = null;
-            var value = A.Dummy<object>();
+            var value = A.Dummy<decimal?>();
             var name = A.Dummy<string>();
 
             var expected1 = new Parameter
             {
-                Value = null,
+                Value = nullValue,
+                ValueType = typeof(string),
                 Name = null,
                 HasBeenNamed = true,
                 HasBeenMusted = false,
@@ -61,7 +62,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var expected2 = new Parameter
             {
-                Value = null,
+                Value = nullValue,
+                ValueType = typeof(string),
                 Name = name,
                 HasBeenNamed = true,
                 HasBeenMusted = false,
@@ -72,6 +74,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected3 = new Parameter
             {
                 Value = value,
+                ValueType = typeof(decimal?),
                 Name = null,
                 HasBeenNamed = true,
                 HasBeenMusted = false,
@@ -82,6 +85,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected4 = new Parameter
             {
                 Value = value,
+                ValueType = typeof(decimal?),
                 Name = name,
                 HasBeenNamed = true,
                 HasBeenMusted = false,
@@ -100,6 +104,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ParameterComparer.Equals(actual2, expected2).Should().BeTrue();
             ParameterComparer.Equals(actual3, expected3).Should().BeTrue();
             ParameterComparer.Equals(actual4, expected4).Should().BeTrue();
+        }
+
+        [Fact]
+        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_with_null_ValueType()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenNamed).Where(_ => !_.HasBeenMusted).Where(_ => !_.HasBeenEached).Where(_ => !_.HasBeenValidated).ToList();
+            foreach (var parameter in parameters)
+            {
+                parameter.ValueType = null;
+            }
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
         }
 
         [Fact]
@@ -171,7 +196,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_return_same_Parameter_but_with_HasBeenMusted_set_to_true___When_value_is_a_Parameter_that_is_named_and_not_musted_and_not_eached_and_not_validated()
+        public static void Must___Should_return_same_Parameter_but_with_HasBeenMusted_set_to_true___When_value_is_a_Parameter_with_ValueType_that_is_named_and_not_musted_and_not_eached_and_not_validated()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenNamed).Where(_ => !_.HasBeenMusted).Where(_ => !_.HasBeenEached).Where(_ => !_.HasBeenValidated).ToList();
@@ -201,13 +226,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_return_Parameter_with_Value_and_Name_pulled_out_of_anonymous_object_property_and_HasBeenMusted_set_to_true___When_value_is_an_anonymous_object_with_one_property()
+        public static void Must___Should_return_Parameter_with_Value_and_ValueType_and_Name_pulled_out_of_anonymous_object_property_and_HasBeenMusted_set_to_true___When_value_is_an_anonymous_object_with_one_property()
         {
             // Arrange
-            var value = A.Dummy<object>();
-            var expected = new Parameter
+            var value1 = A.Dummy<object>();
+            string value2 = null;
+
+            var expected1 = new Parameter
             {
-                Value = value,
+                Value = value1,
+                ValueType = typeof(object),
+                Name = "someParameter",
+                HasBeenNamed = false,
+                HasBeenMusted = true,
+                HasBeenEached = false,
+                HasBeenValidated = false,
+            };
+
+            var expected2 = new Parameter
+            {
+                Value = value2,
+                ValueType = typeof(string),
                 Name = "someParameter",
                 HasBeenNamed = false,
                 HasBeenMusted = true,
@@ -216,24 +255,39 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             // Act
-            var actual = new { someParameter = value }.Must();
+            var actual1 = new { someParameter = value1 }.Must();
+            var actual2 = new { someParameter = value2 }.Must();
 
             // Assert
-            ParameterComparer.Equals(expected, actual).Should().BeTrue();
+            ParameterComparer.Equals(expected1, actual1).Should().BeTrue();
+            ParameterComparer.Equals(expected2, actual2).Should().BeTrue();
         }
 
         [Fact]
-        public static void Must___Should_return_Parameter_with_null_Value_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_null()
+        public static void Must___Should_return_Parameter_with_null_Value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_null()
         {
             // Arrange
             var value1 = new { someParameter = A.Dummy<object>() };
+            var value1Type = value1.GetType();
             value1 = null;
 
             string value2 = null;
 
-            var expected = new Parameter
+            var expected1 = new Parameter
             {
                 Value = null,
+                ValueType = value1Type,
+                Name = null,
+                HasBeenNamed = false,
+                HasBeenMusted = true,
+                HasBeenEached = false,
+                HasBeenValidated = false,
+            };
+
+            var expected2 = new Parameter
+            {
+                Value = null,
+                ValueType = typeof(string),
                 Name = null,
                 HasBeenNamed = false,
                 HasBeenMusted = true,
@@ -246,19 +300,20 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var actual2 = value2.Must();
 
             // Assert
-            ParameterComparer.Equals(expected, actual1).Should().BeTrue();
-            ParameterComparer.Equals(expected, actual2).Should().BeTrue();
+            ParameterComparer.Equals(expected1, actual1).Should().BeTrue();
+            ParameterComparer.Equals(expected2, actual2).Should().BeTrue();
         }
 
         [Fact]
-        public static void Must___Should_return_Parameter_with_Value_set_to_value_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_null()
+        public static void Must___Should_return_Parameter_with_Value_set_to_value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_not_an_anonymous_object_and_not_null()
         {
             // Arrange
-            var value = A.Dummy<object>();
+            var value = A.Dummy<string>();
 
             var expected = new Parameter
             {
                 Value = value,
+                ValueType = typeof(string),
                 Name = null,
                 HasBeenNamed = false,
                 HasBeenMusted = true,
@@ -281,12 +336,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected1 = new Parameter
             {
                 Value = testParameter,
+                ValueType = typeof(string),
                 HasBeenMusted = true,
             };
 
             var expected2 = new Parameter
             {
                 Value = testParameter,
+                ValueType = typeof(string),
                 Name = nameof(testParameter),
                 HasBeenMusted = true,
                 HasBeenNamed = true,
@@ -295,6 +352,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected3 = new Parameter
             {
                 Value = testParameter,
+                ValueType = typeof(string),
                 Name = nameof(testParameter),
                 HasBeenMusted = true,
             };
@@ -308,6 +366,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ParameterComparer.Equals(actual1, expected1).Should().BeTrue();
             ParameterComparer.Equals(actual2, expected2).Should().BeTrue();
             ParameterComparer.Equals(actual3, expected3).Should().BeTrue();
+        }
+
+        [Fact]
+        public static void Each___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            foreach (var parameter in parameters)
+            {
+                parameter.ValueType = null;
+            }
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
         }
 
         [Fact]
@@ -374,7 +453,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidCastException>();
-                actual.Message.Should().Be("called Each() on an object that is not of type IEnumerable");
+                actual.Message.Should().Be("called Each() on an object that is not of type(s): IEnumerable");
             }
         }
 
@@ -396,6 +475,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             // Assert
             actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+        }
+
+        [Fact]
+        public static void And___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => _.HasBeenValidated).ToList();
+            foreach (var parameter in parameters)
+            {
+                parameter.ValueType = null;
+            }
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
         }
 
         [Fact]
@@ -469,6 +569,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                             var parameter = new Parameter
                             {
                                 Value = valueMustBeNull ? null : valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
+                                ValueType = valueType,
                                 Name = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
                                 HasBeenNamed = nameFlag,
                                 HasBeenMusted = mustFlag,

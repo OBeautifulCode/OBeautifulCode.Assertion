@@ -14,6 +14,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var result = new Parameter
             {
                 Value = parameter.Value,
+                ValueType = parameter.ValueType,
                 Name = parameter.Name,
                 HasBeenNamed = parameter.HasBeenNamed,
                 HasBeenMusted = parameter.HasBeenMusted,

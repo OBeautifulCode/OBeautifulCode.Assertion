@@ -34,31 +34,34 @@ namespace OBeautifulCode.Validation.Recipes
         NotExist,
 
         /// <summary>
-        /// The parameter should have been Named with a call to <see cref="ParameterValidator.Named(object, string)"/>.
+        /// The parameter should have been Named with a call to
+        /// <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/>.
         /// </summary>
         BeNamed,
 
         /// <summary>
         /// The parameter should not have been Named.
-        /// No call to <see cref="ParameterValidator.Named(object, string)"/> should have occured.
+        /// No call to <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/> should have occured.
         /// </summary>
         NotBeNamed,
 
         /// <summary>
-        /// The parameter should have been Must'ed with a call to <see cref="ParameterValidator.Must(object)"/>.
+        /// The parameter should have been Must'ed with a call to
+        /// <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         BeMusted,
 
         /// <summary>
         /// The parameter should not have been Must'ed.
-        /// No call to <see cref="ParameterValidator.Must(object)"/> should have occured.
+        /// No call to <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/> should have occured.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         NotBeMusted,
 
         /// <summary>
-        /// The parameter should have been Each'ed with a call to <see cref="ParameterValidator.Each(Parameter)"/>.
+        /// The parameter should have been Each'ed with a call to
+        /// <see cref="ParameterValidator.Each(Parameter)"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
         BeEached,

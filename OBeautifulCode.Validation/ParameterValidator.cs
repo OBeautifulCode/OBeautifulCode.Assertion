@@ -11,6 +11,7 @@ namespace OBeautifulCode.Validation.Recipes
 {
     using System;
     using System.Collections;
+    using System.Linq;
 
     using static System.FormattableString;
 
@@ -35,13 +36,14 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Specifies the name of the parameter.
         /// </summary>
+        /// <typeparam name="TParameterValue">The type of parameter value.</typeparam>
         /// <param name="value">The value of the parameter.</param>
         /// <param name="name">The name of the parameter.</param>
         /// <returns>
         /// The parameter to validate.
         /// </returns>
-        public static Parameter Named(
-            [ValidatedNotNull] this object value,
+        public static Parameter Named<TParameterValue>(
+            [ValidatedNotNull] this TParameterValue value,
             string name)
         {
             if (value is Parameter parameter)
@@ -54,6 +56,7 @@ namespace OBeautifulCode.Validation.Recipes
                 Value = value,
                 Name = name,
                 HasBeenNamed = true,
+                ValueType = typeof(TParameterValue),
             };
 
             return result;
@@ -62,12 +65,13 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Initializes a parameter for validation.
         /// </summary>
+        /// <typeparam name="TParameterValue">The type of parameter value.</typeparam>
         /// <param name="value">The value of the parameter.</param>
         /// <returns>
         /// The parameter to validate.
         /// </returns>
-        public static Parameter Must(
-            [ValidatedNotNull] this object value)
+        public static Parameter Must<TParameterValue>(
+            [ValidatedNotNull] this TParameterValue value)
         {
             // it a parameter itself? pass-thru
             if (value is Parameter parameter)
@@ -77,11 +81,12 @@ namespace OBeautifulCode.Validation.Recipes
                 return parameter;
             }
 
-            if (value != null)
+            var valueType = typeof(TParameterValue);
+
+            if (!ReferenceEquals(value, null))
             {
                 // is anonymous type?
                 // https://stackoverflow.com/a/15273117/356790
-                var valueType = value.GetType();
                 if (valueType.Namespace == null)
                 {
                     // with one property?  that's the parameter we are trying to validate.
@@ -92,6 +97,7 @@ namespace OBeautifulCode.Validation.Recipes
                         {
                             Value = properties[0].GetValue(value, null),
                             Name = properties[0].Name,
+                            ValueType = properties[0].PropertyType,
                             HasBeenMusted = true,
                         };
 
@@ -103,11 +109,12 @@ namespace OBeautifulCode.Validation.Recipes
                     }
                 }
             }
-            
+
             var directParameter = new Parameter
             {
                 Value = value,
                 HasBeenMusted = true,
+                ValueType = valueType,
             };
 
             return directParameter;
@@ -133,7 +140,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (!(parameter.Value is IEnumerable))
             {
-                ThrowOnUnexpectedType(nameof(Each), nameof(IEnumerable));
+                ThrowOnUnexpectedTypes(nameof(Each), nameof(IEnumerable));
             }
 
             parameter.HasBeenEached = true;
@@ -160,6 +167,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             bool shouldThrow = false;
             if (parameter == null)
+            {
+                shouldThrow = true;
+            }
+            else if (parameter.ValueType == null)
             {
                 shouldThrow = true;
             }
@@ -229,11 +240,11 @@ namespace OBeautifulCode.Validation.Recipes
             throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
         }
 
-        internal static void ThrowOnUnexpectedType(
+        internal static void ThrowOnUnexpectedTypes(
             string validationName,
-            string expectedType)
+            params string[] expectedTypes)
         {
-            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not of type {expectedType}"));
+            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not of type(s): {expectedTypes.Aggregate((running, item) => running + ", " + item)}"));
         }
     }
 }

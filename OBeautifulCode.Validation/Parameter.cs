@@ -9,6 +9,7 @@
 
 namespace OBeautifulCode.Validation.Recipes
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -30,17 +31,22 @@ namespace OBeautifulCode.Validation.Recipes
         public object Value { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the value of the parameter.
+        /// </summary>
+        public Type ValueType { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the parameter.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Named(object, string)"/> has been called.
+        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/> has been called.
         /// </summary>
         public bool HasBeenNamed { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Must(object)"/> has been called.
+        /// Gets or sets a value indicating whether <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/> has been called.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         public bool HasBeenMusted { get; set; }
