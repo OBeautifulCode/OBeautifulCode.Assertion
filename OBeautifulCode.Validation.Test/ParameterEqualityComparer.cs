@@ -27,7 +27,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             }
 
             var result =
-                (x.Value == y.Value) &&
+                ((x.Value == y.Value) || x.Value.Equals(y.Value)) && // .Equals will throw with null values, but == doesn't always return true when values are equal (e.g. two Guids will not be equal)
                 (x.Name == y.Name) &&
                 (x.HasBeenNamed == y.HasBeenNamed) &&
                 (x.HasBeenMusted == y.HasBeenMusted) &&

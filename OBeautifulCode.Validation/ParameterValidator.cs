@@ -126,7 +126,12 @@ namespace OBeautifulCode.Validation.Recipes
         {
             ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
 
-            if ((parameter.Value != null) && (!(parameter.Value is IEnumerable)))
+            if (parameter.Value == null)
+            {
+                ThrowOnImproperUseOfFramework();
+            }
+
+            if (!(parameter.Value is IEnumerable))
             {
                 ThrowOnUnexpectedType(nameof(Each), nameof(IEnumerable));
             }
@@ -205,18 +210,23 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                // We throw a InvalidOperationException rather than an ArgumentException so that this category of
-                // problem (inproper use of the framework), can be clearly differentiated from a validation failure
-                // (which will throw ArgumentException or some derivative) by the caller.
-                // If we didn't throw here:
-                //   - if parameter == null then NullReferenceException would be thrown soon after, when the parameter
-                //     gets used, except that it would not have a nice message like the one below.  In addition, we would
-                //     have to sprinkle Code Analysis suppressions throughout the project, for CA1062.
-                //   - if parameter != null then the user doesn't understand how the framework is designed to be used
-                //     and what the framework's limiations are.  Some negative outcome might occur (throwing when
-                //     not expected or not throwing when expected).
-                throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
+                ThrowOnImproperUseOfFramework();
             }
+        }
+
+        internal static void ThrowOnImproperUseOfFramework()
+        {
+            // We throw a InvalidOperationException rather than an ArgumentException so that this category of
+            // problem (inproper use of the framework), can be clearly differentiated from a validation failure
+            // (which will throw ArgumentException or some derivative) by the caller.
+            // If we didn't throw here:
+            //   - if parameter == null then NullReferenceException would be thrown soon after, when the parameter
+            //     gets used, except that it would not have a nice message like the one below.  In addition, we would
+            //     have to sprinkle Code Analysis suppressions throughout the project, for CA1062.
+            //   - if parameter != null then the user doesn't understand how the framework is designed to be used
+            //     and what the framework's limiations are.  Some negative outcome might occur (throwing when
+            //     not expected or not throwing when expected).
+            throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
         }
 
         internal static void ThrowOnUnexpectedType(

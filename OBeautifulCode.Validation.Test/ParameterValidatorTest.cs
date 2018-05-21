@@ -345,10 +345,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void Each___Should_throw_InvalidOperationException___When_parameter_Value_is_null()
+        {
+            // Arrange
+            var parameters = BuildParametersWithAllCombinationsOfFlags(valueMustBeNull: true).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+
+            // Act
+            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            }
+        }
+
+        [Fact]
         public static void Each___Should_throw_InvalidCastException___When_parameter_Value_is_not_an_IEnumerable()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags(valueCanBeNull: false).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
@@ -365,7 +382,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached_and_Value_is_an_IEnumerable()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable), valueCanBeNull: false).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
 
             var expecteds = parameters.Select(_ =>
             {
@@ -430,7 +447,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
         private static IReadOnlyCollection<Parameter> BuildParametersWithAllCombinationsOfFlags(
             Type valueType = null,
-            bool valueCanBeNull = true)
+            bool valueCanBeNull = true,
+            bool valueMustBeNull = false)
         {
             if (valueType == null)
             {
@@ -450,7 +468,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         {
                             var parameter = new Parameter
                             {
-                                Value = valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
+                                Value = valueMustBeNull ? null : valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
                                 Name = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
                                 HasBeenNamed = nameFlag,
                                 HasBeenMusted = mustFlag,
