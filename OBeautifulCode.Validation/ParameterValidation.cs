@@ -130,10 +130,17 @@ namespace OBeautifulCode.Validation.Recipes
             string because,
             bool isElementInEnumerable)
         {
-            if (!ReferenceEquals(parameterValue, null))
+            if (ReferenceEquals(parameterValue, null))
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is null");
-                throw new ArgumentException(exceptionMessage);
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentNullException(null, exceptionMessage);
+                }                
             }
         }
     }
