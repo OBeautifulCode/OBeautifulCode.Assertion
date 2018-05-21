@@ -274,6 +274,43 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void Named_and_Must___Should_return_expected_Parameter___When_all_supported_chaining_combinations_are_executed()
+        {
+            // Arrange
+            var testParameter = A.Dummy<string>();
+            var expected1 = new Parameter
+            {
+                Value = testParameter,
+                HasBeenMusted = true,
+            };
+
+            var expected2 = new Parameter
+            {
+                Value = testParameter,
+                Name = nameof(testParameter),
+                HasBeenMusted = true,
+                HasBeenNamed = true,
+            };
+
+            var expected3 = new Parameter
+            {
+                Value = testParameter,
+                Name = nameof(testParameter),
+                HasBeenMusted = true,
+            };
+
+            // Act
+            var actual1 = testParameter.Must();
+            var actual2 = testParameter.Named(nameof(testParameter)).Must();
+            var actual3 = new { testParameter }.Must();
+
+            // Assert
+            ParameterComparer.Equals(actual1, expected1).Should().BeTrue();
+            ParameterComparer.Equals(actual2, expected2).Should().BeTrue();
+            ParameterComparer.Equals(actual3, expected3).Should().BeTrue();
+        }
+
+        [Fact]
         public static void Each___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
             // Arrange
