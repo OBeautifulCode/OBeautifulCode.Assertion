@@ -90,7 +90,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var guidTestValues = new TestValues<Guid>
             {
                 MustInvalidTypeValues = new[] { Guid.Empty, Guid.NewGuid() },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
+                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() } },
             };
 
             var nullableGuidTestValues = new TestValues<Guid?>
@@ -115,6 +115,58 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 MustFailingValues = new object[] { A.Dummy<object>() },
                 MustEachPassingValues = new IEnumerable<object>[] { new object[] { null, null } },
                 MustEachFailingValues = new IEnumerable<object>[] { new object[] { null, A.Dummy<object>(), null } },
+            };
+
+            // Act, Assert
+            validationTest.Run(guidTestValues);
+            validationTest.Run(nullableGuidTestValues);
+            validationTest.Run(stringTestValues);
+            validationTest.Run(objectTestValues);
+        }
+
+        [Fact]
+        public static void NotBeNull___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeNull,
+                ValidationName = nameof(ParameterValidation.NotBeNull),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is null",
+                InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[] { Guid.Empty, Guid.NewGuid() },
+                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() } },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustPassingValues = new Guid?[] { A.Dummy<Guid>(), Guid.Empty },
+                MustFailingValues = new Guid?[] { null },
+                MustEachPassingValues = new IEnumerable<Guid?>[] { new Guid?[] { Guid.NewGuid(), Guid.NewGuid() } },
+                MustEachFailingValues = new IEnumerable<Guid?>[] { new Guid?[] { Guid.NewGuid(), null, Guid.NewGuid() } },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustPassingValues = new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
+                MustFailingValues = new string[] { null },
+                MustEachPassingValues = new IEnumerable<string>[] { new string[] { string.Empty, " \r\n  ", A.Dummy<string>() } },
+                MustEachFailingValues = new IEnumerable<string>[] { new string[] { string.Empty, null, " \r\n  " } },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustPassingValues = new object[] { A.Dummy<object>(), new List<string>() { null } },
+                MustFailingValues = new object[] { null },
+                MustEachPassingValues = new IEnumerable<object>[] { new object[] { A.Dummy<object>(), A.Dummy<object>() } },
+                MustEachFailingValues = new IEnumerable<object>[] { new object[] { A.Dummy<object>(), null, A.Dummy<object>() } },
             };
 
             // Act, Assert
