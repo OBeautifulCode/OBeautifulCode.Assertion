@@ -7,6 +7,7 @@
 namespace OBeautifulCode.Validation.Recipes.Test
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -18,11 +19,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
     using Xunit;
 
+    using static System.FormattableString;
+
     public static class ParameterValidationsTest
     {
         private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
 
         private delegate Parameter Validation(Parameter parameter, string because = null);
+
+        [Fact]
+        public static void Test()
+        {
+            // Arrange
+            IEnumerable<string> values5 = new List<string>();
+            IReadOnlyCollection<string> values6 = new List<string>();
+            var values1 = new[] { string.Empty };
+            var values2 = new List<string> { string.Empty };
+            var values3 = new ArrayList();
+            var values4 = new Dictionary<string, string>();
+
+            values6.Must().Each().NotBeNull();
+            values5.Must().Each().NotBeNull();
+            values1.Must().Each().NotBeNull();
+            values2.Must().Each().NotBeNull();
+            values3.Must().Each().NotBeNull();
+            values4.Must().Each().NotBeNull();
+        }
 
         [Fact]
         public static void BeNull()
@@ -31,165 +53,28 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var validationTest = new ValidationTest
             {
                 Validation = ParameterValidation.BeNull,
+                ValidationName = nameof(ParameterValidation.BeNull),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = "is not null",
-                GuidTestValues = new TestValues<Guid>
-                {
-                    PassingValues = new Guid[0],
-                    FailingValues = new Guid[] { A.Dummy<Guid>(), Guid.Empty },
-                    EachPassingValues = new IEnumerable<Guid>[0],
-                    EachFailingValues = new IEnumerable<Guid>[] { Some.ReadOnlyDummies<Guid>() },
-                },
-                NullableGuidTestValues = new TestValues<Guid?>
-                {
-                    PassingValues = new Guid?[] { null },
-                    FailingValues = new Guid?[] { A.Dummy<Guid>(), Guid.Empty },
-                    EachPassingValues = new IEnumerable<Guid?>[] { new Guid?[] { null, null } },
-                    EachFailingValues = new IEnumerable<Guid?>[] { new Guid?[] { null, Guid.NewGuid(), null } },
-                },
-                DateTimeTestValues = new TestValues<DateTime>
-                {
-                    PassingValues = new DateTime[0],
-                    FailingValues = new DateTime[] { A.Dummy<DateTime>() },
-                    EachPassingValues = new IEnumerable<DateTime>[0],
-                    EachFailingValues = new IEnumerable<DateTime>[] { Some.ReadOnlyDummies<DateTime>() },
-                },
-                NullableDateTimeTestValues = new TestValues<DateTime?>
-                {
-                    PassingValues = new DateTime?[] { null },
-                    FailingValues = new DateTime?[] { A.Dummy<DateTime>() },
-                    EachPassingValues = new IEnumerable<DateTime?>[] { new DateTime?[] { null, null } },
-                    EachFailingValues = new IEnumerable<DateTime?>[] { new DateTime?[] { null, A.Dummy<DateTime>(), null } },
-                },
-                DecimalTestValues = new TestValues<decimal>
-                {
-                    PassingValues = new decimal[0],
-                    FailingValues = new decimal[] { A.Dummy<decimal>() },
-                    EachPassingValues = new IEnumerable<decimal>[0],
-                    EachFailingValues = new IEnumerable<decimal>[] { Some.ReadOnlyDummies<decimal>() },
-                },
-                NullableDecimalTestValues = new TestValues<decimal?>
-                {
-                    PassingValues = new decimal?[] { null },
-                    FailingValues = new decimal?[] { A.Dummy<decimal>() },
-                    EachPassingValues = new IEnumerable<decimal?>[] { new decimal?[] { null, null } },
-                    EachFailingValues = new IEnumerable<decimal?>[] { new decimal?[] { null, A.Dummy<decimal>(), null } },
-                },
-                StringTestValues = new TestValues<string>
-                {
-                    PassingValues = new string[] { null },
-                    FailingValues = new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
-                    EachPassingValues = new IEnumerable<string>[] { new string[] { null, null } },
-                    EachFailingValues = new IEnumerable<string>[] { new string[] { null, string.Empty, " \r\n  ", A.Dummy<string>(), null } },
-                },
-                ObjectTestValues = new TestValues<object>
-                {
-                    PassingValues = new object[] { null },
-                    FailingValues = new object[] { A.Dummy<object>() },
-                    EachPassingValues = new IEnumerable<object>[] { new object[] { null, null } },
-                    EachFailingValues = new IEnumerable<object>[] { new object[] { null, A.Dummy<object>(), null } },
-                },
+                InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
 
-            // Act, Assert
-            RunValidationTest(validationTest);
-        }
-
-        [Fact]
-        public static void NotBeNull()
-        {
-            // Arrange
-            var validationTest = new ValidationTest
+            var guidTestValues = new TestValues<Guid>
             {
-                Validation = ParameterValidation.NotBeNull,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
-                GuidTestValues = new TestValues<Guid>
-                {
-                    PassingValues = new Guid[] { A.Dummy<Guid>(), Guid.Empty },
-                    FailingValues = new Guid[0],
-                    EachPassingValues = new IEnumerable<Guid>[] { Some.ReadOnlyDummies<Guid>() },
-                    EachFailingValues = new IEnumerable<Guid>[0],
-                },
-                NullableGuidTestValues = new TestValues<Guid?>
-                {
-                    PassingValues = new Guid?[] { A.Dummy<Guid>(), Guid.Empty },
-                    FailingValues = new Guid?[] { null },
-                    EachPassingValues = new IEnumerable<Guid?>[] { new Guid?[] { Guid.NewGuid(), Guid.NewGuid() } },
-                    EachFailingValues = new IEnumerable<Guid?>[] { new Guid?[] { Guid.NewGuid(), null, Guid.NewGuid() } },
-                },
-                DateTimeTestValues = new TestValues<DateTime>
-                {
-                    PassingValues = new DateTime[] { A.Dummy<DateTime>() },
-                    FailingValues = new DateTime[0],
-                    EachPassingValues = new IEnumerable<DateTime>[] { Some.ReadOnlyDummies<DateTime>() },
-                    EachFailingValues = new IEnumerable<DateTime>[0],
-                },
-                NullableDateTimeTestValues = new TestValues<DateTime?>
-                {
-                    PassingValues = new DateTime?[] { A.Dummy<DateTime>() },
-                    FailingValues = new DateTime?[] { null },
-                    EachPassingValues = new IEnumerable<DateTime?>[] { new DateTime?[] { A.Dummy<DateTime>(), A.Dummy<DateTime>() } },
-                    EachFailingValues = new IEnumerable<DateTime?>[] { new DateTime?[] { A.Dummy<DateTime>(), null, A.Dummy<DateTime>() } },
-                },
-                DecimalTestValues = new TestValues<decimal>
-                {
-                    PassingValues = new decimal[] { A.Dummy<decimal>() },
-                    FailingValues = new decimal[0],
-                    EachPassingValues = new IEnumerable<decimal>[] { Some.ReadOnlyDummies<decimal>() },
-                    EachFailingValues = new IEnumerable<decimal>[0],
-                },
-                NullableDecimalTestValues = new TestValues<decimal?>
-                {
-                    PassingValues = new decimal?[] { A.Dummy<decimal>() },
-                    FailingValues = new decimal?[] { null },
-                    EachPassingValues = new IEnumerable<decimal?>[] { new decimal?[] { A.Dummy<decimal>(), A.Dummy<decimal>() } },
-                    EachFailingValues = new IEnumerable<decimal?>[] { new decimal?[] { A.Dummy<decimal>(), null, A.Dummy<decimal>() } },
-                },
-                StringTestValues = new TestValues<string>
-                {
-                    PassingValues = new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
-                    FailingValues = new string[] { null },
-                    EachPassingValues = new IEnumerable<string>[] { new string[] { string.Empty, " \r\n  ", A.Dummy<string>() } },
-                    EachFailingValues = new IEnumerable<string>[] { new string[] { string.Empty, null, " \r\n  " } },
-                },
-                ObjectTestValues = new TestValues<object>
-                {
-                    PassingValues = new object[] { A.Dummy<object>() },
-                    FailingValues = new object[] { null },
-                    EachPassingValues = new IEnumerable<object>[] { new object[] { A.Dummy<object>(), A.Dummy<object>() } },
-                    EachFailingValues = new IEnumerable<object>[] { new object[] { A.Dummy<object>(), null, A.Dummy<object>() } },
-                },
+                MustInvalidTypeValues = new[] { Guid.Empty, Guid.NewGuid() },
+                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
             };
 
             // Act, Assert
-            RunValidationTest(validationTest);
-        }
-
-        private static void RunValidationTest(
-            ValidationTest validationTest)
-        {
-            RunValidationTest(validationTest, validationTest.GuidTestValues);
-            RunValidationTest(validationTest, validationTest.NullableGuidTestValues);
-            RunValidationTest(validationTest, validationTest.DateTimeTestValues);
-            RunValidationTest(validationTest, validationTest.NullableDateTimeTestValues);
-            RunValidationTest(validationTest, validationTest.DecimalTestValues);
-            RunValidationTest(validationTest, validationTest.NullableDecimalTestValues);
-            RunValidationTest(validationTest, validationTest.StringTestValues);
-            RunValidationTest(validationTest, validationTest.ObjectTestValues);
+            RunValidationTest(validationTest, guidTestValues);
         }
 
         private static void RunValidationTest<T>(
             ValidationTest validationTest,
             TestValues<T> testValues)
         {
-            if (testValues == null)
-            {
-                return;
-            }
-
             var names = new[] { null, "paramName" };
             var becauses = new[] { null, "because" };
 
@@ -198,7 +83,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 foreach (var because in becauses)
                 {
-                    var passingParameters = testValues.PassingValues.Select(_ => _.Named(name).Must()).Concat(testValues.EachPassingValues.Select(_ => _.Named(name).Must().Each())).ToList();
+                    // all passing scenarios
+                    var passingParameters = testValues.MustPassingValues.Select(_ => _.Named(name).Must()).Concat(testValues.MustEachPassingValues.Select(_ => _.Named(name).Must().Each())).ToList();
                     foreach (var parameter in passingParameters)
                     {
                         // Arrange
@@ -211,7 +97,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         ParameterComparer.Equals(actual, expected).Should().BeTrue();
                     }
 
-                    foreach (var failingValue in testValues.FailingValues)
+                    // all failing scenarios on the value itself (no Each())
+                    foreach (var failingValue in testValues.MustFailingValues)
                     {
                         // Arrange
                         var parameter = failingValue.Named(name).Must();
@@ -236,7 +123,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         actual.Message.Should().Be(expectedExceptionMessage);
                     }
 
-                    foreach (var eachFailingValue in testValues.EachFailingValues)
+                    // calling Each() on IEnumerable that is null OR a value that's not IEnumerable
+                    if (true)
+                    {
+                        // Arrange
+                        IEnumerable<string> nullEnumerable = null;
+                        var parameter1 = nullEnumerable.Named(name).Must();
+                        parameter1.HasBeenEached = true;
+
+                        object notEnumerable = new object();
+                        var parameter2 = notEnumerable.Named(name).Must();
+                        parameter2.HasBeenEached = true;
+
+                        // Act
+                        var actual1 = Record.Exception(() => validationTest.Validation(parameter1, because));
+                        var actual2 = Record.Exception(() => validationTest.Validation(parameter2, because));
+
+                        // Assert
+                        actual1.Should().BeOfType<InvalidOperationException>();
+                        actual1.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+                        actual2.Should().BeOfType<InvalidOperationException>();
+                        actual2.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                    }
+
+                    // all failing scenarios on the elements of an IEnumerable value (Each())
+                    foreach (var eachFailingValue in testValues.MustEachFailingValues)
                     {
                         // Arrange
                         var parameter = eachFailingValue.Named(name).Must().Each();
@@ -260,6 +172,36 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         actual.Should().BeOfType(validationTest.EachExceptionType);
                         actual.Message.Should().Be(expectedExceptionMessage);
                     }
+
+                    // all invalid cast scenarios on the value itself (no Each())
+                    foreach (var invalidTypeValue in testValues.MustInvalidTypeValues)
+                    {
+                        // Arrange
+                        var parameter = invalidTypeValue.Named(name).Must();
+                        var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedTypes}");
+
+                        // Act
+                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                        // Assert
+                        actual.Should().BeOfType<InvalidCastException>();
+                        actual.Message.Should().Be(expectedMessage);
+                    }
+
+                    // all invalid cast scenarios on the elements of an IEnumerable value (Each())
+                    foreach (var invalidTypeValue in testValues.MustEachInvalidTypeValues)
+                    {
+                        // Arrange
+                        var parameter = invalidTypeValue.Named(name).Must().Each();
+                        var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedEnumerableTypes}");
+
+                        // Act
+                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                        // Assert
+                        actual.Should().BeOfType<InvalidCastException>();
+                        actual.Message.Should().Be(expectedMessage);
+                    }
                 }
             }
         }
@@ -274,32 +216,26 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             public string ExceptionMessageSuffix { get; set; }
 
-            public TestValues<Guid> GuidTestValues { get; set; }
+            public string InvalidCastExpectedTypes { get; set; }
 
-            public TestValues<Guid?> NullableGuidTestValues { get; set; }
+            public string InvalidCastExpectedEnumerableTypes { get; set; }
 
-            public TestValues<DateTime> DateTimeTestValues { get; set; }
-
-            public TestValues<DateTime?> NullableDateTimeTestValues { get; set; }
-
-            public TestValues<decimal> DecimalTestValues { get; set; }
-
-            public TestValues<decimal?> NullableDecimalTestValues { get; set; }
-
-            public TestValues<string> StringTestValues { get; set; }
-
-            public TestValues<object> ObjectTestValues { get; set; }
+            public string ValidationName { get; set; }
         }
 
         private class TestValues<T>
         {
-            public IReadOnlyCollection<T> PassingValues { get; set; }
+            public IReadOnlyCollection<T> MustInvalidTypeValues { get; set; } = new List<T>();
 
-            public IReadOnlyCollection<T> FailingValues { get; set; }
+            public IReadOnlyCollection<IEnumerable<T>> MustEachInvalidTypeValues { get; set; } = new List<List<T>>();
 
-            public IReadOnlyCollection<IEnumerable<T>> EachPassingValues { get; set; }
+            public IReadOnlyCollection<T> MustPassingValues { get; set; } = new List<T>();
 
-            public IReadOnlyCollection<IEnumerable<T>> EachFailingValues { get; set; }
+            public IReadOnlyCollection<IEnumerable<T>> MustEachPassingValues { get; set; } = new List<List<T>>();
+
+            public IReadOnlyCollection<T> MustFailingValues { get; set; } = new List<T>();
+
+            public IReadOnlyCollection<IEnumerable<T>> MustEachFailingValues { get; set; } = new List<List<T>>();
         }
     }
 }

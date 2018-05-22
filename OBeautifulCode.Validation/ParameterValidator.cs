@@ -246,9 +246,21 @@ namespace OBeautifulCode.Validation.Recipes
 
         internal static void ThrowOnUnexpectedTypes(
             string validationName,
+            bool isElementInEnumerable,
+            params Type[] expectedTypes)
+        {
+            // adapted from: https://stackoverflow.com/a/6402967/356790
+            var expectedTypeStrings = expectedTypes.Select(_ => _.FullName?.Replace(_.Namespace + ".", string.Empty)).Select(_ => CodeDomProvider.GetTypeOutput(new CodeTypeReference(_))).ToArray();
+            ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, expectedTypeStrings);
+        }
+
+        internal static void ThrowOnUnexpectedTypes(
+            string validationName,
+            bool isElementInEnumerable,
             params string[] expectedTypes)
         {
-            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not of type(s): {expectedTypes.Aggregate((running, item) => running + ", " + item)}"));
+            var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
+            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}"));
         }
     }
 }
