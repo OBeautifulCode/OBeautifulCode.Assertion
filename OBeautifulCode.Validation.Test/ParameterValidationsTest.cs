@@ -28,26 +28,52 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private delegate Parameter Validation(Parameter parameter, string because = null);
 
         [Fact]
-        public static void Test()
+        public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
         {
             // Arrange
-            IEnumerable<string> values5 = new List<string>();
-            IReadOnlyCollection<string> values6 = new List<string>();
             var values1 = new[] { string.Empty };
             var values2 = new List<string> { string.Empty };
             var values3 = new ArrayList();
-            var values4 = new Dictionary<string, string>();
+            var values4 = new Dictionary<string, object>();
+            IEnumerable<string> values5 = new List<string>();
+            IReadOnlyCollection<string> values6 = new List<string>();
 
-            values6.Must().Each().NotBeNull();
-            values5.Must().Each().NotBeNull();
-            values1.Must().Each().NotBeNull();
-            values2.Must().Each().NotBeNull();
-            values3.Must().Each().NotBeNull();
-            values4.Must().Each().NotBeNull();
+            var expectedStringMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: String";
+            var expectedObjectMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: Object";
+            var expectedKvpMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: KeyValuePair<string, object>";
+
+            // Act
+            // note: GetEnumerableGenericType is not public, so we're using BeOfNonExistentType which
+            // always throws and checking that parameterValueTypeName is the expected type
+            var actual1 = Record.Exception(() => values1.Must().Each().BeOfNonExistentType());
+            var actual2 = Record.Exception(() => values2.Must().Each().BeOfNonExistentType());
+            var actual3 = Record.Exception(() => values3.Must().Each().BeOfNonExistentType());
+            var actual4 = Record.Exception(() => values4.Must().Each().BeOfNonExistentType());
+            var actual5 = Record.Exception(() => values5.Must().Each().BeOfNonExistentType());
+            var actual6 = Record.Exception(() => values6.Must().Each().BeOfNonExistentType());
+
+            // Assert
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual1.Message.Should().Be(expectedStringMessage);
+
+            actual2.Should().BeOfType<InvalidCastException>();
+            actual2.Message.Should().Be(expectedStringMessage);
+
+            actual3.Should().BeOfType<InvalidCastException>();
+            actual3.Message.Should().Be(expectedObjectMessage);
+
+            actual4.Should().BeOfType<InvalidCastException>();
+            actual4.Message.Should().Be(expectedKvpMessage);
+
+            actual5.Should().BeOfType<InvalidCastException>();
+            actual5.Message.Should().Be(expectedStringMessage);
+
+            actual6.Should().BeOfType<InvalidCastException>();
+            actual6.Message.Should().Be(expectedStringMessage);
         }
 
         [Fact]
-        public static void BeNull()
+        public static void BeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
             var validationTest = new ValidationTest
@@ -67,6 +93,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
             };
 
+            var nullableGuidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[] { Guid.Empty, Guid.NewGuid() },
+                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
+            };
+
             // Act, Assert
             RunValidationTest(validationTest, guidTestValues);
         }
@@ -75,135 +107,182 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ValidationTest validationTest,
             TestValues<T> testValues)
         {
-            var names = new[] { null, "paramName" };
-            var becauses = new[] { null, "because" };
+            var parameterNames = new[] { null, A.Dummy<string>() };
+            var becauses = new[] { null, A.Dummy<string>() };
 
-            // passing cases
-            foreach (var name in names)
+            foreach (var parameterName in parameterNames)
             {
                 foreach (var because in becauses)
                 {
-                    // all passing scenarios
-                    var passingParameters = testValues.MustPassingValues.Select(_ => _.Named(name).Must()).Concat(testValues.MustEachPassingValues.Select(_ => _.Named(name).Must().Each())).ToList();
-                    foreach (var parameter in passingParameters)
-                    {
-                        // Arrange
-                        var expected = parameter.CloneWithHasBeenValidated();
+                    RunPassingScenarios(validationTest, testValues, parameterName, because);
 
-                        // Act
-                        var actual = validationTest.Validation(parameter, because);
+                    RunMustFailingScenarios(validationTest, testValues, parameterName, because);
 
-                        // Assert
-                        ParameterComparer.Equals(actual, expected).Should().BeTrue();
-                    }
+                    RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName, because);
 
-                    // all failing scenarios on the value itself (no Each())
-                    foreach (var failingValue in testValues.MustFailingValues)
-                    {
-                        // Arrange
-                        var parameter = failingValue.Named(name).Must();
-                        var expectedExceptionMessage = because;
-                        if (expectedExceptionMessage == null)
-                        {
-                            if (name == null)
-                            {
-                                expectedExceptionMessage = "parameter " + validationTest.ExceptionMessageSuffix;
-                            }
-                            else
-                            {
-                                expectedExceptionMessage = "parameter '" + name + "' " + validationTest.ExceptionMessageSuffix;
-                            }
-                        }
+                    RunMustEachFailingScenarios(validationTest, testValues, parameterName, because);
 
-                        // Act
-                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                    RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
 
-                        // Assert
-                        actual.Should().BeOfType(validationTest.ExceptionType);
-                        actual.Message.Should().Be(expectedExceptionMessage);
-                    }
-
-                    // calling Each() on IEnumerable that is null OR a value that's not IEnumerable
-                    if (true)
-                    {
-                        // Arrange
-                        IEnumerable<string> nullEnumerable = null;
-                        var parameter1 = nullEnumerable.Named(name).Must();
-                        parameter1.HasBeenEached = true;
-
-                        object notEnumerable = new object();
-                        var parameter2 = notEnumerable.Named(name).Must();
-                        parameter2.HasBeenEached = true;
-
-                        // Act
-                        var actual1 = Record.Exception(() => validationTest.Validation(parameter1, because));
-                        var actual2 = Record.Exception(() => validationTest.Validation(parameter2, because));
-
-                        // Assert
-                        actual1.Should().BeOfType<InvalidOperationException>();
-                        actual1.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
-
-                        actual2.Should().BeOfType<InvalidOperationException>();
-                        actual2.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
-                    }
-
-                    // all failing scenarios on the elements of an IEnumerable value (Each())
-                    foreach (var eachFailingValue in testValues.MustEachFailingValues)
-                    {
-                        // Arrange
-                        var parameter = eachFailingValue.Named(name).Must().Each();
-                        var expectedExceptionMessage = because;
-                        if (expectedExceptionMessage == null)
-                        {
-                            if (name == null)
-                            {
-                                expectedExceptionMessage = "parameter contains an element that " + validationTest.ExceptionMessageSuffix;
-                            }
-                            else
-                            {
-                                expectedExceptionMessage = "parameter '" + name + "' contains an element that " + validationTest.ExceptionMessageSuffix;
-                            }
-                        }
-
-                        // Act
-                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
-
-                        // Assert
-                        actual.Should().BeOfType(validationTest.EachExceptionType);
-                        actual.Message.Should().Be(expectedExceptionMessage);
-                    }
-
-                    // all invalid cast scenarios on the value itself (no Each())
-                    foreach (var invalidTypeValue in testValues.MustInvalidTypeValues)
-                    {
-                        // Arrange
-                        var parameter = invalidTypeValue.Named(name).Must();
-                        var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedTypes}");
-
-                        // Act
-                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
-
-                        // Assert
-                        actual.Should().BeOfType<InvalidCastException>();
-                        actual.Message.Should().Be(expectedMessage);
-                    }
-
-                    // all invalid cast scenarios on the elements of an IEnumerable value (Each())
-                    foreach (var invalidTypeValue in testValues.MustEachInvalidTypeValues)
-                    {
-                        // Arrange
-                        var parameter = invalidTypeValue.Named(name).Must().Each();
-                        var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedEnumerableTypes}");
-
-                        // Act
-                        var actual = Record.Exception(() => validationTest.Validation(parameter, because));
-
-                        // Assert
-                        actual.Should().BeOfType<InvalidCastException>();
-                        actual.Message.Should().Be(expectedMessage);
-                    }
+                    RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
                 }
             }
+        }
+
+        private static void RunPassingScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            var mustParameters = testValues.MustPassingValues.Select(_ => _.Named(parameterName).Must());
+            var mustEachParameters = testValues.MustEachPassingValues.Select(_ => _.Named(parameterName).Must().Each());
+            var parameters = mustParameters.Concat(mustEachParameters).ToList();
+
+            foreach (var parameter in parameters)
+            {
+                // Arrange
+                var expected = parameter.CloneWithHasBeenValidated();
+
+                // Act
+                var actual = validationTest.Validation(parameter, because);
+
+                // Assert
+                ParameterComparer.Equals(actual, expected).Should().BeTrue();
+            }
+        }
+
+        private static void RunMustFailingScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            foreach (var failingValue in testValues.MustFailingValues)
+            {
+                // Arrange
+                var parameter = failingValue.Named(parameterName).Must();
+                var expectedExceptionMessage = because;
+                if (expectedExceptionMessage == null)
+                {
+                    if (parameterName == null)
+                    {
+                        expectedExceptionMessage = "parameter " + validationTest.ExceptionMessageSuffix;
+                    }
+                    else
+                    {
+                        expectedExceptionMessage = "parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
+                    }
+                }
+
+                // Act
+                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                // Assert
+                actual.Should().BeOfType(validationTest.ExceptionType);
+                actual.Message.Should().Be(expectedExceptionMessage);
+            }
+        }
+
+        private static void RunMustEachFailingScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            foreach (var eachFailingValue in testValues.MustEachFailingValues)
+            {
+                // Arrange
+                var parameter = eachFailingValue.Named(parameterName).Must().Each();
+                var expectedExceptionMessage = because;
+                if (expectedExceptionMessage == null)
+                {
+                    if (parameterName == null)
+                    {
+                        expectedExceptionMessage = "parameter contains an element that " + validationTest.ExceptionMessageSuffix;
+                    }
+                    else
+                    {
+                        expectedExceptionMessage = "parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
+                    }
+                }
+
+                // Act
+                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                // Assert
+                actual.Should().BeOfType(validationTest.EachExceptionType);
+                actual.Message.Should().Be(expectedExceptionMessage);
+            }
+        }
+
+        private static void RunMustInvalidParameterTypeScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            foreach (var invalidTypeValue in testValues.MustInvalidTypeValues)
+            {
+                // Arrange
+                var parameter = invalidTypeValue.Named(parameterName).Must();
+                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedTypes}");
+
+                // Act
+                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                // Assert
+                actual.Should().BeOfType<InvalidCastException>();
+                actual.Message.Should().Be(expectedMessage);
+            }
+        }
+
+        private static void RunMustEachInvalidParameterTypeScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            foreach (var invalidTypeValue in testValues.MustEachInvalidTypeValues)
+            {
+                // Arrange
+                var parameter = invalidTypeValue.Named(parameterName).Must().Each();
+                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedEnumerableTypes}");
+
+                // Act
+                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                // Assert
+                actual.Should().BeOfType<InvalidCastException>();
+                actual.Message.Should().Be(expectedMessage);
+            }
+        }
+
+        private static void RunMustEachImproperUseOfFrameworkScenarios<T>(
+            ValidationTest validationTest,
+            string parameterName,
+            string because)
+        {
+            // Arrange
+            // calling Each() on IEnumerable that is null OR a value that's not IEnumerable
+            IEnumerable<string> nullEnumerable = null;
+            var parameter1 = nullEnumerable.Named(parameterName).Must();
+            parameter1.HasBeenEached = true;
+
+            object notEnumerable = new object();
+            var parameter2 = notEnumerable.Named(parameterName).Must();
+            parameter2.HasBeenEached = true;
+
+            // Act
+            var actual1 = Record.Exception(() => validationTest.Validation(parameter1, because));
+            var actual2 = Record.Exception(() => validationTest.Validation(parameter2, because));
+
+            // Assert
+            actual1.Should().BeOfType<InvalidOperationException>();
+            actual1.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+            actual2.Should().BeOfType<InvalidOperationException>();
+            actual2.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
         }
 
         private class ValidationTest

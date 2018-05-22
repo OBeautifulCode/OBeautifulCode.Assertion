@@ -34,6 +34,27 @@ namespace OBeautifulCode.Validation.Recipes
         private delegate void ValueValidation(object parameterValue, string parameterName, string because, bool isElementInEnumerable);
 
         /// <summary>
+        /// Always throws.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeOfNonExistentType(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                Throw,
+            };
+
+            parameter.Validate(null, nameof(BeOfNonExistentType), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
         /// Validates that the parameter is null.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
@@ -175,6 +196,15 @@ namespace OBeautifulCode.Validation.Recipes
             }
 
             return result;
+        }
+
+        private static void Throw(
+            string validationName,
+            bool isElementInEnumerable,
+            Type parameterValueType)
+        {
+            var parameterValueTypeName = parameterValueType.GetFriendlyTypeName();
+            throw new InvalidCastException(Invariant($"validationName: {validationName}, isElementInEnumerable: {isElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
         }
 
         private static void ThrowIfCannotBeNull(
