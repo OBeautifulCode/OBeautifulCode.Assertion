@@ -10,6 +10,8 @@
 namespace OBeautifulCode.Validation.Recipes
 {
     using System;
+    using System.CodeDom;
+    using System.CodeDom.Compiler;
     using System.Collections;
     using System.Linq;
 
@@ -32,6 +34,8 @@ namespace OBeautifulCode.Validation.Recipes
         /// Exception message that's thrown when there is an improper usage of the framework.
         /// </summary>
         public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly.  See: https://github.com/OBeautifulCode/OBeautifulCode.Validation for documentation on proper usage.";
+
+        private static readonly CodeDomProvider CodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 
         /// <summary>
         /// Specifies the name of the parameter.
@@ -140,7 +144,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (!(parameter.Value is IEnumerable))
             {
-                ThrowOnUnexpectedTypes(nameof(Each), nameof(IEnumerable));
+                ThrowOnUnexpectedTypes(nameof(Each), isElementInEnumerable: false, expectedTypes: nameof(IEnumerable));
             }
 
             parameter.HasBeenEached = true;
