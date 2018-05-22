@@ -93,18 +93,39 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
             };
 
-            var nullableGuidTestValues = new TestValues<Guid>
+            var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new[] { Guid.Empty, Guid.NewGuid() },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[] { new Guid[] { }, new Guid[] { Guid.NewGuid() }, new List<Guid> { Guid.NewGuid() }, new List<Guid>() },
+                MustPassingValues = new Guid?[] { null },
+                MustFailingValues = new Guid?[] { A.Dummy<Guid>(), Guid.Empty },
+                MustEachPassingValues = new IEnumerable<Guid?>[] { new Guid?[] { null, null } },
+                MustEachFailingValues = new IEnumerable<Guid?>[] { new Guid?[] { null, Guid.NewGuid(), null } },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustPassingValues = new string[] { null },
+                MustFailingValues = new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
+                MustEachPassingValues = new IEnumerable<string>[] { new string[] { null, null } },
+                MustEachFailingValues = new IEnumerable<string>[] { new string[] { null, string.Empty, null }, new string[] { null, " \r\n ", null }, new string[] { null, A.Dummy<string>(), null } },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustPassingValues = new object[] { null },
+                MustFailingValues = new object[] { A.Dummy<object>() },
+                MustEachPassingValues = new IEnumerable<object>[] { new object[] { null, null } },
+                MustEachFailingValues = new IEnumerable<object>[] { new object[] { null, A.Dummy<object>(), null } },
             };
 
             // Act, Assert
-            RunValidationTest(validationTest, guidTestValues);
+            validationTest.Run(guidTestValues);
+            validationTest.Run(nullableGuidTestValues);
+            validationTest.Run(stringTestValues);
+            validationTest.Run(objectTestValues);
         }
 
-        private static void RunValidationTest<T>(
-            ValidationTest validationTest,
+        private static void Run<T>(
+            this ValidationTest validationTest,
             TestValues<T> testValues)
         {
             var parameterNames = new[] { null, A.Dummy<string>() };
