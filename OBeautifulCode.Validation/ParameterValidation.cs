@@ -117,6 +117,69 @@ namespace OBeautifulCode.Validation.Recipes
             return parameter;
         }
 
+        /// <summary>
+        /// Validates that the parameter is not true.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeTrue(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+            };
+
+            parameter.Validate(NotBeTrue, nameof(NotBeTrue), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the parameter is false.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeFalse(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+            };
+
+            parameter.Validate(BeFalse, nameof(BeFalse), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the parameter is not false.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeFalse(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+            };
+
+            parameter.Validate(NotBeFalse, nameof(NotBeFalse), typeValidations, because);
+            return parameter;
+        }
+
         private static void Validate(
             this Parameter parameter,
             ValueValidation valueValidation,
@@ -290,6 +353,48 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not true");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotBeTrue(
+            object parameterValue,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldNotThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue == false);
+            if (!shouldNotThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is true");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void BeFalse(
+            object parameterValue,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue != false);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not false");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotBeFalse(
+            object parameterValue,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldNotThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue != false);
+            if (!shouldNotThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is false");
                 throw new ArgumentException(exceptionMessage);
             }
         }
