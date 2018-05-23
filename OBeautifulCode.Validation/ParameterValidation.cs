@@ -29,9 +29,9 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static class ParameterValidation
     {
-        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type parameterValueType);
+        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType);
 
-        private delegate void ValueValidation(object parameterValue, string parameterName, string because, bool isElementInEnumerable);
+        private delegate void ValueValidation(object value, Type valueType, string parameterName, string because, bool isElementInEnumerable);
 
         /// <summary>
         /// Validates that the reference type or nullable parameter is null.
@@ -181,6 +181,132 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the guid or guid? is empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeEmptyGuid(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(Guid), typeof(Guid?)),
+            };
+
+            parameter.Validate(BeEmptyGuid, nameof(BeEmptyGuid), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the string parameter is empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeEmptyString(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(string)),
+            };
+
+            parameter.Validate(BeEmptyString, nameof(BeEmptyString), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IEnumerable parameter is empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeEmptyEnumerable(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(IEnumerable)),
+            };
+
+            parameter.Validate(BeEmptyEnumerable, nameof(BeEmptyEnumerable), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the guid or guid? parameter is not empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeEmptyGuid(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(Guid), typeof(Guid?)),
+            };
+
+            parameter.Validate(NotBeEmptyGuid, nameof(NotBeEmptyGuid), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the string parameter is not empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeEmptyString(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(string)),
+            };
+
+            parameter.Validate(NotBeEmptyString, nameof(NotBeEmptyString), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IEnumerable parameter is not empty.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeEmptyEnumerable(
+            this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(IEnumerable)),
+            };
+
+            parameter.Validate(NotBeEmptyEnumerable, nameof(NotBeEmptyEnumerable), typeValidations, because);
+            return parameter;
+        }
+
+        /// <summary>
         /// Always throws.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
@@ -218,12 +344,12 @@ namespace OBeautifulCode.Validation.Recipes
 
                     foreach (var typeValidation in typeValidations)
                     {
-                        typeValidation(validationName, isElementInEnumerable: true, parameterValueType: enumerableType);
+                        typeValidation(validationName, isElementInEnumerable: true, valueType: enumerableType);
                     }
 
                     foreach (var element in valueAsEnumerable)
                     {
-                        valueValidation(element, parameter.Name, because, isElementInEnumerable: true);
+                        valueValidation(element, enumerableType, parameter.Name, because, isElementInEnumerable: true);
                     }
                 }
                 else
@@ -239,10 +365,10 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 foreach (var typeValidation in typeValidations)
                 {
-                    typeValidation(validationName, isElementInEnumerable: false, parameterValueType: parameter.ValueType);
+                    typeValidation(validationName, isElementInEnumerable: false, valueType: parameter.ValueType);
                 }
 
-                valueValidation(parameter.Value, parameter.Name, because, isElementInEnumerable: false);
+                valueValidation(parameter.Value, parameter.ValueType, parameter.Name, because, isElementInEnumerable: false);
             }
 
             parameter.HasBeenValidated = true;
@@ -285,18 +411,18 @@ namespace OBeautifulCode.Validation.Recipes
         private static void Throw(
             string validationName,
             bool isElementInEnumerable,
-            Type parameterValueType)
+            Type valueType)
         {
-            var parameterValueTypeName = parameterValueType.GetFriendlyTypeName();
+            var parameterValueTypeName = valueType.GetFriendlyTypeName();
             throw new InvalidCastException(Invariant($"validationName: {validationName}, isElementInEnumerable: {isElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(
             string validationName,
             bool isElementInEnumerable,
-            Type parameterValueType)
+            Type valueType)
         {
-            if (parameterValueType.IsValueType && (Nullable.GetUnderlyingType(parameterValueType) == null))
+            if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
                 ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
             }            
@@ -305,10 +431,10 @@ namespace OBeautifulCode.Validation.Recipes
         private static void ThrowIfNotOfType(
             string validationName,
             bool isElementInEnumerable,
-            Type parameterValueType,
+            Type valueType,
             params Type[] validTypes)
         {
-            if (!validTypes.Contains(parameterValueType))
+            if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
             {
                 ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, validTypes);
             }
@@ -332,12 +458,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeNull(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            if (!ReferenceEquals(parameterValue, null))
+            if (!ReferenceEquals(value, null))
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not null");
                 throw new ArgumentException(exceptionMessage);
@@ -345,12 +472,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeNull(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            if (ReferenceEquals(parameterValue, null))
+            if (ReferenceEquals(value, null))
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is null");
                 if (isElementInEnumerable)
@@ -365,12 +493,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeTrue(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            var shouldThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue != true);
+            var shouldThrow = ReferenceEquals(value, null) || ((bool)value != true);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not true");
@@ -379,12 +508,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeTrue(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            var shouldNotThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue == false);
+            var shouldNotThrow = ReferenceEquals(value, null) || ((bool)value == false);
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is true");
@@ -393,12 +523,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeFalse(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            var shouldThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue != false);
+            var shouldThrow = ReferenceEquals(value, null) || (bool)value;
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not false");
@@ -407,12 +538,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeFalse(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            var shouldNotThrow = ReferenceEquals(parameterValue, null) || ((bool)parameterValue != false);
+            var shouldNotThrow = ReferenceEquals(value, null) || (bool)value;
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is false");
@@ -421,17 +553,132 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeNullNorWhiteSpace(
-            object parameterValue,
+            object value,
+            Type valueType,
             string parameterName,
             string because,
             bool isElementInEnumerable)
         {
-            NotBeNull(parameterValue, parameterName, because, isElementInEnumerable);
+            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
 
-            var shouldThrow = string.IsNullOrWhiteSpace((string)parameterValue);
+            var shouldThrow = string.IsNullOrWhiteSpace((string)value);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is white space");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void BeEmptyGuid(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldThrow = ReferenceEquals(value, null) || ((Guid)value != Guid.Empty);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not an empty guid");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void BeEmptyString(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldThrow = (string)value != string.Empty;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not an empty string");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void BeEmptyEnumerable(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = value as IEnumerable;
+            var shouldThrow = false;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var unused in valueAsEnumerable)
+            {
+                shouldThrow = true;
+                break;
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not an empty enumerable");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotBeEmptyGuid(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldThrow = (!ReferenceEquals(value, null)) && ((Guid)value == Guid.Empty);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is an empty guid");
+                throw new ArgumentException(exceptionMessage);
+            }            
+        }
+
+        private static void NotBeEmptyString(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var shouldThrow = (string)value == string.Empty;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is an empty string");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotBeEmptyEnumerable(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = value as IEnumerable;
+            var shouldThrow = true;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var unused in valueAsEnumerable)
+            {
+                shouldThrow = false;
+                break;
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is an empty enumerable");
                 throw new ArgumentException(exceptionMessage);
             }
         }
