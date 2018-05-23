@@ -453,7 +453,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidCastException>();
-                actual.Message.Should().Be("called Each() on an object that is not of type IEnumerable");
+                actual.Message.Should().Be("called Each() on an object that is not one of the following types: IEnumerable");
             }
         }
 
