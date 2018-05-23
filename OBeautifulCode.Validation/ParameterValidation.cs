@@ -29,7 +29,7 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static class ParameterValidation
     {
-        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType);
+        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
 
         private delegate void ValueValidation(object value, Type valueType, string parameterName, string because, bool isElementInEnumerable);
 
@@ -50,7 +50,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ThrowIfTypeCannotBeNull,
             };
 
-            parameter.Validate(BeNull, nameof(BeNull), typeValidations, because);
+            parameter.Validate(BeNull, nameof(BeNull), because, typeValidations);
             return parameter;
         }
 
@@ -71,7 +71,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ThrowIfTypeCannotBeNull,
             };
 
-            parameter.Validate(NotBeNull, nameof(NotBeNull), typeValidations, because);
+            parameter.Validate(NotBeNull, nameof(NotBeNull), because, typeValidations);
             return parameter;
         }
 
@@ -89,10 +89,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+                ThrowIfNotOfType
             };
 
-            parameter.Validate(BeTrue, nameof(BeTrue), typeValidations, because);
+            parameter.Validate(BeTrue, nameof(BeTrue), because, typeValidations, typeof(bool), typeof(bool?));
             return parameter;
         }
 
@@ -110,10 +110,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(NotBeTrue, nameof(NotBeTrue), typeValidations, because);
+            parameter.Validate(NotBeTrue, nameof(NotBeTrue), because, typeValidations, typeof(bool), typeof(bool?));
             return parameter;
         }
 
@@ -131,10 +131,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(BeFalse, nameof(BeFalse), typeValidations, because);
+            parameter.Validate(BeFalse, nameof(BeFalse), because, typeValidations, typeof(bool), typeof(bool?));
             return parameter;
         }
 
@@ -152,10 +152,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(bool), typeof(bool?)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(NotBeFalse, nameof(NotBeFalse), typeValidations, because);
+            parameter.Validate(NotBeFalse, nameof(NotBeFalse), because, typeValidations, typeof(bool), typeof(bool?));
             return parameter;
         }
 
@@ -173,10 +173,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(string)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(NotBeNullNorWhiteSpace, nameof(NotBeNullNorWhiteSpace), typeValidations, because);
+            parameter.Validate(NotBeNullNorWhiteSpace, nameof(NotBeNullNorWhiteSpace), because, typeValidations, typeof(string));
             return parameter;
         }
 
@@ -194,10 +194,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(Guid), typeof(Guid?)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(BeEmptyGuid, nameof(BeEmptyGuid), typeValidations, because);
+            parameter.Validate(BeEmptyGuid, nameof(BeEmptyGuid), because, typeValidations, typeof(Guid), typeof(Guid?));
             return parameter;
         }
 
@@ -215,10 +215,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(string)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(BeEmptyString, nameof(BeEmptyString), typeValidations, because);
+            parameter.Validate(BeEmptyString, nameof(BeEmptyString), because, typeValidations, typeof(string));
             return parameter;
         }
 
@@ -236,10 +236,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(IEnumerable)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(BeEmptyEnumerable, nameof(BeEmptyEnumerable), typeValidations, because);
+            parameter.Validate(BeEmptyEnumerable, nameof(BeEmptyEnumerable), because, typeValidations, typeof(IEnumerable));
             return parameter;
         }
 
@@ -257,10 +257,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(Guid), typeof(Guid?)),
+                ThrowIfNotOfType
             };
 
-            parameter.Validate(NotBeEmptyGuid, nameof(NotBeEmptyGuid), typeValidations, because);
+            parameter.Validate(NotBeEmptyGuid, nameof(NotBeEmptyGuid), because, typeValidations, typeof(Guid), typeof(Guid?));
             return parameter;
         }
 
@@ -278,10 +278,10 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(string)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(NotBeEmptyString, nameof(NotBeEmptyString), typeValidations, because);
+            parameter.Validate(NotBeEmptyString, nameof(NotBeEmptyString), because, typeValidations, typeof(string));
             return parameter;
         }
 
@@ -299,10 +299,54 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var typeValidations = new TypeValidation[]
             {
-                (validationName, isElementInEnumerable, parameterValueType) => ThrowIfNotOfType(validationName, isElementInEnumerable, parameterValueType, typeof(IEnumerable)),
+                ThrowIfNotOfType,
             };
 
-            parameter.Validate(NotBeEmptyEnumerable, nameof(NotBeEmptyEnumerable), typeValidations, because);
+            parameter.Validate(NotBeEmptyEnumerable, nameof(NotBeEmptyEnumerable), because, typeValidations, typeof(IEnumerable));
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IEnumerable parameter contains at least one null element.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter ContainSomeNulls(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                ThrowIfNotOfType,
+                ThrowIfEnumerableTypeCannotBeNull,
+            };
+
+            parameter.Validate(ContainSomeNulls, nameof(ContainSomeNulls), because, typeValidations, typeof(IEnumerable));
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IEnumerable parameter does not contain any null elements.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotContainAnyNulls(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                ThrowIfNotOfType,
+                ThrowIfEnumerableTypeCannotBeNull,
+            };
+
+            parameter.Validate(NotContainAnyNulls, nameof(NotContainAnyNulls), because, typeValidations, typeof(IEnumerable));
             return parameter;
         }
 
@@ -323,7 +367,7 @@ namespace OBeautifulCode.Validation.Recipes
                 Throw,
             };
 
-            parameter.Validate(null, nameof(BeOfTypeThatDoesNotExist), typeValidations, because);
+            parameter.Validate(null, nameof(BeOfTypeThatDoesNotExist), because, typeValidations);
             return parameter;
         }
 
@@ -331,8 +375,9 @@ namespace OBeautifulCode.Validation.Recipes
             this Parameter parameter,
             ValueValidation valueValidation,
             string validationName,
+            string because,
             IReadOnlyCollection<TypeValidation> typeValidations,
-            string because)
+            params Type[] referenceTypes)
         {
             ParameterValidator.ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
 
@@ -344,7 +389,7 @@ namespace OBeautifulCode.Validation.Recipes
 
                     foreach (var typeValidation in typeValidations)
                     {
-                        typeValidation(validationName, isElementInEnumerable: true, valueType: enumerableType);
+                        typeValidation(validationName, true, enumerableType, referenceTypes);
                     }
 
                     foreach (var element in valueAsEnumerable)
@@ -365,7 +410,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 foreach (var typeValidation in typeValidations)
                 {
-                    typeValidation(validationName, isElementInEnumerable: false, valueType: parameter.ValueType);
+                    typeValidation(validationName, false, parameter.ValueType, referenceTypes);
                 }
 
                 valueValidation(parameter.Value, parameter.ValueType, parameter.Name, because, isElementInEnumerable: false);
@@ -410,7 +455,8 @@ namespace OBeautifulCode.Validation.Recipes
         private static void Throw(
             string validationName,
             bool isElementInEnumerable,
-            Type valueType)
+            Type valueType,
+            params Type[] referenceTypes)
         {
             var parameterValueTypeName = valueType.GetFriendlyTypeName();
             throw new InvalidCastException(Invariant($"validationName: {validationName}, isElementInEnumerable: {isElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
@@ -419,11 +465,26 @@ namespace OBeautifulCode.Validation.Recipes
         private static void ThrowIfTypeCannotBeNull(
             string validationName,
             bool isElementInEnumerable,
-            Type valueType)
+            Type valueType,
+            params Type[] referenceTypes)
         {
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
                 ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
+            }
+        }
+
+        private static void ThrowIfEnumerableTypeCannotBeNull(
+            string validationName,
+            bool isElementInEnumerable,
+            Type valueType,
+            params Type[] referenceTypes)
+        {
+            var enumerableType = GetEnumerableGenericType(valueType);
+
+            if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
+            {
+                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
             }
         }
 
@@ -682,6 +743,64 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is an empty enumerable");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void ContainSomeNulls(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = value as IEnumerable;
+            var shouldThrow = true;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var unused in valueAsEnumerable)
+            {
+                if (ReferenceEquals(unused, null))
+                {
+                    shouldThrow = false;
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "contains no null elements");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotContainAnyNulls(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = value as IEnumerable;
+            var shouldThrow = false;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var unused in valueAsEnumerable)
+            {
+                if (ReferenceEquals(unused, null))
+                {
+                    shouldThrow = true;
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "contains at least one null element");
                 throw new ArgumentException(exceptionMessage);
             }
         }
