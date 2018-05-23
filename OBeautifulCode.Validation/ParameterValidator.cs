@@ -137,7 +137,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
 
-            if (parameter.Value == null)
+            if (ReferenceEquals(parameter.Value, null))
             {
                 ThrowOnImproperUseOfFramework();
             }
