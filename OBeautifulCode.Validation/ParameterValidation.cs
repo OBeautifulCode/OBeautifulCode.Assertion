@@ -42,7 +42,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeNull(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -63,7 +63,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeNull(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -84,7 +84,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeTrue(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -105,7 +105,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeTrue(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -126,7 +126,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeFalse(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -147,7 +147,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeFalse(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -168,7 +168,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeNullNorWhiteSpace(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -189,7 +189,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeEmptyGuid(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -210,7 +210,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeEmptyString(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -231,7 +231,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeEmptyEnumerable(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -252,7 +252,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeEmptyGuid(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -273,7 +273,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeEmptyString(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -294,7 +294,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter NotBeEmptyEnumerable(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
@@ -315,7 +315,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The validated parameter.
         /// </returns>
         public static Parameter BeOfNonExistentType(
-            this Parameter parameter,
+            [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
             var typeValidations = new TypeValidation[]
