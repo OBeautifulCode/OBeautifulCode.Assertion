@@ -38,19 +38,19 @@ namespace OBeautifulCode.Validation.Recipes.Test
             IEnumerable<string> values5 = new List<string>();
             IReadOnlyCollection<string> values6 = new List<string>();
 
-            var expectedStringMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: String";
-            var expectedObjectMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: Object";
-            var expectedKvpMessage = "validationName: BeOfNonExistentType, isElementInEnumerable: True, parameterValueTypeName: KeyValuePair<string, object>";
+            var expectedStringMessage = "validationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, parameterValueTypeName: String";
+            var expectedObjectMessage = "validationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, parameterValueTypeName: Object";
+            var expectedKvpMessage = "validationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, parameterValueTypeName: KeyValuePair<string, object>";
 
             // Act
             // note: GetEnumerableGenericType is not public, so we're using BeOfNonExistentType which
             // always throws and checking that parameterValueTypeName is the expected type
-            var actual1 = Record.Exception(() => values1.Must().Each().BeOfNonExistentType());
-            var actual2 = Record.Exception(() => values2.Must().Each().BeOfNonExistentType());
-            var actual3 = Record.Exception(() => values3.Must().Each().BeOfNonExistentType());
-            var actual4 = Record.Exception(() => values4.Must().Each().BeOfNonExistentType());
-            var actual5 = Record.Exception(() => values5.Must().Each().BeOfNonExistentType());
-            var actual6 = Record.Exception(() => values6.Must().Each().BeOfNonExistentType());
+            var actual1 = Record.Exception(() => values1.Must().Each().BeOfTypeThatDoesNotExist());
+            var actual2 = Record.Exception(() => values2.Must().Each().BeOfTypeThatDoesNotExist());
+            var actual3 = Record.Exception(() => values3.Must().Each().BeOfTypeThatDoesNotExist());
+            var actual4 = Record.Exception(() => values4.Must().Each().BeOfTypeThatDoesNotExist());
+            var actual5 = Record.Exception(() => values5.Must().Each().BeOfTypeThatDoesNotExist());
+            var actual6 = Record.Exception(() => values6.Must().Each().BeOfTypeThatDoesNotExist());
 
             // Assert
             actual1.Should().BeOfType<InvalidCastException>();

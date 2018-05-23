@@ -314,7 +314,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
-        public static Parameter BeOfNonExistentType(
+        public static Parameter BeOfTypeThatDoesNotExist(
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
@@ -323,7 +323,7 @@ namespace OBeautifulCode.Validation.Recipes
                 Throw,
             };
 
-            parameter.Validate(null, nameof(BeOfNonExistentType), typeValidations, because);
+            parameter.Validate(null, nameof(BeOfTypeThatDoesNotExist), typeValidations, because);
             return parameter;
         }
 
@@ -334,7 +334,7 @@ namespace OBeautifulCode.Validation.Recipes
             IReadOnlyCollection<TypeValidation> typeValidations,
             string because)
         {
-            ParameterValidator.ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted);
+            ParameterValidator.ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
 
             if (parameter.HasBeenEached)
             {
@@ -378,7 +378,6 @@ namespace OBeautifulCode.Validation.Recipes
             Type type)
         {
             // adapted from: https://stackoverflow.com/a/17713382/356790
-
             Type result;
             if (type.IsArray)
             {
@@ -425,7 +424,7 @@ namespace OBeautifulCode.Validation.Recipes
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
                 ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
-            }            
+            }
         }
 
         private static void ThrowIfNotOfType(
@@ -584,6 +583,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void BeEmptyString(
             object value,
             Type valueType,
@@ -600,6 +600,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyEnumerable(
             object value,
             Type valueType,
@@ -638,9 +639,10 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is an empty guid");
                 throw new ArgumentException(exceptionMessage);
-            }            
+            }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void NotBeEmptyString(
             object value,
             Type valueType,
@@ -657,6 +659,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyEnumerable(
             object value,
             Type valueType,

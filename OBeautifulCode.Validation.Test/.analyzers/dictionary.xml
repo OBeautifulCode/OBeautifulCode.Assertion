@@ -48,6 +48,9 @@
       <!-- Plural of Func, a .net type -->
       <Word>funcs</Word>
 
+      <!-- A web-based hosting service for version control using git -->
+      <Word>github</Word>
+
       <!-- Acronym for JavaScript Object Notation -->
       <Word>json</Word>
 

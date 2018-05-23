@@ -53,7 +53,7 @@ namespace OBeautifulCode.Validation.Recipes
             var parameter = value as Parameter;
             if (parameter != null)
             {
-                ThrowOnImproperUseOfFramework(parameter, ParameterShould.NotExist);
+                ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.NotExist);
             }
 
             var result = new Parameter
@@ -82,7 +82,7 @@ namespace OBeautifulCode.Validation.Recipes
             var parameter = value as Parameter;
             if (parameter != null)
             {
-                ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
+                ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
                 parameter.HasBeenMusted = true;
                 return parameter;
             }
@@ -111,7 +111,7 @@ namespace OBeautifulCode.Validation.Recipes
                     }
                     else
                     {
-                        ThrowOnImproperUseOfFramework(null);
+                        ThrowOnImproperUseOfFramework();
                     }
                 }
             }
@@ -137,7 +137,7 @@ namespace OBeautifulCode.Validation.Recipes
         public static Parameter Each(
             [ValidatedNotNull] this Parameter parameter)
         {
-            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
+            ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
 
             if (ReferenceEquals(parameter.Value, null))
             {
@@ -163,11 +163,16 @@ namespace OBeautifulCode.Validation.Recipes
         public static Parameter And(
             [ValidatedNotNull] this Parameter parameter)
         {
-            ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);
+            ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);
             return parameter;
         }
 
-        internal static void ThrowOnImproperUseOfFramework(
+        /// <summary>
+        /// Throws an exception if an improper use of the framework is detected.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="parameterShoulds">Specifies what should or should not be true about the parameter.</param>
+        internal static void ThrowOnImproperUseOfFrameworkIfDetected(
             [ValidatedNotNull] Parameter parameter,
             params ParameterShould[] parameterShoulds)
         {
@@ -231,6 +236,9 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        /// <summary>
+        /// Throws an exception to inform the caller that the framework is being used improperly.
+        /// </summary>
         internal static void ThrowOnImproperUseOfFramework()
         {
             // We throw a InvalidOperationException rather than an ArgumentException so that this category of
@@ -246,6 +254,13 @@ namespace OBeautifulCode.Validation.Recipes
             throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
         }
 
+        /// <summary>
+        /// Gets a friendly name for the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// A friendly name for the specified type.
+        /// </returns>
         internal static string GetFriendlyTypeName(
             this Type type)
         {
@@ -254,6 +269,12 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
+        /// <summary>
+        /// Throws an exception to inform the user that a validation encountered an unexpected type.
+        /// </summary>
+        /// <param name="validationName">The name of the validation.</param>
+        /// <param name="isElementInEnumerable">Is the type an element in an Enumerable (e.g. Each() was called).</param>
+        /// <param name="expectedTypes">The types that would have been appropriate.</param>
         internal static void ThrowOnUnexpectedTypes(
             string validationName,
             bool isElementInEnumerable,
@@ -263,6 +284,12 @@ namespace OBeautifulCode.Validation.Recipes
             ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, expectedTypeStrings);
         }
 
+        /// <summary>
+        /// Throws an exception to inform the user that a validation encountered an unexpected type.
+        /// </summary>
+        /// <param name="validationName">The name of the validation.</param>
+        /// <param name="isElementInEnumerable">Is the type an element in an Enumerable (e.g. Each() was called).</param>
+        /// <param name="expectedTypes">The types that would have been appropriate.</param>
         internal static void ThrowOnUnexpectedTypes(
             string validationName,
             bool isElementInEnumerable,
