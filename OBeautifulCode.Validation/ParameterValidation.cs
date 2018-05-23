@@ -351,6 +351,32 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IEnumerable parameter is not null nor empty nor contains any null elements.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeNullNorEmptyNorContainAnyNulls(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+                ThrowIfNotOfType,
+                ThrowIfEnumerableTypeCannotBeNull,
+            };
+
+            var validationName = nameof(NotBeNullNorEmptyNorContainAnyNulls);
+
+            parameter.Validate(NotBeEmptyEnumerable, validationName, because, typeValidations, typeof(IEnumerable));
+            parameter.Validate(NotContainAnyNulls, validationName, because, new TypeValidation[] { });
+
+            return parameter;
+        }
+
+        /// <summary>
         /// Always throws.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
