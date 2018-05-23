@@ -50,7 +50,8 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this TParameterValue value,
             string name)
         {
-            if (value is Parameter parameter)
+            var parameter = value as Parameter;
+            if (parameter != null)
             {
                 ThrowOnImproperUseOfFramework(parameter, ParameterShould.NotExist);
             }
@@ -78,7 +79,8 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this TParameterValue value)
         {
             // it a parameter itself? pass-thru
-            if (value is Parameter parameter)
+            var parameter = value as Parameter;
+            if (parameter != null)
             {
                 ThrowOnImproperUseOfFramework(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
                 parameter.HasBeenMusted = true;
