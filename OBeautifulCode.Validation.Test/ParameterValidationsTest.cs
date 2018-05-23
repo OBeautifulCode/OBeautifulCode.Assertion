@@ -1217,6 +1217,762 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(nullableBoolTestValues);
         }
 
+        [Fact]
+        public static void BeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest = new ValidationTest
+            {
+                Validation = ParameterValidation.BeEmptyString,
+                ValidationName = nameof(ParameterValidation.BeEmptyString),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is not an empty string",
+                InvalidCastExpectedTypes = "String",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty },
+                },
+                MustFailingValues = new[]
+                {
+                    null,
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { null, A.Dummy<string>() },
+                    new string[] { "    ", A.Dummy<string>() },
+                    new string[] { "  \r\n  ", A.Dummy<string>() },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string>(),
+                    new List<string> { string.Empty },
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            validationTest.Run(guidTestValues);
+            validationTest.Run(nullableGuidTestValues);
+            validationTest.Run(stringTestValues);
+            validationTest.Run(enumerableTestValues);
+            validationTest.Run(objectTestValues);
+            validationTest.Run(boolTestValues);
+            validationTest.Run(nullableBoolTestValues);
+        }
+
+        [Fact]
+        public static void NotBeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeEmptyString,
+                ValidationName = nameof(ParameterValidation.NotBeEmptyString),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is an empty string",
+                InvalidCastExpectedTypes = "String",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    null,
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { null, A.Dummy<string>() },
+                    new string[] { "    ", A.Dummy<string>() },
+                    new string[] { "  \r\n  ", A.Dummy<string>() },
+                },
+                MustFailingValues = new[]
+                {
+                    string.Empty,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string>(),
+                    new List<string> { string.Empty },
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            validationTest.Run(guidTestValues);
+            validationTest.Run(nullableGuidTestValues);
+            validationTest.Run(stringTestValues);
+            validationTest.Run(enumerableTestValues);
+            validationTest.Run(objectTestValues);
+            validationTest.Run(boolTestValues);
+            validationTest.Run(nullableBoolTestValues);
+        }
+
+        [Fact]
+        public static void BeEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest1 = new ValidationTest
+            {
+                Validation = ParameterValidation.BeEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is null",
+                InvalidCastExpectedTypes = "IEnumerable",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = ParameterValidation.BeEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is not an empty enumerable",
+                InvalidCastExpectedTypes = "IEnumerable",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, null, string.Empty },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty },
+                },
+                MustFailingValues = new[]
+                {
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, "    ", string.Empty },
+                    new string[] { string.Empty, "  \r\n  ", string.Empty },
+                    new string[] { string.Empty, A.Dummy<string>(), string.Empty },
+                },
+            };
+
+            var enumerableTestValues1 = new TestValues<IEnumerable>
+            {
+                MustFailingValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new string[] { }, null, new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2A = new TestValues<IEnumerable>
+            {
+                MustPassingValues = new IEnumerable[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+                MustFailingValues = new IEnumerable[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new string[] { }, new List<string> { null }, new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2B = new TestValues<IList>
+            {
+                MustPassingValues = new IList[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IList[] { },
+                    new IList[] { new List<string>(), new string[] { } },
+                },
+                MustFailingValues = new IList[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IList[] { new string[] { }, new List<string> { null }, new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2C = new TestValues<List<string>>
+            {
+                MustPassingValues = new List<string>[]
+                {
+                    new List<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new List<string>[] { },
+                    new List<string>[] { new List<string>(), new List<string>() },
+                },
+                MustFailingValues = new List<string>[]
+                {
+                    new List<string>() { string.Empty },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new List<string>[] { new List<string> { }, new List<string> { null }, new List<string> { } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues1);
+
+            validationTest2.Run(stringTestValues2);
+            validationTest2.Run(enumerableTestValues2A);
+            validationTest2.Run(enumerableTestValues2B);
+            validationTest2.Run(enumerableTestValues2C);
+        }
+
+        [Fact]
+        public static void NotBeEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest1 = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is null",
+                InvalidCastExpectedTypes = "IEnumerable",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = "is an empty enumerable",
+                InvalidCastExpectedTypes = "IEnumerable",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), null, A.Dummy<string>() },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "    ", "    ", "  \r\n ", A.Dummy<string>() },
+                },
+                MustFailingValues = new[]
+                {
+                    string.Empty,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                },
+            };
+
+            var enumerableTestValues1 = new TestValues<IEnumerable>
+            {
+                MustFailingValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { A.Dummy<string>() } },
+                },
+            };
+
+            var enumerableTestValues2A = new TestValues<IEnumerable>
+            {
+                MustPassingValues = new IEnumerable[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty } },
+                },
+                MustFailingValues = new IEnumerable[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2B = new TestValues<IList>
+            {
+                MustPassingValues = new IList[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IList[] { },
+                    new IList[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty } },
+                },
+                MustFailingValues = new IList[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IList[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2C = new TestValues<List<string>>
+            {
+                MustPassingValues = new List<string>[]
+                {
+                    new List<string>() { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new List<string>[] { },
+                    new List<string>[] { new List<string> { A.Dummy<string>() }, new List<string> { null }, new List<string> { string.Empty } },
+                },
+                MustFailingValues = new List<string>[]
+                {
+                    new List<string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new List<string>[] { new List<string>(), new List<string>() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues1);
+
+            validationTest2.Run(stringTestValues2);
+            validationTest2.Run(enumerableTestValues2A);
+            validationTest2.Run(enumerableTestValues2B);
+            validationTest2.Run(enumerableTestValues2C);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)
