@@ -566,7 +566,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
-                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
+                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable", "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
             }
         }
 

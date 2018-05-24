@@ -2076,8 +2076,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -2322,8 +2322,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -2569,8 +2569,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
