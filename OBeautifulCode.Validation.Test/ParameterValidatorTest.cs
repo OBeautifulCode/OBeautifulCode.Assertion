@@ -533,7 +533,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void And___Should_return_same_parameter___When_parameter_is_musted_and_valudated()
+        public static void And___Should_return_same_parameter___When_parameter_is_musted_and_validated()
         {
             // Arrange
             var expecteds = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => _.HasBeenValidated).ToList();
