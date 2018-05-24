@@ -31,19 +31,13 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo;
+        private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
-        private static readonly MethodInfo IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo;
+        private static readonly MethodInfo IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)IsEqualUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
-
-        static ParameterValidation()
-        {
-            GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
-            IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)IsEqualUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
-        }
 
         private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
 
