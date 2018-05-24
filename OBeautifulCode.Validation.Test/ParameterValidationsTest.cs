@@ -15,8 +15,6 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
     using FluentAssertions;
 
-    using OBeautifulCode.AutoFakeItEasy;
-
     using Xunit;
 
     using static System.FormattableString;
@@ -82,7 +80,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeNull),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not null",
+                ExceptionMessageSuffix = ParameterValidation.BeNullExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
@@ -186,7 +184,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeNull),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
@@ -289,7 +287,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not true",
+                ExceptionMessageSuffix = ParameterValidation.BeTrueExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
@@ -420,7 +418,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is true",
+                ExceptionMessageSuffix = ParameterValidation.NotBeTrueExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
@@ -551,7 +549,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not false",
+                ExceptionMessageSuffix = ParameterValidation.BeFalseExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
@@ -682,7 +680,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is false",
+                ExceptionMessageSuffix = ParameterValidation.NotBeFalseExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
@@ -813,7 +811,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "String",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
@@ -824,7 +822,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is white space",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "String",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
@@ -934,7 +932,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not an empty guid",
+                ExceptionMessageSuffix = ParameterValidation.BeEmptyGuidExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Guid, Nullable<Guid>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
             };
@@ -1080,7 +1078,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is an empty guid",
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyGuidExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "Guid, Nullable<Guid>",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
             };
@@ -1227,7 +1225,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not an empty string",
+                ExceptionMessageSuffix = ParameterValidation.BeEmptyStringExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "String",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
@@ -1371,7 +1369,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is an empty string",
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyStringExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "String",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
@@ -1515,7 +1513,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "IEnumerable",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -1526,7 +1524,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not an empty enumerable",
+                ExceptionMessageSuffix = ParameterValidation.BeEmptyEnumerableExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "IEnumerable",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -1750,7 +1748,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "IEnumerable",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -1761,7 +1759,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is an empty enumerable",
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
                 InvalidCastExpectedTypes = "IEnumerable",
                 InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -2117,7 +2115,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -2140,7 +2138,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "contains no null elements",
+                ExceptionMessageSuffix = ParameterValidation.ContainSomeNullsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -2363,7 +2361,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -2386,7 +2384,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "contains at least one null element",
+                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -2610,7 +2608,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is null",
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -2633,7 +2631,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is an empty enumerable",
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -2684,7 +2682,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "contains at least one null element",
+                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullsExceptionMessageSuffix,
             };
 
             var enumerableTestValues5A = new TestValues<IEnumerable>
@@ -2771,7 +2769,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.BeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is not equal to default(T)",
+                ExceptionMessageSuffix = ParameterValidation.BeDefaultExceptionMessageSuffix,
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -2927,7 +2925,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = nameof(ParameterValidation.NotBeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = "is equal to default(T)",
+                ExceptionMessageSuffix = ParameterValidation.NotBeDefaultExceptionMessageSuffix,
             };
 
             var guidTestValues = new TestValues<Guid>
