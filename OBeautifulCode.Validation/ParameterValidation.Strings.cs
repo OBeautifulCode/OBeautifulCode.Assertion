@@ -56,9 +56,9 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotContainAnyNullsExceptionMessageSuffix = "contains at least one null element";
 
-        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T)";
+        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T), using EqualityComparer<T>.Default";
 
-        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T)";
+        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T), using EqualityComparer<T>.Default";
 
 #pragma warning restore 1591
     }
