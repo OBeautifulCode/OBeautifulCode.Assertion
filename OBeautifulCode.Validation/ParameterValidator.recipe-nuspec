@@ -9,6 +9,9 @@
     <file src="Parameter.cs" target="content\net461\.recipes\OBeautifulCode.Validation\Parameter.cs" />
     <file src="ParameterShould.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterShould.cs" />
     <file src="ParameterValidation.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidation.cs" />
+    <file src="ParameterValidation.Private.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidation.Private.cs" />
+    <file src="ParameterValidation.Strings.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidation.Strings.cs" />
+    <file src="ParameterValidation.Utility.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidation.Utility.cs" />
     <file src="ParameterValidator.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ParameterValidator.cs" />
     <file src="ValidatedNotNullAttribute.cs" target="content\net461\.recipes\OBeautifulCode.Validation\ValidatedNotNullAttribute.cs" />
   </files>
