@@ -11,8 +11,10 @@ namespace OBeautifulCode.Validation.Recipes
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
 
     using static System.FormattableString;
 
@@ -29,6 +31,20 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static class ParameterValidation
     {
+        private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo;
+
+        private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
+
+        private static readonly MethodInfo IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo;
+
+        private static readonly ConcurrentDictionary<Type, MethodInfo> IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
+
+        static ParameterValidation()
+        {
+            GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
+            IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)IsEqualUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
+        }
+
         private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
 
         private delegate void ValueValidation(object value, Type valueType, string parameterName, string because, bool isElementInEnumerable);
@@ -373,6 +389,46 @@ namespace OBeautifulCode.Validation.Recipes
             parameter.Validate(NotBeEmptyEnumerable, validationName, because, typeValidations, typeof(IEnumerable));
             parameter.Validate(NotContainAnyNulls, validationName, because, new TypeValidation[] { });
 
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the parameter is equal to default(T).
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeDefault(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+            };
+
+            parameter.Validate(BeDefault, nameof(BeDefault), because, typeValidations);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the parameter is not equal to default(T).
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeDefault(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null)
+        {
+            var typeValidations = new TypeValidation[]
+            {
+            };
+
+            parameter.Validate(NotBeDefault, nameof(NotBeDefault), because, typeValidations);
             return parameter;
         }
 
@@ -830,5 +886,77 @@ namespace OBeautifulCode.Validation.Recipes
                 throw new ArgumentException(exceptionMessage);
             }
         }
+
+        private static void BeDefault(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var defaultValue = GetDefaultValue(valueType);
+            var shouldThrow = !IsEqualUsingDefaultEqualityComparer(valueType, value, defaultValue);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is not equal to default(T)");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotBeDefault(
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable)
+        {
+            var defaultValue = GetDefaultValue(valueType);
+            var shouldThrow = IsEqualUsingDefaultEqualityComparer(valueType, value, defaultValue);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, "is equal to default(T)");
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static T GetDefaultValue<T>()
+        {
+            var result = default(T);
+            return result;
+        }
+
+        private static object GetDefaultValue(
+            Type type)
+        {
+            if (!GetDefaultValueTypeToMethodInfoMap.ContainsKey(type))
+            {
+                GetDefaultValueTypeToMethodInfoMap.TryAdd(type, GetDefaultValueOpenGenericMethodInfo.MakeGenericMethod(type));
+            }
+
+            var result = GetDefaultValueTypeToMethodInfoMap[type].Invoke(null, null);
+            return result;
+        }
+
+        private static bool IsEqualUsingDefaultEqualityComparer<T>(
+            T x,
+            T y)
+        {
+            var result = EqualityComparer<T>.Default.Equals(x, y);
+            return result;
+        }
+
+        private static bool IsEqualUsingDefaultEqualityComparer(
+            Type type,
+            object value1,
+            object value2)
+        {
+            if (!IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap.ContainsKey(type))
+            {
+                IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap.TryAdd(type, IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo.MakeGenericMethod(type));
+            }
+
+            var result = (bool)IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
+            return result;
+        }        
     }
 }
