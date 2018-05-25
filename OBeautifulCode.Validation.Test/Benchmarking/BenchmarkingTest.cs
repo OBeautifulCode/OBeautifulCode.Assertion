@@ -20,12 +20,12 @@ namespace OBeautifulCode.Validation.Test.Benchmarking
 
     public static class BenchmarkingTest
     {
-        [Fact]
+        [Fact(Skip = "For local testing only.")]
         public static void Benchmark_OBC_versus_Spritely()
         {
             const int iterations = 1000;
             const int iterationsToDiscard = 100;
-            const string outputFilePath = "c:\\users\\suraj\\desktop\\obc-spritely-benchmark2.csv";
+            const string outputFilePath = "c:\\users\\suraj\\desktop\\obc-spritely-benchmark4.csv";
 
             var obcScenariosRunner = new ObcValidationScenariosRunner();
             var obcBenchmarkKindToStopwatchMap = EnumExtensions.GetEnumValues<BenchmarkSignatureKind>().ToDictionary(_ => _, _ => new Stopwatch());

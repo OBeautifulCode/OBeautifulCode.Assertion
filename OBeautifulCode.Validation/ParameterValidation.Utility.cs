@@ -55,6 +55,83 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static readonly Type ObjectType = typeof(object);
 
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeNullableTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfTypeCannotBeNull,
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeBooleanTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeStringTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(string) },
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeGuidTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(IEnumerable) },
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableOfNullableTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(IEnumerable) },
+            },
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
+            }
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> InequalityTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotComparable,
+            },
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+            },
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> AlwaysThrowTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = Throw,
+            },
+        };
+
         private static void Validate(
             this Parameter parameter,
             IReadOnlyCollection<TypeValidation> typeValidations,

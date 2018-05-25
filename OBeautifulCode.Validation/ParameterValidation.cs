@@ -37,14 +37,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfTypeCannotBeNull,
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -52,7 +44,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeNull),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeNullableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -68,14 +60,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfTypeCannotBeNull,
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -83,7 +67,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeNull),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeNullableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -99,15 +83,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-                }                
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -115,7 +90,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeTrue),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -131,15 +106,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -147,7 +113,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeTrue),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -163,15 +129,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -179,7 +136,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeFalse),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -195,15 +152,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -211,7 +159,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeFalse),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -227,15 +175,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(string) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -243,7 +182,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeNullNorWhiteSpace),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeStringTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -259,15 +198,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -275,7 +205,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeEmptyGuid),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeGuidTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -291,15 +221,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -307,7 +228,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeEmptyGuid),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeGuidTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -323,15 +244,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(string) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -339,7 +251,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeEmptyString),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeStringTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -355,15 +267,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(string) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -371,7 +274,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeEmptyString),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeStringTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -387,15 +290,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(IEnumerable) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -403,7 +297,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeEmptyEnumerable),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeEnumerableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -419,15 +313,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(IEnumerable) },
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -435,7 +320,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotBeEmptyEnumerable),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeEnumerableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -451,19 +336,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(IEnumerable) },
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -471,7 +343,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(ContainSomeNulls),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -487,19 +359,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(IEnumerable) },
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
-                }
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -507,7 +366,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(NotContainAnyNulls),
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -523,19 +382,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotOfType,
-                    ReferenceTypes = new[] { typeof(IEnumerable) },
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
-                }
-            };
-
             var validationName = nameof(NotBeNullNorEmptyNorContainAnyNulls);
 
             var valueValidation1 = new ValueValidation
@@ -545,8 +391,6 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = validationName,
             };
 
-            parameter.Validate(typeValidations, valueValidation1);
-
             var valueValidation2 = new ValueValidation
             {
                 Because = because,
@@ -554,6 +398,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = validationName,
             };
 
+            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation1);
             parameter.Validate(null, valueValidation2);
 
             return parameter;
@@ -619,18 +464,6 @@ namespace OBeautifulCode.Validation.Recipes
             T otherValue,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotComparable,
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-                },
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -647,7 +480,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             };
             
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -665,18 +498,6 @@ namespace OBeautifulCode.Validation.Recipes
             T otherValue,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotComparable,
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-                },
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -693,7 +514,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -711,18 +532,6 @@ namespace OBeautifulCode.Validation.Recipes
             T otherValue,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotComparable,
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-                },
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -739,7 +548,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -757,18 +566,6 @@ namespace OBeautifulCode.Validation.Recipes
             T otherValue,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfNotComparable,
-                },
-                new TypeValidation
-                {
-                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-                },
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -785,7 +582,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
 
@@ -801,14 +598,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter,
             string because = null)
         {
-            var typeValidations = new[]
-            {
-                new TypeValidation
-                {
-                    TypeValidationHandler = Throw,
-                },
-            };
-
             var valueValidation = new ValueValidation
             {
                 Because = because,
@@ -816,7 +605,7 @@ namespace OBeautifulCode.Validation.Recipes
                 ValidationName = nameof(BeOfTypeThatDoesNotExist),                
             };
 
-            parameter.Validate(typeValidations, valueValidation);
+            parameter.Validate(AlwaysThrowTypeValidations, valueValidation);
             return parameter;
         }
     }
