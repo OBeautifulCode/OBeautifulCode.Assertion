@@ -698,6 +698,98 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is greater than than some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeGreaterThan<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var typeValidations = new[]
+            {
+                new TypeValidation
+                {
+                    TypeValidationHandler = ThrowIfNotComparable,
+                },
+                new TypeValidation
+                {
+                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+                },
+            };
+
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = BeGreaterThan,
+                ValidationName = nameof(BeGreaterThan),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(typeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is not greater than than some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeGreaterThan<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var typeValidations = new[]
+            {
+                new TypeValidation
+                {
+                    TypeValidationHandler = ThrowIfNotComparable,
+                },
+                new TypeValidation
+                {
+                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+                },
+            };
+
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = NotBeGreaterThan,
+                ValidationName = nameof(NotBeGreaterThan),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(typeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
         /// Always throws.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
