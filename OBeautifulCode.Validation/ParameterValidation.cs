@@ -625,6 +625,10 @@ namespace OBeautifulCode.Validation.Recipes
                 {
                     TypeValidationHandler = ThrowIfNotComparable,
                 },
+                new TypeValidation
+                {
+                    TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+                },
             };
 
             var valueValidation = new ValueValidation
@@ -636,6 +640,7 @@ namespace OBeautifulCode.Validation.Recipes
                 {
                     new ValidationParameter
                     {
+                        Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
                     }

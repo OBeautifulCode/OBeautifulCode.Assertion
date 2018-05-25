@@ -31,7 +31,7 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private delegate void TypeValidationHandler(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
+        private delegate void TypeValidationHandler(string validationName, bool isElementInEnumerable, Type valueType, Type[] referenceTypes, ValidationParameter[] validationParameters);
 
         private delegate void ValueValidationHandler(string validationName, object value, Type valueType, string parameterName, string because, bool isElementInEnumerable, params ValidationParameter[] validationParameters);
 
@@ -70,7 +70,7 @@ namespace OBeautifulCode.Validation.Recipes
 
                     foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
                     {
-                        typeValidation.TypeValidationHandler(valueValidation.ValidationName, true, enumerableType, typeValidation.ReferenceTypes);
+                        typeValidation.TypeValidationHandler(valueValidation.ValidationName, true, enumerableType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
                     }
 
                     foreach (var element in valueAsEnumerable)
@@ -91,7 +91,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(valueValidation.ValidationName, false, parameter.ValueType, typeValidation.ReferenceTypes);
+                    typeValidation.TypeValidationHandler(valueValidation.ValidationName, false, parameter.ValueType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
                 }
 
                 valueValidation.ValueValidationHandler(valueValidation.ValidationName, parameter.Value, parameter.ValueType, parameter.Name, valueValidation.Because, isElementInEnumerable: false, validationParameters: valueValidation.ValidationParameters);
@@ -145,7 +145,8 @@ namespace OBeautifulCode.Validation.Recipes
             string validationName,
             bool isElementInEnumerable,
             Type valueType,
-            params Type[] referenceTypes)
+            Type[] referenceTypes,
+            ValidationParameter[] validationParameters)
         {
             var parameterValueTypeName = valueType.GetFriendlyTypeName();
             throw new InvalidCastException(Invariant($"validationName: {validationName}, isElementInEnumerable: {isElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
@@ -156,11 +157,12 @@ namespace OBeautifulCode.Validation.Recipes
             string validationName,
             bool isElementInEnumerable,
             Type valueType,
-            params Type[] referenceTypes)
+            Type[] referenceTypes,
+            ValidationParameter[] validationParameters)
         {
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
+                ParameterValidator.ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
             }
         }
 
@@ -169,25 +171,28 @@ namespace OBeautifulCode.Validation.Recipes
             string validationName,
             bool isElementInEnumerable,
             Type valueType,
-            params Type[] referenceTypes)
+            Type[] referenceTypes,
+            ValidationParameter[] validationParameters)
         {
             var enumerableType = GetEnumerableGenericType(valueType);
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
-                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable", "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
+                ParameterValidator.ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable", "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
             }
         }
 
+        // ReSharper disable once UnusedParameter.Local
         private static void ThrowIfNotOfType(
             string validationName,
             bool isElementInEnumerable,
             Type valueType,
-            params Type[] validTypes)
+            Type[] validTypes,
+            ValidationParameter[] validationParameters)
         {
             if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
             {
-                ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, validTypes);
+                ParameterValidator.ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, validTypes);
             }
         }
 
@@ -196,7 +201,8 @@ namespace OBeautifulCode.Validation.Recipes
             string validationName,
             bool isElementInEnumerable,
             Type valueType,
-            params Type[] referenceTypes)
+            Type[] referenceTypes,
+            ValidationParameter[] validationParameters)
         {
             // type is IComparable or can be assigned to IComparable
             if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
@@ -211,8 +217,25 @@ namespace OBeautifulCode.Validation.Recipes
                         // note that, for completeness, we should recurse through all interface implementations
                         // and check whether any of those are IComparable<>
                         // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                        ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IComparable", "IComparable<T>");
+                        ParameterValidator.ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IComparable", "IComparable<T>");
                     }
+                }
+            }
+        }
+
+        // ReSharper disable once UnusedParameter.Local
+        private static void ThrowIfAnyValidationParameterTypeDoesNotEqualValueType(
+            string validationName,
+            bool isElementInEnumerable,
+            Type valueType,
+            Type[] validTypes,
+            ValidationParameter[] validationParameters)
+        {
+            foreach (var validationParameter in validationParameters)
+            {
+                if (validationParameter.ValueType != valueType)
+                {
+                    ParameterValidator.ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, isElementInEnumerable, valueType);
                 }
             }
         }
@@ -343,9 +366,11 @@ namespace OBeautifulCode.Validation.Recipes
 
         private class ValidationParameter
         {
+            public string Name { get; set; }
+
             public object Value { get; set; }
 
-            public object ValueType { get; set; }
+            public Type ValueType { get; set; }
         }
         
         private enum CompareOutcome
