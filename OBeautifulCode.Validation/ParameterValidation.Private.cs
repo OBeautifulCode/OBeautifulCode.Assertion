@@ -400,7 +400,32 @@ namespace OBeautifulCode.Validation.Recipes
                 else
                 {
                     throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
-                }                
+                }
+            }
+        }
+
+        private static void NotBeLessThan(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeLessThanExceptionMessageSuffix);
+
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                }
             }
         }
     }
