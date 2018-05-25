@@ -60,6 +60,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T), using EqualityComparer<T>.Default";
 
+        public const string BeLessThanExceptionMessageSuffix = "is not less than the comparison value, using Comparer<T>.Default";
+
 #pragma warning restore 1591
     }
 }

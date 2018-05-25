@@ -15,6 +15,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.AutoFakeItEasy;
+
     using Xunit;
 
     using static System.FormattableString;
@@ -81,18 +83,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeNullExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -185,18 +187,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -288,18 +290,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeTrueExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
+                ParameterInvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -308,13 +310,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -324,14 +326,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<string>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -341,13 +343,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     A.Dummy<object>(),
                     new List<string> { null },
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -419,18 +421,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeTrueExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
+                ParameterInvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -439,13 +441,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -455,14 +457,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<string>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -472,13 +474,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -550,18 +552,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeFalseExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
+                ParameterInvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -570,13 +572,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -586,14 +588,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<string>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -603,13 +605,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -681,18 +683,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeFalseExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
+                ParameterInvalidCastExpectedTypes = "Boolean, Nullable<Boolean>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Boolean>, IEnumerable<Nullable<Boolean>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -701,13 +703,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -717,14 +719,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<string>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -734,13 +736,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -812,8 +814,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "String",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
 
             var validationTest2 = new ValidationTest
@@ -823,18 +825,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "String",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -843,13 +845,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -859,13 +861,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -933,8 +935,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeEmptyGuidExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Guid, Nullable<Guid>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
+                ParameterInvalidCastExpectedTypes = "Guid, Nullable<Guid>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -983,14 +985,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     "   ",
                     "   \r\n ",
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new[] { string.Empty },
@@ -999,13 +1001,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustInvalidTypeValues = new IEnumerable[]
+                MustParameterInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1014,13 +1016,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1030,12 +1032,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1044,13 +1046,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1079,8 +1081,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeEmptyGuidExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "Guid, Nullable<Guid>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
+                ParameterInvalidCastExpectedTypes = "Guid, Nullable<Guid>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Nullable<Guid>>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -1130,14 +1132,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     "   ",
                     "   \r\n ",
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new[] { string.Empty },
@@ -1146,13 +1148,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustInvalidTypeValues = new IEnumerable[]
+                MustParameterInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1161,13 +1163,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1177,12 +1179,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1191,13 +1193,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1226,18 +1228,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeEmptyStringExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "String",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1247,13 +1249,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1290,13 +1292,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustInvalidTypeValues = new IEnumerable[]
+                MustParameterInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1305,13 +1307,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1321,12 +1323,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1335,13 +1337,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1370,18 +1372,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeEmptyStringExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "String",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1391,13 +1393,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1434,13 +1436,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustInvalidTypeValues = new IEnumerable[]
+                MustParameterInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1449,13 +1451,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1465,12 +1467,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1479,13 +1481,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1514,8 +1516,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var validationTest2 = new ValidationTest
@@ -1525,18 +1527,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.BeEmptyEnumerableExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1546,13 +1548,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1679,13 +1681,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1695,12 +1697,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1709,13 +1711,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1749,8 +1751,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var validationTest2 = new ValidationTest
@@ -1760,18 +1762,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1781,13 +1783,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1912,13 +1914,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1928,12 +1930,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1942,13 +1944,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1982,18 +1984,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2003,13 +2005,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2020,13 +2022,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -2036,12 +2038,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -2050,13 +2052,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -2074,19 +2076,19 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -2096,11 +2098,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustInvalidTypeValues = new IEnumerable<bool>[]
+                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
@@ -2228,18 +2230,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2249,13 +2251,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2266,13 +2268,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -2282,12 +2284,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -2296,13 +2298,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -2320,19 +2322,19 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -2342,11 +2344,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustInvalidTypeValues = new IEnumerable<bool>[]
+                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
@@ -2475,18 +2477,18 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustInvalidTypeValues = new[]
+                MustParameterInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2496,13 +2498,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustInvalidTypeValues = new Guid?[]
+                MustParameterInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2513,13 +2515,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustInvalidTypeValues = new object[]
+                MustParameterInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachInvalidTypeValues = new IEnumerable<object>[]
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -2529,12 +2531,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustInvalidTypeValues = new bool[]
+                MustParameterInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -2543,13 +2545,13 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustInvalidTypeValues = new bool?[]
+                MustParameterInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -2567,19 +2569,19 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                InvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
-                InvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
+                ParameterInvalidCastExpectedTypes = "IEnumerable, IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>, IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustInvalidTypeValues = new string[]
+                MustParameterInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -2589,11 +2591,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustInvalidTypeValues = new IEnumerable<bool>[]
+                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachInvalidTypeValues = new[]
+                MustEachParameterInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
@@ -3072,6 +3074,161 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(objectTestValues);
         }
 
+        [Fact]
+        public static void BeLessThan___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T otherValue)
+            {
+                return (parameter, because) => parameter.BeLessThan(otherValue, because);
+            }
+
+            var validationName = nameof(ParameterValidation.BeLessThan);
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue2),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var comparisonValue5 = A.Dummy<decimal>();
+            var validationTest5 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue5),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var decimalTestValues5 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue5 - .0000001m,
+                    comparisonValue5 - Math.Abs(comparisonValue5),
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue5 - .0000001m, comparisonValue5 - Math.Abs(comparisonValue5) },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue5,
+                    comparisonValue5 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue5 },
+                    new decimal[] { comparisonValue5 - .0000001m, comparisonValue5 + .00000001m, comparisonValue5 - .0000001m },
+                },
+            };
+
+            validationTest5.Run(decimalTestValues5);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)
@@ -3094,6 +3251,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
                     RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
 
                     RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
+
+                    RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName, because);
                 }
             }
         }
@@ -3191,11 +3350,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
             string parameterName,
             string because)
         {
-            foreach (var invalidTypeValue in testValues.MustInvalidTypeValues)
+            foreach (var invalidTypeValue in testValues.MustParameterInvalidTypeValues)
             {
                 // Arrange
                 var parameter = invalidTypeValue.Named(parameterName).Must();
-                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedTypes}");
+                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedTypes}");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -3212,11 +3371,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
             string parameterName,
             string because)
         {
-            foreach (var invalidTypeValue in testValues.MustEachInvalidTypeValues)
+            foreach (var invalidTypeValue in testValues.MustEachParameterInvalidTypeValues)
             {
                 // Arrange
                 var parameter = invalidTypeValue.Named(parameterName).Must().Each();
-                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.InvalidCastExpectedEnumerableTypes}");
+                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedEnumerableTypes}");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -3254,6 +3413,30 @@ namespace OBeautifulCode.Validation.Recipes.Test
             actual2.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
         }
 
+        private static void RunInvalidValidationParameterTypeScenarios<T>(
+            ValidationTest validationTest,
+            TestValues<T> testValues,
+            string parameterName,
+            string because)
+        {
+            var mustParameters = testValues.MustValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must());
+            var mustEachParameters = testValues.MustEachValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must().Each());
+            var parameters = mustParameters.Concat(mustEachParameters).ToList();
+
+            foreach (var parameter in parameters)
+            {
+                // Arrange
+                var expectedMessage = Invariant($"called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is not one of the following types: {validationTest.ValidationParameterInvalidCastExpectedTypes}");
+
+                // Act
+                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+
+                // Assert
+                actual.Should().BeOfType<InvalidCastException>();
+                actual.Message.Should().Be(expectedMessage);
+            }
+        }
+
         private class ValidationTest
         {
             public Validation Validation { get; set; }
@@ -3264,18 +3447,26 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             public string ExceptionMessageSuffix { get; set; }
 
-            public string InvalidCastExpectedTypes { get; set; }
+            public string ParameterInvalidCastExpectedTypes { get; set; }
 
-            public string InvalidCastExpectedEnumerableTypes { get; set; }
+            public string ParameterInvalidCastExpectedEnumerableTypes { get; set; }
+
+            public string ValidationParameterInvalidCastExpectedTypes { get; set; }
+
+            public string ValidationParameterInvalidCastParameterName { get; set; }
 
             public string ValidationName { get; set; }
         }
 
         private class TestValues<T>
         {
-            public IReadOnlyCollection<T> MustInvalidTypeValues { get; set; } = new List<T>();
+            public IReadOnlyCollection<T> MustParameterInvalidTypeValues { get; set; } = new List<T>();
 
-            public IReadOnlyCollection<IEnumerable<T>> MustEachInvalidTypeValues { get; set; } = new List<List<T>>();
+            public IReadOnlyCollection<IEnumerable<T>> MustEachParameterInvalidTypeValues { get; set; } = new List<List<T>>();
+
+            public IReadOnlyCollection<T> MustValidationParameterInvalidTypeValues { get; set; } = new List<T>();
+
+            public IReadOnlyCollection<IEnumerable<T>> MustEachValidationParameterInvalidTypeValues { get; set; } = new List<List<T>>();
 
             public IReadOnlyCollection<T> MustPassingValues { get; set; } = new List<T>();
 
@@ -3284,6 +3475,10 @@ namespace OBeautifulCode.Validation.Recipes.Test
             public IReadOnlyCollection<T> MustFailingValues { get; set; } = new List<T>();
 
             public IReadOnlyCollection<IEnumerable<T>> MustEachFailingValues { get; set; } = new List<List<T>>();
+        }
+
+        private class TestClass
+        {
         }
     }
 }

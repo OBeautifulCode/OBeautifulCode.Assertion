@@ -296,7 +296,8 @@ namespace OBeautifulCode.Validation.Recipes
             params string[] expectedTypes)
         {
             var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
-            throw new InvalidCastException(Invariant($"called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}"));
+            var exceptionMessage = Invariant($"called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}");
+            throw new InvalidCastException(exceptionMessage);
         }
 
         /// <summary>
@@ -315,8 +316,29 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params Type[] expectedTypes)
         {
-            var expectedTypesMessage = expectedTypes.Select(_ => _.GetFriendlyTypeName()).Aggregate((running, item) => running + ", " + item).ToArray();
-            throw new InvalidCastException(Invariant($"called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}"));
+            var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
+            ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameterName, isElementInEnumerable, expectedTypeStrings);
+        }
+
+        /// <summary>
+        /// Throws an exception to inform the user that a parameter of a specified validation is of an unexpected type.
+        /// </summary>
+        /// <remarks>
+        /// For example, parameter otherValue is an int when it should be a string, when calling myString.BeLessThan(otherValue: 5).
+        /// </remarks>
+        /// <param name="validationName">The name of the validation.</param>
+        /// <param name="validationParameterName">The name of the validation parameter.</param>
+        /// <param name="isElementInEnumerable">Is the type an element in an Enumerable (e.g. Each() was called).</param>
+        /// <param name="expectedTypes">The types that would have been appropriate.</param>
+        internal static void ThrowOnValidationParameterUnexpectedTypes(
+            string validationName,
+            string validationParameterName,
+            bool isElementInEnumerable,
+            params string[] expectedTypes)
+        {
+            var expectedTypesMessage = expectedTypes.Aggregate((running, item) => running + ", " + item);
+            var exceptionMessage = Invariant($"called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}");
+            throw new InvalidCastException(exceptionMessage);
         }
     }
 }
