@@ -26,11 +26,13 @@ namespace OBeautifulCode.Validation.Recipes
         static partial class ParameterValidation
     {
         private static void BeNull(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             if (!ReferenceEquals(value, null))
             {
@@ -40,11 +42,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeNull(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             if (ReferenceEquals(value, null))
             {
@@ -61,11 +65,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeTrue(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = ReferenceEquals(value, null) || ((bool)value != true);
             if (shouldThrow)
@@ -76,11 +82,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeTrue(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldNotThrow = ReferenceEquals(value, null) || ((bool)value == false);
             if (!shouldNotThrow)
@@ -91,11 +99,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeFalse(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = ReferenceEquals(value, null) || (bool)value;
             if (shouldThrow)
@@ -106,11 +116,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeFalse(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldNotThrow = ReferenceEquals(value, null) || (bool)value;
             if (!shouldNotThrow)
@@ -121,13 +133,15 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeNullNorWhiteSpace(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
-            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var shouldThrow = string.IsNullOrWhiteSpace((string)value);
             if (shouldThrow)
@@ -138,11 +152,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeEmptyGuid(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = ReferenceEquals(value, null) || ((Guid)value != Guid.Empty);
             if (shouldThrow)
@@ -154,11 +170,13 @@ namespace OBeautifulCode.Validation.Recipes
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void BeEmptyString(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = (string)value != string.Empty;
 
@@ -171,13 +189,15 @@ namespace OBeautifulCode.Validation.Recipes
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyEnumerable(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
-            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = false;
@@ -197,11 +217,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeEmptyGuid(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = (!ReferenceEquals(value, null)) && ((Guid)value == Guid.Empty);
             if (shouldThrow)
@@ -213,11 +235,13 @@ namespace OBeautifulCode.Validation.Recipes
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void NotBeEmptyString(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var shouldThrow = (string)value == string.Empty;
 
@@ -230,13 +254,15 @@ namespace OBeautifulCode.Validation.Recipes
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyEnumerable(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
-            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = true;
@@ -256,13 +282,15 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void ContainSomeNulls(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
-            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = true;
@@ -285,13 +313,15 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotContainAnyNulls(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
-            NotBeNull(value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = false;
@@ -314,11 +344,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void BeDefault(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var defaultValue = GetDefaultValue(valueType);
             var shouldThrow = !IsEqualUsingDefaultEqualityComparer(valueType, value, defaultValue);
@@ -330,11 +362,13 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static void NotBeDefault(
+            string validationName,
             object value,
             Type valueType,
             string parameterName,
             string because,
-            bool isElementInEnumerable)
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
         {
             var defaultValue = GetDefaultValue(valueType);
             var shouldThrow = IsEqualUsingDefaultEqualityComparer(valueType, value, defaultValue);

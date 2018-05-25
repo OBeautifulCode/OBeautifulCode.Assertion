@@ -31,25 +31,38 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
+        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
+
+        private delegate void ValueValidation(string validationName, object value, Type valueType, string parameterName, string because, bool isElementInEnumerable, params ValidationParameter[] validationParameters);
+
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
-        private static readonly MethodInfo IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)IsEqualUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
+        private static readonly MethodInfo EqualsUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)EqualsUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
 
-        private static readonly ConcurrentDictionary<Type, MethodInfo> IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
+        private static readonly ConcurrentDictionary<Type, MethodInfo> EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
-        private delegate void TypeValidation(string validationName, bool isElementInEnumerable, Type valueType, params Type[] referenceTypes);
+        private static readonly MethodInfo CompareUsingDefaultComparerOpenGenericMethodInfo = ((Func<object, object, CompareOutcome>)CompareUsingDefaultComparer).Method.GetGenericMethodDefinition();
 
-        private delegate void ValueValidation(object value, Type valueType, string parameterName, string because, bool isElementInEnumerable);
+        private static readonly ConcurrentDictionary<Type, MethodInfo> CompareUsingDefaultComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
+
+        private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
+
+        private static readonly Type ComparableType = typeof(IComparable);
+
+        private static readonly Type UnboundGenericComparableType = typeof(IComparable<>);
+
+        private static readonly Type ObjectType = typeof(object);
 
         private static void Validate(
             this Parameter parameter,
             ValueValidation valueValidation,
             string validationName,
             string because,
-            IReadOnlyCollection<TypeValidation> typeValidations,
-            params Type[] referenceTypes)
+            IReadOnlyCollection<TypeValidation> typeValidations = null,
+            Type[] referenceTypes = null,
+            ValidationParameter[] validationParameters = null)
         {
             ParameterValidator.ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
 
@@ -59,14 +72,14 @@ namespace OBeautifulCode.Validation.Recipes
                 {
                     var enumerableType = GetEnumerableGenericType(parameter.ValueType);
 
-                    foreach (var typeValidation in typeValidations)
+                    foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
                     {
                         typeValidation(validationName, true, enumerableType, referenceTypes);
                     }
 
                     foreach (var element in valueAsEnumerable)
                     {
-                        valueValidation(element, enumerableType, parameter.Name, because, isElementInEnumerable: true);
+                        valueValidation(validationName, element, enumerableType, parameter.Name, because, isElementInEnumerable: true, validationParameters: validationParameters);
                     }
                 }
                 else
@@ -80,44 +93,51 @@ namespace OBeautifulCode.Validation.Recipes
             }
             else
             {
-                foreach (var typeValidation in typeValidations)
+                foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
                 {
                     typeValidation(validationName, false, parameter.ValueType, referenceTypes);
                 }
 
-                valueValidation(parameter.Value, parameter.ValueType, parameter.Name, because, isElementInEnumerable: false);
+                valueValidation(validationName, parameter.Value, parameter.ValueType, parameter.Name, because, isElementInEnumerable: false, validationParameters: validationParameters);
             }
 
             parameter.HasBeenValidated = true;
         }
 
         private static Type GetEnumerableGenericType(
-            Type type)
+            Type enumerableType)
         {
             // adapted from: https://stackoverflow.com/a/17713382/356790
             Type result;
-            if (type.IsArray)
+            if (enumerableType.IsArray)
             {
                 // type is array, shortcut
-                result = type.GetElementType();
+                result = enumerableType.GetElementType();
             }
-            else if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            else if (enumerableType.IsGenericType && (enumerableType.GetGenericTypeDefinition() == UnboundGenericEnumerableType))
             {
                 // type is IEnumerable<T>
-                result = type.GetGenericArguments()[0];
+                result = enumerableType.GetGenericArguments()[0];
             }
             else
             {
-                // type implements/extends IEnumerable<T>
-                result = type
+                // type implements IEnumerable<T> or is a subclass (sub-sub-class, ...)
+                // of a type that implements IEnumerable<T>
+                // note that we are grabing the first implementation.  it is possible, but
+                // highly unlikely, for a type to have multiple implementations of IEnumerable<T>
+                result = enumerableType
                     .GetInterfaces()
-                    .Where(_ => _.IsGenericType && _.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                    .Where(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType))
                     .Select(_ => _.GenericTypeArguments[0])
                     .FirstOrDefault();
 
                 if (result == null)
                 {
-                    result = typeof(object);
+                    // here we just assume it's an IEnumerable and return typeof(object),
+                    // however, for completeness, we should recurse through all interface implementations
+                    // and check whether those are IEnumerable<T>.
+                    // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
+                    result = ObjectType;
                 }
             }
 
@@ -172,6 +192,31 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        private static void ThrowIfNotComparable(
+            string validationName,
+            bool isElementInEnumerable,
+            Type valueType,
+            params Type[] validTypes)
+        {
+            // type is IComparable or can be assigned to IComparable
+            if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
+            {
+                // type is IComparable<T>
+                if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
+                {
+                    // type implements IComparable<T>
+                    var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType));
+                    if (comparableType == null)
+                    {
+                        // note that, for completeness, we should recurse through all interface implementations
+                        // and check whether any of those are IComparable<>
+                        // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
+                        ParameterValidator.ThrowOnUnexpectedTypes(validationName, isElementInEnumerable, "IComparable", "IComparable<T>");
+                    }
+                }
+            }
+        }
+
         private static string BuildExceptionMessage(
             string parameterName,
             string because,
@@ -207,11 +252,11 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
-        private static bool IsEqualUsingDefaultEqualityComparer<T>(
-            T x,
-            T y)
+        private static bool EqualsUsingDefaultEqualityComparer<T>(
+            T value1,
+            T value2)
         {
-            var result = EqualityComparer<T>.Default.Equals(x, y);
+            var result = EqualityComparer<T>.Default.Equals(value1, value2);
             return result;
         }
 
@@ -220,13 +265,78 @@ namespace OBeautifulCode.Validation.Recipes
             object value1,
             object value2)
         {
-            if (!IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap.ContainsKey(type))
+            if (!EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap.ContainsKey(type))
             {
-                IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap.TryAdd(type, IsEqualUsingDefaultEqualityComparerOpenGenericMethodInfo.MakeGenericMethod(type));
+                EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap.TryAdd(type, EqualsUsingDefaultEqualityComparerOpenGenericMethodInfo.MakeGenericMethod(type));
             }
 
-            var result = (bool)IsEqualUsingDefaultEqualityComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
+            var result = (bool)EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
             return result;
+        }
+
+        private static CompareOutcome CompareUsingDefaultComparer<T>(
+            T x,
+            T y)
+        {
+            var comparison = Comparer<T>.Default.Compare(x, y);
+            CompareOutcome result;
+            if (comparison < 0)
+            {
+                result = CompareOutcome.Value1LessThanValue2;
+            }
+            else if (comparison == 0)
+            {
+                result = CompareOutcome.Value1EqualsValue2;
+            }
+            else
+            {
+                result = CompareOutcome.Value1GreaterThanValue2;
+            }
+
+            return result;
+        }
+
+        private static CompareOutcome CompareUsingDefaultComparer(
+            Type type,
+            object value1,
+            object value2)
+        {
+            if (!CompareUsingDefaultComparerTypeToMethodInfoMap.ContainsKey(type))
+            {
+                CompareUsingDefaultComparerTypeToMethodInfoMap.TryAdd(type, CompareUsingDefaultComparerOpenGenericMethodInfo.MakeGenericMethod(type));
+            }
+
+            // note that the call is ultimately, via reflection, to Compare(T, T)
+            // as such, reflection will throw an ArgumentException if the types of value1 and value2 are
+            // not "convertible" to the specified type.  It's a pretty complicated heuristic:
+            // https://stackoverflow.com/questions/34433043/check-whether-propertyinfo-setvalue-will-throw-an-argumentexception
+            // Instead of relying on this heuristic, we just check upfront that value2's type == the specified type
+            // (value1's type will always be the specified type).  This constrains our capabilities - for example, we
+            // can't compare an integer to a decimal.  That said, we feel like this is a good constraint in a parameter
+            // validation framework.  We'd rather be forced to make the types align than get a false negative
+            // (a validation passes when it should fail).
+
+            // otherwise, if reflection is able to call Compare(T, T), then ArgumentException can be thrown if
+            // Type T does not implement either the System.IComparable<T> generic interface or the System.IComparable interface
+            // However we already check for this upfront in ThrowIfNotComparable
+            var result = (CompareOutcome)CompareUsingDefaultComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
+            return result;
+        }
+
+        private class ValidationParameter
+        {
+            public object Value { get; set; }
+
+            public object ValueType { get; set; }
+        }
+        
+        private enum CompareOutcome
+        {
+            Value1LessThanValue2,
+
+            Value1EqualsValue2,
+
+            Value1GreaterThanValue2
         }
     }
 }
