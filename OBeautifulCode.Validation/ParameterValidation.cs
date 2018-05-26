@@ -10,7 +10,6 @@
 namespace OBeautifulCode.Validation.Recipes
 {
     using System;
-    using System.Collections;
 
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
@@ -29,7 +28,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the reference type or nullable parameter is null.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -52,7 +51,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the reference type or nullable parameter is not null.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -75,7 +74,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the bool or bool? parameter is true.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -98,7 +97,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the bool or bool? parameter is not true.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -121,7 +120,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the bool or bool? parameter is false.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -144,7 +143,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the bool? or bool? parameter is not false.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -167,7 +166,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the string parameter is neither null nor whitespace.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -190,7 +189,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the guid or guid? parameter is empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -213,7 +212,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the guid or guid? parameter is not empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -236,7 +235,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the string parameter is empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -259,7 +258,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the string parameter is not empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -282,7 +281,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the IEnumerable parameter is empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -305,7 +304,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the IEnumerable parameter is not empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -328,7 +327,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the IEnumerable parameter contains at least one null element.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -351,7 +350,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the IEnumerable parameter does not contain any null elements.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -374,7 +373,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the IEnumerable parameter is not null nor empty nor contains any null elements.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -408,7 +407,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the parameter is equal to default(T).
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -431,7 +430,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// Validates that the parameter is not equal to default(T).
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -455,7 +454,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -489,7 +488,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -523,7 +522,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -557,7 +556,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -591,7 +590,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -625,7 +624,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -659,7 +658,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -693,7 +692,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -727,7 +726,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -761,7 +760,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
@@ -811,6 +810,6 @@ namespace OBeautifulCode.Validation.Recipes
 
             parameter.Validate(AlwaysThrowTypeValidations, valueValidation);
             return parameter;
-        }
+        }        
     }
 }
