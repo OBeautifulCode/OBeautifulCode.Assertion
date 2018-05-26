@@ -3354,7 +3354,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -3509,7 +3509,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -3664,7 +3664,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -3819,7 +3819,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -3974,7 +3974,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -4129,7 +4129,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -4284,7 +4284,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>

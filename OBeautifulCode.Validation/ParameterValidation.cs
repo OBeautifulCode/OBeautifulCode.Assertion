@@ -187,7 +187,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the guid or guid? is empty.
+        /// Validates that the guid or guid? parameter is empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -451,7 +451,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is less than some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is less than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -485,7 +485,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is not less than some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is not less than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -519,7 +519,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is greater than some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is greater than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -553,7 +553,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is not greater than some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is not greater than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -587,7 +587,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is less than or equal to some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is less than or equal to some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -621,7 +621,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is not less or equal to some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is not less or equal to some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -655,7 +655,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is greater than or equal to some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is greater than or equal to some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -689,7 +689,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is not greater than or equal to some specified value.
+        /// Validates that the IComparable or IComparable{T} parameter is not greater than or equal to some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
