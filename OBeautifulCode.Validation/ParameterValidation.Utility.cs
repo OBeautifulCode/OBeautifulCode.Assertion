@@ -124,6 +124,14 @@ namespace OBeautifulCode.Validation.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> EqualsTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+            },
+        };
+
         private static readonly IReadOnlyCollection<TypeValidation> AlwaysThrowTypeValidations = new[]
         {
             new TypeValidation
@@ -360,7 +368,7 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
-        private static bool IsEqualUsingDefaultEqualityComparer(
+        private static bool EqualUsingDefaultEqualityComparer(
             Type type,
             object value1,
             object value2)

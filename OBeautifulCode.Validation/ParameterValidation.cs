@@ -721,7 +721,75 @@ namespace OBeautifulCode.Validation.Recipes
             parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
-        
+
+        /// <summary>
+        /// Validates that the parameter is equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = BeEqualTo,
+                ValidationName = nameof(BeEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(EqualsTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the parameter is not equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = NotBeEqualTo,
+                ValidationName = nameof(NotBeEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(EqualsTypeValidations, valueValidation);
+            return parameter;
+        }
+
         /// <summary>
         /// Always throws.
         /// </summary>

@@ -76,6 +76,10 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeGreaterThanOrEqualToExceptionMessageSuffix = "is greater than or equal to the comparison value, using Comparer<T>.Default";
 
+        public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value, using EqualityComparer<T>.Default";
+
+        public const string NotBeEqualToExceptionMessageSuffix = "is not equal to the comparison value, using EqualityComparer<T>.Default";
+
 #pragma warning restore 1591
     }
 }

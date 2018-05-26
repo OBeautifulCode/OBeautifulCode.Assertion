@@ -578,5 +578,53 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             }
         }
+
+        private static void BeEqualTo(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            var shouldThrow = !EqualUsingDefaultEqualityComparer(valueType, value, validationParameters[0].Value);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeEqualToExceptionMessageSuffix);
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                }
+            }
+        }
+
+        private static void NotBeEqualTo(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            var shouldThrow = EqualUsingDefaultEqualityComparer(valueType, value, validationParameters[0].Value);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEqualToExceptionMessageSuffix);
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                }
+            }
+        }
     }
 }
