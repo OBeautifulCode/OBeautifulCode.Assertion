@@ -3694,6 +3694,626 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest5.Run(decimalTestValues5);
         }
 
+        [Fact]
+        public static void BeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T otherValue)
+            {
+                return (parameter, because) => parameter.BeLessThanOrEqualTo(otherValue, because);
+            }
+
+            var validationName = nameof(ParameterValidation.BeLessThanOrEqualTo);
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue2),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var comparisonValue5 = A.Dummy<decimal>();
+            var validationTest5 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue5),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var decimalTestValues5 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue5,
+                    comparisonValue5 - .0000001m,
+                    comparisonValue5 - Math.Abs(comparisonValue5),
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue5, comparisonValue5 - .0000001m, comparisonValue5 - Math.Abs(comparisonValue5) },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue5 + .0000001m,
+                    comparisonValue5 + Math.Abs(comparisonValue5),
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue5, comparisonValue5 + .00000001m, comparisonValue5 },
+                },
+            };
+
+            validationTest5.Run(decimalTestValues5);
+        }
+
+        [Fact]
+        public static void NotBeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T otherValue)
+            {
+                return (parameter, because) => parameter.NotBeLessThanOrEqualTo(otherValue, because);
+            }
+
+            var validationName = nameof(ParameterValidation.NotBeLessThanOrEqualTo);
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue2),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var comparisonValue5 = A.Dummy<decimal>();
+            var validationTest5 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue5),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var decimalTestValues5 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue5 + .0000001m,
+                    comparisonValue5 + Math.Abs(comparisonValue5),
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue5 + .0000001m, comparisonValue5 + Math.Abs(comparisonValue5) },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue5,
+                    comparisonValue5 - .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue5 + .0000001m, comparisonValue5, comparisonValue5 + .0000001m },
+                    new decimal[] { comparisonValue5 + .0000001m, comparisonValue5 - .0000001m, comparisonValue5 + .0000001m },
+                },
+            };
+
+            validationTest5.Run(decimalTestValues5);
+        }
+
+        [Fact]
+        public static void BeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T otherValue)
+            {
+                return (parameter, because) => parameter.BeGreaterThanOrEqualTo(otherValue, because);
+            }
+
+            var validationName = nameof(ParameterValidation.BeGreaterThanOrEqualTo);
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue2),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var comparisonValue5 = A.Dummy<decimal>();
+            var validationTest5 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue5),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var decimalTestValues5 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue5,
+                    comparisonValue5 + .0000001m,
+                    comparisonValue5 + Math.Abs(comparisonValue5),
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue5, comparisonValue5 + .0000001m, comparisonValue5 + Math.Abs(comparisonValue5) },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue5 - .0000001m,
+                    comparisonValue5 - Math.Abs(comparisonValue5),
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue5, comparisonValue5 - .00000001m, comparisonValue5 },
+                },
+            };
+
+            validationTest5.Run(decimalTestValues5);
+        }
+
+        [Fact]
+        public static void NotBeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T otherValue)
+            {
+                return (parameter, because) => parameter.NotBeGreaterThanOrEqualTo(otherValue, because);
+            }
+
+            var validationName = nameof(ParameterValidation.NotBeGreaterThanOrEqualTo);
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue2),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "otherValue",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var comparisonValue5 = A.Dummy<decimal>();
+            var validationTest5 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue5),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var decimalTestValues5 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue5 - .0000001m,
+                    comparisonValue5 - Math.Abs(comparisonValue5),
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue5 - .0000001m, comparisonValue5 - Math.Abs(comparisonValue5) },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue5,
+                    comparisonValue5 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue5 - .0000001m, comparisonValue5, comparisonValue5 - .0000001m },
+                    new decimal[] { comparisonValue5 - .0000001m, comparisonValue5 + .0000001m, comparisonValue5 - .0000001m },
+                },
+            };
+
+            validationTest5.Run(decimalTestValues5);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)

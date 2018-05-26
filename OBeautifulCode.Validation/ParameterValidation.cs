@@ -519,7 +519,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is greater than than some specified value.
+        /// Validates that the IComparable or IComparable{T} type is greater than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -553,7 +553,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} type is not greater than than some specified value.
+        /// Validates that the IComparable or IComparable{T} type is not greater than some specified value.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
@@ -586,6 +586,142 @@ namespace OBeautifulCode.Validation.Recipes
             return parameter;
         }
 
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is less than or equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeLessThanOrEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = BeLessThanOrEqualTo,
+                ValidationName = nameof(BeLessThanOrEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is not less or equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeLessThanOrEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = NotBeLessThanOrEqualTo,
+                ValidationName = nameof(NotBeLessThanOrEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is greater than or equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeGreaterThanOrEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = BeGreaterThanOrEqualTo,
+                ValidationName = nameof(BeGreaterThanOrEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} type is not greater than or equal to some specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherValue">The value to compare the parameter value to.</param>
+        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeGreaterThanOrEqualTo<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T otherValue,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = NotBeGreaterThanOrEqualTo,
+                ValidationName = nameof(NotBeGreaterThanOrEqualTo),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherValue),
+                        Value = otherValue,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+        
         /// <summary>
         /// Always throws.
         /// </summary>
