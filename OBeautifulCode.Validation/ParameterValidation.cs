@@ -790,10 +790,108 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IComparable or IComparable{T} parameter is within a specified range.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="minimum">The minimum comparison value (start of the range).</param>
+        /// <param name="maximum">The maximum comparison value (end of the range).</param>
+        /// <param name="endpointDelineation">Optional instruction on whether the range is inclusive or exclusive of the endpoints.  Default is to include both the <paramref name="minimum"/> and <paramref name="maximum"/> in the range.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeInRange<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T minimum,
+            T maximum,
+            Range endpointDelineation = Range.IncludesMinimumAndMaximum,
+            string because = null)
+        {
+            if (endpointDelineation != Range.IncludesMinimumAndMaximum)
+            {
+                throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation);
+            }
+
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = BeInRange,
+                ValidationName = nameof(BeInRange),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(minimum),
+                        Value = minimum,
+                        ValueType = typeof(T),
+                    },
+                    new ValidationParameter
+                    {
+                        Name = nameof(maximum),
+                        Value = maximum,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that the IComparable or IComparable{T} parameter is not within a specified range.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="minimum">The minimum comparison value (start of the range).</param>
+        /// <param name="maximum">The maximum comparison value (end of the range).</param>
+        /// <param name="endpointDelineation">Optional instruction on whether the range is inclusive or exclusive of the endpoints.  Default is to include both the <paramref name="minimum"/> and <paramref name="maximum"/> in the range.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeInRange<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T minimum,
+            T maximum,
+            Range endpointDelineation = Range.IncludesMinimumAndMaximum,
+            string because = null)
+        {
+            if (endpointDelineation != Range.IncludesMinimumAndMaximum)
+            {
+                throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation);
+            }
+
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = NotBeInRange,
+                ValidationName = nameof(NotBeInRange),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(minimum),
+                        Value = minimum,
+                        ValueType = typeof(T),
+                    },
+                    new ValidationParameter
+                    {
+                        Name = nameof(maximum),
+                        Value = maximum,
+                        ValueType = typeof(T),
+                    }
+                }
+            };
+
+            parameter.Validate(InequalityTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
         /// Always throws.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="because">Rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>

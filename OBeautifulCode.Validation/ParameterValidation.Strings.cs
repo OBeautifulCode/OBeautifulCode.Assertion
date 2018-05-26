@@ -80,6 +80,10 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeEqualToExceptionMessageSuffix = "is not equal to the comparison value, using EqualityComparer<T>.Default";
 
+        public const string BeInRangeExceptionMessageSuffix = "is not within the specified range, using Comparer<T>.Default";
+
+        public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range, using Comparer<T>.Default";
+
 #pragma warning restore 1591
     }
 }

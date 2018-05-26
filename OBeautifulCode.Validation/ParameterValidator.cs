@@ -239,7 +239,8 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Throws an exception to inform the caller that the framework is being used improperly.
         /// </summary>
-        internal static void ThrowOnImproperUseOfFramework()
+        internal static void ThrowOnImproperUseOfFramework(
+            string message = null)
         {
             // We throw a InvalidOperationException rather than an ArgumentException so that this category of
             // problem (inproper use of the framework), can be clearly differentiated from a validation failure
@@ -251,7 +252,8 @@ namespace OBeautifulCode.Validation.Recipes
             //   - if parameter != null then the user doesn't understand how the framework is designed to be used
             //     and what the framework's limiations are.  Some negative outcome might occur (throwing when
             //     not expected or not throwing when expected).
-            throw new InvalidOperationException(ImproperUseOfFrameworkExceptionMessage);
+            message = message == null ? ImproperUseOfFrameworkExceptionMessage : message + "  " + ImproperUseOfFrameworkExceptionMessage;
+            throw new InvalidOperationException(message);
         }
 
         /// <summary>

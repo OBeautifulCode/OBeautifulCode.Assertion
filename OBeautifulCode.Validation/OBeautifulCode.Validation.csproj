@@ -49,6 +49,7 @@
     <Compile Include="ParameterValidator.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="ValidatedNotNullAttribute.cs" />
     <Compile Include="ParameterValidation.cs" />
   </ItemGroup>

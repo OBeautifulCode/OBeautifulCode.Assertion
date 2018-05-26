@@ -4507,6 +4507,422 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest3.Run(decimalTestValues3);
         }
 
+        [Fact]
+        public static void BeInRange___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T minimum, T maximum)
+            {
+                return (parameter, because) => parameter.BeInRange(minimum, maximum, because: because);
+            }
+
+            var validationName = nameof(ParameterValidation.BeInRange);
+
+            var ex1 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
+            var ex2 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
+            var ex3 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndMaximum));
+            ex1.Should().BeOfType<NotImplementedException>();
+            ex2.Should().BeOfType<NotImplementedException>();
+            ex3.Should().BeOfType<NotImplementedException>();
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>(), A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "minimum",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>(), A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "minimum",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var minimum5 = A.Dummy<decimal>();
+            var maximum5 = minimum5 - .00000001m;
+            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
+            validationTest5Actual.Should().BeOfType<InvalidOperationException>();
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+            var minimum6 = 10m;
+            var maximum6 = 20m;
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation(minimum6, maximum6),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+            };
+
+            var decimalTestValues6 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    10m,
+                    16m,
+                    20m,
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { 10m, 16m, 20m },
+                },
+                MustFailingValues = new[]
+                {
+                    decimal.MinValue,
+                    decimal.MaxValue,
+                    9.999999999m,
+                    20.000000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { 16m, decimal.MinValue, 16m },
+                    new decimal[] { 16m, decimal.MaxValue, 16m },
+                    new decimal[] { 16m, 9.999999999m, 16m },
+                    new decimal[] { 16m, 20.000000001m, 16m },
+                },
+            };
+
+            validationTest6.Run(decimalTestValues6);
+
+            var comparisonValue7 = A.Dummy<decimal>();
+            var validationTest7 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue7, comparisonValue7),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+            };
+
+            var decimalTestValues7 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue7,
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue7, comparisonValue7 },
+                },
+                MustFailingValues = new decimal[]
+                {
+                    comparisonValue7 + .000000001m,
+                    comparisonValue7 - .000000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue7, comparisonValue7 + .000000001m, comparisonValue7 },
+                    new decimal[] { comparisonValue7, comparisonValue7 - .000000001m, comparisonValue7 },
+                },
+            };
+
+            validationTest7.Run(decimalTestValues7);
+        }
+
+        [Fact]
+        public static void NotBeInRange___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T minimum, T maximum)
+            {
+                return (parameter, because) => parameter.NotBeInRange(minimum, maximum, because: because);
+            }
+
+            var validationName = nameof(ParameterValidation.NotBeInRange);
+
+            var ex1 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
+            var ex2 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
+            var ex3 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndMaximum));
+            ex1.Should().BeOfType<NotImplementedException>();
+            ex2.Should().BeOfType<NotImplementedException>();
+            ex3.Should().BeOfType<NotImplementedException>();
+
+            // here the otherValue type doesn't match the parameter type, but
+            // that shouldn't matter because it first fails on TestClass not being comparable
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var customClassTestValues1 = new TestValues<TestClass>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    new TestClass(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                {
+                    new TestClass[] { },
+                    new TestClass[] { null },
+                    new TestClass[] { new TestClass() },
+                },
+            };
+
+            validationTest1.Run(customClassTestValues1);
+
+            var comparisonValue2 = A.Dummy<decimal?>();
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+            };
+
+            var nullableDecimalTestValues2 = new TestValues<decimal?>
+            {
+                MustParameterInvalidTypeValues = new decimal?[]
+                {
+                    null,
+                    comparisonValue2,
+                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
+                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
+                    new decimal?[] { comparisonValue2 },
+                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                },
+            };
+
+            validationTest2.Run(nullableDecimalTestValues2);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>(), A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "minimum",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    null,
+                    string.Empty,
+                    A.Dummy<string>(),
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { A.Dummy<string>() },
+                },
+            };
+
+            validationTest3.Run(stringTestValues3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<int>(), A.Dummy<int>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "Decimal",
+                ValidationParameterInvalidCastParameterName = "minimum",
+            };
+
+            var decimalTestValues4 = new TestValues<decimal>
+            {
+                MustValidationParameterInvalidTypeValues = new[]
+                {
+                    A.Dummy<decimal>(),
+                    decimal.MaxValue,
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+
+            var minimum5 = A.Dummy<decimal>();
+            var maximum5 = minimum5 - .00000001m;
+            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
+            validationTest5Actual.Should().BeOfType<InvalidOperationException>();
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+            var minimum6 = 10m;
+            var maximum6 = 20m;
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation(minimum6, maximum6),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+            };
+
+            var decimalTestValues6 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    9.9999999999m,
+                    20.00000001m,
+                    decimal.MinValue,
+                    decimal.MaxValue,
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { decimal.MinValue, 9.9999999999m, 20.00000001m, decimal.MaxValue },
+                },
+                MustFailingValues = new[]
+                {
+                    10m,
+                    15m,
+                    20m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { 9.9999999999m, 10m, 20.00000001m },
+                    new decimal[] { 9.9999999999m, 15m, 20.00000001m },
+                    new decimal[] { 9.9999999999m, 20m, 20.00000001m },
+                },
+            };
+
+            validationTest6.Run(decimalTestValues6);
+
+            var comparisonValue7 = A.Dummy<decimal>();
+            var validationTest7 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue7, comparisonValue7),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+            };
+
+            var decimalTestValues7 = new TestValues<decimal>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue7 - .000000001m,
+                    comparisonValue7 + .000000001m,
+                },
+                MustEachPassingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new decimal[] { comparisonValue7 - .000000001m, comparisonValue7 + .000000001m },
+                },
+                MustFailingValues = new decimal[]
+                {
+                    comparisonValue7,
+                },
+                MustEachFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { comparisonValue7 - .000000001m, comparisonValue7, comparisonValue7 + .000000001m },
+                },
+            };
+
+            validationTest7.Run(decimalTestValues7);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)

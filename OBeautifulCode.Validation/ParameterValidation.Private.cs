@@ -12,6 +12,8 @@ namespace OBeautifulCode.Validation.Recipes
     using System;
     using System.Collections;
 
+    using static System.FormattableString;
+
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
@@ -616,6 +618,74 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEqualToExceptionMessageSuffix);
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                }
+            }
+        }
+
+        private static void BeInRange(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            // the public BeInRange() is generic and guarantees that minimum and maximum are of the same type
+            var invalidRange = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            if (invalidRange)
+            {
+                ParameterValidator.ThrowOnImproperUseOfFramework(Invariant($"The specified range is invalid because '{validationParameters[0].Name}' is less than '{validationParameters[1].Name}'."));
+            }
+
+            var shouldThrow = (CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1LessThanValue2) ||
+                              (CompareUsingDefaultComparer(valueType, value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2);
+            
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeInRangeExceptionMessageSuffix);
+
+                if (isElementInEnumerable)
+                {
+                    throw new ArgumentException(exceptionMessage);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                }
+            }
+        }
+
+        private static void NotBeInRange(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            // the public BeInRange() is generic and guarantees that minimum and maximum are of the same type
+            var invalidRange = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            if (invalidRange)
+            {
+                ParameterValidator.ThrowOnImproperUseOfFramework(Invariant($"The specified range is invalid because '{validationParameters[0].Name}' is less than '{validationParameters[1].Name}'."));
+            }
+
+            var shouldThrow = (CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1LessThanValue2) &&
+                              (CompareUsingDefaultComparer(valueType, value, validationParameters[1].Value) != CompareOutcome.Value1GreaterThanValue2);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeInRangeExceptionMessageSuffix);
+
                 if (isElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
