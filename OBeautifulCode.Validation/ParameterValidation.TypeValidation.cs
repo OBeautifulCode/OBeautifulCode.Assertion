@@ -26,6 +26,7 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
+#pragma warning disable SA1201
         private delegate void TypeValidationHandler(string validationName, bool isElementInEnumerable, Type valueType, Type[] referenceTypes, ValidationParameter[] validationParameters);
 
         private static readonly Type EnumerableType = typeof(IEnumerable);
@@ -43,7 +44,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfTypeCannotBeNull,
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeBooleanTypeValidations = new[]
@@ -52,7 +53,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 TypeValidationHandler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeStringTypeValidations = new[]
@@ -61,7 +62,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 TypeValidationHandler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { typeof(string) },
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeGuidTypeValidations = new[]
@@ -70,7 +71,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 TypeValidationHandler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableTypeValidations = new[]
@@ -79,7 +80,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 TypeValidationHandler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { typeof(IEnumerable) },
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableOfNullableTypeValidations = new[]
@@ -92,7 +93,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
-            }
+            },
         };
 
         private static readonly IReadOnlyCollection<TypeValidation> InequalityTypeValidations = new[]
@@ -298,5 +299,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             public Type[] ReferenceTypes { get; set; }
         }
+
+#pragma warning restore SA1201
     }
 }

@@ -452,6 +452,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is less than some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -475,10 +476,10 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
-            
+
             parameter.Validate(InequalityTypeValidations, valueValidation);
             return parameter;
         }
@@ -486,6 +487,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is not less than some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -509,8 +511,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -520,6 +522,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is greater than some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -543,8 +546,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -554,6 +557,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is not greater than some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -577,8 +581,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -588,6 +592,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is less than or equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -611,8 +616,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -622,6 +627,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is not less or equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -645,8 +651,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -656,6 +662,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is greater than or equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -679,8 +686,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -690,6 +697,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is not greater than or equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -713,8 +721,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -724,6 +732,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the parameter is equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -747,8 +756,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(EqualsTypeValidations, valueValidation);
@@ -758,6 +767,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the parameter is not equal to some specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="otherValue">The value to compare the parameter value to.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -781,8 +791,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(otherValue),
                         Value = otherValue,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(EqualsTypeValidations, valueValidation);
@@ -792,6 +802,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is within a specified range.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="minimum">The minimum comparison value (start of the range).</param>
         /// <param name="maximum">The maximum comparison value (end of the range).</param>
@@ -830,8 +841,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(maximum),
                         Value = maximum,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -841,6 +852,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IComparable or IComparable{T} parameter is not within a specified range.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="minimum">The minimum comparison value (start of the range).</param>
         /// <param name="maximum">The maximum comparison value (end of the range).</param>
@@ -879,8 +891,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(maximum),
                         Value = maximum,
                         ValueType = typeof(T),
-                    }
-                }
+                    },
+                },
             };
 
             parameter.Validate(InequalityTypeValidations, valueValidation);
@@ -890,6 +902,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IEnumerable parameter contains a specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="item">The item to search for.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -913,8 +926,8 @@ namespace OBeautifulCode.Validation.Recipes
                         Name = nameof(item),
                         Value = item,
                         ValueType = typeof(T),
-                    },                    
-                }
+                    },
+                },
             };
 
             parameter.Validate(ContainmentTypeValidations, valueValidation);
@@ -924,6 +937,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Validates that the IEnumerable parameter does not contain a specified value.
         /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="item">The item to search for.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
@@ -948,7 +962,7 @@ namespace OBeautifulCode.Validation.Recipes
                         Value = item,
                         ValueType = typeof(T),
                     },
-                }
+                },
             };
 
             parameter.Validate(ContainmentTypeValidations, valueValidation);
@@ -971,11 +985,11 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 Because = because,
                 ValueValidationHandler = null,
-                ValidationName = nameof(BeOfTypeThatDoesNotExist),                
+                ValidationName = nameof(BeOfTypeThatDoesNotExist),
             };
 
             parameter.Validate(AlwaysThrowTypeValidations, valueValidation);
             return parameter;
-        }        
+        }
     }
 }

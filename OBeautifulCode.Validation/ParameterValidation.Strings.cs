@@ -20,6 +20,7 @@ namespace OBeautifulCode.Validation.Recipes
         static partial class ParameterValidation
     {
 #pragma warning disable 1591
+#pragma warning disable SA1600
         public const string AnyReferenceTypeName = "Any Reference Type";
 
         public const string EnumerableOfAnyReferenceTypeName = "IEnumerable<Any Reference Type>";
@@ -94,6 +95,7 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{0}' is less than '{1}'.";
 
+#pragma warning restore SA1600
 #pragma warning restore 1591
     }
 }

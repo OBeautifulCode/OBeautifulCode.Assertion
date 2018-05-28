@@ -228,6 +228,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Throws an exception to inform the caller that the framework is being used improperly.
         /// </summary>
+        /// <param name="message">Optional message to prepend.</param>
         internal static void ThrowImproperUseOfFramework(
             string message = null)
         {
@@ -258,6 +259,6 @@ namespace OBeautifulCode.Validation.Recipes
             // adapted from: https://stackoverflow.com/a/6402967/356790
             var result = CodeDomProvider.GetTypeOutput(new CodeTypeReference(type.FullName?.Replace(type.Namespace + ".", string.Empty)));
             return result;
-        }       
+        }
     }
 }

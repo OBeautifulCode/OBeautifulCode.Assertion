@@ -29,6 +29,8 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
+#pragma warning disable SA1201
+
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
@@ -123,9 +125,7 @@ namespace OBeautifulCode.Validation.Recipes
             ValidationParameter[] validationParameters)
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
-            var rangeIsMalformed =
-                CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value,
-                    validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name);
@@ -239,6 +239,15 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
+        private enum CompareOutcome
+        {
+            Value1LessThanValue2,
+
+            Value1EqualsValue2,
+
+            Value1GreaterThanValue2,
+        }
+
         private class ValueValidation
         {
             public string ValidationName { get; set; }
@@ -258,14 +267,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             public Type ValueType { get; set; }
         }
-        
-        private enum CompareOutcome
-        {
-            Value1LessThanValue2,
 
-            Value1EqualsValue2,
-
-            Value1GreaterThanValue2
-        }
+#pragma warning restore SA1201
     }
 }
