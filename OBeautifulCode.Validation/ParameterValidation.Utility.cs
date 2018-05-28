@@ -48,7 +48,7 @@ namespace OBeautifulCode.Validation.Recipes
             IReadOnlyCollection<TypeValidation> typeValidations,
             ValueValidation valueValidation)
         {
-            ParameterValidator.ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
+            ParameterValidator.ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
 
             if (parameter.HasBeenEached)
             {
@@ -132,11 +132,11 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 var malformedRangeExceptionMessage = string.Format(MalformedRangeExceptionMessage, validationParameters[0].Name,
                     validationParameters[1].Name);
-                ParameterValidator.ThrowOnImproperUseOfFramework(malformedRangeExceptionMessage);
+                ParameterValidator.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
         }
 
-        private static string BuildExceptionMessage(
+        private static string BuildArgumentExceptionMessage(
             string parameterName,
             string because,
             bool isElementInEnumerable,
@@ -151,44 +151,6 @@ namespace OBeautifulCode.Validation.Recipes
             var enumerableQualifier = isElementInEnumerable ? " contains an element that" : string.Empty;
             var result = Invariant($"parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}");
             return result;
-        }
-
-        private static void ThrowOnParameterUnexpectedType(
-            string validationName,
-            bool isElementInEnumerable,
-            params Type[] expectedTypes)
-        {
-            var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, expectedTypeStrings);
-        }
-
-        private static void ThrowOnParameterUnexpectedType(
-            string validationName,
-            bool isElementInEnumerable,
-            params string[] expectedTypes)
-        {
-            var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}");
-            throw new InvalidCastException(exceptionMessage);
-        }
-
-        private static void ThrowOnValidationParameterUnexpectedType(
-            string validationName,
-            string validationParameterName,
-            params Type[] expectedTypes)
-        {
-            var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowOnValidationParameterUnexpectedType(validationName, validationParameterName, expectedTypeStrings);
-        }
-
-        private static void ThrowOnValidationParameterUnexpectedType(
-            string validationName,
-            string validationParameterName,
-            params string[] expectedTypes)
-        {
-            var expectedTypesMessage = expectedTypes.Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}");
-            throw new InvalidCastException(exceptionMessage);
         }
 
         private static T GetDefaultValue<T>()

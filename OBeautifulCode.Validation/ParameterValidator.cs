@@ -53,7 +53,7 @@ namespace OBeautifulCode.Validation.Recipes
             var parameter = value as Parameter;
             if (parameter != null)
             {
-                ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.NotExist);
+                ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.NotExist);
             }
 
             var result = new Parameter
@@ -82,7 +82,7 @@ namespace OBeautifulCode.Validation.Recipes
             var parameter = value as Parameter;
             if (parameter != null)
             {
-                ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
+                ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeNamed, ParameterShould.NotBeMusted, ParameterShould.NotBeEached, ParameterShould.NotBeValidated);
                 parameter.HasBeenMusted = true;
                 return parameter;
             }
@@ -111,7 +111,7 @@ namespace OBeautifulCode.Validation.Recipes
                     }
                     else
                     {
-                        ThrowOnImproperUseOfFramework();
+                        ThrowImproperUseOfFramework();
                     }
                 }
             }
@@ -137,7 +137,7 @@ namespace OBeautifulCode.Validation.Recipes
         public static Parameter Each(
             [ValidatedNotNull] this Parameter parameter)
         {
-            ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
+            ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
             parameter.HasBeenEached = true;
             return parameter;
         }
@@ -152,7 +152,7 @@ namespace OBeautifulCode.Validation.Recipes
         public static Parameter And(
             [ValidatedNotNull] this Parameter parameter)
         {
-            ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);
+            ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.BeValidated);
             return parameter;
         }
 
@@ -161,7 +161,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <param name="parameterShoulds">Specifies what should or should not be true about the parameter.</param>
-        internal static void ThrowOnImproperUseOfFrameworkIfDetected(
+        internal static void ThrowImproperUseOfFrameworkIfDetected(
             [ValidatedNotNull] Parameter parameter,
             params ParameterShould[] parameterShoulds)
         {
@@ -221,14 +221,14 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                ThrowOnImproperUseOfFramework();
+                ThrowImproperUseOfFramework();
             }
         }
 
         /// <summary>
         /// Throws an exception to inform the caller that the framework is being used improperly.
         /// </summary>
-        internal static void ThrowOnImproperUseOfFramework(
+        internal static void ThrowImproperUseOfFramework(
             string message = null)
         {
             // We throw a InvalidOperationException rather than an ArgumentException so that this category of

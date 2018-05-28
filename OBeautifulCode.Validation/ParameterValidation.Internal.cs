@@ -38,7 +38,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (!ReferenceEquals(value, null))
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeNullExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeNullExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -54,7 +54,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (ReferenceEquals(value, null))
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeNullExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeNullExceptionMessageSuffix);
                 if (isElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
@@ -78,7 +78,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(value, null) || ((bool)value != true);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeTrueExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeTrueExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -95,7 +95,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldNotThrow = ReferenceEquals(value, null) || ((bool)value == false);
             if (!shouldNotThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeTrueExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeTrueExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -112,7 +112,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(value, null) || (bool)value;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeFalseExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeFalseExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -129,7 +129,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldNotThrow = ReferenceEquals(value, null) || (bool)value;
             if (!shouldNotThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeFalseExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeFalseExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -148,7 +148,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = string.IsNullOrWhiteSpace((string)value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeNullNorWhiteSpaceExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeNullNorWhiteSpaceExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -165,7 +165,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(value, null) || ((Guid)value != Guid.Empty);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyGuidExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyGuidExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -184,7 +184,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyStringExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyStringExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -213,7 +213,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyEnumerableExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeEmptyEnumerableExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -230,7 +230,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = (!ReferenceEquals(value, null)) && ((Guid)value == Guid.Empty);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyGuidExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyGuidExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -249,7 +249,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyStringExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyStringExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -278,7 +278,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyEnumerableExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEmptyEnumerableExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -309,7 +309,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, ContainSomeNullsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, ContainSomeNullsExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -340,7 +340,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotContainAnyNullsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotContainAnyNullsExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -358,7 +358,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = !EqualUsingDefaultEqualityComparer(valueType, value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeDefaultExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeDefaultExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -376,7 +376,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = EqualUsingDefaultEqualityComparer(valueType, value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeDefaultExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeDefaultExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -393,7 +393,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeLessThanExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeLessThanExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -418,7 +418,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeLessThanExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeLessThanExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -443,7 +443,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeGreaterThanExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeGreaterThanExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -468,7 +468,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeGreaterThanExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeGreaterThanExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -493,7 +493,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeLessThanOrEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeLessThanOrEqualToExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -518,7 +518,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeLessThanOrEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeLessThanOrEqualToExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -543,7 +543,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeGreaterThanOrEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeGreaterThanOrEqualToExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -568,7 +568,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeGreaterThanOrEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeGreaterThanOrEqualToExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -593,7 +593,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = !EqualUsingDefaultEqualityComparer(valueType, value, validationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeEqualToExceptionMessageSuffix);
                 if (isElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
@@ -617,7 +617,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = EqualUsingDefaultEqualityComparer(valueType, value, validationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEqualToExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeEqualToExceptionMessageSuffix);
                 if (isElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
@@ -645,7 +645,7 @@ namespace OBeautifulCode.Validation.Recipes
             
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, BeInRangeExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, BeInRangeExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -674,7 +674,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotBeInRangeExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotBeInRangeExceptionMessageSuffix);
 
                 if (isElementInEnumerable)
                 {
@@ -709,7 +709,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             }
 
-            var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, ContainExceptionMessageSuffix);
+            var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, ContainExceptionMessageSuffix);
             throw new ArgumentException(exceptionMessage);
         }
 
@@ -731,7 +731,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
                 {
-                    var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotContainExceptionMessageSuffix);
+                    var exceptionMessage = BuildArgumentExceptionMessage(parameterName, because, isElementInEnumerable, NotContainExceptionMessageSuffix);
                     throw new ArgumentException(exceptionMessage);
                 }
             }            
