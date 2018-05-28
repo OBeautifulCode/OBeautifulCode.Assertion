@@ -161,7 +161,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
+                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
@@ -177,7 +177,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable", "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
+                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, nameof(IEnumerable), EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName);
             }
         }
 
@@ -216,7 +216,7 @@ namespace OBeautifulCode.Validation.Recipes
                         // note that, for completeness, we should recurse through all interface implementations
                         // and check whether any of those are IComparable<>
                         // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                        ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IComparable", "IComparable<T>");
+                        ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName);
                     }
                 }
             }

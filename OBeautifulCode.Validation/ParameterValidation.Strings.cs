@@ -23,6 +23,16 @@ namespace OBeautifulCode.Validation.Recipes
         static partial class ParameterValidation
     {
 #pragma warning disable 1591
+        public const string AnyReferenceTypeName = "Any Reference Type";
+
+        public const string EnumerableOfAnyReferenceTypeName = "IEnumerable<Any Reference Type>";
+
+        public const string NullableGenericTypeName = "Nullable<T>";
+
+        public const string EnumerableOfNullableGenericTypeName = "IEnumerable<Nullable<T>>";
+
+        public const string ComparableGenericTypeName = "IComparable<T>";
+
         public const string BeNullExceptionMessageSuffix = "is not null";
 
         public const string NotBeNullExceptionMessageSuffix = "is null";
