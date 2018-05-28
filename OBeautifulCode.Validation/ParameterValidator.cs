@@ -13,9 +13,6 @@ namespace OBeautifulCode.Validation.Recipes
     using System.CodeDom;
     using System.CodeDom.Compiler;
     using System.Collections;
-    using System.Linq;
-
-    using static System.FormattableString;
 
     /// <summary>
     /// Extension methods.
