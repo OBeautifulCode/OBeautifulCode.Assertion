@@ -638,12 +638,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            // the public BeInRange() is generic and guarantees that minimum and maximum are of the same type
-            var invalidRange = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
-            if (invalidRange)
-            {
-                ParameterValidator.ThrowOnImproperUseOfFramework(Invariant($"The specified range is invalid because '{validationParameters[0].Name}' is less than '{validationParameters[1].Name}'."));
-            }
+            ThrowIfMalformedRange(validationParameters);
 
             var shouldThrow = (CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) == CompareOutcome.Value1LessThanValue2) ||
                               (CompareUsingDefaultComparer(valueType, value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2);
@@ -672,12 +667,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            // the public BeInRange() is generic and guarantees that minimum and maximum are of the same type
-            var invalidRange = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
-            if (invalidRange)
-            {
-                ParameterValidator.ThrowOnImproperUseOfFramework(Invariant($"The specified range is invalid because '{validationParameters[0].Name}' is less than '{validationParameters[1].Name}'."));
-            }
+            ThrowIfMalformedRange(validationParameters);
 
             var shouldThrow = (CompareUsingDefaultComparer(valueType, value, validationParameters[0].Value) != CompareOutcome.Value1LessThanValue2) &&
                               (CompareUsingDefaultComparer(valueType, value, validationParameters[1].Value) != CompareOutcome.Value1GreaterThanValue2);

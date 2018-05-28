@@ -351,6 +351,21 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        private static void ThrowIfMalformedRange(
+            ValidationParameter[] validationParameters)
+        {
+            // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
+            var rangeIsMalformed =
+                CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value,
+                    validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            if (rangeIsMalformed)
+            {
+                var malformedRangeExceptionMessage = string.Format(MalformedRangeExceptionMessage, validationParameters[0].Name,
+                    validationParameters[1].Name);
+                ParameterValidator.ThrowOnImproperUseOfFramework(malformedRangeExceptionMessage);
+            }
+        }
+
         private static string BuildExceptionMessage(
             string parameterName,
             string because,

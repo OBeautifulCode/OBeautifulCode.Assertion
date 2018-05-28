@@ -88,6 +88,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotContainExceptionMessageSuffix = "contains the specified item, using EqualityComparer<T>.Default";
 
+        public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{0}' is less than '{1}'";
+
 #pragma warning restore 1591
     }
 }
