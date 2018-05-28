@@ -722,5 +722,29 @@ namespace OBeautifulCode.Validation.Recipes
             var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, ContainExceptionMessageSuffix);
             throw new ArgumentException(exceptionMessage);
         }
+
+        private static void NotContain(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = (IEnumerable)value;
+            var searchForItem = validationParameters[0].Value;
+            var elementType = validationParameters[0].ValueType;
+            foreach (var element in valueAsEnumerable)
+            {
+                if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
+                {
+                    var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, NotContainExceptionMessageSuffix);
+                    throw new ArgumentException(exceptionMessage);
+                }
+            }            
+        }
     }
 }

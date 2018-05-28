@@ -140,7 +140,7 @@ namespace OBeautifulCode.Validation.Recipes
             },
         };
 
-        private static readonly IReadOnlyCollection<TypeValidation> ContainsTypeValidations = new[]
+        private static readonly IReadOnlyCollection<TypeValidation> ContainmentTypeValidations = new[]
         {
             new TypeValidation
             {
