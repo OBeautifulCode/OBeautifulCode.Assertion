@@ -31,8 +31,6 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private delegate void TypeValidationHandler(string validationName, bool isElementInEnumerable, Type valueType, Type[] referenceTypes, ValidationParameter[] validationParameters);
-
         private delegate void ValueValidationHandler(string validationName, object value, Type valueType, string parameterName, string because, bool isElementInEnumerable, params ValidationParameter[] validationParameters);
 
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
@@ -46,114 +44,6 @@ namespace OBeautifulCode.Validation.Recipes
         private static readonly MethodInfo CompareUsingDefaultComparerOpenGenericMethodInfo = ((Func<object, object, CompareOutcome>)CompareUsingDefaultComparer).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> CompareUsingDefaultComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
-
-        private static readonly Type EnumerableType = typeof(IEnumerable);
-
-        private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
-
-        private static readonly Type ComparableType = typeof(IComparable);
-
-        private static readonly Type UnboundGenericComparableType = typeof(IComparable<>);
-
-        private static readonly Type ObjectType = typeof(object);
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeNullableTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfTypeCannotBeNull,
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeBooleanTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeStringTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(string) },
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeGuidTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeEnumerableOfNullableTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
-            },
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
-            }
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> InequalityTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotComparable,
-            },
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-            },
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> EqualsTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
-            },
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> AlwaysThrowTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = Throw,
-            },
-        };
-
-        private static readonly IReadOnlyCollection<TypeValidation> ContainmentTypeValidations = new[]
-        {
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
-            },
-            new TypeValidation
-            {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType,
-            },
-        };
 
         private static void Validate(
             this Parameter parameter,
@@ -231,124 +121,6 @@ namespace OBeautifulCode.Validation.Recipes
             }
 
             return result;
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void Throw(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] referenceTypes,
-            ValidationParameter[] validationParameters)
-        {
-            var parameterValueTypeName = valueType.GetFriendlyTypeName();
-            throw new InvalidCastException(Invariant($"validationName: {validationName}, isElementInEnumerable: {isElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfTypeCannotBeNull(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] referenceTypes,
-            ValidationParameter[] validationParameters)
-        {
-            if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
-            {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "Any Reference Type", "Nullable<T>");
-            }
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfEnumerableTypeCannotBeNull(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] referenceTypes,
-            ValidationParameter[] validationParameters)
-        {
-            var enumerableType = GetEnumerableGenericType(valueType);
-
-            if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
-            {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IEnumerable", "IEnumerable<Any Reference Type>", "IEnumerable<Nullable<T>>");
-            }
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfNotOfType(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] validTypes,
-            ValidationParameter[] validationParameters)
-        {
-            if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
-            {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, validTypes);
-            }
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfNotComparable(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] referenceTypes,
-            ValidationParameter[] validationParameters)
-        {
-            // type is IComparable or can be assigned to IComparable
-            if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
-            {
-                // type is IComparable<T>
-                if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
-                {
-                    // type implements IComparable<T>
-                    var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType));
-                    if (comparableType == null)
-                    {
-                        // note that, for completeness, we should recurse through all interface implementations
-                        // and check whether any of those are IComparable<>
-                        // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                        ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, "IComparable", "IComparable<T>");
-                    }
-                }
-            }
-        }
-
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfAnyValidationParameterTypeDoesNotEqualValueType(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] validTypes,
-            ValidationParameter[] validationParameters)
-        {
-            foreach (var validationParameter in validationParameters)
-            {
-                if (validationParameter.ValueType != valueType)
-                {
-                    ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, valueType);
-                }
-            }
-        }
-
-        private static void ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType(
-            string validationName,
-            bool isElementInEnumerable,
-            Type valueType,
-            Type[] validTypes,
-            ValidationParameter[] validationParameters)
-        {
-            var enumerableType = GetEnumerableGenericType(valueType);
-
-            foreach (var validationParameter in validationParameters)
-            {
-                if (validationParameter.ValueType != enumerableType)
-                {
-                    ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, enumerableType);
-                }
-            }
         }
 
         private static void ThrowIfMalformedRange(
@@ -508,13 +280,6 @@ namespace OBeautifulCode.Validation.Recipes
             // However we already check for this upfront in ThrowIfNotComparable
             var result = (CompareOutcome)CompareUsingDefaultComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
             return result;
-        }
-
-        private class TypeValidation
-        {
-            public TypeValidationHandler TypeValidationHandler { get; set; }
-
-            public Type[] ReferenceTypes { get; set; }
         }
 
         private class ValueValidation

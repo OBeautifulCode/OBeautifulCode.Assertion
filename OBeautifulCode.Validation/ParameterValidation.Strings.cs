@@ -9,9 +9,6 @@
 
 namespace OBeautifulCode.Validation.Recipes
 {
-    using System;
-    using System.Collections;
-
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>

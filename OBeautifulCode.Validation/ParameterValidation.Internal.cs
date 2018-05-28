@@ -12,8 +12,6 @@ namespace OBeautifulCode.Validation.Recipes
     using System;
     using System.Collections;
 
-    using static System.FormattableString;
-
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>

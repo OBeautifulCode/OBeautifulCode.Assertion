@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ParameterShould.cs" />
     <Compile Include="ParameterValidation.Strings.cs" />
+    <Compile Include="ParameterValidation.TypeValidation.cs" />
     <Compile Include="ParameterValidation.Utility.cs" />
     <Compile Include="ParameterValidation.Internal.cs" />
     <Compile Include="ParameterValidator.cs" />
