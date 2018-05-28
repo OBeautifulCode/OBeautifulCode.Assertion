@@ -23,9 +23,6 @@ namespace OBeautifulCode.Validation.Recipes
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
 #if !OBeautifulCodeValidationRecipesProject
-    [System.Diagnostics.DebuggerStepThrough]
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Validation", "See package version number")]
     internal
 #else
     public
