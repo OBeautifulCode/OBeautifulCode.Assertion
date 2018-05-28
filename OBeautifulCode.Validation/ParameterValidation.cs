@@ -39,7 +39,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeNull,
+                ValueValidationHandler = BeNullInternal,
                 ValidationName = nameof(BeNull),
             };
 
@@ -62,7 +62,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeNull,
+                ValueValidationHandler = NotBeNullInternal,
                 ValidationName = nameof(NotBeNull),
             };
 
@@ -85,7 +85,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeTrue,
+                ValueValidationHandler = BeTrueInternal,
                 ValidationName = nameof(BeTrue),
             };
 
@@ -108,7 +108,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeTrue,
+                ValueValidationHandler = NotBeTrueInternal,
                 ValidationName = nameof(NotBeTrue),
             };
 
@@ -131,7 +131,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeFalse,
+                ValueValidationHandler = BeFalseInternal,
                 ValidationName = nameof(BeFalse),
             };
 
@@ -154,7 +154,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeFalse,
+                ValueValidationHandler = NotBeFalseInternal,
                 ValidationName = nameof(NotBeFalse),
             };
 
@@ -177,7 +177,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeNullNorWhiteSpace,
+                ValueValidationHandler = NotBeNullNorWhiteSpaceInternal,
                 ValidationName = nameof(NotBeNullNorWhiteSpace),
             };
 
@@ -200,7 +200,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeEmptyGuid,
+                ValueValidationHandler = BeEmptyGuidInternal,
                 ValidationName = nameof(BeEmptyGuid),
             };
 
@@ -223,7 +223,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeEmptyGuid,
+                ValueValidationHandler = NotBeEmptyGuidInternal,
                 ValidationName = nameof(NotBeEmptyGuid),
             };
 
@@ -246,7 +246,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeEmptyString,
+                ValueValidationHandler = BeEmptyStringInternal,
                 ValidationName = nameof(BeEmptyString),
             };
 
@@ -269,7 +269,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeEmptyString,
+                ValueValidationHandler = NotBeEmptyStringInternal,
                 ValidationName = nameof(NotBeEmptyString),
             };
 
@@ -292,7 +292,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeEmptyEnumerable,
+                ValueValidationHandler = BeEmptyEnumerableInternal,
                 ValidationName = nameof(BeEmptyEnumerable),
             };
 
@@ -315,7 +315,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeEmptyEnumerable,
+                ValueValidationHandler = NotBeEmptyEnumerableInternal,
                 ValidationName = nameof(NotBeEmptyEnumerable),
             };
 
@@ -338,7 +338,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = ContainSomeNulls,
+                ValueValidationHandler = ContainSomeNullsInternal,
                 ValidationName = nameof(ContainSomeNulls),
             };
 
@@ -361,7 +361,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotContainAnyNulls,
+                ValueValidationHandler = NotContainAnyNullsInternal,
                 ValidationName = nameof(NotContainAnyNulls),
             };
 
@@ -386,14 +386,14 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation1 = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeEmptyEnumerable,
+                ValueValidationHandler = NotBeEmptyEnumerableInternal,
                 ValidationName = validationName,
             };
 
             var valueValidation2 = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotContainAnyNulls,
+                ValueValidationHandler = NotContainAnyNullsInternal,
                 ValidationName = validationName,
             };
 
@@ -418,7 +418,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeDefault,
+                ValueValidationHandler = BeDefaultInternal,
                 ValidationName = nameof(BeDefault),
             };
 
@@ -441,7 +441,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeDefault,
+                ValueValidationHandler = NotBeDefaultInternal,
                 ValidationName = nameof(NotBeDefault),
             };
 
@@ -466,7 +466,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeLessThan,
+                ValueValidationHandler = BeLessThanInternal,
                 ValidationName = nameof(BeLessThan),
                 ValidationParameters = new[]
                 {
@@ -500,7 +500,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeLessThan,
+                ValueValidationHandler = NotBeLessThanInternal,
                 ValidationName = nameof(NotBeLessThan),
                 ValidationParameters = new[]
                 {
@@ -534,7 +534,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeGreaterThan,
+                ValueValidationHandler = BeGreaterThanInternal,
                 ValidationName = nameof(BeGreaterThan),
                 ValidationParameters = new[]
                 {
@@ -568,7 +568,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeGreaterThan,
+                ValueValidationHandler = NotBeGreaterThanInternal,
                 ValidationName = nameof(NotBeGreaterThan),
                 ValidationParameters = new[]
                 {
@@ -602,7 +602,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeLessThanOrEqualTo,
+                ValueValidationHandler = BeLessThanOrEqualToInternal,
                 ValidationName = nameof(BeLessThanOrEqualTo),
                 ValidationParameters = new[]
                 {
@@ -636,7 +636,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeLessThanOrEqualTo,
+                ValueValidationHandler = NotBeLessThanOrEqualToInternal,
                 ValidationName = nameof(NotBeLessThanOrEqualTo),
                 ValidationParameters = new[]
                 {
@@ -670,7 +670,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeGreaterThanOrEqualTo,
+                ValueValidationHandler = BeGreaterThanOrEqualToInternal,
                 ValidationName = nameof(BeGreaterThanOrEqualTo),
                 ValidationParameters = new[]
                 {
@@ -704,7 +704,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeGreaterThanOrEqualTo,
+                ValueValidationHandler = NotBeGreaterThanOrEqualToInternal,
                 ValidationName = nameof(NotBeGreaterThanOrEqualTo),
                 ValidationParameters = new[]
                 {
@@ -738,7 +738,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeEqualTo,
+                ValueValidationHandler = BeEqualToInternal,
                 ValidationName = nameof(BeEqualTo),
                 ValidationParameters = new[]
                 {
@@ -772,7 +772,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeEqualTo,
+                ValueValidationHandler = NotBeEqualToInternal,
                 ValidationName = nameof(NotBeEqualTo),
                 ValidationParameters = new[]
                 {
@@ -815,7 +815,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = BeInRange,
+                ValueValidationHandler = BeInRangeInternal,
                 ValidationName = nameof(BeInRange),
                 ValidationParameters = new[]
                 {
@@ -864,7 +864,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotBeInRange,
+                ValueValidationHandler = NotBeInRangeInternal,
                 ValidationName = nameof(NotBeInRange),
                 ValidationParameters = new[]
                 {
@@ -904,7 +904,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = Contain,
+                ValueValidationHandler = ContainInternal,
                 ValidationName = nameof(Contain),
                 ValidationParameters = new[]
                 {
@@ -938,7 +938,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueValidation = new ValueValidation
             {
                 Because = because,
-                ValueValidationHandler = NotContain,
+                ValueValidationHandler = NotContainInternal,
                 ValidationName = nameof(NotContain),
                 ValidationParameters = new[]
                 {

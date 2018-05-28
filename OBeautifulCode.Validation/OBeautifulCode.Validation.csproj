@@ -45,7 +45,7 @@
     <Compile Include="ParameterShould.cs" />
     <Compile Include="ParameterValidation.Strings.cs" />
     <Compile Include="ParameterValidation.Utility.cs" />
-    <Compile Include="ParameterValidation.Private.cs" />
+    <Compile Include="ParameterValidation.Internal.cs" />
     <Compile Include="ParameterValidator.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

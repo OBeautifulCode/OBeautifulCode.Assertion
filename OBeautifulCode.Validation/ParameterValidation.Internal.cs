@@ -27,7 +27,7 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private static void BeNull(
+        private static void BeNullInternal(
             string validationName,
             object value,
             Type valueType,
@@ -43,7 +43,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeNull(
+        private static void NotBeNullInternal(
             string validationName,
             object value,
             Type valueType,
@@ -66,7 +66,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeTrue(
+        private static void BeTrueInternal(
             string validationName,
             object value,
             Type valueType,
@@ -83,7 +83,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeTrue(
+        private static void NotBeTrueInternal(
             string validationName,
             object value,
             Type valueType,
@@ -100,7 +100,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeFalse(
+        private static void BeFalseInternal(
             string validationName,
             object value,
             Type valueType,
@@ -117,7 +117,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeFalse(
+        private static void NotBeFalseInternal(
             string validationName,
             object value,
             Type valueType,
@@ -134,7 +134,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeNullNorWhiteSpace(
+        private static void NotBeNullNorWhiteSpaceInternal(
             string validationName,
             object value,
             Type valueType,
@@ -143,7 +143,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var shouldThrow = string.IsNullOrWhiteSpace((string)value);
             if (shouldThrow)
@@ -153,7 +153,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeEmptyGuid(
+        private static void BeEmptyGuidInternal(
             string validationName,
             object value,
             Type valueType,
@@ -171,7 +171,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
-        private static void BeEmptyString(
+        private static void BeEmptyStringInternal(
             string validationName,
             object value,
             Type valueType,
@@ -190,7 +190,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
-        private static void BeEmptyEnumerable(
+        private static void BeEmptyEnumerableInternal(
             string validationName,
             object value,
             Type valueType,
@@ -199,7 +199,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = false;
@@ -218,7 +218,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeEmptyGuid(
+        private static void NotBeEmptyGuidInternal(
             string validationName,
             object value,
             Type valueType,
@@ -236,7 +236,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
-        private static void NotBeEmptyString(
+        private static void NotBeEmptyStringInternal(
             string validationName,
             object value,
             Type valueType,
@@ -255,7 +255,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
-        private static void NotBeEmptyEnumerable(
+        private static void NotBeEmptyEnumerableInternal(
             string validationName,
             object value,
             Type valueType,
@@ -264,7 +264,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = true;
@@ -283,7 +283,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void ContainSomeNulls(
+        private static void ContainSomeNullsInternal(
             string validationName,
             object value,
             Type valueType,
@@ -292,7 +292,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = true;
@@ -314,7 +314,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotContainAnyNulls(
+        private static void NotContainAnyNullsInternal(
             string validationName,
             object value,
             Type valueType,
@@ -323,7 +323,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = value as IEnumerable;
             var shouldThrow = false;
@@ -345,7 +345,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeDefault(
+        private static void BeDefaultInternal(
             string validationName,
             object value,
             Type valueType,
@@ -363,7 +363,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeDefault(
+        private static void NotBeDefaultInternal(
             string validationName,
             object value,
             Type valueType,
@@ -381,7 +381,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeLessThan(
+        private static void BeLessThanInternal(
             string validationName,
             object value,
             Type valueType,
@@ -406,7 +406,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeLessThan(
+        private static void NotBeLessThanInternal(
             string validationName,
             object value,
             Type valueType,
@@ -431,7 +431,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeGreaterThan(
+        private static void BeGreaterThanInternal(
             string validationName,
             object value,
             Type valueType,
@@ -456,7 +456,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeGreaterThan(
+        private static void NotBeGreaterThanInternal(
             string validationName,
             object value,
             Type valueType,
@@ -481,7 +481,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeLessThanOrEqualTo(
+        private static void BeLessThanOrEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -506,7 +506,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeLessThanOrEqualTo(
+        private static void NotBeLessThanOrEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -531,7 +531,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeGreaterThanOrEqualTo(
+        private static void BeGreaterThanOrEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -556,7 +556,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeGreaterThanOrEqualTo(
+        private static void NotBeGreaterThanOrEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -581,7 +581,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeEqualTo(
+        private static void BeEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -605,7 +605,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeEqualTo(
+        private static void NotBeEqualToInternal(
             string validationName,
             object value,
             Type valueType,
@@ -629,7 +629,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void BeInRange(
+        private static void BeInRangeInternal(
             string validationName,
             object value,
             Type valueType,
@@ -663,7 +663,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void NotBeInRange(
+        private static void NotBeInRangeInternal(
             string validationName,
             object value,
             Type valueType,
@@ -697,7 +697,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void Contain(
+        private static void ContainInternal(
             string validationName,
             object value,
             Type valueType,
@@ -706,7 +706,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = (IEnumerable)value;
             var searchForItem = validationParameters[0].Value;
@@ -723,7 +723,7 @@ namespace OBeautifulCode.Validation.Recipes
             throw new ArgumentException(exceptionMessage);
         }
 
-        private static void NotContain(
+        private static void NotContainInternal(
             string validationName,
             object value,
             Type valueType,
@@ -732,7 +732,7 @@ namespace OBeautifulCode.Validation.Recipes
             bool isElementInEnumerable,
             params ValidationParameter[] validationParameters)
         {
-            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+            NotBeNullInternal(validationName, value, valueType, parameterName, because, isElementInEnumerable);
 
             var valueAsEnumerable = (IEnumerable)value;
             var searchForItem = validationParameters[0].Value;
