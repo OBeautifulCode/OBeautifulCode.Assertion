@@ -9,6 +9,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     using FakeItEasy;
@@ -145,6 +146,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_musted()
         {
             // Arrange
@@ -162,6 +164,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_eached()
         {
             // Arrange
@@ -196,6 +199,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
         public static void Must___Should_return_same_Parameter_but_with_HasBeenMusted_set_to_true___When_value_is_a_Parameter_with_ValueType_that_is_named_and_not_musted_and_not_eached_and_not_validated()
         {
             // Arrange
@@ -226,6 +232,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         public static void Must___Should_return_Parameter_with_Value_and_ValueType_and_Name_pulled_out_of_anonymous_object_property_and_HasBeenMusted_set_to_true___When_value_is_an_anonymous_object_with_one_property()
         {
             // Arrange
@@ -264,6 +271,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = "This is cased correctly.")]
         public static void Must___Should_return_Parameter_with_null_Value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_null()
         {
             // Arrange
@@ -305,6 +315,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = "This is cased correctly.")]
         public static void Must___Should_return_Parameter_with_Value_set_to_value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_not_an_anonymous_object_and_not_null()
         {
             // Arrange
@@ -390,6 +402,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         public static void Each___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
             // Arrange
@@ -407,6 +420,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
         public static void Each___Should_throw_InvalidOperationException___When_parameter_has_been_eached()
         {
             // Arrange
@@ -424,6 +438,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached()
         {
             // Arrange
@@ -475,6 +492,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
             // Arrange
@@ -509,6 +527,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         public static void And___Should_return_same_parameter___When_parameter_is_musted_and_validated()
         {
             // Arrange

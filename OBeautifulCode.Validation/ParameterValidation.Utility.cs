@@ -13,6 +13,7 @@ namespace OBeautifulCode.Validation.Recipes
     using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Reflection;
 
@@ -130,8 +131,7 @@ namespace OBeautifulCode.Validation.Recipes
                     validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
-                var malformedRangeExceptionMessage = string.Format(MalformedRangeExceptionMessage, validationParameters[0].Name,
-                    validationParameters[1].Name);
+                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name);
                 ParameterValidator.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
         }
