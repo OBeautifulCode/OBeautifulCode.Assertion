@@ -140,6 +140,19 @@ namespace OBeautifulCode.Validation.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> ContainsTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { typeof(IEnumerable) },
+            },
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType,
+            },
+        };
+
         private static void Validate(
             this Parameter parameter,
             IReadOnlyCollection<TypeValidation> typeValidations,
@@ -321,6 +334,24 @@ namespace OBeautifulCode.Validation.Recipes
                 if (validationParameter.ValueType != valueType)
                 {
                     ParameterValidator.ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, isElementInEnumerable, valueType);
+                }
+            }
+        }
+
+        private static void ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType(
+            string validationName,
+            bool isElementInEnumerable,
+            Type valueType,
+            Type[] validTypes,
+            ValidationParameter[] validationParameters)
+        {
+            var enumerableType = GetEnumerableGenericType(valueType);
+
+            foreach (var validationParameter in validationParameters)
+            {
+                if (validationParameter.ValueType != enumerableType)
+                {
+                    ParameterValidator.ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, isElementInEnumerable, enumerableType);
                 }
             }
         }

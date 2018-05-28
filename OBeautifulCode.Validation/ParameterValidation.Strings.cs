@@ -84,6 +84,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range, using Comparer<T>.Default";
 
+        public const string ContainExceptionMessageSuffix = "does not contain the specified item, using EqualityComparer<T>.Default";
+
 #pragma warning restore 1591
     }
 }

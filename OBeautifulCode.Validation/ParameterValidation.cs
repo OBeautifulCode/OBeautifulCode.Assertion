@@ -888,6 +888,40 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IEnumerable parameter contains a specified value.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="item">The item to search for.</param>
+        /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter Contain<T>(
+            [ValidatedNotNull] this Parameter parameter,
+            T item,
+            string because = null)
+        {
+            var valueValidation = new ValueValidation
+            {
+                Because = because,
+                ValueValidationHandler = Contain,
+                ValidationName = nameof(Contain),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(item),
+                        Value = item,
+                        ValueType = typeof(T),
+                    },                    
+                }
+            };
+
+            parameter.Validate(ContainsTypeValidations, valueValidation);
+            return parameter;
+        }
+
+        /// <summary>
         /// Always throws.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>

@@ -696,5 +696,31 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             }
         }
+
+        private static void Contain(
+            string validationName,
+            object value,
+            Type valueType,
+            string parameterName,
+            string because,
+            bool isElementInEnumerable,
+            params ValidationParameter[] validationParameters)
+        {
+            NotBeNull(validationName, value, valueType, parameterName, because, isElementInEnumerable);
+
+            var valueAsEnumerable = (IEnumerable)value;
+            var searchForItem = validationParameters[0].Value;
+            var elementType = validationParameters[0].ValueType;
+            foreach (var element in valueAsEnumerable)
+            {
+                if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
+                {
+                    return;
+                }
+            }
+
+            var exceptionMessage = BuildExceptionMessage(parameterName, because, isElementInEnumerable, ContainExceptionMessageSuffix);
+            throw new ArgumentException(exceptionMessage);
+        }
     }
 }

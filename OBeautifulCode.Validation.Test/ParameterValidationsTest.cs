@@ -4923,6 +4923,196 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest7.Run(decimalTestValues7);
         }
 
+        [Fact]
+        public static void Contain___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation GetValidation<T>(T item)
+            {
+                return (parameter, because) => parameter.Contain(item, because);
+            }
+
+            var validationName = nameof(ParameterValidation.Contain);
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<object>()),
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<decimal>()),
+                ValidationName = validationName,
+                ValidationParameterInvalidCastExpectedTypes = "String",
+                ValidationParameterInvalidCastParameterName = "item",
+            };
+
+            var stringTestValues2 = new TestValues<IEnumerable<string>>
+            {
+                MustValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                {
+                    new List<string> { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                    new string[] { A.Dummy<string>(), A.Dummy<string>() },
+                    new List<string> { A.Dummy<string>(), null },
+                    new string[] { A.Dummy<string>(), null },
+                },
+                MustEachValidationParameterInvalidTypeValues = new IEnumerable<IEnumerable<string>>[]
+                {
+                    new IEnumerable<string>[] { },
+                    new IEnumerable<string>[] { new List<string> { null }, new string[] { A.Dummy<string>(), null } },
+                    new IEnumerable<string>[] { new List<string> { A.Dummy<string>(), null } },
+                    new IEnumerable<string>[] { new string[] { null }, new List<string> { A.Dummy<string>(), null }, new string[] { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+            };
+
+            validationTest2.Run(stringTestValues2);
+
+            var comparisonValue3 = A.Dummy<string>();
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue3),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+            };
+
+            var enumerableTestValues3 = new TestValues<IEnumerable<string>>
+            {
+                MustFailingValues = new IEnumerable<string>[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable<string>[] { new string[] { A.Dummy<string>(), null, comparisonValue3 }, null, new string[] { A.Dummy<string>(), null, comparisonValue3 } },
+                },
+            };
+
+            validationTest3.Run(enumerableTestValues3);
+
+            var comparisonValue4 = 10m;
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(comparisonValue4),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.ContainExceptionMessageSuffix,
+            };
+
+            var decimalTestValues4 = new TestValues<IEnumerable<decimal>>
+            {
+                MustPassingValues = new[]
+                {
+                    new[] { 10m },
+                    new[] { 5m, 10m, 15m },
+                },
+                MustEachPassingValues = new IEnumerable<IEnumerable<decimal>>[]
+                {
+                    new[] { new[] { 10m }, new[] { 5m, 10m, 15m } },
+                },
+                MustFailingValues = new IEnumerable<decimal>[]
+                {
+                    new decimal[] { },
+                    new[] { 5m, 9.9999999m, 10.000001m, 15m },
+                },
+                MustEachFailingValues = new IEnumerable<IEnumerable<decimal>>[]
+                {
+                    new[] { new[] { 10m }, new[] { 5m, 9.9999999m, 10.000001m, 15m }, new[] { 10m } },
+                },
+            };
+
+            validationTest4.Run(decimalTestValues4);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)
