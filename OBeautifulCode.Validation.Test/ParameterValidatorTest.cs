@@ -424,46 +424,20 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void Each___Should_throw_InvalidOperationException___When_parameter_Value_is_null()
+        public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags(valueMustBeNull: true).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters1 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(object)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters2 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
 
-            // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
-
-            // Assert
-            foreach (var actual in actuals)
+            var expecteds1 = parameters1.Select(_ =>
             {
-                actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
-            }
-        }
+                var result = _.Clone();
+                result.HasBeenEached = true;
+                return result;
+            }).ToList();
 
-        [Fact]
-        public static void Each___Should_throw_InvalidCastException___When_parameter_Value_is_not_an_IEnumerable()
-        {
-            // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags(valueCanBeNull: false).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
-
-            // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
-
-            // Assert
-            foreach (var actual in actuals)
-            {
-                actual.Should().BeOfType<InvalidCastException>();
-                actual.Message.Should().Be("called Each() on an object that is not one of the following types: IEnumerable");
-            }
-        }
-
-        [Fact]
-        public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached_and_Value_is_an_IEnumerable()
-        {
-            // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable), valueCanBeNull: false).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
-
-            var expecteds = parameters.Select(_ =>
+            var expecteds2 = parameters2.Select(_ =>
             {
                 var result = _.Clone();
                 result.HasBeenEached = true;
@@ -471,10 +445,12 @@ namespace OBeautifulCode.Validation.Recipes.Test
             }).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => _.Each()).ToList();
+            var actuals1 = parameters1.Select(_ => _.Each()).ToList();
+            var actuals2 = parameters2.Select(_ => _.Each()).ToList();
 
             // Assert
-            actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+            actuals1.Should().Equal(expecteds1, (expected, actual) => ParameterComparer.Equals(expected, actual));
+            actuals2.Should().Equal(expecteds2, (expected, actual) => ParameterComparer.Equals(expected, actual));
         }
 
         [Fact]

@@ -5404,25 +5404,35 @@ namespace OBeautifulCode.Validation.Recipes.Test
             string because)
         {
             // Arrange
-            // calling Each() on IEnumerable that is null OR a value that's not IEnumerable
-            IEnumerable<string> nullEnumerable = null;
-            var parameter1 = nullEnumerable.Named(parameterName).Must();
-            parameter1.HasBeenEached = true;
-
+            // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
             object notEnumerable = new object();
-            var parameter2 = notEnumerable.Named(parameterName).Must();
+            var parameter1 = notEnumerable.Named(parameterName).Must();
+            parameter1.HasBeenEached = true;
+            var expectedExceptionMessage1 = Invariant($"called Each() on an object that is not one of the following types: IEnumerable");
+
+            IEnumerable<string> nullEnumerable = null;
+            var parameter2 = nullEnumerable.Named(parameterName).Must();
             parameter2.HasBeenEached = true;
+            string expectedExceptionMessage2;
+            if (parameterName == null)
+            {
+                expectedExceptionMessage2 = "parameter " + ParameterValidation.NotBeNullExceptionMessageSuffix;
+            }
+            else
+            {
+                expectedExceptionMessage2 = "parameter '" + parameterName + "' " + ParameterValidation.NotBeNullExceptionMessageSuffix;
+            }
 
             // Act
             var actual1 = Record.Exception(() => validationTest.Validation(parameter1, because));
             var actual2 = Record.Exception(() => validationTest.Validation(parameter2, because));
 
             // Assert
-            actual1.Should().BeOfType<InvalidOperationException>();
-            actual1.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            actual1.Should().BeOfType<InvalidCastException>();
+            actual1.Message.Should().Be(expectedExceptionMessage1);
 
-            actual2.Should().BeOfType<InvalidOperationException>();
-            actual2.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            actual2.Should().BeOfType<ArgumentNullException>();
+            actual2.Message.Should().Be(expectedExceptionMessage2);
         }
 
         private static void RunInvalidValidationParameterTypeScenarios<T>(

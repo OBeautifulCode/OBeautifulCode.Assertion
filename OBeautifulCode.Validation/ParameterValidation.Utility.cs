@@ -47,6 +47,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> CompareUsingDefaultComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
+        private static readonly Type EnumerableType = typeof(IEnumerable);
+
         private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
 
         private static readonly Type ComparableType = typeof(IComparable);
@@ -162,27 +164,20 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (parameter.HasBeenEached)
             {
-                if (parameter.Value is IEnumerable valueAsEnumerable)
+                // check that the parameter is an IEnumerable and not null
+                ThrowIfNotOfType(nameof(ParameterValidator.Each), false, parameter.ValueType, new[] { EnumerableType }, null);
+                NotBeNull(nameof(ParameterValidator.Each), parameter.Value, parameter.ValueType, parameter.Name, because: null, isElementInEnumerable: false);
+
+                var valueAsEnumerable = (IEnumerable)parameter.Value;
+                var enumerableType = GetEnumerableGenericType(parameter.ValueType);
+                foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
                 {
-                    var enumerableType = GetEnumerableGenericType(parameter.ValueType);
-
-                    foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
-                    {
-                        typeValidation.TypeValidationHandler(valueValidation.ValidationName, true, enumerableType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
-                    }
-
-                    foreach (var element in valueAsEnumerable)
-                    {
-                        valueValidation.ValueValidationHandler(valueValidation.ValidationName, element, enumerableType, parameter.Name, valueValidation.Because, isElementInEnumerable: true, validationParameters: valueValidation.ValidationParameters);
-                    }
+                    typeValidation.TypeValidationHandler(valueValidation.ValidationName, true, enumerableType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
                 }
-                else
+
+                foreach (var element in valueAsEnumerable)
                 {
-                    // Each() calls:
-                    // - ThrowOnImproperUseOfFramework when the parameter value is null
-                    // - ThrowOnUnexpectedType when the parameter value is not an Enumerable
-                    // so if we get here, the caller is trying to hack the framework
-                    ParameterValidator.ThrowOnImproperUseOfFramework();
+                    valueValidation.ValueValidationHandler(valueValidation.ValidationName, element, enumerableType, parameter.Name, valueValidation.Because, isElementInEnumerable: true, validationParameters: valueValidation.ValidationParameters);
                 }
             }
             else

@@ -138,17 +138,6 @@ namespace OBeautifulCode.Validation.Recipes
             [ValidatedNotNull] this Parameter parameter)
         {
             ThrowOnImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted, ParameterShould.NotBeEached);
-
-            if (ReferenceEquals(parameter.Value, null))
-            {
-                ThrowOnImproperUseOfFramework();
-            }
-
-            if (!(parameter.Value is IEnumerable))
-            {
-                ThrowOnParameterUnexpectedTypes(nameof(Each), isElementInEnumerable: false, expectedTypes: nameof(IEnumerable));
-            }
-
             parameter.HasBeenEached = true;
             return parameter;
         }
