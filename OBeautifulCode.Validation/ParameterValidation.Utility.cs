@@ -31,8 +31,6 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private delegate void ValueValidationHandler(string validationName, object value, Type valueType, string parameterName, string because, bool isElementInEnumerable, params ValidationParameter[] validationParameters);
-
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
@@ -155,16 +153,16 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
-        private static void ThrowOnParameterUnexpectedTypes(
+        private static void ThrowOnParameterUnexpectedType(
             string validationName,
             bool isElementInEnumerable,
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, expectedTypeStrings);
+            ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, expectedTypeStrings);
         }
 
-        private static void ThrowOnParameterUnexpectedTypes(
+        private static void ThrowOnParameterUnexpectedType(
             string validationName,
             bool isElementInEnumerable,
             params string[] expectedTypes)
@@ -174,16 +172,16 @@ namespace OBeautifulCode.Validation.Recipes
             throw new InvalidCastException(exceptionMessage);
         }
 
-        private static void ThrowOnValidationParameterUnexpectedTypes(
+        private static void ThrowOnValidationParameterUnexpectedType(
             string validationName,
             string validationParameterName,
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameterName, expectedTypeStrings);
+            ThrowOnValidationParameterUnexpectedType(validationName, validationParameterName, expectedTypeStrings);
         }
 
-        private static void ThrowOnValidationParameterUnexpectedTypes(
+        private static void ThrowOnValidationParameterUnexpectedType(
             string validationName,
             string validationParameterName,
             params string[] expectedTypes)

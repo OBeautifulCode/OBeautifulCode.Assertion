@@ -161,7 +161,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, AnyReferenceTypeName, NullableGenericTypeName);
+                ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
@@ -177,7 +177,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, nameof(IEnumerable), EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName);
+                ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IEnumerable), EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName);
             }
         }
 
@@ -191,7 +191,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
             {
-                ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, validTypes);
+                ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, validTypes);
             }
         }
 
@@ -216,7 +216,7 @@ namespace OBeautifulCode.Validation.Recipes
                         // note that, for completeness, we should recurse through all interface implementations
                         // and check whether any of those are IComparable<>
                         // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                        ThrowOnParameterUnexpectedTypes(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName);
+                        ThrowOnParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName);
                     }
                 }
             }
@@ -234,7 +234,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (validationParameter.ValueType != valueType)
                 {
-                    ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, valueType);
+                    ThrowOnValidationParameterUnexpectedType(validationName, validationParameter.Name, valueType);
                 }
             }
         }
@@ -252,7 +252,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (validationParameter.ValueType != enumerableType)
                 {
-                    ThrowOnValidationParameterUnexpectedTypes(validationName, validationParameter.Name, enumerableType);
+                    ThrowOnValidationParameterUnexpectedType(validationName, validationParameter.Name, enumerableType);
                 }
             }
         }
