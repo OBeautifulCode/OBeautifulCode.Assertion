@@ -8,19 +8,10 @@ namespace OBeautifulCode.Validation.Test.Benchmarking
 {
     public enum OutcomeKind
     {
-        /// <summary>
-        /// Unknown (default)
-        /// </summary>
         Unknown,
 
-        /// <summary>
-        /// Passing outcome.
-        /// </summary>
         Passing,
 
-        /// <summary>
-        /// Failing outcome.
-        /// </summary>
         Failing,
     }
 }
