@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Validation.Test.Benchmarking
+namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
 {
     public enum BenchmarkSignatureKind
     {

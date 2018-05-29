@@ -1,0 +1,20 @@
+﻿<package>
+  <metadata>
+    <id>OBeautifulCode.Validation.Recipes.ParameterValidator</id>
+    <description>Validates parameters.</description>
+    <tags>parameter parameters argument arguments validation</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Validation/master/OBeautifulCode.Validation.ParameterValidator/nuget-icon.png</iconUrl>
+  </metadata>
+  <files>
+    <file src="Parameter.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\Parameter.cs" />
+    <file src="ParameterShould.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterShould.cs" />
+    <file src="ParameterValidation.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidation.cs" />
+    <file src="ParameterValidation.Internal.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidation.Internal.cs" />
+    <file src="ParameterValidation.Strings.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidation.Strings.cs" />
+    <file src="ParameterValidation.TypeValidation.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidation.TypeValidation.cs" />
+    <file src="ParameterValidation.Utility.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidation.Utility.cs" />
+    <file src="ParameterValidator.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ParameterValidator.cs" />
+    <file src="Range.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\Range.cs" />
+    <file src="ValidatedNotNullAttribute.cs" target="content\net462\.recipes\OBeautifulCode.Validation.ParameterValidator\ValidatedNotNullAttribute.cs" />
+  </files>
+</package>

@@ -1,19 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ValidationKind.cs" company="OBeautifulCode">
+// <copyright file="OutcomeKind.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Validation.Test.Benchmarking
+namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
 {
-    public enum ValidationKind
+    public enum OutcomeKind
     {
-        NotBeNull,
+        Unknown,
 
-        BeTrue,
+        Passing,
 
-        NotBeNullOrWhiteSpace,
-
-        NotBeNullNorEmptyNorContainAnyNulls,
+        Failing,
     }
 }

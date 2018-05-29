@@ -8,8 +8,8 @@
     <ProjectGuid>{7A6A386D-906D-406B-9AC3-0E59E7F62340}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBeautifulCode.Validation.Test</RootNamespace>
-    <AssemblyName>OBeautifulCode.Validation.Test</AssemblyName>
+    <RootNamespace>OBeautifulCode.Validation.ParameterValidator.Test</RootNamespace>
+    <AssemblyName>OBeautifulCode.Validation.ParameterValidator.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -98,9 +98,9 @@
     <Compile Include="ParameterValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OBeautifulCode.Validation\OBeautifulCode.Validation.csproj">
+    <ProjectReference Include="..\OBeautifulCode.Validation.ParameterValidator\OBeautifulCode.Validation.ParameterValidator.csproj">
       <Project>{deaa68ef-ad9d-4498-a738-2d9e20474782}</Project>
-      <Name>OBeautifulCode.Validation</Name>
+      <Name>OBeautifulCode.Validation.ParameterValidator</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -7,8 +7,8 @@
     <ProjectGuid>{DEAA68EF-AD9D-4498-A738-2D9E20474782}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBeautifulCode.Validation</RootNamespace>
-    <AssemblyName>OBeautifulCode.Validation</AssemblyName>
+    <RootNamespace>OBeautifulCode.Validation.ParameterValidator</RootNamespace>
+    <AssemblyName>OBeautifulCode.Validation.ParameterValidator</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\OBeautifulCode.Validation.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\OBeautifulCode.Validation.ParameterValidator.xml</DocumentationFile>
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\OBeautifulCode.Validation.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\OBeautifulCode.Validation.ParameterValidator.xml</DocumentationFile>
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
@@ -61,7 +61,7 @@
     <None Include="nuget-icon.png" />
     <None Include="packages.config" />
     <None Include="ParameterValidator.recipe-nuspec" />
-    <None Include="OBeautifulCode.Validation.override-nuspec" />
+    <None Include="OBeautifulCode.Validation.ParameterValidator.override-nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.0-beta007\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
