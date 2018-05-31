@@ -7,6 +7,8 @@
 namespace OBeautifulCode.Validation.Recipes.Test
 {
     using System;
+    using System.CodeDom;
+    using System.CodeDom.Compiler;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -6699,8 +6701,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var invalidTypeValue in testValues.MustParameterInvalidTypeValues)
             {
                 // Arrange
+                var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().GetFriendlyTypeName();
                 var parameter = invalidTypeValue.Named(parameterName).Must();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedTypes}.");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -6720,8 +6723,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var invalidTypeValue in testValues.MustEachParameterInvalidTypeValues)
             {
                 // Arrange
+                var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().GetFriendlyTypeName();
                 var parameter = invalidTypeValue.Named(parameterName).Must().Each();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -6742,7 +6746,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             object notEnumerable = new object();
             var parameter1 = notEnumerable.Named(parameterName).Must();
             parameter1.HasBeenEached = true;
-            var expectedExceptionMessage1 = Invariant($"Called Each() on an object that is not one of the following types: IEnumerable.");
+            var expectedExceptionMessage1 = Invariant($"Called Each() on a parameter of type Object, which is not one of the following expected type(s): IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
             var parameter2 = nullEnumerable.Named(parameterName).Must();
@@ -6791,6 +6795,54 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 actual.Should().BeOfType<InvalidCastException>();
                 actual.Message.Should().Be(expectedMessage);
             }
+        }
+
+        private static string GetFriendlyTypeName(
+            this Type type)
+        {
+            // adapted from: https://stackoverflow.com/a/6402967/356790
+            var result = CodeDomProvider.CreateProvider("CSharp").GetTypeOutput(new CodeTypeReference(type.FullName?.Replace(type.Namespace + ".", string.Empty)));
+            return result;
+        }
+
+        private static Type GetEnumerableGenericType(
+            this Type enumerableType)
+        {
+            // adapted from: https://stackoverflow.com/a/17713382/356790
+            Type result;
+            if (enumerableType.IsArray)
+            {
+                // type is array, shortcut
+                result = enumerableType.GetElementType();
+            }
+            else if (enumerableType.IsGenericType && (enumerableType.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            {
+                // type is IEnumerable<T>
+                result = enumerableType.GetGenericArguments()[0];
+            }
+            else
+            {
+                // type implements IEnumerable<T> or is a subclass (sub-sub-class, ...)
+                // of a type that implements IEnumerable<T>
+                // note that we are grabing the first implementation.  it is possible, but
+                // highly unlikely, for a type to have multiple implementations of IEnumerable<T>
+                result = enumerableType
+                    .GetInterfaces()
+                    .Where(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+                    .Select(_ => _.GenericTypeArguments[0])
+                    .FirstOrDefault();
+
+                if (result == null)
+                {
+                    // here we just assume it's an IEnumerable and return typeof(object),
+                    // however, for completeness, we should recurse through all interface implementations
+                    // and check whether those are IEnumerable<T>.
+                    // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
+                    result = typeof(object);
+                }
+            }
+
+            return result;
         }
 
         private class ValidationTest

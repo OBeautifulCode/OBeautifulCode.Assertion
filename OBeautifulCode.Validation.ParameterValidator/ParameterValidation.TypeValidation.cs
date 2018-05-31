@@ -159,7 +159,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ThrowParameterUnexpectedType(validationName, isElementInEnumerable, AnyReferenceTypeName, NullableGenericTypeName);
+                ThrowParameterUnexpectedType(validationName, valueType, isElementInEnumerable, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
@@ -175,7 +175,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
-                ThrowParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IEnumerable), EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName);
+                ThrowParameterUnexpectedType(validationName, valueType, isElementInEnumerable, nameof(IEnumerable), EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName);
             }
         }
 
@@ -189,7 +189,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
             {
-                ThrowParameterUnexpectedType(validationName, isElementInEnumerable, validTypes);
+                ThrowParameterUnexpectedType(validationName, valueType, isElementInEnumerable, validTypes);
             }
         }
 
@@ -217,7 +217,7 @@ namespace OBeautifulCode.Validation.Recipes
                             // note that, for completeness, we should recurse through all interface implementations
                             // and check whether any of those are IComparable<>
                             // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                            ThrowParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName, NullableGenericTypeName);
+                            ThrowParameterUnexpectedType(validationName, valueType, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName, NullableGenericTypeName);
                         }
                     }
                 }
@@ -261,20 +261,23 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static void ThrowParameterUnexpectedType(
             string validationName,
+            Type valueType,
             bool isElementInEnumerable,
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowParameterUnexpectedType(validationName, isElementInEnumerable, expectedTypeStrings);
+            ThrowParameterUnexpectedType(validationName, valueType, isElementInEnumerable, expectedTypeStrings);
         }
 
         private static void ThrowParameterUnexpectedType(
             string validationName,
+            Type valueType,
             bool isElementInEnumerable,
             params string[] expectedTypes)
         {
             var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"Called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}.");
+            var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.GetFriendlyTypeName()}>") : valueType.GetFriendlyTypeName();
+            var exceptionMessage = Invariant($"Called {validationName}() on a parameter of type {valueTypeMessage}, which is not one of the following expected type(s): {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
 
