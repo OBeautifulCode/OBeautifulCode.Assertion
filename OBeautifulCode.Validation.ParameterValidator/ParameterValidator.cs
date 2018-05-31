@@ -30,7 +30,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Exception message that's thrown when there is an improper usage of the framework.
         /// </summary>
-        public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly.  See: https://github.com/OBeautifulCode/OBeautifulCode.Validation for documentation on proper usage.";
+        public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly; see: https://github.com/OBeautifulCode/OBeautifulCode.Validation for documentation on proper usage.";
 
         private static readonly CodeDomProvider CodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 
