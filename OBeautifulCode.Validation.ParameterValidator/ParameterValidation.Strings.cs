@@ -21,6 +21,9 @@ namespace OBeautifulCode.Validation.Recipes
     {
 #pragma warning disable 1591
 #pragma warning disable SA1600
+
+        public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly; see: https://github.com/OBeautifulCode/OBeautifulCode.Validation for documentation on proper usage.";
+
         public const string AnyReferenceTypeName = "Any Reference Type";
 
         public const string EnumerableOfAnyReferenceTypeName = "IEnumerable<Any Reference Type>";

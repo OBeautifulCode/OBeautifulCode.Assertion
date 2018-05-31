@@ -38,7 +38,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -124,7 +124,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -141,7 +141,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -159,7 +159,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -177,7 +177,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -194,7 +194,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -228,7 +228,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             // Assert
             actual.Should().BeOfType<InvalidOperationException>();
-            actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
         }
 
         [Fact]
@@ -397,7 +397,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -415,7 +415,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -433,7 +433,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -487,7 +487,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -505,7 +505,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -522,7 +522,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<InvalidOperationException>();
-                actual.Message.Should().Be(ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
