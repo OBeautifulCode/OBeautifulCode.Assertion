@@ -286,16 +286,8 @@ namespace OBeautifulCode.Validation.Recipes
             string validationParameterName,
             params Type[] expectedTypes)
         {
-            var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            ThrowValidationParameterUnexpectedType(validationName, validationParameterName, expectedTypeStrings);
-        }
-
-        private static void ThrowValidationParameterUnexpectedType(
-            string validationName,
-            string validationParameterName,
-            params string[] expectedTypes)
-        {
-            var expectedTypesMessage = expectedTypes.Aggregate((running, item) => running + ", " + item);
+            var expectedTypesStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
+            var expectedTypesMessage = expectedTypesStrings.Aggregate((running, item) => running + ", " + item);
             var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
