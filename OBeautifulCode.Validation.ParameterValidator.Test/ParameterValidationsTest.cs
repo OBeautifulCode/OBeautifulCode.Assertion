@@ -75,6 +75,35 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void Validations_with_validation_prameters___Should_throw_InvalidCastException_with_expected_Exception_message___When_validation_parameter_is_not_of_the_expected_type()
+        {
+            // Arrange
+            var testParameter1 = A.Dummy<string>();
+            var expected1 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type Decimal, which is not one of the following expected type(s): String.";
+
+            var testParameter2 = Some.ReadOnlyDummies<string>();
+            var expected2 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type Decimal, which is not one of the following expected type(s): String.";
+
+            var testParameter3 = Some.ReadOnlyDummies<string>();
+            var expected3 = "Called Contain(itemToSearchFor:) where 'itemToSearchFor' is of type Decimal, which is not one of the following expected type(s): String.";
+
+            var testParameter4 = new[] { Some.ReadOnlyDummies<string>(), Some.ReadOnlyDummies<string>() };
+            var expected4 = "Called Contain(itemToSearchFor:) where 'itemToSearchFor' is of type Decimal, which is not one of the following expected type(s): String.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeLessThan(A.Dummy<decimal>()));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeLessThan(A.Dummy<decimal>()));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().Contain(A.Dummy<decimal>()));
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().Contain(A.Dummy<decimal>()));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
+        [Fact]
         public static void BeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -6786,14 +6815,17 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var parameter in parameters)
             {
                 // Arrange
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is not one of the following types: {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
+                testValues.GetType().GetGenericArguments().First().GetFriendlyTypeName();
+                var expectedStartOfMessage = Invariant($"Called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is of type");
+                var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
-                actual.Message.Should().Be(expectedMessage);
+                actual.Message.Should().StartWith(expectedStartOfMessage);
+                actual.Message.Should().EndWith(expectedEndOfMessage);
             }
         }
 

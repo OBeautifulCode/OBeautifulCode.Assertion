@@ -236,7 +236,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (validationParameter.ValueType != valueType)
                 {
-                    ThrowValidationParameterUnexpectedType(validationName, validationParameter.Name, valueType);
+                    ThrowValidationParameterUnexpectedType(validationName, validationParameter.ValueType, validationParameter.Name, valueType);
                 }
             }
         }
@@ -254,7 +254,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (validationParameter.ValueType != enumerableType)
                 {
-                    ThrowValidationParameterUnexpectedType(validationName, validationParameter.Name, enumerableType);
+                    ThrowValidationParameterUnexpectedType(validationName, validationParameter.ValueType, validationParameter.Name, enumerableType);
                 }
             }
         }
@@ -283,12 +283,13 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static void ThrowValidationParameterUnexpectedType(
             string validationName,
+            Type validationParameterType,
             string validationParameterName,
             params Type[] expectedTypes)
         {
             var expectedTypesStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
             var expectedTypesMessage = expectedTypesStrings.Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}.");
+            var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is of type {validationParameterType.GetFriendlyTypeName()}, which is not one of the following expected type(s): {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
 
