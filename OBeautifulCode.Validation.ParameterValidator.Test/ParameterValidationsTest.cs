@@ -3078,14 +3078,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void BeLessThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeLessThan(otherValue, because);
+                return (parameter, because) => parameter.BeLessThan(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThan);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3147,7 +3147,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3173,7 +3173,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -3233,14 +3233,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void NotBeLessThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeLessThan(otherValue, because);
+                return (parameter, because) => parameter.NotBeLessThan(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThan);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3302,7 +3302,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3328,7 +3328,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -3388,14 +3388,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void BeGreaterThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeGreaterThan(otherValue, because);
+                return (parameter, because) => parameter.BeGreaterThan(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThan);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3457,7 +3457,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3483,7 +3483,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -3543,14 +3543,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void NotBeGreaterThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeGreaterThan(otherValue, because);
+                return (parameter, because) => parameter.NotBeGreaterThan(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThan);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3612,7 +3612,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3638,7 +3638,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -3698,14 +3698,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void BeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeLessThanOrEqualTo(otherValue, because);
+                return (parameter, because) => parameter.BeLessThanOrEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThanOrEqualTo);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3767,7 +3767,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3793,7 +3793,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -3853,14 +3853,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void NotBeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeLessThanOrEqualTo(otherValue, because);
+                return (parameter, because) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThanOrEqualTo);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -3922,7 +3922,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -3948,7 +3948,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -4008,14 +4008,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void BeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeGreaterThanOrEqualTo(otherValue, because);
+                return (parameter, because) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThanOrEqualTo);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -4077,7 +4077,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -4103,7 +4103,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -4163,14 +4163,14 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void NotBeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeGreaterThanOrEqualTo(otherValue, because);
+                return (parameter, because) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThanOrEqualTo);
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -4232,7 +4232,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -4258,7 +4258,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -4318,9 +4318,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void BeEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeEqualTo(otherValue, because);
+                return (parameter, because) => parameter.BeEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.BeEqualTo);
@@ -4330,7 +4330,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues1 = new TestValues<string>
@@ -4356,7 +4356,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues2 = new TestValues<decimal>
@@ -4415,9 +4415,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
         public static void NotBeEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T otherValue)
+            Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeEqualTo(otherValue, because);
+                return (parameter, because) => parameter.NotBeEqualTo(comparisonValue, because);
             }
 
             var validationName = nameof(ParameterValidation.NotBeEqualTo);
@@ -4427,7 +4427,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var stringTestValues1 = new TestValues<string>
@@ -4453,7 +4453,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<int>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "Decimal",
-                ValidationParameterInvalidCastParameterName = "otherValue",
+                ValidationParameterInvalidCastParameterName = "comparisonValue",
             };
 
             var decimalTestValues2 = new TestValues<decimal>
@@ -4525,7 +4525,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ex2.Should().BeOfType<NotImplementedException>();
             ex3.Should().BeOfType<NotImplementedException>();
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -4734,7 +4734,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             ex2.Should().BeOfType<NotImplementedException>();
             ex3.Should().BeOfType<NotImplementedException>();
 
-            // here the otherValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
             var validationTest1 = new ValidationTest
             {
@@ -5307,11 +5307,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 {
                     if (parameterName == null)
                     {
-                        expectedExceptionMessage = "parameter " + validationTest.ExceptionMessageSuffix;
+                        expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix + ".";
                     }
                     else
                     {
-                        expectedExceptionMessage = "parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
+                        expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix + ".";
                     }
                 }
 
@@ -5339,11 +5339,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 {
                     if (parameterName == null)
                     {
-                        expectedExceptionMessage = "parameter contains an element that " + validationTest.ExceptionMessageSuffix;
+                        expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix + ".";
                     }
                     else
                     {
-                        expectedExceptionMessage = "parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
+                        expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix + ".";
                     }
                 }
 
@@ -5366,7 +5366,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 // Arrange
                 var parameter = invalidTypeValue.Named(parameterName).Must();
-                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedTypes}");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -5387,7 +5387,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 // Arrange
                 var parameter = invalidTypeValue.Named(parameterName).Must().Each();
-                var expectedMessage = Invariant($"called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedEnumerableTypes}");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on an object that is not one of the following types: {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));
@@ -5408,7 +5408,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             object notEnumerable = new object();
             var parameter1 = notEnumerable.Named(parameterName).Must();
             parameter1.HasBeenEached = true;
-            var expectedExceptionMessage1 = Invariant($"called Each() on an object that is not one of the following types: IEnumerable");
+            var expectedExceptionMessage1 = Invariant($"Called Each() on an object that is not one of the following types: IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
             var parameter2 = nullEnumerable.Named(parameterName).Must();
@@ -5416,11 +5416,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
             string expectedExceptionMessage2;
             if (parameterName == null)
             {
-                expectedExceptionMessage2 = "parameter " + ParameterValidation.NotBeNullExceptionMessageSuffix;
+                expectedExceptionMessage2 = "Parameter " + ParameterValidation.NotBeNullExceptionMessageSuffix + ".";
             }
             else
             {
-                expectedExceptionMessage2 = "parameter '" + parameterName + "' " + ParameterValidation.NotBeNullExceptionMessageSuffix;
+                expectedExceptionMessage2 = "Parameter '" + parameterName + "' " + ParameterValidation.NotBeNullExceptionMessageSuffix + ".";
             }
 
             // Act
@@ -5448,7 +5448,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             foreach (var parameter in parameters)
             {
                 // Arrange
-                var expectedMessage = Invariant($"called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is not one of the following types: {validationTest.ValidationParameterInvalidCastExpectedTypes}");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is not one of the following types: {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, because));

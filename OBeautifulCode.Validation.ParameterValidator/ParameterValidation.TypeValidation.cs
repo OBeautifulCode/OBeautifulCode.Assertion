@@ -270,7 +270,7 @@ namespace OBeautifulCode.Validation.Recipes
             params string[] expectedTypes)
         {
             var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}");
+            var exceptionMessage = Invariant($"Called {validationName}() on an object that is not one of the following types: {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
 
@@ -289,7 +289,7 @@ namespace OBeautifulCode.Validation.Recipes
             params string[] expectedTypes)
         {
             var expectedTypesMessage = expectedTypes.Aggregate((running, item) => running + ", " + item);
-            var exceptionMessage = Invariant($"called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}");
+            var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is not one of the following types: {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
 

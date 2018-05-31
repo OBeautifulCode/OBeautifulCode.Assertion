@@ -146,7 +146,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             var parameterNameQualifier = parameterName == null ? string.Empty : Invariant($" '{parameterName}'");
             var enumerableQualifier = isElementInEnumerable ? " contains an element that" : string.Empty;
-            var result = Invariant($"parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}");
+            var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}.");
             return result;
         }
 
