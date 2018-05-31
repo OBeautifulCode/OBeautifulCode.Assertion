@@ -95,7 +95,7 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotContainExceptionMessageSuffix = "contains the item to search for using EqualityComparer<T>.Default";
 
-        public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{0}' is less than '{1}'.";
+        public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{1}' is less than '{0}'.  Specified '{0}' is '{2}'.  Specified '{1}' is '{3}'.";
 
 #pragma warning restore SA1600
 #pragma warning restore 1591

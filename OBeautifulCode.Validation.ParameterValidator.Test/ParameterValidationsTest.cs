@@ -5681,11 +5681,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest4.Run(decimalTestValues4);
 
-            var minimum5 = A.Dummy<decimal>();
-            var maximum5 = minimum5 - .00000001m;
+            var minimum5 = 5m;
+            var maximum5 = 4.5m;
             var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
             validationTest5Actual.Should().BeOfType<InvalidOperationException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
@@ -5764,9 +5764,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest7.Run(decimalTestValues7);
 
-            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(A.Dummy<decimal?>(), (decimal?)null, because: A.Dummy<string>()));
+            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             validationTest8Actual.Should().BeOfType<InvalidOperationException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
             var validationTest9 = new ValidationTest
@@ -6030,11 +6030,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest4.Run(decimalTestValues4);
 
-            var minimum5 = A.Dummy<decimal>();
-            var maximum5 = minimum5 - .00000001m;
-            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
+            var minimum5 = 5m;
+            var maximum5 = 4.5m;
+            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().NotBeInRange(minimum5, maximum5, because: A.Dummy<string>()));
             validationTest5Actual.Should().BeOfType<InvalidOperationException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
@@ -6111,9 +6111,9 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest7.Run(decimalTestValues7);
 
-            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(A.Dummy<decimal?>(), (decimal?)null, because: A.Dummy<string>()));
+            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             validationTest8Actual.Should().BeOfType<InvalidOperationException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
             var validationTest9 = new ValidationTest

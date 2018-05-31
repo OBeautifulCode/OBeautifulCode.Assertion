@@ -128,7 +128,7 @@ namespace OBeautifulCode.Validation.Recipes
             var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
-                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name);
+                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
                 ParameterValidator.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
         }
