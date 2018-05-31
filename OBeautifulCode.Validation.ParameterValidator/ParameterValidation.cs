@@ -904,14 +904,14 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="item">The item to search for.</param>
+        /// <param name="itemToSearchFor">The item to search for.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
         public static Parameter Contain<T>(
             [ValidatedNotNull] this Parameter parameter,
-            T item,
+            T itemToSearchFor,
             string because = null)
         {
             var valueValidation = new ValueValidation
@@ -923,8 +923,8 @@ namespace OBeautifulCode.Validation.Recipes
                 {
                     new ValidationParameter
                     {
-                        Name = nameof(item),
-                        Value = item,
+                        Name = nameof(itemToSearchFor),
+                        Value = itemToSearchFor,
                         ValueType = typeof(T),
                     },
                 },
@@ -939,14 +939,14 @@ namespace OBeautifulCode.Validation.Recipes
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="parameter">The parameter to validate.</param>
-        /// <param name="item">The item to search for.</param>
+        /// <param name="itemToSearchFor">The item to search for.</param>
         /// <param name="because">Optional rationale for the validation.  Replaces the default exception message constructed by this validation.</param>
         /// <returns>
         /// The validated parameter.
         /// </returns>
         public static Parameter NotContain<T>(
             [ValidatedNotNull] this Parameter parameter,
-            T item,
+            T itemToSearchFor,
             string because = null)
         {
             var valueValidation = new ValueValidation
@@ -958,8 +958,8 @@ namespace OBeautifulCode.Validation.Recipes
                 {
                     new ValidationParameter
                     {
-                        Name = nameof(item),
-                        Value = item,
+                        Name = nameof(itemToSearchFor),
+                        Value = itemToSearchFor,
                         ValueType = typeof(T),
                     },
                 },

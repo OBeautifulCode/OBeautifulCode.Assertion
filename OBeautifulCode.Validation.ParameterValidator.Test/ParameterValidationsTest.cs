@@ -177,6 +177,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeNull___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            decimal? testParameter1 = 5;
+            var expected1 = "Parameter 'testParameter1' is not null.  Parameter value is '5'.";
+
+            var testParameter2 = new decimal?[] { null, -6, null };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not null.  Element value is '-6'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeNull());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeNull());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -277,6 +296,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(nullableGuidTestValues);
             validationTest.Run(stringTestValues);
             validationTest.Run(objectTestValues);
+        }
+
+        [Fact]
+        public static void NotBeNull___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            decimal? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is null.";
+
+            var testParameter2 = new decimal?[] { -6, null, -5 };
+            var expected2 = "Parameter 'testParameter2' contains an element that is null.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNull());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeNull());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -411,6 +449,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeTrue___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            bool? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not true.  Parameter value is '<null>'.";
+
+            var testParameter2 = new[] { true, false, true };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not true.  Element value is 'False'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeTrue());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeTrue());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeTrue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -539,6 +596,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(objectTestValues);
             validationTest.Run(boolTestValues);
             validationTest.Run(nullableBoolTestValues);
+        }
+
+        [Fact]
+        public static void NotBeTrue___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            bool? testParameter1 = true;
+            var expected1 = "Parameter 'testParameter1' is true.";
+
+            var testParameter2 = new[] { false, true, false };
+            var expected2 = "Parameter 'testParameter2' contains an element that is true.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeTrue());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeTrue());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -673,6 +749,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeFalse___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            bool? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not false.  Parameter value is '<null>'.";
+
+            var testParameter2 = new[] { false, true, false };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not false.  Element value is 'True'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeFalse());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeFalse());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeFalse___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -804,6 +899,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeFalse___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            bool? testParameter1 = false;
+            var expected1 = "Parameter 'testParameter1' is false.";
+
+            var testParameter2 = new[] { true, false, true };
+            var expected2 = "Parameter 'testParameter2' contains an element that is false.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeFalse());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeFalse());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeNullNorWhiteSpace___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -922,6 +1036,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest2.Run(nullableGuidTestValues);
             validationTest2.Run(objectTestValues);
             validationTest2.Run(stringTestValues2);
+        }
+
+        [Fact]
+        public static void NotBeNullNorWhiteSpace___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = "\r\n";
+            var expected1 = Invariant($"Parameter 'testParameter1' is white space.  Parameter value is '{Environment.NewLine}'.");
+
+            var testParameter2 = new[] { A.Dummy<string>(), "    ", A.Dummy<string>() };
+            var expected2 = "Parameter 'testParameter2' contains an element that is white space.  Element value is '    '.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorWhiteSpace());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeNullNorWhiteSpace());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -1068,6 +1201,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(objectTestValues);
             validationTest.Run(boolTestValues);
             validationTest.Run(nullableBoolTestValues);
+        }
+
+        [Fact]
+        public static void BeEmptyGuid___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            Guid? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -1218,6 +1370,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeEmptyGuid___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            Guid? testParameter1 = Guid.Empty;
+            var expected1 = "Parameter 'testParameter1' is an empty guid.";
+
+            var testParameter2 = new Guid[] { Guid.NewGuid(), Guid.Empty, Guid.NewGuid() };
+            var expected2 = "Parameter 'testParameter2' contains an element that is an empty guid.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyGuid());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeEmptyGuid());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void BeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -1362,6 +1533,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeEmptyString___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not an empty string.  Parameter value is '<null>'.";
+
+            var testParameter2 = new[] { string.Empty, "abcd", string.Empty };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty string.  Element value is 'abcd'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyString());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyString());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -1503,6 +1693,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest.Run(objectTestValues);
             validationTest.Run(boolTestValues);
             validationTest.Run(nullableBoolTestValues);
+        }
+
+        [Fact]
+        public static void NotBeEmptyString___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = string.Empty;
+            var expected1 = "Parameter 'testParameter1' is an empty string.";
+
+            var testParameter2 = new[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() };
+            var expected2 = "Parameter 'testParameter2' contains an element that is an empty string.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyString());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeEmptyString());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -1741,6 +1950,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeEmptyEnumerable___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new[] { A.Dummy<object>() };
+            var expected1 = "Parameter 'testParameter1' is not an empty enumerable.";
+
+            var testParameter2 = new[] { new object[] { }, new[] { A.Dummy<object>() }, new object[] { } };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty enumerable.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyEnumerable());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyEnumerable());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -1971,6 +2199,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest2.Run(enumerableTestValues2A);
             validationTest2.Run(enumerableTestValues2B);
             validationTest2.Run(enumerableTestValues2C);
+        }
+
+        [Fact]
+        public static void NotBeEmptyEnumerable___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new object[] { };
+            var expected1 = "Parameter 'testParameter1' is an empty enumerable.";
+
+            var testParameter2 = new[] { new[] { A.Dummy<object>() }, new object[] { }, new[] { A.Dummy<object>() } };
+            var expected2 = "Parameter 'testParameter2' contains an element that is an empty enumerable.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyEnumerable());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeEmptyEnumerable());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -2220,6 +2467,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void ContainSomeNulls___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new[] { A.Dummy<object>() };
+            var expected1 = "Parameter 'testParameter1' contains no null elements.";
+
+            var testParameter2 = new[] { new object[] { }, new object[] { }, new object[] { } };
+            var expected2 = "Parameter 'testParameter2' contains an element that contains no null elements.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().ContainSomeNulls());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().ContainSomeNulls());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -2464,6 +2730,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest4.Run(enumerableTestValues4A);
             validationTest4.Run(enumerableTestValues4B);
             validationTest4.Run(enumerableTestValues4C);
+        }
+
+        [Fact]
+        public static void NotContainAnyNulls___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new[] { A.Dummy<object>(), null, A.Dummy<object>() };
+            var expected1 = "Parameter 'testParameter1' contains at least one null element.";
+
+            var testParameter2 = new[] { new object[] { }, new object[] { A.Dummy<object>(), null, A.Dummy<object>() }, new object[] { } };
+            var expected2 = "Parameter 'testParameter2' contains an element that contains at least one null element.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContainAnyNulls());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotContainAnyNulls());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         [Fact]
@@ -2918,6 +3203,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeDefault___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int testParameter1 = 5;
+            var expected1 = "Parameter 'testParameter1' is not equal to default(T) using EqualityComparer<T>.Default, where T: Int32.  Parameter value is '5'.";
+
+            var testParameter2 = new[] { 0, 1, 0 };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not equal to default(T) using EqualityComparer<T>.Default, where T: Int32.  Element value is '1'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeDefault());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeDefault());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeDefault___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -3075,6 +3379,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeDefault___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is equal to default(T) using EqualityComparer<T>.Default, where T: Nullable<Int32>.";
+
+            var testParameter2 = new[] { 1, 0, 1 };
+            var expected2 = "Parameter 'testParameter2' contains an element that is equal to default(T) using EqualityComparer<T>.Default, where T: Int32.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeDefault());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeDefault());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void BeLessThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -3091,8 +3414,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3117,26 +3440,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
                     null,
-                    comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { null, comparisonValue2 - .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue2,
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2 - .0000001m, comparisonValue2, comparisonValue2 - .0000001m },
+                    new decimal?[] { comparisonValue2 - .0000001m, comparisonValue2 + .00000001m, comparisonValue2 - .0000001m },
                 },
             };
 
@@ -3227,6 +3556,85 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                    A.Dummy<decimal>(),
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void BeLessThan___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = null;
+            var expected1 = "Parameter 'testParameter1' is not less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            int? testParameter2 = 10;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is not less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 10;
+            int comparisonValue3 = 5;
+            var expected3 = "Parameter 'testParameter3' is not less than the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '10'.  Specified 'comparisonValue' is '5'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = null;
+            var expected4 = "Parameter 'testParameter4' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter5 = new int?[] { 10 };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 10 };
+            int comparisonValue6 = 5;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeLessThan(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeLessThan(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeLessThan(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeLessThan(comparisonValue4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().BeLessThan(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeLessThan(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -3246,8 +3654,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3272,26 +3680,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
-                    null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 + .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { comparisonValue2, comparisonValue2 + .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    null,
+                    comparisonValue2 - .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2, null, comparisonValue2 },
+                    new decimal?[] { comparisonValue2, comparisonValue2 - .0000001m, comparisonValue2 },
                 },
             };
 
@@ -3382,6 +3796,72 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                    A.Dummy<decimal>(),
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null, A.Dummy<decimal>() },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void NotBeLessThan___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = 10;
+            var expected1 = "Parameter 'testParameter1' is less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            int testParameter3 = 10;
+            int comparisonValue3 = 20;
+            var expected3 = "Parameter 'testParameter3' is less than the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '10'.  Specified 'comparisonValue' is '20'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is less than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter6 = new int[] { 10 };
+            int comparisonValue6 = 20;
+            var expected6 = "Parameter 'testParameter6' contains an element that is less than the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeLessThan(comparisonValue1));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().NotBeLessThan(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().NotBeLessThan(comparisonValue4));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().NotBeLessThan(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -3401,8 +3881,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3422,31 +3902,38 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest1.Run(customClassTestValues1);
 
-            var comparisonValue2 = A.Dummy<decimal?>();
+            decimal? comparisonValue2 = A.Dummy<decimal?>();
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
+                {
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { comparisonValue2 + .0000001m },
+                },
+                MustFailingValues = new[]
                 {
                     null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachFailingValues = new IEnumerable<decimal?>[]
                 {
-                    new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { comparisonValue2 + .0000001m, null, comparisonValue2 + .0000001m },
+                    new decimal?[] { comparisonValue2 + .0000001m, comparisonValue2, comparisonValue2 + .0000001m },
+                    new decimal?[] { comparisonValue2 + .0000001m, comparisonValue2 - .00000001m, comparisonValue2 + .0000001m },
                 },
             };
 
@@ -3537,6 +4024,85 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    A.Dummy<decimal>(),
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { A.Dummy<decimal>() },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { A.Dummy<decimal>(), null, A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void BeGreaterThan___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = 10;
+            var expected1 = "Parameter 'testParameter1' is not greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            int? testParameter2 = null;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is not greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 5;
+            int comparisonValue3 = 10;
+            var expected3 = "Parameter 'testParameter3' is not greater than the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter5 = new int?[] { null };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 5 };
+            int comparisonValue6 = 10;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeGreaterThan(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeGreaterThan(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeGreaterThan(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeGreaterThan(comparisonValue4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().BeGreaterThan(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeGreaterThan(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -3556,8 +4122,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3582,26 +4148,31 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
                     null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { null, comparisonValue2, comparisonValue2 - .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2, comparisonValue2 + .0000001m, comparisonValue2 },
                 },
             };
 
@@ -3692,6 +4263,73 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    A.Dummy<decimal>(),
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null, A.Dummy<decimal>(), null },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void NotBeGreaterThan___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter2 = 10;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 10;
+            int comparisonValue3 = 5;
+            var expected3 = "Parameter 'testParameter3' is greater than the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '10'.  Specified 'comparisonValue' is '5'.";
+
+            var testParameter5 = new int?[] { 10 };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is greater than the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 10 };
+            int comparisonValue6 = 5;
+            var expected6 = "Parameter 'testParameter6' contains an element that is greater than the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
+
+            // Act
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotBeGreaterThan(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().NotBeGreaterThan(comparisonValue3));
+
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().NotBeGreaterThan(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().NotBeGreaterThan(comparisonValue6));
+
+            // Assert
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -3711,8 +4349,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3737,26 +4375,31 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
                     null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { null, comparisonValue2, comparisonValue2 - .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2, comparisonValue2 + .00000001m, comparisonValue2 },
                 },
             };
 
@@ -3847,6 +4490,73 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    A.Dummy<decimal>(),
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null, A.Dummy<decimal>(), null },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void BeLessThanOrEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter2 = 10;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is not less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 20;
+            int comparisonValue3 = 10;
+            var expected3 = "Parameter 'testParameter3' is not less than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '20'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter5 = new int?[] { 10 };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 20 };
+            int comparisonValue6 = 10;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeLessThanOrEqualTo(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeLessThanOrEqualTo(comparisonValue3));
+
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().BeLessThanOrEqualTo(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeLessThanOrEqualTo(comparisonValue6));
+
+            // Assert
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -3866,8 +4576,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -3892,26 +4602,33 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
+                {
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { comparisonValue2 + .0000001m },
+                },
+                MustFailingValues = new[]
                 {
                     null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachFailingValues = new IEnumerable<decimal?>[]
                 {
-                    new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { comparisonValue2 + .0000001m, null, comparisonValue2 + .0000001m },
+                    new decimal?[] { comparisonValue2 + .0000001m, comparisonValue2, comparisonValue2 + .0000001m },
+                    new decimal?[] { comparisonValue2 + .0000001m, comparisonValue2 - .0000001m, comparisonValue2 + .0000001m },
                 },
             };
 
@@ -4002,6 +4719,85 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    A.Dummy<decimal>(),
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { A.Dummy<decimal>() },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { A.Dummy<decimal>(), null,  A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void NotBeLessThanOrEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = 10;
+            var expected1 = "Parameter 'testParameter1' is less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            int? testParameter2 = null;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 5;
+            int comparisonValue3 = 10;
+            var expected3 = "Parameter 'testParameter3' is less than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter5 = new int?[] { null };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 5 };
+            int comparisonValue6 = 10;
+            var expected6 = "Parameter 'testParameter6' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeLessThanOrEqualTo(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotBeLessThanOrEqualTo(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().NotBeLessThanOrEqualTo(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().NotBeLessThanOrEqualTo(comparisonValue4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().NotBeLessThanOrEqualTo(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().NotBeLessThanOrEqualTo(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -4021,8 +4817,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -4047,26 +4843,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
-                    null,
                     comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 + .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { comparisonValue2, comparisonValue2 + .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    null,
+                    comparisonValue2 - .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2, null, comparisonValue2 },
+                    new decimal?[] { comparisonValue2, comparisonValue2 - .00000001m, comparisonValue2 },
                 },
             };
 
@@ -4157,6 +4959,72 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                    A.Dummy<decimal>(),
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null, A.Dummy<decimal>() },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void BeGreaterThanOrEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = 10;
+            var expected1 = "Parameter 'testParameter1' is not greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            int testParameter3 = 5;
+            int comparisonValue3 = 10;
+            var expected3 = "Parameter 'testParameter3' is not greater than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter6 = new int[] { 5 };
+            int comparisonValue6 = 10;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeGreaterThanOrEqualTo(comparisonValue1));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeGreaterThanOrEqualTo(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeGreaterThanOrEqualTo(comparisonValue4));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeGreaterThanOrEqualTo(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -4176,8 +5044,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -4202,26 +5070,32 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(comparisonValue2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new[]
                 {
                     null,
-                    comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    comparisonValue2 - .0000001m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { null, comparisonValue2 - .0000001m },
+                },
+                MustFailingValues = new[]
+                {
+                    comparisonValue2,
+                    comparisonValue2 + .0000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { comparisonValue2 - .0000001m, comparisonValue2, comparisonValue2 - .0000001m },
+                    new decimal?[] { comparisonValue2 - .0000001m, comparisonValue2 + .0000001m, comparisonValue2 - .0000001m },
                 },
             };
 
@@ -4312,6 +5186,85 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest5.Run(decimalTestValues5);
+
+            var validationTest6 = new ValidationTest
+            {
+                Validation = GetValidation((decimal?)null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues6 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                    A.Dummy<decimal>(),
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null },
+                    new decimal?[] { A.Dummy<decimal>() },
+                },
+            };
+
+            validationTest6.Run(nullableDecimalTestValues6);
+        }
+
+        [Fact]
+        public static void NotBeGreaterThanOrEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = null;
+            var expected1 = "Parameter 'testParameter1' is greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            int? testParameter2 = 10;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 20;
+            int comparisonValue3 = 10;
+            var expected3 = "Parameter 'testParameter3' is greater than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Parameter value is '20'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = null;
+            var expected4 = "Parameter 'testParameter4' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter5 = new int?[] { 10 };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 20 };
+            int comparisonValue6 = 10;
+            var expected6 = "Parameter 'testParameter6' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: Int32.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeGreaterThanOrEqualTo(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotBeGreaterThanOrEqualTo(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().NotBeGreaterThanOrEqualTo(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().NotBeGreaterThanOrEqualTo(comparisonValue4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().NotBeGreaterThanOrEqualTo(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().NotBeGreaterThanOrEqualTo(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -4412,6 +5365,53 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = 10;
+            var expected1 = "Parameter 'testParameter1' is not equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            int? testParameter2 = 10;
+            int? comparisonValue2 = null;
+            var expected2 = "Parameter 'testParameter2' is not equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter3 = 10;
+            int comparisonValue3 = 20;
+            var expected3 = "Parameter 'testParameter3' is not equal to the comparison value using EqualityComparer<T>.Default, where T: Int32.  Parameter value is '10'.  Specified 'comparisonValue' is '20'.";
+
+            var testParameter4 = new int?[] { null };
+            int? comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter5 = new int?[] { 10 };
+            int? comparisonValue5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter6 = new int[] { 10 };
+            int comparisonValue6 = 20;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: Int32.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEqualTo(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeEqualTo(comparisonValue2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeEqualTo(comparisonValue3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeEqualTo(comparisonValue4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().BeEqualTo(comparisonValue5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeEqualTo(comparisonValue6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
+        }
+
+        [Fact]
         public static void NotBeEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -4479,7 +5479,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotBeEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -4508,6 +5508,41 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeEqualTo___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? comparisonValue1 = null;
+            var expected1 = "Parameter 'testParameter1' is equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'comparisonValue' is '<null>'.";
+
+            int testParameter2 = 10;
+            int comparisonValue2 = 10;
+            var expected2 = "Parameter 'testParameter2' is equal to the comparison value using EqualityComparer<T>.Default, where T: Int32.  Specified 'comparisonValue' is '10'.";
+
+            var testParameter3 = new int?[] { null };
+            int? comparisonValue3 = null;
+            var expected3 = "Parameter 'testParameter3' contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'comparisonValue' is '<null>'.";
+
+            var testParameter4 = new int[] { 10 };
+            int comparisonValue4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: Int32.  Specified 'comparisonValue' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEqualTo(comparisonValue1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotBeEqualTo(comparisonValue2));
+
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().Each().NotBeEqualTo(comparisonValue3));
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().NotBeEqualTo(comparisonValue4));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
+        [Fact]
         public static void BeInRange___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -4531,8 +5566,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -4552,31 +5587,45 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest1.Run(customClassTestValues1);
 
-            var comparisonValue2 = A.Dummy<decimal?>();
+            decimal? minimum2 = 10m;
+            decimal? maximum2 = 20m;
             var validationTest2 = new ValidationTest
             {
-                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                Validation = GetValidation(minimum2, maximum2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new decimal?[]
                 {
-                    null,
-                    comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    10m,
+                    16m,
+                    20m,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { 10m, 16m, 20m },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                    decimal.MinValue,
+                    decimal.MaxValue,
+                    9.999999999m,
+                    20.000000001m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { 16m, null, 16m },
+                    new decimal?[] { 16m, decimal.MinValue, 16m },
+                    new decimal?[] { 16m, decimal.MaxValue, 16m },
+                    new decimal?[] { 16m, 9.999999999m, 16m },
+                    new decimal?[] { 16m, 20.000000001m, 16m },
                 },
             };
 
@@ -4714,6 +5763,134 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest7.Run(decimalTestValues7);
+
+            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(A.Dummy<decimal?>(), (decimal?)null, because: A.Dummy<string>()));
+            validationTest8Actual.Should().BeOfType<InvalidOperationException>();
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+            decimal? maximum9 = 20m;
+            var validationTest9 = new ValidationTest
+            {
+                Validation = GetValidation(null, maximum9),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues9 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                    decimal.MinValue,
+                    20m,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null, decimal.MinValue, 20m },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    20.000000001m,
+                    decimal.MaxValue,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null, 20.000000001m, null },
+                    new decimal?[] { null, decimal.MaxValue, null },
+                },
+            };
+
+            validationTest9.Run(nullableDecimalTestValues9);
+
+            var validationTest10 = new ValidationTest
+            {
+                Validation = GetValidation<decimal?>(null, null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues10 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { null },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    decimal.MinValue,
+                    decimal.MaxValue,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { null, decimal.MinValue, null },
+                    new decimal?[] { null, decimal.MaxValue, null },
+                },
+            };
+
+            validationTest10.Run(nullableDecimalTestValues10);
+        }
+
+        [Fact]
+        public static void BeInRange___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            int? testParameter1 = null;
+            int? minimum1 = 10;
+            int? maximum1 = 20;
+            var expected1 = "Parameter 'testParameter1' is not within the specified range using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+
+            int? testParameter2 = 5;
+            int? minimum2 = null;
+            int? maximum2 = null;
+            var expected2 = "Parameter 'testParameter2' is not within the specified range using Comparer<T>.Default, where T: Nullable<Int32>.  Parameter value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+
+            int testParameter3 = 5;
+            int minimum3 = 10;
+            int maximum3 = 20;
+            var expected3 = "Parameter 'testParameter3' is not within the specified range using Comparer<T>.Default, where T: Int32.  Parameter value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+
+            var testParameter4 = new int?[] { null };
+            int? minimum4 = 10;
+            int? maximum4 = 20;
+            var expected4 = "Parameter 'testParameter4' contains an element that is not within the specified range using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+
+            var testParameter5 = new int?[] { 5 };
+            int? minimum5 = null;
+            int? maximum5 = null;
+            var expected5 = "Parameter 'testParameter5' contains an element that is not within the specified range using Comparer<T>.Default, where T: Nullable<Int32>.  Element value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+
+            var testParameter6 = new int[] { 5 };
+            int minimum6 = 10;
+            int maximum6 = 20;
+            var expected6 = "Parameter 'testParameter6' contains an element that is not within the specified range using Comparer<T>.Default, where T: Int32.  Element value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeInRange(minimum1, maximum1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeInRange(minimum2, maximum2));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeInRange(minimum3, maximum3));
+
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeInRange(minimum4, maximum4));
+            var actual5 = Record.Exception(() => new { testParameter5 }.Must().Each().BeInRange(minimum5, maximum5));
+            var actual6 = Record.Exception(() => new { testParameter6 }.Must().Each().BeInRange(minimum6, maximum6));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+
+            actual4.Message.Should().Be(expected4);
+            actual5.Message.Should().Be(expected5);
+            actual6.Message.Should().Be(expected6);
         }
 
         [Fact]
@@ -4740,8 +5917,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -4761,31 +5938,43 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest1.Run(customClassTestValues1);
 
-            var comparisonValue2 = A.Dummy<decimal?>();
+            decimal? minimum2 = 10m;
+            decimal? maximum2 = 20m;
             var validationTest2 = new ValidationTest
             {
-                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
+                Validation = GetValidation(minimum2, maximum2),
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>",
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
             {
-                MustParameterInvalidTypeValues = new decimal?[]
+                MustPassingValues = new decimal?[]
                 {
                     null,
-                    comparisonValue2,
-                    A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2),
-                    A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2),
+                    9.9999999999m,
+                    20.00000001m,
+                    decimal.MinValue,
+                    decimal.MaxValue,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<decimal?>[]
+                MustEachPassingValues = new IEnumerable<decimal?>[]
                 {
                     new decimal?[] { },
-                    new decimal?[] { null },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ < comparisonValue2) },
-                    new decimal?[] { comparisonValue2 },
-                    new decimal?[] { A.Dummy<decimal>().ThatIs(_ => _ > comparisonValue2) },
+                    new decimal?[] { null, decimal.MinValue, 9.9999999999m, 20.00000001m, decimal.MaxValue },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    10m,
+                    15m,
+                    20m,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { 9.9999999999m, 10m, 20.00000001m },
+                    new decimal?[] { 9.9999999999m, 15m, 20.00000001m },
+                    new decimal?[] { 9.9999999999m, 20m, 20.00000001m },
                 },
             };
 
@@ -4921,6 +6110,81 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             validationTest7.Run(decimalTestValues7);
+
+            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(A.Dummy<decimal?>(), (decimal?)null, because: A.Dummy<string>()));
+            validationTest8Actual.Should().BeOfType<InvalidOperationException>();
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'minimum' is less than 'maximum'.  " + ParameterValidator.ImproperUseOfFrameworkExceptionMessage);
+
+            decimal? maximum9 = 20m;
+            var validationTest9 = new ValidationTest
+            {
+                Validation = GetValidation(null, maximum9),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues9 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    20.00000000001m,
+                    decimal.MaxValue,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { },
+                    new decimal?[] { 20.00000000001m, decimal.MaxValue },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                    20m,
+                    decimal.MinValue,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { decimal.MaxValue, null, decimal.MaxValue },
+                    new decimal?[] { decimal.MaxValue, 20m, decimal.MaxValue },
+                    new decimal?[] { decimal.MaxValue, decimal.MinValue, decimal.MaxValue },
+                },
+            };
+
+            validationTest9.Run(nullableDecimalTestValues9);
+
+            var validationTest10 = new ValidationTest
+            {
+                Validation = GetValidation<decimal?>(null, null),
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentOutOfRangeException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+            };
+
+            var nullableDecimalTestValues10 = new TestValues<decimal?>
+            {
+                MustPassingValues = new decimal?[]
+                {
+                    decimal.MinValue,
+                    decimal.MaxValue,
+                },
+                MustEachPassingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { decimal.MinValue },
+                    new decimal?[] { decimal.MaxValue },
+                },
+                MustFailingValues = new decimal?[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new IEnumerable<decimal?>[]
+                {
+                    new decimal?[] { decimal.MinValue, null, decimal.MinValue },
+                },
+            };
+
+            validationTest10.Run(nullableDecimalTestValues10);
         }
 
         [Fact]
@@ -4999,7 +6263,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "item",
+                ValidationParameterInvalidCastParameterName = "itemToSearchFor",
             };
 
             var stringTestValues2 = new TestValues<IEnumerable<string>>
@@ -5083,6 +6347,41 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void Contain___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new int?[] { 1, 2, 3 };
+            int? itemToSearchFor1 = null;
+            var expected1 = "Parameter 'testParameter1' does not contain the item to search for using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'itemToSearchFor' is '<null>'.";
+
+            var testParameter2 = new int[] { 1, 2, 3 };
+            int itemToSearchFor2 = 10;
+            var expected2 = "Parameter 'testParameter2' does not contain the item to search for using EqualityComparer<T>.Default, where T: Int32.  Specified 'itemToSearchFor' is '10'.";
+
+            var testParameter3 = new int?[][] { new int?[] { 1, 2, 3 } };
+            int? itemToSearchFor3 = null;
+            var expected3 = "Parameter 'testParameter3' contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'itemToSearchFor' is '<null>'.";
+
+            var testParameter4 = new int[][] { new int[] { 1, 2, 3 } };
+            int itemToSearchFor4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: Int32.  Specified 'itemToSearchFor' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().Contain(itemToSearchFor1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Contain(itemToSearchFor2));
+
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().Each().Contain(itemToSearchFor3));
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().Contain(itemToSearchFor4));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
+        [Fact]
         public static void NotContain___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -5158,7 +6457,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 Validation = GetValidation(A.Dummy<decimal>()),
                 ValidationName = validationName,
                 ValidationParameterInvalidCastExpectedTypes = "String",
-                ValidationParameterInvalidCastParameterName = "item",
+                ValidationParameterInvalidCastParameterName = "itemToSearchFor",
             };
 
             var stringTestValues2 = new TestValues<IEnumerable<string>>
@@ -5241,6 +6540,41 @@ namespace OBeautifulCode.Validation.Recipes.Test
             validationTest4.Run(decimalTestValues4);
         }
 
+        [Fact]
+        public static void NotContain___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new int?[] { 1, null, 3 };
+            int? itemToSearchFor1 = null;
+            var expected1 = "Parameter 'testParameter1' contains the item to search for using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'itemToSearchFor' is '<null>'.";
+
+            var testParameter2 = new int[] { 1, 10, 3 };
+            int itemToSearchFor2 = 10;
+            var expected2 = "Parameter 'testParameter2' contains the item to search for using EqualityComparer<T>.Default, where T: Int32.  Specified 'itemToSearchFor' is '10'.";
+
+            var testParameter3 = new int?[][] { new int?[] { 1, null, 3 } };
+            int? itemToSearchFor3 = null;
+            var expected3 = "Parameter 'testParameter3' contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: Nullable<Int32>.  Specified 'itemToSearchFor' is '<null>'.";
+
+            var testParameter4 = new int[][] { new int[] { 1, 10, 3 } };
+            int itemToSearchFor4 = 10;
+            var expected4 = "Parameter 'testParameter4' contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: Int32.  Specified 'itemToSearchFor' is '10'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContain(itemToSearchFor1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotContain(itemToSearchFor2));
+
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().Each().NotContain(itemToSearchFor3));
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().NotContain(itemToSearchFor4));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)
@@ -5307,11 +6641,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 {
                     if (parameterName == null)
                     {
-                        expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix + ".";
+                        expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix;
                     }
                     else
                     {
-                        expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix + ".";
+                        expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
                     }
                 }
 
@@ -5320,7 +6654,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
                 // Assert
                 actual.Should().BeOfType(validationTest.ExceptionType);
-                actual.Message.Should().Be(expectedExceptionMessage);
+                actual.Message.Should().StartWith(expectedExceptionMessage);
             }
         }
 
@@ -5339,11 +6673,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 {
                     if (parameterName == null)
                     {
-                        expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix + ".";
+                        expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix;
                     }
                     else
                     {
-                        expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix + ".";
+                        expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
                     }
                 }
 
@@ -5352,7 +6686,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
                 // Assert
                 actual.Should().BeOfType(validationTest.EachExceptionType);
-                actual.Message.Should().Be(expectedExceptionMessage);
+                actual.Message.Should().StartWith(expectedExceptionMessage);
             }
         }
 

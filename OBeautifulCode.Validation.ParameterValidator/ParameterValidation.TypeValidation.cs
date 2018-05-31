@@ -201,23 +201,27 @@ namespace OBeautifulCode.Validation.Recipes
             Type[] referenceTypes,
             ValidationParameter[] validationParameters)
         {
-            // type is IComparable or can be assigned to IComparable
-            if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
+            // type is nullable
+            if (Nullable.GetUnderlyingType(valueType) == null)
             {
-                // type is IComparable<T>
-                if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
+                // type is IComparable or can be assigned to IComparable
+                if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
                 {
-                    // type implements IComparable<T>
-                    var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType));
-                    if (comparableType == null)
+                    // type is IComparable<T>
+                    if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
                     {
-                        // note that, for completeness, we should recurse through all interface implementations
-                        // and check whether any of those are IComparable<>
-                        // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                        ThrowParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName);
+                        // type implements IComparable<T>
+                        var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType));
+                        if (comparableType == null)
+                        {
+                            // note that, for completeness, we should recurse through all interface implementations
+                            // and check whether any of those are IComparable<>
+                            // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
+                            ThrowParameterUnexpectedType(validationName, isElementInEnumerable, nameof(IComparable), ComparableGenericTypeName, NullableGenericTypeName);
+                        }
                     }
                 }
-            }
+            }            
         }
 
         // ReSharper disable once UnusedParameter.Local
