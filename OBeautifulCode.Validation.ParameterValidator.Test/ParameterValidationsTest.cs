@@ -75,7 +75,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void Validations_with_validation_prameters___Should_throw_InvalidCastException_with_expected_Exception_message___When_validation_parameter_is_not_of_the_expected_type()
+        public static void Validations_with_validation_parameter___Should_throw_InvalidCastException_with_expected_Exception_message___When_validation_parameter_is_not_of_the_expected_type()
         {
             // Arrange
             var testParameter1 = A.Dummy<string>();

@@ -221,7 +221,7 @@ namespace OBeautifulCode.Validation.Recipes
                         }
                     }
                 }
-            }            
+            }
         }
 
         // ReSharper disable once UnusedParameter.Local
