@@ -27,7 +27,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
     {
         private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
 
-        private delegate Parameter Validation(Parameter parameter, string because = null);
+        private delegate Parameter Validation(Parameter parameter, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage);
 
         [Fact]
         public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
@@ -3434,7 +3434,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeLessThan(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.BeLessThan(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThan);
@@ -3674,7 +3674,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeLessThan(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.NotBeLessThan(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThan);
@@ -3901,7 +3901,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeGreaterThan(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.BeGreaterThan(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThan);
@@ -4142,7 +4142,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeGreaterThan(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.NotBeGreaterThan(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThan);
@@ -4369,7 +4369,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeLessThanOrEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.BeLessThanOrEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThanOrEqualTo);
@@ -4596,7 +4596,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThanOrEqualTo);
@@ -4837,7 +4837,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThanOrEqualTo);
@@ -5064,7 +5064,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThanOrEqualTo);
@@ -5304,7 +5304,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.BeEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.BeEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeEqualTo);
@@ -5448,7 +5448,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because) => parameter.NotBeEqualTo(comparisonValue, because);
+                return (parameter, because, applyBecause) => parameter.NotBeEqualTo(comparisonValue, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeEqualTo);
@@ -5579,7 +5579,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T minimum, T maximum)
             {
-                return (parameter, because) => parameter.BeInRange(minimum, maximum, because: because);
+                return (parameter, because, applyBecause) => parameter.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.BeInRange);
@@ -5930,7 +5930,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T minimum, T maximum)
             {
-                return (parameter, because) => parameter.NotBeInRange(minimum, maximum, because: because);
+                return (parameter, because, applyBecause) => parameter.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotBeInRange);
@@ -6224,7 +6224,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T item)
             {
-                return (parameter, because) => parameter.Contain(item, because);
+                return (parameter, because, applyBecause) => parameter.Contain(item, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.Contain);
@@ -6418,7 +6418,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T item)
             {
-                return (parameter, because) => parameter.NotContain(item, because);
+                return (parameter, because, applyBecause) => parameter.NotContain(item, because, applyBecause);
             }
 
             var validationName = nameof(ParameterValidation.NotContain);

@@ -6,6 +6,7 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Validation/master/OBeautifulCode.Validation.ParameterValidator/nuget-icon.png</iconUrl>
   </metadata>
   <files>
+    <file src="ApplyBecause.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ApplyBecause.cs" />
     <file src="Parameter.cs" target="content\net462\.recipes\OBeautifulCode.Validation\Parameter.cs" />
     <file src="ParameterShould.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ParameterShould.cs" />
     <file src="ParameterValidation.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ParameterValidation.cs" />

@@ -262,6 +262,8 @@ namespace OBeautifulCode.Validation.Recipes
 
             public string Because { get; set; }
 
+            public ApplyBecause ApplyBecause { get; set; }
+
             public ValueValidationHandler ValueValidationHandler { get; set; }
 
             public ValidationParameter[] ValidationParameters { get; set; }
