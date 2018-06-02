@@ -146,8 +146,8 @@ namespace OBeautifulCode.Validation.Recipes
         private static string BuildArgumentExceptionMessage(
             ValueValidation valueValidation,
             string exceptionMessageSuffix,
-            Type genericType = null,
-            object failingValue = null)
+            Include include = Include.None,
+            Type genericTypeOverride = null)
         {
             if (valueValidation.Because != null)
             {
@@ -156,8 +156,8 @@ namespace OBeautifulCode.Validation.Recipes
 
             var parameterNameQualifier = valueValidation.ParameterName == null ? string.Empty : Invariant($" '{valueValidation.ParameterName}'");
             var enumerableQualifier = valueValidation.IsElementInEnumerable ? " contains an element that" : string.Empty;
-            var genericTypeQualifier = genericType == null ? string.Empty : ", where T: " + genericType.GetFriendlyTypeName();
-            var failingValueQualifier = failingValue == null ? string.Empty : (valueValidation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{failingValue.ToString()}'.");
+            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.GetFriendlyTypeName() ?? valueValidation.ValueType.GetFriendlyTypeName()) : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (valueValidation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{valueValidation.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
             var validationParameterQualifiers = valueValidation.ValidationParameters == null || !valueValidation.ValidationParameters.Any() ? string.Empty : valueValidation.ValidationParameters.Select(_ => Invariant($"  Specified '{_.Name}' is '{_.Value ?? NullValueToString}'.")).Aggregate((running, current) => running + current);
             var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
             return result;
@@ -289,6 +289,16 @@ namespace OBeautifulCode.Validation.Recipes
             public object Value { get; set; }
 
             public Type ValueType { get; set; }
+        }
+
+        [Flags]
+        private enum Include
+        {
+            None = 0,
+
+            FailingValue = 1,
+
+            GenericType = 2,
         }
 
 #pragma warning restore SA1201

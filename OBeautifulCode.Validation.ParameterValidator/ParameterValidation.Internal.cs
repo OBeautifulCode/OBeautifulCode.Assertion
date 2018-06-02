@@ -30,7 +30,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (!ReferenceEquals(valueValidation.Value, null))
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeNullExceptionMessageSuffix, failingValue: valueValidation.Value);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeNullExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -58,7 +58,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(valueValidation.Value, null) || ((bool)valueValidation.Value != true);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeTrueExceptionMessageSuffix, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeTrueExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -80,7 +80,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(valueValidation.Value, null) || (bool)valueValidation.Value;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeFalseExceptionMessageSuffix, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeFalseExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -104,7 +104,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = string.IsNullOrWhiteSpace((string)valueValidation.Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeNullNorWhiteSpaceExceptionMessageSuffix, failingValue: valueValidation.Value);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -115,7 +115,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = ReferenceEquals(valueValidation.Value, null) || ((Guid)valueValidation.Value != Guid.Empty);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEmptyGuidExceptionMessageSuffix, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -139,7 +139,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEmptyStringExceptionMessageSuffix, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEmptyStringExceptionMessageSuffix, Include.FailingValue);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -260,7 +260,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = !EqualUsingDefaultEqualityComparer(valueValidation.ValueType, valueValidation.Value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeDefaultExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -272,7 +272,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = EqualUsingDefaultEqualityComparer(valueValidation.ValueType, valueValidation.Value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeDefaultExceptionMessageSuffix, genericType: valueValidation.ValueType);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
                 throw new ArgumentException(exceptionMessage);
             }
         }
@@ -283,7 +283,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeLessThanExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -302,7 +302,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeLessThanExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -321,7 +321,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeGreaterThanExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -340,7 +340,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeGreaterThanExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -359,7 +359,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeLessThanOrEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -378,7 +378,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeLessThanOrEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -397,7 +397,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeGreaterThanOrEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -416,7 +416,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = CompareUsingDefaultComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeGreaterThanOrEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -435,7 +435,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = !EqualUsingDefaultEqualityComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
                 if (valueValidation.IsElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
@@ -453,7 +453,7 @@ namespace OBeautifulCode.Validation.Recipes
             var shouldThrow = EqualUsingDefaultEqualityComparer(valueValidation.ValueType, valueValidation.Value, valueValidation.ValidationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeEqualToExceptionMessageSuffix, genericType: valueValidation.ValueType);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
                 if (valueValidation.IsElementInEnumerable)
                 {
                     throw new ArgumentException(exceptionMessage);
@@ -475,7 +475,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeInRangeExceptionMessageSuffix, genericType: valueValidation.ValueType, failingValue: valueValidation.Value ?? NullValueToString);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, BeInRangeExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -498,7 +498,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeInRangeExceptionMessageSuffix, genericType: valueValidation.ValueType);
+                var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotBeInRangeExceptionMessageSuffix, Include.GenericType);
 
                 if (valueValidation.IsElementInEnumerable)
                 {
@@ -527,7 +527,7 @@ namespace OBeautifulCode.Validation.Recipes
                 }
             }
 
-            var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, ContainExceptionMessageSuffix, genericType: elementType);
+            var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
             throw new ArgumentException(exceptionMessage);
         }
 
@@ -543,7 +543,7 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
                 {
-                    var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotContainExceptionMessageSuffix, genericType: elementType);
+                    var exceptionMessage = BuildArgumentExceptionMessage(valueValidation, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
                     throw new ArgumentException(exceptionMessage);
                 }
             }
