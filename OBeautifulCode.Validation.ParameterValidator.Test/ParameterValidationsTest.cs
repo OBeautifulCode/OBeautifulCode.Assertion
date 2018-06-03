@@ -133,8 +133,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
 
             // Act
-            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
-            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: "  \r\n ", applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.SuffixedToDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: "  \r\n ", applyBecause: ApplyBecause.SuffixedToDefaultMessage));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -175,8 +175,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.  " + because;
 
             // Act
-            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
-            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMessage));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -6727,7 +6727,6 @@ namespace OBeautifulCode.Validation.Recipes.Test
             TestValues<T> testValues)
         {
             var parameterNames = new[] { null, A.Dummy<string>() };
-            var becauses = new[] { null, A.Dummy<string>() };
 
             foreach (var parameterName in parameterNames)
             {

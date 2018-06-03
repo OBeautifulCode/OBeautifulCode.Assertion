@@ -28,7 +28,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <summary>
         /// Apply the rationale suffixed to the default exception message.
         /// </summary>
-        SuffixedToDefaultMesssage,
+        SuffixedToDefaultMessage,
 
         /// <summary>
         /// Apply the rationale in lieu of the default exception message.

@@ -170,7 +170,7 @@ namespace OBeautifulCode.Validation.Recipes
                     result = valueValidation.Because + "  " + result;
                 }
             }
-            else if (valueValidation.ApplyBecause == ApplyBecause.SuffixedToDefaultMesssage)
+            else if (valueValidation.ApplyBecause == ApplyBecause.SuffixedToDefaultMessage)
             {
                 if (!string.IsNullOrWhiteSpace(valueValidation.Because))
                 {
