@@ -59,17 +59,26 @@ namespace OBeautifulCode.Validation.Recipes
             if (parameter.HasBeenEached)
             {
                 // check that the parameter is an IEnumerable and not null
-                ThrowIfNotOfType(nameof(ParameterValidator.Each), false, parameter.ValueType, new[] { EnumerableType }, null);
-                NotBeNullInternal(new Validation { ParameterName = parameter.Name, ValidationName = nameof(ParameterValidator.Each), Value = parameter.Value, ValueType = parameter.ValueType, IsElementInEnumerable = false });
+                var eachValidation = new Validation
+                {
+                    ParameterName = parameter.Name,
+                    ValidationName = nameof(ParameterValidator.Each),
+                    Value = parameter.Value,
+                    ValueType = parameter.ValueType,
+                    IsElementInEnumerable = false
+                };
+
+                ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
+                NotBeNullInternal(eachValidation);
 
                 var valueAsEnumerable = (IEnumerable)parameter.Value;
                 var enumerableType = GetEnumerableGenericType(parameter.ValueType);
+                validation.ValueType = enumerableType;
+
                 foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(validation.ValidationName, validation.IsElementInEnumerable, enumerableType, typeValidation.ReferenceTypes, validation.ValidationParameters);
+                    typeValidation.TypeValidationHandler(validation, typeValidation);
                 }
-
-                validation.ValueType = enumerableType;
 
                 foreach (var element in valueAsEnumerable)
                 {
@@ -80,13 +89,13 @@ namespace OBeautifulCode.Validation.Recipes
             }
             else
             {
-                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
-                {
-                    typeValidation.TypeValidationHandler(validation.ValidationName, validation.IsElementInEnumerable, parameter.ValueType, typeValidation.ReferenceTypes, validation.ValidationParameters);
-                }
-
                 validation.Value = parameter.Value;
                 validation.ValueType = parameter.ValueType;
+
+                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
+                {
+                    typeValidation.TypeValidationHandler(validation, typeValidation);
+                }
 
                 validation.ValueValidationHandler(validation);
             }
