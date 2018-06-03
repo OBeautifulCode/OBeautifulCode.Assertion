@@ -31,8 +31,6 @@ namespace OBeautifulCode.Validation.Recipes
             Validation validation,
             TypeValidation typeValidation);
 
-        private static readonly Type EnumerableType = typeof(IEnumerable);
-
         private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
 
         private static readonly Type ComparableType = typeof(IComparable);

@@ -59,18 +59,21 @@ namespace OBeautifulCode.Validation.Recipes
             if (parameter.HasBeenEached)
             {
                 // check that the parameter is an IEnumerable and not null
-                var eachValidation = new Validation
+                if (!parameter.HasBeenValidated)
                 {
-                    ParameterName = parameter.Name,
-                    ValidationName = nameof(ParameterValidator.Each),
-                    Value = parameter.Value,
-                    ValueType = parameter.ValueType,
-                    IsElementInEnumerable = false
-                };
+                    var eachValidation = new Validation
+                    {
+                        ParameterName = parameter.Name,
+                        ValidationName = nameof(ParameterValidator.Each),
+                        Value = parameter.Value,
+                        ValueType = parameter.ValueType,
+                        IsElementInEnumerable = false
+                    };
 
-                ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
-                NotBeNullInternal(eachValidation);
-
+                    ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
+                    NotBeNullInternal(eachValidation);
+                }
+                
                 var valueAsEnumerable = (IEnumerable)parameter.Value;
                 var enumerableType = GetEnumerableGenericType(parameter.ValueType);
                 validation.ValueType = enumerableType;
