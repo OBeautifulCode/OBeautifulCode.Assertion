@@ -38,15 +38,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeNullInternal,
                 ValidationName = nameof(BeNull),
+                TypeValidations = MustBeNullableTypeValidations,
             };
 
-            parameter.Validate(MustBeNullableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -64,15 +65,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeNullInternal,
                 ValidationName = nameof(NotBeNull),
+                TypeValidations = MustBeNullableTypeValidations,
             };
 
-            parameter.Validate(MustBeNullableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -90,15 +92,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeTrueInternal,
                 ValidationName = nameof(BeTrue),
+                TypeValidations = MustBeBooleanTypeValidations,
             };
 
-            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -116,15 +119,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeTrueInternal,
                 ValidationName = nameof(NotBeTrue),
+                TypeValidations = MustBeBooleanTypeValidations,
             };
 
-            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -142,15 +146,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeFalseInternal,
                 ValidationName = nameof(BeFalse),
+                TypeValidations = MustBeBooleanTypeValidations,
             };
 
-            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -168,15 +173,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeFalseInternal,
                 ValidationName = nameof(NotBeFalse),
+                TypeValidations = MustBeBooleanTypeValidations,
             };
 
-            parameter.Validate(MustBeBooleanTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -194,15 +200,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeNullNorWhiteSpaceInternal,
                 ValidationName = nameof(NotBeNullNorWhiteSpace),
+                TypeValidations = MustBeStringTypeValidations,
             };
 
-            parameter.Validate(MustBeStringTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -220,15 +227,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeEmptyGuidInternal,
                 ValidationName = nameof(BeEmptyGuid),
+                TypeValidations = MustBeGuidTypeValidations,
             };
 
-            parameter.Validate(MustBeGuidTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -246,15 +254,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeEmptyGuidInternal,
                 ValidationName = nameof(NotBeEmptyGuid),
+                TypeValidations = MustBeGuidTypeValidations,
             };
 
-            parameter.Validate(MustBeGuidTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -272,15 +281,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeEmptyStringInternal,
                 ValidationName = nameof(BeEmptyString),
+                TypeValidations = MustBeStringTypeValidations,
             };
 
-            parameter.Validate(MustBeStringTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -298,15 +308,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeEmptyStringInternal,
                 ValidationName = nameof(NotBeEmptyString),
+                TypeValidations = MustBeStringTypeValidations,
             };
 
-            parameter.Validate(MustBeStringTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -324,15 +335,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeEmptyEnumerableInternal,
                 ValidationName = nameof(BeEmptyEnumerable),
+                TypeValidations = MustBeEnumerableTypeValidations,
             };
 
-            parameter.Validate(MustBeEnumerableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -350,15 +362,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeEmptyEnumerableInternal,
                 ValidationName = nameof(NotBeEmptyEnumerable),
+                TypeValidations = MustBeEnumerableTypeValidations,
             };
 
-            parameter.Validate(MustBeEnumerableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -376,15 +389,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = ContainSomeNullsInternal,
                 ValidationName = nameof(ContainSomeNulls),
+                TypeValidations = MustBeEnumerableOfNullableTypeValidations,
             };
 
-            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -402,15 +416,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotContainAnyNullsInternal,
                 ValidationName = nameof(NotContainAnyNulls),
+                TypeValidations = MustBeEnumerableOfNullableTypeValidations,
             };
 
-            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -430,23 +445,25 @@ namespace OBeautifulCode.Validation.Recipes
         {
             var validationName = nameof(NotBeNullNorEmptyNorContainAnyNulls);
 
-            var valueValidation1 = new ValueValidation
+            var validation1 = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeEmptyEnumerableInternal,
                 ValidationName = validationName,
+                TypeValidations = MustBeEnumerableOfNullableTypeValidations,
             };
 
-            var valueValidation2 = new ValueValidation
+            var validation2 = new Validation
             {
                 Because = because,
                 ValueValidationHandler = NotContainAnyNullsInternal,
                 ValidationName = validationName,
+                TypeValidations = null,
             };
 
-            parameter.Validate(MustBeEnumerableOfNullableTypeValidations, valueValidation1);
-            parameter.Validate(null, valueValidation2);
+            parameter.Validate(validation1);
+            parameter.Validate(validation2);
 
             return parameter;
         }
@@ -465,15 +482,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = BeDefaultInternal,
                 ValidationName = nameof(BeDefault),
+                TypeValidations = null,
             };
 
-            parameter.Validate(null, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -491,15 +509,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = NotBeDefaultInternal,
                 ValidationName = nameof(NotBeDefault),
+                TypeValidations = null,
             };
 
-            parameter.Validate(null, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -520,7 +539,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -535,9 +554,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -558,7 +578,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -573,9 +593,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -596,7 +617,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -611,9 +632,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -634,7 +656,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -649,9 +671,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -672,7 +695,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -687,9 +710,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -710,7 +734,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -725,9 +749,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -748,7 +773,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -763,9 +788,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -786,7 +812,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -801,9 +827,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -824,7 +851,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -839,9 +866,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = EqualsTypeValidations,
             };
 
-            parameter.Validate(EqualsTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -862,7 +890,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -877,9 +905,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = EqualsTypeValidations,
             };
 
-            parameter.Validate(EqualsTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -909,7 +938,7 @@ namespace OBeautifulCode.Validation.Recipes
                 throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation);
             }
 
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -930,9 +959,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -962,7 +992,7 @@ namespace OBeautifulCode.Validation.Recipes
                 throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation + ".");
             }
 
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -983,9 +1013,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = InequalityTypeValidations,
             };
 
-            parameter.Validate(InequalityTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -1006,7 +1037,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -1021,9 +1052,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = ContainmentTypeValidations,
             };
 
-            parameter.Validate(ContainmentTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -1044,7 +1076,7 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
@@ -1059,9 +1091,10 @@ namespace OBeautifulCode.Validation.Recipes
                         ValueType = typeof(T),
                     },
                 },
+                TypeValidations = ContainmentTypeValidations,
             };
 
-            parameter.Validate(ContainmentTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
 
@@ -1079,15 +1112,16 @@ namespace OBeautifulCode.Validation.Recipes
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var valueValidation = new ValueValidation
+            var validation = new Validation
             {
                 Because = because,
                 ApplyBecause = applyBecause,
                 ValueValidationHandler = null,
                 ValidationName = nameof(BeOfTypeThatDoesNotExist),
+                TypeValidations = AlwaysThrowTypeValidations,
             };
 
-            parameter.Validate(AlwaysThrowTypeValidations, valueValidation);
+            parameter.Validate(validation);
             return parameter;
         }
     }

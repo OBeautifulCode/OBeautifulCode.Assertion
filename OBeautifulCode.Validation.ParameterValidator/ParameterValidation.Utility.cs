@@ -49,47 +49,46 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static void Validate(
             this Parameter parameter,
-            IReadOnlyCollection<TypeValidation> typeValidations,
-            ValueValidation valueValidation)
+            Validation validation)
         {
             ParameterValidator.ThrowImproperUseOfFrameworkIfDetected(parameter, ParameterShould.BeMusted);
 
-            valueValidation.ParameterName = parameter.Name;
-            valueValidation.IsElementInEnumerable = parameter.HasBeenEached;
+            validation.ParameterName = parameter.Name;
+            validation.IsElementInEnumerable = parameter.HasBeenEached;
 
             if (parameter.HasBeenEached)
             {
                 // check that the parameter is an IEnumerable and not null
                 ThrowIfNotOfType(nameof(ParameterValidator.Each), false, parameter.ValueType, new[] { EnumerableType }, null);
-                NotBeNullInternal(new ValueValidation { ParameterName = parameter.Name, ValidationName = nameof(ParameterValidator.Each), Value = parameter.Value, ValueType = parameter.ValueType, IsElementInEnumerable = false });
+                NotBeNullInternal(new Validation { ParameterName = parameter.Name, ValidationName = nameof(ParameterValidator.Each), Value = parameter.Value, ValueType = parameter.ValueType, IsElementInEnumerable = false });
 
                 var valueAsEnumerable = (IEnumerable)parameter.Value;
                 var enumerableType = GetEnumerableGenericType(parameter.ValueType);
-                foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
+                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(valueValidation.ValidationName, valueValidation.IsElementInEnumerable, enumerableType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
+                    typeValidation.TypeValidationHandler(validation.ValidationName, validation.IsElementInEnumerable, enumerableType, typeValidation.ReferenceTypes, validation.ValidationParameters);
                 }
 
-                valueValidation.ValueType = enumerableType;
+                validation.ValueType = enumerableType;
 
                 foreach (var element in valueAsEnumerable)
                 {
-                    valueValidation.Value = element;
+                    validation.Value = element;
 
-                    valueValidation.ValueValidationHandler(valueValidation);
+                    validation.ValueValidationHandler(validation);
                 }
             }
             else
             {
-                foreach (var typeValidation in typeValidations ?? new TypeValidation[] { })
+                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(valueValidation.ValidationName, valueValidation.IsElementInEnumerable, parameter.ValueType, typeValidation.ReferenceTypes, valueValidation.ValidationParameters);
+                    typeValidation.TypeValidationHandler(validation.ValidationName, validation.IsElementInEnumerable, parameter.ValueType, typeValidation.ReferenceTypes, validation.ValidationParameters);
                 }
 
-                valueValidation.Value = parameter.Value;
-                valueValidation.ValueType = parameter.ValueType;
+                validation.Value = parameter.Value;
+                validation.ValueType = parameter.ValueType;
 
-                valueValidation.ValueValidationHandler(valueValidation);
+                validation.ValueValidationHandler(validation);
             }
 
             parameter.HasBeenValidated = true;
@@ -156,42 +155,42 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         private static string BuildArgumentExceptionMessage(
-            ValueValidation valueValidation,
+            Validation validation,
             string exceptionMessageSuffix,
             Include include = Include.None,
             Type genericTypeOverride = null)
         {
-            if (valueValidation.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
+            if (validation.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
             {
                 // we force to empty string if null because otherwise when the exception is
                 // constructed the framework chooses some generic message like 'An exception of type ArgumentException was thrown'
-                return valueValidation.Because ?? string.Empty;
+                return validation.Because ?? string.Empty;
             }
 
-            var parameterNameQualifier = valueValidation.ParameterName == null ? string.Empty : Invariant($" '{valueValidation.ParameterName}'");
-            var enumerableQualifier = valueValidation.IsElementInEnumerable ? " contains an element that" : string.Empty;
-            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.GetFriendlyTypeName() ?? valueValidation.ValueType.GetFriendlyTypeName()) : string.Empty;
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (valueValidation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{valueValidation.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
-            var validationParameterQualifiers = valueValidation.ValidationParameters == null || !valueValidation.ValidationParameters.Any() ? string.Empty : valueValidation.ValidationParameters.Select(_ => Invariant($"  Specified '{_.Name}' is '{_.Value ?? NullValueToString}'.")).Aggregate((running, current) => running + current);
+            var parameterNameQualifier = validation.ParameterName == null ? string.Empty : Invariant($" '{validation.ParameterName}'");
+            var enumerableQualifier = validation.IsElementInEnumerable ? " contains an element that" : string.Empty;
+            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.GetFriendlyTypeName() ?? validation.ValueType.GetFriendlyTypeName()) : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (validation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{validation.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
+            var validationParameterQualifiers = validation.ValidationParameters == null || !validation.ValidationParameters.Any() ? string.Empty : validation.ValidationParameters.Select(_ => Invariant($"  Specified '{_.Name}' is '{_.Value ?? NullValueToString}'.")).Aggregate((running, current) => running + current);
             var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
 
-            if (valueValidation.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
+            if (validation.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {
-                if (!string.IsNullOrWhiteSpace(valueValidation.Because))
+                if (!string.IsNullOrWhiteSpace(validation.Because))
                 {
-                    result = valueValidation.Because + "  " + result;
+                    result = validation.Because + "  " + result;
                 }
             }
-            else if (valueValidation.ApplyBecause == ApplyBecause.SuffixedToDefaultMessage)
+            else if (validation.ApplyBecause == ApplyBecause.SuffixedToDefaultMessage)
             {
-                if (!string.IsNullOrWhiteSpace(valueValidation.Because))
+                if (!string.IsNullOrWhiteSpace(validation.Because))
                 {
-                    result = result + "  " + valueValidation.Because;
+                    result = result + "  " + validation.Because;
                 }
             }
             else
             {
-                throw new NotSupportedException(Invariant($"This {nameof(ApplyBecause)} is not supported: {valueValidation.ApplyBecause}"));
+                throw new NotSupportedException(Invariant($"This {nameof(ApplyBecause)} is not supported: {validation.ApplyBecause}"));
             }
 
             return result;
@@ -295,7 +294,7 @@ namespace OBeautifulCode.Validation.Recipes
             Value1GreaterThanValue2,
         }
 
-        private class ValueValidation
+        private class Validation
         {
             public string ValidationName { get; set; }
 
@@ -314,6 +313,8 @@ namespace OBeautifulCode.Validation.Recipes
             public Type ValueType { get; set; }
 
             public bool IsElementInEnumerable { get; set; }
+
+            public IReadOnlyCollection<TypeValidation> TypeValidations { get; set; }
         }
 
         private class ValidationParameter
