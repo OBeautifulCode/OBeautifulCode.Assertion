@@ -10,6 +10,8 @@
 namespace OBeautifulCode.Validation.Recipes
 {
     using System;
+    using System.CodeDom;
+    using System.CodeDom.Compiler;
     using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -30,6 +32,8 @@ namespace OBeautifulCode.Validation.Recipes
         static partial class ParameterValidation
     {
 #pragma warning disable SA1201
+
+        private static readonly CodeDomProvider CodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
 
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
@@ -141,6 +145,14 @@ namespace OBeautifulCode.Validation.Recipes
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
                 ParameterValidator.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
+        }
+
+        private static string GetFriendlyTypeName(
+            this Type type)
+        {
+            // adapted from: https://stackoverflow.com/a/6402967/356790
+            var result = CodeDomProvider.GetTypeOutput(new CodeTypeReference(type.FullName?.Replace(type.Namespace + ".", string.Empty)));
+            return result;
         }
 
         private static string BuildArgumentExceptionMessage(
