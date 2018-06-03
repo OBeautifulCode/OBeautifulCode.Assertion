@@ -27,7 +27,12 @@ namespace OBeautifulCode.Validation.Recipes
         static partial class ParameterValidation
     {
 #pragma warning disable SA1201
-        private delegate void TypeValidationHandler(string validationName, bool isElementInEnumerable, Type valueType, Type[] referenceTypes, ValidationParameter[] validationParameters);
+        private delegate void TypeValidationHandler(
+            string validationName, 
+            bool isElementInEnumerable, 
+            Type valueType, 
+            Type[] referenceTypes, 
+            ValidationParameter[] validationParameters);
 
         private static readonly Type EnumerableType = typeof(IEnumerable);
 
