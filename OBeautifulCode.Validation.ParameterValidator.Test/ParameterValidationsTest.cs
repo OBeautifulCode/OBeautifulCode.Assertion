@@ -104,6 +104,122 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void ApplyBecause___Should_not_alter_default_exception_message___When_ApplyBecause_is_PrefixedToDefaultMessage_and_because_is_null_or_white_space()
+        {
+            // Arrange
+            Guid? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.PrefixedToDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: "  \r\n ", applyBecause: ApplyBecause.PrefixedToDefaultMessage));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void ApplyBecause___Should_not_alter_default_exception_message___When_ApplyBecause_is_SuffixedToDefaultMessage_and_because_is_null_or_white_space()
+        {
+            // Arrange
+            Guid? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: "  \r\n ", applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void ApplyBecause___Should_prefix_default_exception_message_with_because___When_ApplyBecause_is_PrefixedToDefaultMessage_and_because_is_not_null_and_not_white_space()
+        {
+            // Arrange
+            var because = A.Dummy<string>();
+
+            Guid? testParameter1 = null;
+            var expected1 = because + "  Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+            var expected2 = because + "  Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.PrefixedToDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: because, applyBecause: ApplyBecause.PrefixedToDefaultMessage));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void ApplyBecause___Should_suffix_default_exception_message_with_because___When_ApplyBecause_is_SuffixedToDefaultMessage_and_because_is_not_null_and_not_white_space()
+        {
+            // Arrange
+            var because = A.Dummy<string>();
+
+            Guid? testParameter1 = null;
+            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.  " + because;
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.  " + because;
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMesssage));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void ApplyBecause___Should_replace_default_exception_message_with_empty_string___When_ApplyBecause_is_InLieuOfDefaultMessage_and_because_is_null()
+        {
+            // Arrange
+            Guid? testParameter1 = null;
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.InLieuOfDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: null, applyBecause: ApplyBecause.InLieuOfDefaultMessage));
+
+            // Assert
+            actual1.Message.Should().Be(string.Empty);
+            actual2.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public static void ApplyBecause___Should_replace_default_exception_message_with_because___When_ApplyBecause_is_InLieuOfDefaultMessage_and_because_is_not_null()
+        {
+            // Arrange
+            var because = A.Dummy<string>();
+
+            Guid? testParameter1 = null;
+
+            var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: string.Empty, applyBecause: ApplyBecause.InLieuOfDefaultMessage));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeEmptyGuid(because: because, applyBecause: ApplyBecause.InLieuOfDefaultMessage));
+
+            // Assert
+            actual1.Message.Should().Be(string.Empty);
+            actual2.Message.Should().Be(because);
+        }
+
+        [Fact]
         public static void BeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -6615,30 +6731,26 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             foreach (var parameterName in parameterNames)
             {
-                foreach (var because in becauses)
-                {
-                    RunPassingScenarios(validationTest, testValues, parameterName, because);
+                RunPassingScenarios(validationTest, testValues, parameterName);
 
-                    RunMustFailingScenarios(validationTest, testValues, parameterName, because);
+                RunMustFailingScenarios(validationTest, testValues, parameterName);
 
-                    RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName, because);
+                RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName);
 
-                    RunMustEachFailingScenarios(validationTest, testValues, parameterName, because);
+                RunMustEachFailingScenarios(validationTest, testValues, parameterName);
 
-                    RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
+                RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName);
 
-                    RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName, because);
+                RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName);
 
-                    RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName, because);
-                }
+                RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName);
             }
         }
 
         private static void RunPassingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             var mustParameters = testValues.MustPassingValues.Select(_ => _.Named(parameterName).Must());
             var mustEachParameters = testValues.MustEachPassingValues.Select(_ => _.Named(parameterName).Must().Each());
@@ -6650,7 +6762,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expected = parameter.CloneWithHasBeenValidated();
 
                 // Act
-                var actual = validationTest.Validation(parameter, because);
+                var actual = validationTest.Validation(parameter);
 
                 // Assert
                 ParameterComparer.Equals(actual, expected).Should().BeTrue();
@@ -6660,28 +6772,24 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustFailingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             foreach (var failingValue in testValues.MustFailingValues)
             {
                 // Arrange
                 var parameter = failingValue.Named(parameterName).Must();
-                var expectedExceptionMessage = because;
-                if (expectedExceptionMessage == null)
+                string expectedExceptionMessage;
+                if (parameterName == null)
                 {
-                    if (parameterName == null)
-                    {
-                        expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix;
-                    }
-                    else
-                    {
-                        expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
-                    }
+                    expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix;
+                }
+                else
+                {
+                    expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
                 }
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                var actual = Record.Exception(() => validationTest.Validation(parameter));
 
                 // Assert
                 actual.Should().BeOfType(validationTest.ExceptionType);
@@ -6692,28 +6800,24 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustEachFailingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
                 // Arrange
                 var parameter = eachFailingValue.Named(parameterName).Must().Each();
-                var expectedExceptionMessage = because;
-                if (expectedExceptionMessage == null)
+                string expectedExceptionMessage;
+                if (parameterName == null)
                 {
-                    if (parameterName == null)
-                    {
-                        expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix;
-                    }
-                    else
-                    {
-                        expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
-                    }
+                    expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix;
+                }
+                else
+                {
+                    expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
                 }
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                var actual = Record.Exception(() => validationTest.Validation(parameter));
 
                 // Assert
                 actual.Should().BeOfType(validationTest.EachExceptionType);
@@ -6724,8 +6828,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustInvalidParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             foreach (var invalidTypeValue in testValues.MustParameterInvalidTypeValues)
             {
@@ -6735,7 +6838,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                var actual = Record.Exception(() => validationTest.Validation(parameter));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -6746,8 +6849,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustEachInvalidParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             foreach (var invalidTypeValue in testValues.MustEachParameterInvalidTypeValues)
             {
@@ -6757,7 +6859,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                var actual = Record.Exception(() => validationTest.Validation(parameter));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -6767,8 +6869,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
         private static void RunMustEachImproperUseOfFrameworkScenarios<T>(
             ValidationTest validationTest,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             // Arrange
             // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
@@ -6791,8 +6892,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             }
 
             // Act
-            var actual1 = Record.Exception(() => validationTest.Validation(parameter1, because));
-            var actual2 = Record.Exception(() => validationTest.Validation(parameter2, because));
+            var actual1 = Record.Exception(() => validationTest.Validation(parameter1));
+            var actual2 = Record.Exception(() => validationTest.Validation(parameter2));
 
             // Assert
             actual1.Should().BeOfType<InvalidCastException>();
@@ -6805,8 +6906,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunInvalidValidationParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName,
-            string because)
+            string parameterName)
         {
             var mustParameters = testValues.MustValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must());
             var mustEachParameters = testValues.MustEachValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must().Each());
@@ -6820,7 +6920,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, because));
+                var actual = Record.Exception(() => validationTest.Validation(parameter));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();

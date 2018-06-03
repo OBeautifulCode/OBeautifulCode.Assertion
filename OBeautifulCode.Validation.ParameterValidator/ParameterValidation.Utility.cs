@@ -149,9 +149,11 @@ namespace OBeautifulCode.Validation.Recipes
             Include include = Include.None,
             Type genericTypeOverride = null)
         {
-            if (valueValidation.Because != null)
+            if (valueValidation.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
             {
-                return valueValidation.Because;
+                // we force to empty string if null because otherwise when the exception is
+                // constructed the framework chooses some generic message like 'An exception of type ArgumentException was thrown'
+                return valueValidation.Because ?? string.Empty;
             }
 
             var parameterNameQualifier = valueValidation.ParameterName == null ? string.Empty : Invariant($" '{valueValidation.ParameterName}'");
@@ -160,6 +162,26 @@ namespace OBeautifulCode.Validation.Recipes
             var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (valueValidation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{valueValidation.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
             var validationParameterQualifiers = valueValidation.ValidationParameters == null || !valueValidation.ValidationParameters.Any() ? string.Empty : valueValidation.ValidationParameters.Select(_ => Invariant($"  Specified '{_.Name}' is '{_.Value ?? NullValueToString}'.")).Aggregate((running, current) => running + current);
             var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
+
+            if (valueValidation.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
+            {
+                if (!string.IsNullOrWhiteSpace(valueValidation.Because))
+                {
+                    result = valueValidation.Because + "  " + result;
+                }
+            }
+            else if (valueValidation.ApplyBecause == ApplyBecause.SuffixedToDefaultMesssage)
+            {
+                if (!string.IsNullOrWhiteSpace(valueValidation.Because))
+                {
+                    result = result + "  " + valueValidation.Because;
+                }
+            }
+            else
+            {
+                throw new NotSupportedException(Invariant($"This {nameof(ApplyBecause)} is not supported: {valueValidation.ApplyBecause}"));
+            }
+
             return result;
         }
 
