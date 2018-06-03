@@ -264,7 +264,7 @@ namespace OBeautifulCode.Validation.Recipes
             var valueType = validation.ValueType;
             var validationName = validation.ValidationName;
             var isElementInEnumerable = validation.IsElementInEnumerable;
-            
+
             var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.GetFriendlyTypeName()}>") : valueType.GetFriendlyTypeName();
             var exceptionMessage = Invariant($"Called {validationName}() on a parameter of type {valueTypeMessage}, which is not one of the following expected type(s): {expectedTypesMessage}.");

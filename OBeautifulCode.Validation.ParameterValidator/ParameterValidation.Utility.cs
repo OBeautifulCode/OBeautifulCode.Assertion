@@ -67,13 +67,13 @@ namespace OBeautifulCode.Validation.Recipes
                         ValidationName = nameof(ParameterValidator.Each),
                         Value = parameter.Value,
                         ValueType = parameter.ValueType,
-                        IsElementInEnumerable = false
+                        IsElementInEnumerable = false,
                     };
 
                     ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
                     NotBeNullInternal(eachValidation);
                 }
-                
+
                 var valueAsEnumerable = (IEnumerable)parameter.Value;
                 var enumerableType = GetEnumerableGenericType(parameter.ValueType);
                 validation.ValueType = enumerableType;
