@@ -33,7 +33,7 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string EnumerableOfAnyReferenceTypeName = "IEnumerable<" + AnyReferenceTypeName + ">";
 
-        public const string EnumerableWhenNotEnumerableOfAnyValueTypeName = "IEnumerable<" + AnyValueTypeName + ">";
+        public const string EnumerableWhenNotEnumerableOfAnyValueTypeName = "IEnumerable when not IEnumerable<" + AnyValueTypeName + ">";
 
         public const string NullableGenericTypeName = "Nullable<T>";
 
@@ -77,7 +77,7 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string DefaultComparer = "Comparer<T>.Default";
 
-        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T) " + DefaultEqualityComparer;
+        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T) using " + DefaultEqualityComparer;
 
         public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T) using " + DefaultEqualityComparer;
 
