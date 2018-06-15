@@ -31,6 +31,8 @@ namespace OBeautifulCode.Validation.Recipes
             Validation validation,
             TypeValidation typeValidation);
 
+        private static readonly Type EnumerableType = typeof(IEnumerable);
+
         private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
 
         private static readonly Type ComparableType = typeof(IComparable);
@@ -38,6 +40,22 @@ namespace OBeautifulCode.Validation.Recipes
         private static readonly Type UnboundGenericComparableType = typeof(IComparable<>);
 
         private static readonly Type ObjectType = typeof(object);
+
+        private static readonly Type BoolType = typeof(bool);
+
+        private static readonly Type NullableBoolType = typeof(bool?);
+
+        private static readonly Type StringType = typeof(string);
+
+        private static readonly Type GuidType = typeof(Guid);
+
+        private static readonly Type NullableGuidType = typeof(Guid?);
+
+        private static readonly Type DictionaryType = typeof(IDictionary);
+
+        private static readonly Type UnboundGenericReadOnlyDictionaryType = typeof(IReadOnlyDictionary<,>);
+
+        private static readonly Type NullableType = typeof(Nullable<>);
 
         private static readonly IReadOnlyCollection<TypeValidation> MustBeNullableTypeValidations = new[]
         {
@@ -52,7 +70,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(bool), typeof(bool?) },
+                ReferenceTypes = new[] { BoolType, NullableBoolType },
             },
         };
 
@@ -61,7 +79,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(string) },
+                ReferenceTypes = new[] { StringType },
             },
         };
 
@@ -70,7 +88,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(Guid), typeof(Guid?) },
+                ReferenceTypes = new[] { GuidType, NullableGuidType },
             },
         };
 
@@ -79,7 +97,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
+                ReferenceTypes = new[] { EnumerableType },
             },
         };
 
@@ -88,7 +106,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
+                ReferenceTypes = new[] { EnumerableType },
             },
             new TypeValidation
             {
@@ -129,7 +147,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { typeof(IEnumerable) },
+                ReferenceTypes = new[] { EnumerableType },
             },
             new TypeValidation
             {
@@ -146,7 +164,6 @@ namespace OBeautifulCode.Validation.Recipes
             throw new InvalidCastException(Invariant($"validationName: {validation.ValidationName}, isElementInEnumerable: {validation.IsElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
         }
 
-        // ReSharper disable once UnusedParameter.Local
         private static void ThrowIfTypeCannotBeNull(
             Validation validation,
             TypeValidation typeValidation)
@@ -159,7 +176,6 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        // ReSharper disable once UnusedParameter.Local
         private static void ThrowIfEnumerableTypeCannotBeNull(
             Validation validation,
             TypeValidation typeValidation)
@@ -174,7 +190,6 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        // ReSharper disable once UnusedParameter.Local
         private static void ThrowIfNotOfType(
             Validation validation,
             TypeValidation typeValidation)
