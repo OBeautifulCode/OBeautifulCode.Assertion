@@ -205,7 +205,7 @@ namespace OBeautifulCode.Validation.Recipes
                     if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
                     {
                         // type implements IComparable<T>
-                        var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType));
+                        var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericComparableType));
                         if (comparableType == null)
                         {
                             // note that, for completeness, we should recurse through all interface implementations
