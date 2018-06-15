@@ -2899,6 +2899,258 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeNullNorEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest1 = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeNullNorEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerable),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = ParameterValidation.NotBeNullNorEmptyEnumerable,
+                ValidationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerable),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "IEnumerable",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), null, A.Dummy<string>() },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "    ", "    ", "  \r\n ", A.Dummy<string>() },
+                },
+                MustFailingValues = new[]
+                {
+                    string.Empty,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                },
+            };
+
+            var enumerableTestValues1 = new TestValues<IEnumerable>
+            {
+                MustFailingValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { A.Dummy<string>() } },
+                },
+            };
+
+            var enumerableTestValues2A = new TestValues<IEnumerable>
+            {
+                MustPassingValues = new IEnumerable[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty } },
+                },
+                MustFailingValues = new IEnumerable[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2B = new TestValues<IList>
+            {
+                MustPassingValues = new IList[]
+                {
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IList[] { },
+                    new IList[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty } },
+                },
+                MustFailingValues = new IList[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IList[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2C = new TestValues<List<string>>
+            {
+                MustPassingValues = new List<string>[]
+                {
+                    new List<string>() { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new List<string>[] { },
+                    new List<string>[] { new List<string> { A.Dummy<string>() }, new List<string> { null }, new List<string> { string.Empty } },
+                },
+                MustFailingValues = new List<string>[]
+                {
+                    new List<string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new List<string>[] { new List<string>(), new List<string>() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues1);
+
+            validationTest2.Run(stringTestValues2);
+            validationTest2.Run(enumerableTestValues2A);
+            validationTest2.Run(enumerableTestValues2B);
+            validationTest2.Run(enumerableTestValues2C);
+        }
+
+        [Fact]
+        public static void NotBeNullNorEmptyEnumerable___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new object[] { };
+            var expected1 = "Parameter 'testParameter1' is an empty enumerable.";
+
+            var testParameter2 = new[] { new[] { A.Dummy<object>() }, new object[] { }, new[] { A.Dummy<object>() } };
+            var expected2 = "Parameter 'testParameter2' contains an element that is an empty enumerable.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorEmptyEnumerable());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeNullNorEmptyEnumerable());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeNullNorEmptyNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
