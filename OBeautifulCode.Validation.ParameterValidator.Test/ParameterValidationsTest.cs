@@ -3538,6 +3538,199 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeNullNorEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation validation = ParameterValidation.NotBeNullNorEmptyDictionary;
+            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyDictionary);
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IDictionary, IReadOnlyDictionary<TKey,TValue>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustParameterInvalidTypeValues = new string[]
+                {
+                    A.Dummy<string>(),
+                    string.Empty,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new string[] { },
+                    new string[] { A.Dummy<string>(), string.Empty, null },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string> { A.Dummy<string>() },
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
+                },
+            };
+
+            validationTest1.Run(stringTestValues);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+            };
+
+            var dictionaryTest = new TestValues<IDictionary>
+            {
+                MustFailingValues = new IDictionary[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, null, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } } },
+                },
+            };
+
+            validationTest2.Run(dictionaryTest);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyDictionaryExceptionMessageSuffix,
+            };
+
+            var dictionaryTest3A = new TestValues<IDictionary>
+            {
+                MustPassingValues = new IDictionary[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary[] { },
+                    new IDictionary[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IDictionary[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3B = new TestValues<IReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[] { },
+                    new IReadOnlyDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            validationTest3.Run(dictionaryTest3A);
+            validationTest3.Run(dictionaryTest3B);
+        }
+
+        [Fact]
+        public static void NotBeNullNorEmptyDictionary___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = new Dictionary<string, string>();
+            var expected1 = "Parameter 'testParameter1' is an empty dictionary.";
+
+            var testParameter2 = new IReadOnlyDictionary<string, string>[]
+            {
+                new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                new Dictionary<string, string>(),
+            };
+            var expected2 = "Parameter 'testParameter2' contains an element that is an empty dictionary.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorEmptyDictionary());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeNullNorEmptyDictionary());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void NotBeNullNorEmptyEnumerableNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert

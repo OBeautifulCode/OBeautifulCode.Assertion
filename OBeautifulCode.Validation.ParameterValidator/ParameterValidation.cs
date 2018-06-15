@@ -554,6 +554,37 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IDictionary or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty.
+        /// </summary>
+        /// <remarks>
+        /// This validation is effectively the same as <see cref="NotBeEmptyDictionary"/> and exists for completeness.
+        /// </remarks>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeNullNorEmptyDictionary(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
+        {
+            var validation = new Validation
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                ValueValidationHandler = NotBeEmptyDictionaryInternal,
+                ValidationName = nameof(NotBeNullNorEmptyDictionary),
+                TypeValidations = MustBeDictionaryTypeValidations,
+            };
+
+            parameter.Validate(validation);
+
+            return parameter;
+        }
+
+        /// <summary>
         /// Validates that the parameter is equal to default(T).
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
