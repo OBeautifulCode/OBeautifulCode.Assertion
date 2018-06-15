@@ -469,12 +469,12 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
-        public static Parameter NotBeNullNorEmptyNorContainAnyNulls(
+        public static Parameter NotBeNullNorEmptyEnumerableNorContainAnyNulls(
             [ValidatedNotNull] this Parameter parameter,
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
         {
-            var validationName = nameof(NotBeNullNorEmptyNorContainAnyNulls);
+            var validationName = nameof(NotBeNullNorEmptyEnumerableNorContainAnyNulls);
 
             var validation1 = new Validation
             {

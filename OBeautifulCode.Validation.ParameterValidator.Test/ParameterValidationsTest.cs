@@ -3151,11 +3151,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeNullNorEmptyNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
+        public static void NotBeNullNorEmptyEnumerableNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotBeNullNorEmptyNorContainAnyNulls;
-            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyNorContainAnyNulls);
+            Validation validation = ParameterValidation.NotBeNullNorEmptyEnumerableNorContainAnyNulls;
+            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerableNorContainAnyNulls);
 
             var validationTest1 = new ValidationTest
             {

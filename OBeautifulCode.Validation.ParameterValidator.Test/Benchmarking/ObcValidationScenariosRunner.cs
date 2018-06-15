@@ -139,11 +139,11 @@ namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
             IReadOnlyDictionary<BenchmarkSignatureKind, Stopwatch> signatureKindToStopwatchMap)
         {
             signatureKindToStopwatchMap[BenchmarkSignatureKind.Named].Start();
-            value.Named(nameof(value)).Must().NotBeNullNorEmptyNorContainAnyNulls();
+            value.Named(nameof(value)).Must().NotBeNullNorEmptyEnumerableNorContainAnyNulls();
             signatureKindToStopwatchMap[BenchmarkSignatureKind.Named].Stop();
 
             signatureKindToStopwatchMap[BenchmarkSignatureKind.Anonymous].Start();
-            new { testObjects = value }.Must().NotBeNullNorEmptyNorContainAnyNulls();
+            new { testObjects = value }.Must().NotBeNullNorEmptyEnumerableNorContainAnyNulls();
             signatureKindToStopwatchMap[BenchmarkSignatureKind.Anonymous].Stop();
         }
 
@@ -154,7 +154,7 @@ namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
             try
             {
                 signatureKindToStopwatchMap[BenchmarkSignatureKind.Named].Start();
-                value.Named(nameof(value)).Must().NotBeNullNorEmptyNorContainAnyNulls();
+                value.Named(nameof(value)).Must().NotBeNullNorEmptyEnumerableNorContainAnyNulls();
                 throw new InvalidOperationException();
             }
             catch (ArgumentException)
@@ -165,7 +165,7 @@ namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
             try
             {
                 signatureKindToStopwatchMap[BenchmarkSignatureKind.Anonymous].Start();
-                new { testObjects = value }.Must().NotBeNullNorEmptyNorContainAnyNulls();
+                new { testObjects = value }.Must().NotBeNullNorEmptyEnumerableNorContainAnyNulls();
                 throw new InvalidOperationException();
             }
             catch (ArgumentException)

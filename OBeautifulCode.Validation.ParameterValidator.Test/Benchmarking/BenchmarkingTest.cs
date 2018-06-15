@@ -114,19 +114,19 @@ namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
             result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullOrWhiteSpace, OutcomeKind.Failing);
 
             validationScenariosRunner.PassingNotNullNorEmptyNorContainAnyNullsTest(testObjects, benchmarkKindToStopwatchMap);
-            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyNorContainAnyNulls, OutcomeKind.Passing);
+            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyEnumerableNorContainAnyNulls, OutcomeKind.Passing);
 
             validationScenariosRunner.FailingNotNullNorEmptyNorContainAnyNullsTest(null, benchmarkKindToStopwatchMap);
-            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyNorContainAnyNulls, OutcomeKind.Failing);
+            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyEnumerableNorContainAnyNulls, OutcomeKind.Failing);
 
             validationScenariosRunner.FailingNotNullNorEmptyNorContainAnyNullsTest(new object[] { }, benchmarkKindToStopwatchMap);
-            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyNorContainAnyNulls, OutcomeKind.Failing);
+            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyEnumerableNorContainAnyNulls, OutcomeKind.Failing);
 
             validationScenariosRunner.FailingNotNullNorEmptyNorContainAnyNullsTest(new List<object>(), benchmarkKindToStopwatchMap);
-            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyNorContainAnyNulls, OutcomeKind.Failing);
+            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyEnumerableNorContainAnyNulls, OutcomeKind.Failing);
 
             validationScenariosRunner.FailingNotNullNorEmptyNorContainAnyNullsTest(testObjectsWithNulls, benchmarkKindToStopwatchMap);
-            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyNorContainAnyNulls, OutcomeKind.Failing);
+            result.RecordResultAndResetStopwatches(benchmarkKindToStopwatchMap, ValidationKind.NotBeNullNorEmptyEnumerableNorContainAnyNulls, OutcomeKind.Failing);
 
             return result;
         }

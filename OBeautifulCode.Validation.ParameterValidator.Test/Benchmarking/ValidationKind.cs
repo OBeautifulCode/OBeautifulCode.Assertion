@@ -14,6 +14,6 @@ namespace OBeautifulCode.Validation.ParameterValidator.Test.Benchmarking
 
         NotBeNullOrWhiteSpace,
 
-        NotBeNullNorEmptyNorContainAnyNulls,
+        NotBeNullNorEmptyEnumerableNorContainAnyNulls,
     }
 }
