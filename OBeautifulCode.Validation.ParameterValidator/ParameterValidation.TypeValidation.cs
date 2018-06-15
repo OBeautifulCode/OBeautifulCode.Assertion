@@ -114,11 +114,21 @@ namespace OBeautifulCode.Validation.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeDictionaryTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { DictionaryType, UnboundGenericReadOnlyDictionaryType },
+            },
+        };
+
         private static readonly IReadOnlyCollection<TypeValidation> InequalityTypeValidations = new[]
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotComparable,
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { ComparableType, UnboundGenericComparableType, NullableType },
             },
             new TypeValidation
             {
@@ -197,43 +207,12 @@ namespace OBeautifulCode.Validation.Recipes
             var valueType = validation.ValueType;
             var validTypes = typeValidation.ReferenceTypes;
 
-            if ((!validTypes.Contains(valueType)) && (!validTypes.Any(_ => _.IsAssignableFrom(valueType))))
+            if (!validTypes.Any(_ => valueType.IsOfType(_)))
             {
                 ThrowParameterUnexpectedType(validation, validTypes);
             }
         }
 
-        // ReSharper disable once UnusedParameter.Local
-        private static void ThrowIfNotComparable(
-            Validation validation,
-            TypeValidation typeValidation)
-        {
-            var valueType = validation.ValueType;
-
-            // type is nullable
-            if (Nullable.GetUnderlyingType(valueType) == null)
-            {
-                // type is IComparable or can be assigned to IComparable
-                if ((valueType != ComparableType) && (!ComparableType.IsAssignableFrom(valueType)))
-                {
-                    // type is IComparable<T>
-                    if ((!valueType.IsGenericType) || (valueType.GetGenericTypeDefinition() != UnboundGenericComparableType))
-                    {
-                        // type implements IComparable<T>
-                        var comparableType = valueType.GetInterfaces().FirstOrDefault(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericComparableType));
-                        if (comparableType == null)
-                        {
-                            // note that, for completeness, we should recurse through all interface implementations
-                            // and check whether any of those are IComparable<>
-                            // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                            ThrowParameterUnexpectedType(validation, nameof(IComparable), ComparableGenericTypeName, NullableGenericTypeName);
-                        }
-                    }
-                }
-            }
-        }
-
-        // ReSharper disable once UnusedParameter.Local
         private static void ThrowIfAnyValidationParameterTypeDoesNotEqualValueType(
             Validation validation,
             TypeValidation typeValidation)
@@ -280,7 +259,7 @@ namespace OBeautifulCode.Validation.Recipes
             var validationName = validation.ValidationName;
             var isElementInEnumerable = validation.IsElementInEnumerable;
 
-            var expectedTypesMessage = expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _).Aggregate((running, item) => running + ", " + item);
+            var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.GetFriendlyTypeName()}>") : valueType.GetFriendlyTypeName();
             var exceptionMessage = Invariant($"Called {validationName}() on a parameter of type {valueTypeMessage}, which is not one of the following expected type(s): {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
@@ -293,7 +272,7 @@ namespace OBeautifulCode.Validation.Recipes
             params Type[] expectedTypes)
         {
             var expectedTypesStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
-            var expectedTypesMessage = expectedTypesStrings.Aggregate((running, item) => running + ", " + item);
+            var expectedTypesMessage = string.Join(", ", expectedTypesStrings);
             var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is of type {validationParameterType.GetFriendlyTypeName()}, which is not one of the following expected type(s): {expectedTypesMessage}.");
             throw new InvalidCastException(exceptionMessage);
         }
