@@ -69,6 +69,10 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeEmptyEnumerableExceptionMessageSuffix = "is an empty enumerable";
 
+        public const string BeEmptyDictionaryExceptionMessageSuffix = "is not an empty dictionary";
+
+        public const string NotBeEmptyDictionaryExceptionMessageSuffix = "is an empty dictionary";
+
         public const string ContainSomeNullsExceptionMessageSuffix = "contains no null elements";
 
         public const string NotContainAnyNullsExceptionMessageSuffix = "contains at least one null element";

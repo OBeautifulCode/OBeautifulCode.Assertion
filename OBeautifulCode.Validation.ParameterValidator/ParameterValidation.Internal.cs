@@ -203,6 +203,40 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void BeEmptyDictionaryInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var valueAsDictionary = validation.Value as IDictionary;
+
+            // ReSharper disable once PossibleNullReferenceException
+            var shouldThrow = valueAsDictionary.Count != 0;
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEmptyDictionaryExceptionMessageSuffix);
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void NotBeEmptyDictionaryInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var valueAsDictionary = validation.Value as IDictionary;
+
+            // ReSharper disable once PossibleNullReferenceException
+            var shouldThrow = valueAsDictionary.Count == 0;
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEmptyDictionaryExceptionMessageSuffix);
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
         private static void ContainSomeNullsInternal(
             Validation validation)
         {
