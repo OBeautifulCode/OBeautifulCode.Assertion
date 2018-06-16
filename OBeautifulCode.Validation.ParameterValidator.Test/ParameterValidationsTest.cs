@@ -2379,8 +2379,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IReadOnlyDictionary<TKey,TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
+                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,TValue>, IReadOnlyDictionary<TKey,TValue>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,TValue>>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -2507,7 +2507,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
-            var dictionaryTest3B = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[] { new Dictionary<string, string>(), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()) },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                    },
+                },
+             };
+
+            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -2536,6 +2563,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
+            validationTest3.Run(dictionaryTest3C);
         }
 
         [Fact]
@@ -2572,8 +2600,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IReadOnlyDictionary<TKey,TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
+                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,TValue>, IReadOnlyDictionary<TKey,TValue>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,TValue>>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -2700,7 +2728,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
-            var dictionaryTest3B = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -2729,6 +2784,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
+            validationTest3.Run(dictionaryTest3C);
         }
 
         [Fact]
@@ -3548,8 +3604,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             {
                 Validation = validation,
                 ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IReadOnlyDictionary<TKey,TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
+                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,TValue>, IReadOnlyDictionary<TKey,TValue>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,TValue>>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -3676,7 +3732,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
-            var dictionaryTest3B = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -3705,6 +3788,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
+            validationTest3.Run(dictionaryTest3C);
         }
 
         [Fact]

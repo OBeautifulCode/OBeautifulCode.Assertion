@@ -376,7 +376,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IDictionary or IReadOnlyDictionary{TKey,TValue} parameter is empty.
+        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
@@ -403,7 +403,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IDictionary or IReadOnlyDictionary{TKey,TValue} parameter is not empty.
+        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not empty.
         /// </summary>
         /// <param name="parameter">The parameter to validate.</param>
         /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
@@ -554,7 +554,7 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
-        /// Validates that the IDictionary or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty.
+        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty.
         /// </summary>
         /// <remarks>
         /// This validation is effectively the same as <see cref="NotBeEmptyDictionary"/> and exists for completeness.

@@ -53,6 +53,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static readonly Type DictionaryType = typeof(IDictionary);
 
+        private static readonly Type DictionaryUnboundedGenericType = typeof(IDictionary<,>);
+
         private static readonly Type UnboundGenericReadOnlyDictionaryType = typeof(IReadOnlyDictionary<,>);
 
         private static readonly Type NullableType = typeof(Nullable<>);
@@ -119,7 +121,7 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { DictionaryType, UnboundGenericReadOnlyDictionaryType },
+                ReferenceTypes = new[] { DictionaryType, DictionaryUnboundedGenericType, UnboundGenericReadOnlyDictionaryType },
             },
         };
 
