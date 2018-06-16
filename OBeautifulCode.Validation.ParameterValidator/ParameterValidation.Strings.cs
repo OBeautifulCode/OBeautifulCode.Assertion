@@ -73,9 +73,9 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotBeEmptyDictionaryExceptionMessageSuffix = "is an empty dictionary";
 
-        public const string ContainSomeNullsExceptionMessageSuffix = "contains no null elements";
+        public const string ContainSomeNullElementsExceptionMessageSuffix = "contains no null elements";
 
-        public const string NotContainAnyNullsExceptionMessageSuffix = "contains at least one null element";
+        public const string NotContainAnyNullElementsExceptionMessageSuffix = "contains at least one null element";
 
         public const string DefaultEqualityComparer = "EqualityComparer<T>.Default";
 

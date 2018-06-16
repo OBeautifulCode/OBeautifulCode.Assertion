@@ -237,7 +237,7 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
-        private static void ContainSomeNullsInternal(
+        private static void ContainSomeNullElementsInternal(
             Validation validation)
         {
             NotBeNullInternal(validation);
@@ -257,12 +257,12 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainSomeNullsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainSomeNullElementsExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }
 
-        private static void NotContainAnyNullsInternal(
+        private static void NotContainAnyNullElementsInternal(
             Validation validation)
         {
             NotBeNullInternal(validation);
@@ -282,7 +282,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainAnyNullsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainAnyNullElementsExceptionMessageSuffix);
                 throw new ArgumentException(exceptionMessage);
             }
         }

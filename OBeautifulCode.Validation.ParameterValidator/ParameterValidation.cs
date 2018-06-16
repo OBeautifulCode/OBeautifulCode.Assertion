@@ -438,7 +438,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
-        public static Parameter ContainSomeNulls(
+        public static Parameter ContainSomeNullElements(
             [ValidatedNotNull] this Parameter parameter,
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
@@ -447,8 +447,8 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = ContainSomeNullsInternal,
-                ValidationName = nameof(ContainSomeNulls),
+                ValueValidationHandler = ContainSomeNullElementsInternal,
+                ValidationName = nameof(ContainSomeNullElements),
                 TypeValidations = MustBeEnumerableOfNullableTypeValidations,
             };
 
@@ -465,7 +465,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <returns>
         /// The validated parameter.
         /// </returns>
-        public static Parameter NotContainAnyNulls(
+        public static Parameter NotContainAnyNullElements(
             [ValidatedNotNull] this Parameter parameter,
             string because = null,
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
@@ -474,8 +474,8 @@ namespace OBeautifulCode.Validation.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotContainAnyNullsInternal,
-                ValidationName = nameof(NotContainAnyNulls),
+                ValueValidationHandler = NotContainAnyNullElementsInternal,
+                ValidationName = nameof(NotContainAnyNullElements),
                 TypeValidations = MustBeEnumerableOfNullableTypeValidations,
             };
 
@@ -542,7 +542,7 @@ namespace OBeautifulCode.Validation.Recipes
             var validation2 = new Validation
             {
                 Because = because,
-                ValueValidationHandler = NotContainAnyNullsInternal,
+                ValueValidationHandler = NotContainAnyNullElementsInternal,
                 ValidationName = validationName,
                 TypeValidations = null,
             };

@@ -2755,11 +2755,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void ContainSomeNulls___Should_throw_or_not_throw_as_expected___When_called()
+        public static void ContainSomeNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.ContainSomeNulls;
-            var validationName = nameof(ParameterValidation.ContainSomeNulls);
+            Validation validation = ParameterValidation.ContainSomeNullElements;
+            var validationName = nameof(ParameterValidation.ContainSomeNullElements);
 
             var validationTest1 = new ValidationTest
             {
@@ -2921,7 +2921,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.ContainSomeNullsExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.ContainSomeNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -3001,7 +3001,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void ContainSomeNulls___Should_throw_with_expected_Exception_message___When_called()
+        public static void ContainSomeNullElements___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             var testParameter1 = new[] { A.Dummy<object>() };
@@ -3011,8 +3011,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected2 = "Parameter 'testParameter2' contains an element that contains no null elements.";
 
             // Act
-            var actual1 = Record.Exception(() => new { testParameter1 }.Must().ContainSomeNulls());
-            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().ContainSomeNulls());
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().ContainSomeNullElements());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().ContainSomeNullElements());
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -3020,11 +3020,11 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void NotContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
+        public static void NotContainAnyNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotContainAnyNulls;
-            var validationName = nameof(ParameterValidation.NotContainAnyNulls);
+            Validation validation = ParameterValidation.NotContainAnyNullElements;
+            var validationName = nameof(ParameterValidation.NotContainAnyNullElements);
 
             var validationTest1 = new ValidationTest
             {
@@ -3186,7 +3186,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullsExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -3267,7 +3267,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
-        public static void NotContainAnyNulls___Should_throw_with_expected_Exception_message___When_called()
+        public static void NotContainAnyNullElements___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             var testParameter1 = new[] { A.Dummy<object>(), null, A.Dummy<object>() };
@@ -3277,8 +3277,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             var expected2 = "Parameter 'testParameter2' contains an element that contains at least one null element.";
 
             // Act
-            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContainAnyNulls());
-            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotContainAnyNulls());
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContainAnyNullElements());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotContainAnyNullElements());
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -3948,7 +3948,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullsExceptionMessageSuffix,
+                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues5A = new TestValues<IEnumerable>
