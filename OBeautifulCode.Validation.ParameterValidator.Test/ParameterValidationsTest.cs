@@ -2534,7 +2534,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
              };
 
-            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[] { new Dictionary<string, string>(), new Dictionary<string, string>(new Dictionary<string, string>()) },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    new Dictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                    },
+                },
+            };
+
+            var dictionaryTest3D = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -2561,9 +2588,38 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
+            var dictionaryTest3E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[] { new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()) },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                    },
+                },
+            };
+
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
             validationTest3.Run(dictionaryTest3C);
+            validationTest3.Run(dictionaryTest3D);
+            validationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
@@ -2755,7 +2811,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
-            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } } },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new Dictionary<string, string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3D = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -2782,9 +2865,38 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
+            var dictionaryTest3E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[] { new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+            };
+
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
             validationTest3.Run(dictionaryTest3C);
+            validationTest3.Run(dictionaryTest3D);
+            validationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
@@ -3759,7 +3871,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
-            var dictionaryTest3C = new TestValues<IReadOnlyDictionary<string, string>>
+            var dictionaryTest3C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } } },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new Dictionary<string, string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3D = new TestValues<IReadOnlyDictionary<string, string>>
             {
                 MustPassingValues = new IReadOnlyDictionary<string, string>[]
                 {
@@ -3786,9 +3925,37 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 },
             };
 
+            var dictionaryTest3E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[] { new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+            };
+
             validationTest3.Run(dictionaryTest3A);
             validationTest3.Run(dictionaryTest3B);
             validationTest3.Run(dictionaryTest3C);
+            validationTest3.Run(dictionaryTest3D);
+            validationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
