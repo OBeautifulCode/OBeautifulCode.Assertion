@@ -195,7 +195,7 @@ namespace OBeautifulCode.Validation.Recipes
         {
             if (type.IsGenericTypeDefinition)
             {
-                throw new InvalidOperationException("");
+                ParameterValidator.ThrowImproperUseOfFramework(Invariant($"The parameter type is an unbounded generic type."));
             }
 
             // type is equal to the other type
@@ -213,7 +213,7 @@ namespace OBeautifulCode.Validation.Recipes
             // type is generic and other type is an unbounded generic type
             if (type.IsGenericType && otherType.IsGenericTypeDefinition)
             {
-                // type's unbounded generic version is the other type 
+                // type's unbounded generic version is the other type
                 if (type.GetGenericTypeDefinition() == otherType)
                 {
                     return true;
@@ -232,7 +232,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             return false;
         }
-        
+
         private static void ThrowIfMalformedRange(
             ValidationParameter[] validationParameters)
         {
