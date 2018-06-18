@@ -9,6 +9,8 @@
 
 namespace OBeautifulCode.Validation.Recipes
 {
+    using System.Collections;
+
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
@@ -39,7 +41,15 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string EnumerableOfNullableGenericTypeName = "IEnumerable<" + NullableGenericTypeName + ">";
 
-        public const string ComparableGenericTypeName = "IComparable<T>";
+        public const string DictionaryTypeName = nameof(IDictionary);
+
+        public const string DictionaryWithValueOfAnyReferenceTypeName = "IDictionary<TKey," + AnyReferenceTypeName + ">";
+
+        public const string DictionaryWithValueOfNullableGenericTypeName = "IDictionary<TKey," + NullableGenericTypeName + ">";
+
+        public const string ReadOnlyDictionaryWithValueOfAnyReferenceTypeName = "IReadOnlyDictionary<TKey," + AnyReferenceTypeName + ">";
+
+        public const string ReadOnlyDictionaryWithValueOfNullableGenericTypeName = "IReadOnlyDictionary<TKey," + NullableGenericTypeName + ">";
 
         public const string NullValueToString = "<null>";
 
@@ -76,6 +86,10 @@ namespace OBeautifulCode.Validation.Recipes
         public const string ContainSomeNullElementsExceptionMessageSuffix = "contains no null elements";
 
         public const string NotContainAnyNullElementsExceptionMessageSuffix = "contains at least one null element";
+
+        public const string ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix = "contains no key-value pairs with a null value";
+
+        public const string NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix = "contains at least one key-value pair with a null value";
 
         public const string DefaultEqualityComparer = "EqualityComparer<T>.Default";
 

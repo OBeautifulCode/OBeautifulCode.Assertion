@@ -149,6 +149,46 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
+        private static Type GetDictionaryGenericValueType(
+            Type dictionaryType)
+        {
+            Type result;
+
+            if (dictionaryType.IsGenericType && (dictionaryType.GetGenericTypeDefinition() == UnboundGenericDictionaryType))
+            {
+                // type is IDictionary<T,K>
+                result = dictionaryType.GetGenericArguments()[1];
+            }
+            else if (dictionaryType.IsGenericType && (dictionaryType.GetGenericTypeDefinition() == UnboundGenericReadOnlyDictionaryType))
+            {
+                // type is IReadOnlyDictionary<T,K>
+                result = dictionaryType.GetGenericArguments()[1];
+            }
+            else
+            {
+                // type implements IDictionary<T,K>/IReadOnlyDictionary<T,K> or is a subclass (sub-sub-class, ...)
+                // of a type that implements those types
+                // note that we are grabing the first implementation.  it is possible, but
+                // highly unlikely, for a type to have multiple implementations of IDictionary<T,K>
+                result = dictionaryType
+                    .GetInterfaces()
+                    .Where(_ => _.IsGenericType && ((_.GetGenericTypeDefinition() == UnboundGenericDictionaryType) || (_.GetGenericTypeDefinition() == UnboundGenericReadOnlyDictionaryType)))
+                    .Select(_ => _.GenericTypeArguments[1])
+                    .FirstOrDefault();
+
+                if (result == null)
+                {
+                    // here we just assume it's a IDictionary and return typeof(object),
+                    // however, for completeness, we should recurse through all interface implementations
+                    // and check whether those are IDictionary<T,K> or IReadOnlyDictionary<T,K>.
+                    // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
+                    result = ObjectType;
+                }
+            }
+
+            return result;
+        }
+
         private static bool IsOfType(
             this Type type,
             Type otherType)

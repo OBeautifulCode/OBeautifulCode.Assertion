@@ -287,6 +287,56 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        private static void ContainSomeKeyValuePairsWithNullValueInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var valueAsEnumerable = validation.Value as IEnumerable;
+            var shouldThrow = true;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var keyValuePair in valueAsEnumerable)
+            {
+                if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
+                {
+                    shouldThrow = false;
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix);
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
+        private static void NotContainAnyKeyValuePairsWithNullValueInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var valueAsEnumerable = validation.Value as IEnumerable;
+            var shouldThrow = false;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var keyValuePair in valueAsEnumerable)
+            {
+                if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
+                {
+                    shouldThrow = true;
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
+                throw new ArgumentException(exceptionMessage);
+            }
+        }
+
         private static void BeDefaultInternal(
             Validation validation)
         {

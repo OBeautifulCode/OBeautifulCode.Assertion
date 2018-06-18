@@ -53,7 +53,7 @@ namespace OBeautifulCode.Validation.Recipes
 
         private static readonly Type DictionaryType = typeof(IDictionary);
 
-        private static readonly Type DictionaryUnboundedGenericType = typeof(IDictionary<,>);
+        private static readonly Type UnboundGenericDictionaryType = typeof(IDictionary<,>);
 
         private static readonly Type UnboundGenericReadOnlyDictionaryType = typeof(IReadOnlyDictionary<,>);
 
@@ -121,7 +121,20 @@ namespace OBeautifulCode.Validation.Recipes
             new TypeValidation
             {
                 TypeValidationHandler = ThrowIfNotOfType,
-                ReferenceTypes = new[] { DictionaryType, DictionaryUnboundedGenericType, UnboundGenericReadOnlyDictionaryType },
+                ReferenceTypes = new[] { DictionaryType, UnboundGenericDictionaryType, UnboundGenericReadOnlyDictionaryType },
+            },
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeDictionaryOfNullableTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfNotOfType,
+                ReferenceTypes = new[] { DictionaryType, UnboundGenericDictionaryType, UnboundGenericReadOnlyDictionaryType },
+            },
+            new TypeValidation
+            {
+                TypeValidationHandler = ThrowIfDictionaryTypeCannotBeNull,
             },
         };
 
@@ -198,7 +211,25 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
+                // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
+                // see: https://stackoverflow.com/a/3149180/356790
                 ThrowParameterUnexpectedType(validation, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
+            }
+        }
+
+        private static void ThrowIfDictionaryTypeCannotBeNull(
+            Validation validation,
+            TypeValidation typeValidation)
+        {
+            var valueType = validation.ValueType;
+
+            var dictionaryValueType = GetDictionaryGenericValueType(valueType);
+
+            if (dictionaryValueType.IsValueType && (Nullable.GetUnderlyingType(dictionaryValueType) == null))
+            {
+                // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
+                // see: https://stackoverflow.com/a/3149180/356790
+                ThrowParameterUnexpectedType(validation, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
             }
         }
 
