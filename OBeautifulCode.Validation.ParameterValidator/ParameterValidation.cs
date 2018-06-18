@@ -608,6 +608,45 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty nor contains any null values.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeNullNorEmptyDictionaryNorContainAnyNullValues(
+            [ValidatedNotNull] this Parameter parameter,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage)
+        {
+            var validationName = nameof(NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
+
+            var validation1 = new Validation
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                ValueValidationHandler = NotBeEmptyDictionaryInternal,
+                ValidationName = validationName,
+                TypeValidations = MustBeDictionaryOfNullableTypeValidations,
+            };
+
+            var validation2 = new Validation
+            {
+                Because = because,
+                ValueValidationHandler = NotContainAnyKeyValuePairsWithNullValueInternal,
+                ValidationName = validationName,
+                TypeValidations = null,
+            };
+
+            parameter.Validate(validation1);
+            parameter.Validate(validation2);
+
+            return parameter;
+        }
+
+        /// <summary>
         /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty.
         /// </summary>
         /// <remarks>

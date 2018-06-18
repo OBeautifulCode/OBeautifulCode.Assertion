@@ -4996,6 +4996,485 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeNullNorEmptyDictionaryNorContainAnyNullValues___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            Validation validation = ParameterValidation.NotBeNullNorEmptyDictionaryNorContainAnyNullValues;
+            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,TValue>, IReadOnlyDictionary<TKey,TValue>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,TValue>>, IEnumerable<IReadOnlyDictionary<TKey,TValue>>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustParameterInvalidTypeValues = new string[]
+                {
+                    A.Dummy<string>(),
+                    string.Empty,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new string[] { },
+                    new string[] { A.Dummy<string>(), string.Empty, null },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string> { A.Dummy<string>() },
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
+                },
+            };
+
+            validationTest1.Run(stringTestValues);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
+            };
+
+            var dictionaryTest2A = new TestValues<IDictionary<string, bool>>
+            {
+                MustParameterInvalidTypeValues = new IDictionary<string, bool>[]
+                {
+                    new Dictionary<string, bool>(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Dictionary<string, bool>[] { },
+                },
+            };
+
+            var dictionaryTest2B = new TestValues<Dictionary<string, bool>>
+            {
+                MustParameterInvalidTypeValues = new Dictionary<string, bool>[]
+                {
+                    new Dictionary<string, bool>(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Dictionary<string, bool>[] { },
+                },
+            };
+
+            var dictionaryTest2C = new TestValues<IReadOnlyDictionary<string, bool>>
+            {
+                MustParameterInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
+                {
+                    new Dictionary<string, bool>(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Dictionary<string, bool>[] { },
+                },
+            };
+
+            var dictionaryTest2D = new TestValues<ReadOnlyDictionary<string, bool>>
+            {
+                MustParameterInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
+                {
+                    new ReadOnlyDictionary<string, bool>(new Dictionary<string, bool>()),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new ReadOnlyDictionary<string, bool>[] { },
+                },
+            };
+
+            validationTest2.Run(dictionaryTest2A);
+            validationTest2.Run(dictionaryTest2B);
+            validationTest2.Run(dictionaryTest2C);
+            validationTest2.Run(dictionaryTest2D);
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+            };
+
+            var dictionaryTest3 = new TestValues<IDictionary>
+            {
+                MustFailingValues = new IDictionary[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, null, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } } },
+                },
+            };
+
+            validationTest3.Run(dictionaryTest3);
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyDictionaryExceptionMessageSuffix,
+            };
+
+            var dictionaryTest4A = new TestValues<IDictionary>
+            {
+                MustPassingValues = new IDictionary[]
+                {
+                    new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary[] { },
+                    new IDictionary[] { new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IDictionary[]
+                {
+                    new ListDictionary(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[]
+                    {
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new ListDictionary(),
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest4B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest4C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } } },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new Dictionary<string, string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest4D = new TestValues<IReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[] { },
+                    new IReadOnlyDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest4E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[] { new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }) },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+            };
+
+            validationTest4.Run(dictionaryTest4A);
+            validationTest4.Run(dictionaryTest4B);
+            validationTest4.Run(dictionaryTest4C);
+            validationTest4.Run(dictionaryTest4D);
+            validationTest4.Run(dictionaryTest4E);
+
+            var validationTest5 = new ValidationTest
+            {
+                Validation = validation,
+                ValidationName = validationName,
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
+            };
+
+            var dictionaryTest5A = new TestValues<IDictionary>
+            {
+                MustPassingValues = new IDictionary[]
+                {
+                    new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ListDictionary[] { },
+                    new ListDictionary[]
+                    {
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+                MustFailingValues = new IDictionary[]
+                {
+                    new ListDictionary() { { A.Dummy<string>(), null } },
+                    new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), null } },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[]
+                    {
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new ListDictionary() { { A.Dummy<string>(), null } },
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest5B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), null } },
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), null } },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), null } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest5C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), null } },
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), null } },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), null } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest5D = new TestValues<IReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[] { },
+                    new IReadOnlyDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>() { { A.Dummy<string>(), null } },
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), null } },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), null } },
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest5E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), null } }),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), null } }),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), null } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+            };
+
+            validationTest5.Run(dictionaryTest5A);
+            validationTest5.Run(dictionaryTest5B);
+            validationTest5.Run(dictionaryTest5C);
+            validationTest5.Run(dictionaryTest5D);
+            validationTest5.Run(dictionaryTest5E);
+        }
+
+        [Fact]
         public static void BeDefault___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
