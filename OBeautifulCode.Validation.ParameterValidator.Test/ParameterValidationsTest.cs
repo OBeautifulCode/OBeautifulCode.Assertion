@@ -1207,6 +1207,117 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeNullOrNotWhiteSpace___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var validationTest = new ValidationTest
+            {
+                Validation = ParameterValidation.BeNullOrNotWhiteSpace,
+                ValidationName = nameof(ParameterValidation.BeNullOrNotWhiteSpace),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeNullOrNotWhiteSpaceExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.NewGuid() },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    A.Dummy<Guid>(),
+                    Guid.Empty,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
+                    new Guid?[] { Guid.NewGuid(), null, Guid.NewGuid() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string> { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    null,
+                    A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { A.Dummy<string>(), null, A.Dummy<string>() },
+                },
+                MustFailingValues = new string[]
+                {
+                    string.Empty,
+                    "  \r\n  ",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                    new string[] { A.Dummy<string>(), " \r\n ", A.Dummy<string>() },
+                },
+            };
+
+            // Act, Assert
+            validationTest.Run(guidTestValues);
+            validationTest.Run(nullableGuidTestValues);
+            validationTest.Run(objectTestValues);
+            validationTest.Run(stringTestValues);
+        }
+
+        [Fact]
+        public static void BeNullOrNotWhiteSpace___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = "\r\n";
+            var expected1 = Invariant($"Parameter 'testParameter1' is not null and is white space.  Parameter value is '{Environment.NewLine}'.");
+
+            var testParameter2 = new[] { A.Dummy<string>(), "    ", A.Dummy<string>() };
+            var expected2 = "Parameter 'testParameter2' contains an element that is not null and is white space.  Element value is '    '.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeNullOrNotWhiteSpace());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeNullOrNotWhiteSpace());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void BeEmptyGuid___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
