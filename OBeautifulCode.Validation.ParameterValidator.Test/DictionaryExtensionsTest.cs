@@ -33,6 +33,25 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void ToNonGenericDictionary___Should_throw_ArgumentException___When_parameter_value_is_contains_duplicate_keys()
+        {
+            // Arrange
+            var value = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("duplicate", A.Dummy<string>()),
+                new KeyValuePair<string, string>(A.Dummy<string>(), A.Dummy<string>()),
+                new KeyValuePair<string, string>("duplicate", A.Dummy<string>()),
+            };
+
+            // Act
+            var actual = Record.Exception(() => DictionaryExtensions.ToNonGenericDictionary(value));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentException>();
+            actual.Message.Should().Contain("value contains duplicate keys");
+        }
+
+        [Fact]
         public static void ToNonGenericDictionary___Should_return_empty_IDictionary___When_parameter_value_is_empty()
         {
             // Arrange

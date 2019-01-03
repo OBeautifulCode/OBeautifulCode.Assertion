@@ -13,6 +13,8 @@ namespace OBeautifulCode.Validation.Recipes
     using System.Collections;
     using System.Collections.Generic;
 
+    using static System.FormattableString;
+
     /// <summary>
     /// Extension methods on type <see cref="IDictionary{TKey, TValue}"/> and <see cref="IReadOnlyDictionary{TKey, TValue}" />.
     /// </summary>
@@ -36,6 +38,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// The specified generic dictionary converted to a non-generic dictionary.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="value"/>is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="value"/> contains duplicate keys.</exception>
         public static IDictionary ToNonGenericDictionary<TKey, TValue>(
             IEnumerable<KeyValuePair<TKey, TValue>> value)
         {
@@ -44,6 +47,11 @@ namespace OBeautifulCode.Validation.Recipes
             var result = new Hashtable();
             foreach (var item in value)
             {
+                if (result.ContainsKey(item.Key))
+                {
+                    throw new ArgumentException(Invariant($"{nameof(value)} contains duplicate keys."), nameof(value));
+                }
+
                 result.Add(item.Key, item.Value);
             }
 
