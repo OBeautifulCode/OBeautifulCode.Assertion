@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplyBecause.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="ParameterShould.cs" />
     <Compile Include="ParameterValidation.Strings.cs" />
     <Compile Include="ParameterValidation.TypeValidation.cs" />

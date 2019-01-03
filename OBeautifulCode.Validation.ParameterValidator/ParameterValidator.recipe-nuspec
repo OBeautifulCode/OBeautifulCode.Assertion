@@ -7,6 +7,7 @@
   </metadata>
   <files>
     <file src="ApplyBecause.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ApplyBecause.cs" />
+    <file src="DictionaryExtensions.cs" target="content\net462\.recipes\OBeautifulCode.Validation\DictionaryExtensions.cs" />
     <file src="Parameter.cs" target="content\net462\.recipes\OBeautifulCode.Validation\Parameter.cs" />
     <file src="ParameterShould.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ParameterShould.cs" />
     <file src="ParameterValidation.cs" target="content\net462\.recipes\OBeautifulCode.Validation\ParameterValidation.cs" />

@@ -94,6 +94,7 @@
     <Compile Include="Benchmarking\OutcomeKind.cs" />
     <Compile Include="Benchmarking\SpritelyValidationScenariosRunner.cs" />
     <Compile Include="Benchmarking\ValidationKind.cs" />
+    <Compile Include="DictionaryExtensionsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="ParameterEqualityComparer.cs" />

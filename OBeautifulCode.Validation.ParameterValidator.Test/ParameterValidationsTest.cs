@@ -9186,7 +9186,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                     expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
                 }
 
-                var expectedData = data == null ? new ListDictionary() : data;
+                var expectedData = data == null ? new Hashtable() : data;
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
@@ -9222,7 +9222,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                     expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
                 }
 
-                var expectedData = data == null ? new ListDictionary() : data;
+                var expectedData = data == null ? new Hashtable() : data;
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
