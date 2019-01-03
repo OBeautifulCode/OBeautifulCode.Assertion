@@ -25,7 +25,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             IDictionary<string, string> value = null;
 
             // Act
-            var actual = Record.Exception(() => DictionaryExtensions.ToNonGenericDictionary(value));
+            var actual = Record.Exception(() => value.ToNonGenericDictionary());
 
             // Assert
             actual.Should().BeOfType<ArgumentNullException>();
@@ -44,7 +44,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             };
 
             // Act
-            var actual = Record.Exception(() => DictionaryExtensions.ToNonGenericDictionary(value));
+            var actual = Record.Exception(() => value.ToNonGenericDictionary());
 
             // Assert
             actual.Should().BeOfType<ArgumentException>();
@@ -61,10 +61,10 @@ namespace OBeautifulCode.Validation.Recipes.Test
             IReadOnlyDictionary<string, string> value4 = value2;
 
             // Act
-            var actual1 = DictionaryExtensions.ToNonGenericDictionary(value1);
-            var actual2 = DictionaryExtensions.ToNonGenericDictionary(value2);
-            var actual3 = DictionaryExtensions.ToNonGenericDictionary(value3);
-            var actual4 = DictionaryExtensions.ToNonGenericDictionary(value4);
+            var actual1 = value1.ToNonGenericDictionary();
+            var actual2 = value2.ToNonGenericDictionary();
+            var actual3 = value3.ToNonGenericDictionary();
+            var actual4 = value4.ToNonGenericDictionary();
 
             // Assert
             actual1.Should().BeEmpty();
@@ -83,10 +83,10 @@ namespace OBeautifulCode.Validation.Recipes.Test
             IReadOnlyDictionary<int, string> value4 = value2;
 
             // Act
-            var actual1 = DictionaryExtensions.ToNonGenericDictionary(value1);
-            var actual2 = DictionaryExtensions.ToNonGenericDictionary(value2);
-            var actual3 = DictionaryExtensions.ToNonGenericDictionary(value3);
-            var actual4 = DictionaryExtensions.ToNonGenericDictionary(value4);
+            var actual1 = value1.ToNonGenericDictionary();
+            var actual2 = value2.ToNonGenericDictionary();
+            var actual3 = value3.ToNonGenericDictionary();
+            var actual4 = value4.ToNonGenericDictionary();
 
             // Assert
             actual1.Keys.Should().BeEquivalentTo(value1.Keys);

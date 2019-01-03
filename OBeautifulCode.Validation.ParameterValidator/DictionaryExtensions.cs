@@ -40,7 +40,7 @@ namespace OBeautifulCode.Validation.Recipes
         /// <exception cref="ArgumentNullException"><paramref name="value"/>is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="value"/> contains duplicate keys.</exception>
         public static IDictionary ToNonGenericDictionary<TKey, TValue>(
-            IEnumerable<KeyValuePair<TKey, TValue>> value)
+            this IEnumerable<KeyValuePair<TKey, TValue>> value)
         {
             new { value }.Must().NotBeNull();
 
