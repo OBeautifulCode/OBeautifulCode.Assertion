@@ -31,7 +31,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (!ReferenceEquals(validation.Value, null))
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeNullExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -41,13 +44,18 @@ namespace OBeautifulCode.Validation.Recipes
             if (ReferenceEquals(validation.Value, null))
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeNullExceptionMessageSuffix);
+
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentNullException(null, exceptionMessage);
+                    var exception = new ArgumentNullException(null, exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -59,7 +67,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeTrueExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -70,7 +81,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeTrueExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -81,7 +95,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeFalseExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -92,7 +109,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeFalseExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -105,7 +125,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -116,7 +139,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeNullOrNotWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -127,7 +153,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -138,7 +167,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEmptyGuidExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -151,7 +183,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEmptyStringExceptionMessageSuffix, Include.FailingValue);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -164,7 +199,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEmptyStringExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -187,7 +225,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEmptyEnumerableExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -210,7 +251,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEmptyEnumerableExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -227,7 +271,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEmptyDictionaryExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -244,7 +291,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEmptyDictionaryExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -269,7 +319,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainSomeNullElementsExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -294,7 +347,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainAnyNullElementsExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+                
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -319,7 +375,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -344,7 +403,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -356,7 +418,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -368,7 +433,10 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
-                throw new ArgumentException(exceptionMessage);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
             }
         }
 
@@ -382,11 +450,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -401,11 +473,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -420,11 +496,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -439,11 +519,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -458,11 +542,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -477,11 +565,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -496,11 +588,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -515,11 +611,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -533,11 +633,15 @@ namespace OBeautifulCode.Validation.Recipes
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -551,11 +655,15 @@ namespace OBeautifulCode.Validation.Recipes
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -574,11 +682,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -597,11 +709,15 @@ namespace OBeautifulCode.Validation.Recipes
 
                 if (validation.IsElementInEnumerable)
                 {
-                    throw new ArgumentException(exceptionMessage);
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }
@@ -623,7 +739,10 @@ namespace OBeautifulCode.Validation.Recipes
             }
 
             var exceptionMessage = BuildArgumentExceptionMessage(validation, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
-            throw new ArgumentException(exceptionMessage);
+
+            var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+            throw exception;
         }
 
         private static void NotContainInternal(
@@ -639,7 +758,10 @@ namespace OBeautifulCode.Validation.Recipes
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
                 {
                     var exceptionMessage = BuildArgumentExceptionMessage(validation, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
-                    throw new ArgumentException(exceptionMessage);
+
+                    var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                    throw exception;
                 }
             }
         }

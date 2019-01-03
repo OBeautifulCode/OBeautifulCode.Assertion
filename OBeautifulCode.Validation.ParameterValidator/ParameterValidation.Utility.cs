@@ -318,6 +318,23 @@ namespace OBeautifulCode.Validation.Recipes
             return result;
         }
 
+        private static Exception AddData(
+            this Exception exception,
+            IDictionary data)
+        {
+            if (data != null)
+            {
+                // because the caller is creating a new exception, we know that Data is empty
+                // and we don't have to check for key conflicts (same key exists in both exception.Data and in data)
+                foreach (var dataKey in data.Keys)
+                {
+                    exception.Data[dataKey] = data[dataKey];
+                }
+            }
+
+            return exception;
+        }
+
         private static T GetDefaultValue<T>()
         {
             var result = default(T);
@@ -437,6 +454,8 @@ namespace OBeautifulCode.Validation.Recipes
             public bool IsElementInEnumerable { get; set; }
 
             public IReadOnlyCollection<TypeValidation> TypeValidations { get; set; }
+
+            public IDictionary Data { get; set; }
         }
 
         private class ValidationParameter

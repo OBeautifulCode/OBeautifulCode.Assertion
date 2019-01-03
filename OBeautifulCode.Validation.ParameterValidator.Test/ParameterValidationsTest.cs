@@ -29,7 +29,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
     {
         private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
 
-        private delegate Parameter Validation(Parameter parameter, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage);
+        private delegate Parameter Validation(Parameter parameter, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
 
         [Fact]
         public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
@@ -5942,7 +5942,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.BeLessThan(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeLessThan(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThan);
@@ -6182,7 +6182,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeLessThan(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeLessThan(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThan);
@@ -6409,7 +6409,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.BeGreaterThan(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThan);
@@ -6650,7 +6650,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeGreaterThan(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThan);
@@ -6877,7 +6877,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.BeLessThanOrEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.BeLessThanOrEqualTo);
@@ -7104,7 +7104,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeLessThanOrEqualTo);
@@ -7345,7 +7345,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.BeGreaterThanOrEqualTo);
@@ -7572,7 +7572,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeGreaterThanOrEqualTo);
@@ -7812,7 +7812,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.BeEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.BeEqualTo);
@@ -7956,7 +7956,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeEqualTo(comparisonValue, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeEqualTo);
@@ -8087,7 +8087,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T minimum, T maximum)
             {
-                return (parameter, because, applyBecause) => parameter.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
             var validationName = nameof(ParameterValidation.BeInRange);
@@ -8438,7 +8438,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T minimum, T maximum)
             {
-                return (parameter, because, applyBecause) => parameter.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
             var validationName = nameof(ParameterValidation.NotBeInRange);
@@ -8732,7 +8732,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T item)
             {
-                return (parameter, because, applyBecause) => parameter.Contain(item, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.Contain(item, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.Contain);
@@ -8926,7 +8926,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
             // Arrange, Act, Assert
             Validation GetValidation<T>(T item)
             {
-                return (parameter, because, applyBecause) => parameter.NotContain(item, because, applyBecause);
+                return (parameter, because, applyBecause, data) => parameter.NotContain(item, because, applyBecause, data);
             }
 
             var validationName = nameof(ParameterValidation.NotContain);
@@ -9120,28 +9120,34 @@ namespace OBeautifulCode.Validation.Recipes.Test
         {
             var parameterNames = new[] { null, A.Dummy<string>() };
 
+            var userData = new[] { null, A.Dummy<Dictionary<string, string>>() };
+
             foreach (var parameterName in parameterNames)
             {
-                RunPassingScenarios(validationTest, testValues, parameterName);
+                foreach (var data in userData)
+                {
+                    RunPassingScenarios(validationTest, testValues, parameterName, data);
 
-                RunMustFailingScenarios(validationTest, testValues, parameterName);
+                    RunMustFailingScenarios(validationTest, testValues, parameterName, data);
 
-                RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName);
+                    RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName, data);
 
-                RunMustEachFailingScenarios(validationTest, testValues, parameterName);
+                    RunMustEachFailingScenarios(validationTest, testValues, parameterName, data);
 
-                RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName);
+                    RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName, data);
 
-                RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName);
+                    RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName, data);
 
-                RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName);
+                    RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName, data);
+                }
             }
         }
 
         private static void RunPassingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             var mustParameters = testValues.MustPassingValues.Select(_ => _.Named(parameterName).Must());
             var mustEachParameters = testValues.MustEachPassingValues.Select(_ => _.Named(parameterName).Must().Each());
@@ -9153,7 +9159,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expected = parameter.CloneWithHasBeenValidated();
 
                 // Act
-                var actual = validationTest.Validation(parameter);
+                var actual = validationTest.Validation(parameter, data: data);
 
                 // Assert
                 ParameterComparer.Equals(actual, expected).Should().BeTrue();
@@ -9163,7 +9169,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustFailingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             foreach (var failingValue in testValues.MustFailingValues)
             {
@@ -9179,19 +9186,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
                     expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
                 }
 
+                var expectedData = data == null ? new ListDictionary() : data;
+
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter));
+                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
 
                 // Assert
                 actual.Should().BeOfType(validationTest.ExceptionType);
                 actual.Message.Should().StartWith(expectedExceptionMessage);
+                actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                foreach (var dataKey in actual.Data.Keys)
+                {
+                    actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                }
             }
         }
 
         private static void RunMustEachFailingScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
@@ -9207,19 +9222,27 @@ namespace OBeautifulCode.Validation.Recipes.Test
                     expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
                 }
 
+                var expectedData = data == null ? new ListDictionary() : data;
+
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter));
+                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
 
                 // Assert
                 actual.Should().BeOfType(validationTest.EachExceptionType);
                 actual.Message.Should().StartWith(expectedExceptionMessage);
+                actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                foreach (var dataKey in actual.Data.Keys)
+                {
+                    actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                }
             }
         }
 
         private static void RunMustInvalidParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             foreach (var invalidTypeValue in testValues.MustParameterInvalidTypeValues)
             {
@@ -9229,7 +9252,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter));
+                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -9240,7 +9263,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunMustEachInvalidParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             foreach (var invalidTypeValue in testValues.MustEachParameterInvalidTypeValues)
             {
@@ -9250,7 +9274,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter));
+                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -9260,7 +9284,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
 
         private static void RunMustEachImproperUseOfFrameworkScenarios<T>(
             ValidationTest validationTest,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             // Arrange
             // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
@@ -9283,8 +9308,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
             }
 
             // Act
-            var actual1 = Record.Exception(() => validationTest.Validation(parameter1));
-            var actual2 = Record.Exception(() => validationTest.Validation(parameter2));
+            var actual1 = Record.Exception(() => validationTest.Validation(parameter1, data: data));
+            var actual2 = Record.Exception(() => validationTest.Validation(parameter2, data: data));
 
             // Assert
             actual1.Should().BeOfType<InvalidCastException>();
@@ -9297,7 +9322,8 @@ namespace OBeautifulCode.Validation.Recipes.Test
         private static void RunInvalidValidationParameterTypeScenarios<T>(
             ValidationTest validationTest,
             TestValues<T> testValues,
-            string parameterName)
+            string parameterName,
+            IDictionary data)
         {
             var mustParameters = testValues.MustValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must());
             var mustEachParameters = testValues.MustEachValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must().Each());
@@ -9311,7 +9337,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                 var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter));
+                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
