@@ -9114,6 +9114,279 @@ namespace OBeautifulCode.Validation.Recipes.Test
             actual4.Message.Should().Be(expected4);
         }
 
+        [Fact]
+        public static void BeAlphanumeric___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(char[] otherAllowedCharacters)
+            {
+                return (parameter, because, applyBecause, data) => parameter.BeAlphanumeric(otherAllowedCharacters, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(A.Dummy<char[]>()),
+                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "isalphanumeric1", null, "isalphanumeric2" },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new List<string> { A.Dummy<string>() } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(null),
+                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" },
+                },
+                MustFailingValues = new[]
+                {
+                    " ",
+                    "\r\n",
+                    "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*",
+                    "abcdefghijklmnopqrstuvwxyz%ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*", string.Empty },
+                },
+            };
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(new char[0]),
+                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890" },
+                },
+                MustFailingValues = new[]
+                {
+                    " ",
+                    "\r\n",
+                    "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*",
+                    "abcdefghijklmnopqrstuvwxyz%ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890*", string.Empty },
+                },
+            };
+
+            var validationTest4 = new ValidationTest
+            {
+                Validation = GetValidation(new[] { '0', '-', '_', '^', '\\', '/', '(', '0', ' ' }),
+                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+            };
+
+            var stringTestValues4 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    @"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ-_^\/(1234567890",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, @"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ-_^\/(1234567890" },
+                },
+                MustFailingValues = new[]
+                {
+                    "\r\n",
+                    "&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890)",
+                    "abcdefghijklmnopqrstuvwxyz$ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890)", string.Empty },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            validationTest2.Run(stringTestValues2);
+
+            validationTest3.Run(stringTestValues3);
+
+            validationTest4.Run(stringTestValues4);
+        }
+
+        [Fact]
+        public static void BeAlphanumeric___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = "abc-def";
+            var expected1 = "Parameter 'testParameter1' is not alphanumeric.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is <null>.";
+
+            var testParameter2 = "abc-def";
+            var expected2 = "Parameter 'testParameter2' is not alphanumeric.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is [<empty>].";
+
+            var testParameter3 = "abc*def";
+            var expected3 = "Parameter 'testParameter3' is not alphanumeric.  Parameter value is 'abc*def'.  Specified 'otherAllowedCharacters' is ['-'].";
+
+            var testParameter4 = new[] { "a-c", "d f", "g*i" };
+            var expected4 = "Parameter 'testParameter4' contains an element that is not alphanumeric.  Element value is 'd f'.  Specified 'otherAllowedCharacters' is ['-', '*'].";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAlphanumeric());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeAlphanumeric(otherAllowedCharacters: new char[0]));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().BeAlphanumeric(otherAllowedCharacters: new[] { '-' }));
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeAlphanumeric(otherAllowedCharacters: new[] { '-', '*' }));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)
