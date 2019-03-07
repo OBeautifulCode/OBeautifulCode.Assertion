@@ -133,6 +133,10 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string BeAlphanumericExceptionMessageSuffix = "is not alphanumeric";
 
+        public const string BeMatchedByRegexExceptionMessageSuffix = "is not matched by the specified regex";
+
+        public const string NotBeMatchedByRegexExceptionMessageSuffix = "is matched by the specified regex";
+
         public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{1}' is less than '{0}'.  Specified '{0}' is '{2}'.  Specified '{1}' is '{3}'.";
 
 #pragma warning restore SA1600

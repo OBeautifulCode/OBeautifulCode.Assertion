@@ -14,6 +14,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using FakeItEasy;
 
@@ -9385,6 +9386,406 @@ namespace OBeautifulCode.Validation.Recipes.Test
             actual2.Message.Should().Be(expected2);
             actual3.Message.Should().Be(expected3);
             actual4.Message.Should().Be(expected4);
+        }
+
+        [Fact]
+        public static void BeMatchedByRegex___Should_throw_ArgumentNullException___When_parameter_regex_is_null()
+        {
+            // Arrange, Act
+            var testParameter = A.Dummy<string>();
+            var actual = Record.Exception(() => new { testParameter }.Must().BeMatchedByRegex(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("regex");
+        }
+
+        [Fact]
+        public static void BeMatchedByRegex___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(Regex regex)
+            {
+                return (parameter, because, applyBecause, data) => parameter.BeMatchedByRegex(regex, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(new Regex("abc")),
+                ValidationName = nameof(ParameterValidation.BeMatchedByRegex),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "abc", null, "abc" },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new List<string> { A.Dummy<string>() } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(new Regex("abc")),
+                ValidationName = nameof(ParameterValidation.BeMatchedByRegex),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeMatchedByRegexExceptionMessageSuffix,
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "abc",
+                    "def-abc-def",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "abc", "def-abc-def" },
+                },
+                MustFailingValues = new[]
+                {
+                    string.Empty,
+                    "\r\n",
+                    "a-b-c",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "abc", "a-b-c", "abc" },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            validationTest2.Run(stringTestValues2);
+        }
+
+        [Fact]
+        public static void BeMatchedByRegex___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = "abc-def";
+            var regex1 = new Regex("^abc$");
+            var expected1 = "Parameter 'testParameter1' is not matched by the specified regex.  Parameter value is 'abc-def'.  Specified 'regex' is ^abc$.";
+
+            var testParameter2 = new[] { "abc", "abc-def", "abc" };
+            var regex2 = new Regex("^abc$");
+            var expected2 = "Parameter 'testParameter2' contains an element that is not matched by the specified regex.  Element value is 'abc-def'.  Specified 'regex' is ^abc$.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeMatchedByRegex(regex1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().BeMatchedByRegex(regex2));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void NotBeMatchedByRegex___Should_throw_ArgumentNullException___When_parameter_regex_is_null()
+        {
+            // Arrange, Act
+            var testParameter = A.Dummy<string>();
+            var actual = Record.Exception(() => new { testParameter }.Must().NotBeMatchedByRegex(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("regex");
+        }
+
+        [Fact]
+        public static void NotBeMatchedByRegex___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(Regex regex)
+            {
+                return (parameter, because, applyBecause, data) => parameter.NotBeMatchedByRegex(regex, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(new Regex("abc")),
+                ValidationName = nameof(ParameterValidation.NotBeMatchedByRegex),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "def", null, "def" },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new List<string> { A.Dummy<string>() } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(new Regex("abc")),
+                ValidationName = nameof(ParameterValidation.NotBeMatchedByRegex),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeMatchedByRegexExceptionMessageSuffix,
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    "def",
+                    "a-b-c",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, "def", "a-b-c" },
+                },
+                MustFailingValues = new[]
+                {
+                    "abc",
+                    "def-abc-def",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "def", "abc", "def" },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            validationTest2.Run(stringTestValues2);
+        }
+
+        [Fact]
+        public static void NotBeMatchedByRegex___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = "def-abc-def";
+            var regex1 = new Regex("abc");
+            var expected1 = "Parameter 'testParameter1' is matched by the specified regex.  Parameter value is 'def-abc-def'.  Specified 'regex' is abc.";
+
+            var testParameter2 = new[] { "def", "def-abc-def", "def" };
+            var regex2 = new Regex("abc");
+            var expected2 = "Parameter 'testParameter2' contains an element that is matched by the specified regex.  Element value is 'def-abc-def'.  Specified 'regex' is abc.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeMatchedByRegex(regex1));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotBeMatchedByRegex(regex2));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
         }
 
         private static void Run<T>(

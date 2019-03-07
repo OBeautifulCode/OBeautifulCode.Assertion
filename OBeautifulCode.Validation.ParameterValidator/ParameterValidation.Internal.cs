@@ -822,5 +822,47 @@ namespace OBeautifulCode.Validation.Recipes
                 throw exception;
             }
         }
+
+        private static void BeMatchedByRegexInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var regex = (Regex)validation.ValidationParameters[0].Value;
+
+            var stringValue = (string)validation.Value;
+
+            var shouldThrow = !regex.IsMatch(stringValue);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, BeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
+            }
+        }
+
+        private static void NotBeMatchedByRegexInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var regex = (Regex)validation.ValidationParameters[0].Value;
+
+            var stringValue = (string)validation.Value;
+
+            var shouldThrow = regex.IsMatch(stringValue);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
+            }
+        }
     }
 }

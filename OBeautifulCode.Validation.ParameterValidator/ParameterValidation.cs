@@ -13,6 +13,7 @@ namespace OBeautifulCode.Validation.Recipes
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using static System.FormattableString;
 
@@ -1514,6 +1515,100 @@ namespace OBeautifulCode.Validation.Recipes
 
                             return result;
                         },
+                    },
+                },
+                TypeValidations = MustBeStringTypeValidations,
+                Data = data,
+            };
+
+            parameter.Validate(validation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that a regex finds a match in the string parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="regex">The regex to use.</param>
+        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeMatchedByRegex(
+            [ValidatedNotNull] this Parameter parameter,
+            Regex regex,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            if (regex == null)
+            {
+                throw new ArgumentNullException(nameof(regex));
+            }
+
+            var validation = new Validation
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                ValueValidationHandler = BeMatchedByRegexInternal,
+                ValidationName = nameof(BeMatchedByRegex),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(regex),
+                        Value = regex,
+                        ValueType = typeof(Regex),
+                        ValueToStringFunc = regex.ToString,
+                    },
+                },
+                TypeValidations = MustBeStringTypeValidations,
+                Data = data,
+            };
+
+            parameter.Validate(validation);
+            return parameter;
+        }
+
+        /// <summary>
+        /// Validates that a regex does not find a match in the string parameter.
+        /// </summary>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="regex">The regex to use.</param>
+        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter NotBeMatchedByRegex(
+            [ValidatedNotNull] this Parameter parameter,
+            Regex regex,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            if (regex == null)
+            {
+                throw new ArgumentNullException(nameof(regex));
+            }
+
+            var validation = new Validation
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                ValueValidationHandler = NotBeMatchedByRegexInternal,
+                ValidationName = nameof(NotBeMatchedByRegex),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(regex),
+                        Value = regex,
+                        ValueType = typeof(Regex),
+                        ValueToStringFunc = regex.ToString,
                     },
                 },
                 TypeValidations = MustBeStringTypeValidations,
