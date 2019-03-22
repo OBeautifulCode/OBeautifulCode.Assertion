@@ -12,6 +12,7 @@ namespace OBeautifulCode.Validation.Recipes
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text.RegularExpressions;
 
     /// <summary>
@@ -24,9 +25,12 @@ namespace OBeautifulCode.Validation.Recipes
 #endif
         static partial class ParameterValidation
     {
-        private static readonly Regex NotAlphaNumericRegex = new Regex("[^a-zA-Z0-9]", RegexOptions.Compiled);
-
-        private static readonly Regex IsAlphaNumericRegex = new Regex("[a-zA-Z0-9]", RegexOptions.Compiled);
+        private static readonly HashSet<char> AlphaNumericCharactersHashSet =
+            new HashSet<char>(
+                new char[0]
+                    .Concat(Enumerable.Range(48, 10).Select(Convert.ToChar))
+                    .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
+                    .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
 
         private delegate void ValueValidationHandler(
             Validation validation);
@@ -784,33 +788,17 @@ namespace OBeautifulCode.Validation.Recipes
             bool shouldThrow;
             if (otherAllowedCharacters == null)
             {
-                shouldThrow = NotAlphaNumericRegex.IsMatch(stringValue);
+                shouldThrow = stringValue.Any(_ => !AlphaNumericCharactersHashSet.Contains(_));
             }
             else
             {
-                // The approach is to remove alphanumeric characters and then iterate through the remaining
-                // characters and check if all of them are in the otherAllowedCharacters set.  If any are
-                // not then we throw.
-                // Our first approach was to augment the NotAlphaNumericRegex by adding the permitted characters
-                // to the Character Group (inside the square brackets).  However, it was not a complete solution.
-                // We did added the characters using Regex.Escape(), but that method doesn't have any context for
-                // where the characters are being placed in the regex.  So, for example, it doesn't escape the dash '-'
-                // character, which is normally fine, but within a Character Group (square brackets) it signifies a range
-                // of characters unless it's escaped.  Other escaping issues were found and as per this post
-                // there's no out-of-the-box way to escape correctly without building something specific to Character
-                // Groups: https://stackoverflow.com/a/12963197/356790.  The below approach is far easier.
-                var notAlphanumericCharacters = IsAlphaNumericRegex.Replace(stringValue, string.Empty);
-                var otherAllowedCharactersHashSet = new HashSet<char>(otherAllowedCharacters);
-
-                shouldThrow = false;
-                foreach (var notAlphanumericCharacter in notAlphanumericCharacters)
+                var allowedCharactersHashSet = new HashSet<char>(AlphaNumericCharactersHashSet);
+                foreach (var otherAllowedCharacter in otherAllowedCharacters)
                 {
-                    if (!otherAllowedCharactersHashSet.Contains(notAlphanumericCharacter))
-                    {
-                        shouldThrow = true;
-                        break;
-                    }
+                    allowedCharactersHashSet.Add(otherAllowedCharacter);
                 }
+
+                shouldThrow = stringValue.Any(_ => !allowedCharactersHashSet.Contains(_));
             }
 
             if (shouldThrow)
