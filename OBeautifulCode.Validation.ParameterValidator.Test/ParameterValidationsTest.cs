@@ -9599,16 +9599,16 @@ namespace OBeautifulCode.Validation.Recipes.Test
         {
             // Arrange
             var testParameter1 = $"abc{Environment.NewLine}def";
-            var expected1 = $"Parameter 'testParameter1' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def'.  Specified 'treatNewlineAsPrintable' is 'False'.";
+            var expected1 = $"Parameter 'testParameter1' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def'.  Specified 'treatNewLineAsPrintable' is 'False'.";
 
             var testParameter2 = $"abc{Environment.NewLine}def" + Convert.ToChar(30);
-            var expected2 = $"Parameter 'testParameter2' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def{Convert.ToChar(30)}'.  Specified 'treatNewlineAsPrintable' is 'True'.";
+            var expected2 = $"Parameter 'testParameter2' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
 
             var testParameter3 = new[] { "a-c", $"d{Environment.NewLine}f", "g*i" };
-            var expected3 = $"Parameter 'testParameter3' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f'.  Specified 'treatNewlineAsPrintable' is 'False'.";
+            var expected3 = $"Parameter 'testParameter3' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f'.  Specified 'treatNewLineAsPrintable' is 'False'.";
 
             var testParameter4 = new[] { "a-c", $"d{Environment.NewLine}f" + Convert.ToChar(30), "g*i" };
-            var expected4 = $"Parameter 'testParameter4' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f{Convert.ToChar(30)}'.  Specified 'treatNewlineAsPrintable' is 'True'.";
+            var expected4 = $"Parameter 'testParameter4' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAsciiPrintable());
