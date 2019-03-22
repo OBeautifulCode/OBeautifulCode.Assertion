@@ -811,6 +811,32 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        private static void BeAsciiPrintableInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var treatNewLineAsPrintable = (bool)validation.ValidationParameters[0].Value;
+
+            var stringValue = (string)validation.Value;
+
+            if (treatNewLineAsPrintable)
+            {
+                stringValue = stringValue.Replace(Environment.NewLine, string.Empty);
+            }
+
+            var shouldThrow = stringValue.Any(_ => ((int)_ < 32) || ((int)_ > 126));
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, BeAsciiPrintableExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
+            }
+        }
+
         private static void BeMatchedByRegexInternal(
             Validation validation)
         {

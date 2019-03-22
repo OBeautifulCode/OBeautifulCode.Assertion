@@ -9389,6 +9389,241 @@ namespace OBeautifulCode.Validation.Recipes.Test
         }
 
         [Fact]
+        public static void BeAsciiPrintable___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(bool treatNewlineAsPrintable)
+            {
+                return (parameter, because, applyBecause, data) => parameter.BeAsciiPrintable(treatNewlineAsPrintable, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation(false),
+                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "isalphanumeric1", null, "isalphanumeric2" },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustParameterInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new List<string> { A.Dummy<string>() } },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustParameterInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustParameterInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation(false),
+                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeAsciiPrintableExceptionMessageSuffix,
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+,-./0123456789:;<=>?@[\]^_`{|}~",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+,-./0123456789:;<=>?@[\]^_`{|}~" },
+                },
+                MustFailingValues = new[]
+                {
+                    "\r\n",
+                    $@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+{Environment.NewLine},-./0123456789:;<=>?@[\]^_`{{|}}~",
+                    Convert.ToChar(31).ToString(),
+                    Convert.ToChar(127).ToString(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, "\r\n", string.Empty },
+                    new string[] { string.Empty, $@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+{Environment.NewLine},-./0123456789:;<=>?@[\]^_`{{|}}~", string.Empty },
+                    new string[] { string.Empty, Convert.ToChar(31).ToString(), string.Empty },
+                    new string[] { string.Empty, Convert.ToChar(127).ToString(), string.Empty },
+                },
+            };
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation(true),
+                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.BeAsciiPrintableExceptionMessageSuffix,
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    string.Empty,
+                    $@"abcdefghijklmnopqrstuvwxyz{Environment.NewLine}ABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+{Environment.NewLine},-./0123456789:;<=>?@[\]^_`{{|}}~",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { string.Empty, $@"abcdefghijklmnopqrstuvwxyz{Environment.NewLine}ABCDEFGHIJKLMNOPQRSTUVWXYZ !""#$%&'()*+{Environment.NewLine},-./0123456789:;<=>?@[\]^_`{{|}}~" },
+                },
+                MustFailingValues = new[]
+                {
+                    Convert.ToChar(31).ToString(),
+                    Convert.ToChar(127).ToString(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { string.Empty, Convert.ToChar(31).ToString(), string.Empty },
+                    new string[] { string.Empty, Convert.ToChar(127).ToString(), string.Empty },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(stringTestValues1);
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(boolTestValues);
+            validationTest1.Run(nullableBoolTestValues);
+            validationTest1.Run(enumerableTestValues);
+
+            validationTest2.Run(stringTestValues2);
+
+            validationTest3.Run(stringTestValues3);
+        }
+
+        [Fact]
+        public static void BeAsciiPrintable___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var testParameter1 = $"abc{Environment.NewLine}def";
+            var expected1 = $"Parameter 'testParameter1' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def'.  Specified 'treatNewlineAsPrintable' is 'False'.";
+
+            var testParameter2 = $"abc{Environment.NewLine}def" + Convert.ToChar(30);
+            var expected2 = $"Parameter 'testParameter2' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def{Convert.ToChar(30)}'.  Specified 'treatNewlineAsPrintable' is 'True'.";
+
+            var testParameter3 = new[] { "a-c", $"d{Environment.NewLine}f", "g*i" };
+            var expected3 = $"Parameter 'testParameter3' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f'.  Specified 'treatNewlineAsPrintable' is 'False'.";
+
+            var testParameter4 = new[] { "a-c", $"d{Environment.NewLine}f" + Convert.ToChar(30), "g*i" };
+            var expected4 = $"Parameter 'testParameter4' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f{Convert.ToChar(30)}'.  Specified 'treatNewlineAsPrintable' is 'True'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAsciiPrintable());
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeAsciiPrintable(true));
+            var actual3 = Record.Exception(() => new { testParameter3 }.Must().Each().BeAsciiPrintable());
+            var actual4 = Record.Exception(() => new { testParameter4 }.Must().Each().BeAsciiPrintable(true));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+            actual3.Message.Should().Be(expected3);
+            actual4.Message.Should().Be(expected4);
+        }
+
+        [Fact]
         public static void BeMatchedByRegex___Should_throw_ArgumentNullException___When_parameter_regex_is_null()
         {
             // Arrange, Act

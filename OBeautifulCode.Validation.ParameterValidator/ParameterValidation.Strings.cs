@@ -133,6 +133,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string BeAlphanumericExceptionMessageSuffix = "is not alphanumeric";
 
+        public const string BeAsciiPrintableExceptionMessageSuffix = "is not ASCII Printable";
+
         public const string BeMatchedByRegexExceptionMessageSuffix = "is not matched by the specified regex";
 
         public const string NotBeMatchedByRegexExceptionMessageSuffix = "is matched by the specified regex";
