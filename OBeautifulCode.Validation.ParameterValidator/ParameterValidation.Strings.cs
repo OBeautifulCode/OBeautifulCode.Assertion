@@ -131,6 +131,8 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string NotContainExceptionMessageSuffix = "contains the item to search for using " + DefaultEqualityComparer;
 
+        public const string BeAlphabeticExceptionMessageSuffix = "is not alphabetic";
+
         public const string BeAlphanumericExceptionMessageSuffix = "is not alphanumeric";
 
         public const string BeAsciiPrintableExceptionMessageSuffix = "is not ASCII Printable";

@@ -1463,6 +1463,69 @@ namespace OBeautifulCode.Validation.Recipes
         }
 
         /// <summary>
+        /// Validates that the string parameter is alphabetic.
+        /// </summary>
+        /// <remarks>
+        /// An empty string is considered to be alphabetic.
+        /// </remarks>
+        /// <param name="parameter">The parameter to validate.</param>
+        /// <param name="otherAllowedCharacters">Optional set of other characters that are allowed (e.g. '-').  Default is none (strict definition of alphabetic).</param>
+        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The validated parameter.
+        /// </returns>
+        public static Parameter BeAlphabetic(
+            [ValidatedNotNull] this Parameter parameter,
+            IReadOnlyCollection<char> otherAllowedCharacters = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var validation = new Validation
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                ValueValidationHandler = BeAlphabeticInternal,
+                ValidationName = nameof(BeAlphabetic),
+                ValidationParameters = new[]
+                {
+                    new ValidationParameter
+                    {
+                        Name = nameof(otherAllowedCharacters),
+                        Value = otherAllowedCharacters,
+                        ValueType = typeof(IReadOnlyCollection<char>),
+                        ValueToStringFunc = () =>
+                        {
+                            string result;
+                            if (otherAllowedCharacters == null)
+                            {
+                                result = NullValueToString;
+                            }
+                            else if (otherAllowedCharacters.Count == 0)
+                            {
+                                result = EmptyEnumerableToString;
+                            }
+                            else
+                            {
+                                var otherAllowedCharactersToString = otherAllowedCharacters.Select(_ => Invariant($"'{_}'")).ToArray();
+                                result = Invariant($"[{string.Join(", ", otherAllowedCharactersToString)}]");
+                            }
+
+                            return result;
+                        },
+                    },
+                },
+                TypeValidations = MustBeStringTypeValidations,
+                Data = data,
+            };
+
+            parameter.Validate(validation);
+            return parameter;
+        }
+
+        /// <summary>
         /// Validates that the string parameter is alphanumeric.
         /// </summary>
         /// <remarks>

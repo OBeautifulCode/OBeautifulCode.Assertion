@@ -32,6 +32,12 @@ namespace OBeautifulCode.Validation.Recipes
                     .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
                     .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
 
+        private static readonly HashSet<char> AlphabeticCharactersHashSet =
+            new HashSet<char>(
+                new char[0]
+                    .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
+                    .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
+
         private delegate void ValueValidationHandler(
             Validation validation);
 
@@ -776,8 +782,22 @@ namespace OBeautifulCode.Validation.Recipes
             }
         }
 
+        private static void BeAlphabeticInternal(
+            Validation validation)
+        {
+            BeInCharacterSetInternal(validation, AlphabeticCharactersHashSet, BeAlphabeticExceptionMessageSuffix);
+        }
+
         private static void BeAlphanumericInternal(
             Validation validation)
+        {
+            BeInCharacterSetInternal(validation, AlphaNumericCharactersHashSet, BeAlphanumericExceptionMessageSuffix);
+        }
+
+        private static void BeInCharacterSetInternal(
+            Validation validation,
+            HashSet<char> allowedCharactersHashSet,
+            string exceptionMessageSuffix)
         {
             NotBeNullInternal(validation);
 
@@ -788,11 +808,11 @@ namespace OBeautifulCode.Validation.Recipes
             bool shouldThrow;
             if (otherAllowedCharacters == null)
             {
-                shouldThrow = stringValue.Any(_ => !AlphaNumericCharactersHashSet.Contains(_));
+                shouldThrow = stringValue.Any(_ => !allowedCharactersHashSet.Contains(_));
             }
             else
             {
-                var allowedCharactersHashSet = new HashSet<char>(AlphaNumericCharactersHashSet);
+                allowedCharactersHashSet = new HashSet<char>(allowedCharactersHashSet);
                 foreach (var otherAllowedCharacter in otherAllowedCharacters)
                 {
                     allowedCharactersHashSet.Add(otherAllowedCharacter);
@@ -803,7 +823,7 @@ namespace OBeautifulCode.Validation.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(validation, BeAlphanumericExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, exceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
 
