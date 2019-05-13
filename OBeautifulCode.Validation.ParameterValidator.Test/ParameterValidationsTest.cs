@@ -10295,6 +10295,393 @@ namespace OBeautifulCode.Validation.Recipes.Test
             actual2.Message.Should().Be(expected2);
         }
 
+        [Fact]
+        public static void StartWith___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        {
+            // Arrange, Act
+            var testParameter = A.Dummy<string>();
+            var actual = Record.Exception(() => new { testParameter }.Must().StartWith(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("comparisonValue");
+        }
+
+        [Fact]
+        public static void StartWith___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(string comparisonValue, StringComparison? comparisonType)
+            {
+                return (parameter, because, applyBecause, data) => parameter.StartWith(comparisonValue, comparisonType, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation("starter", A.Dummy<StringComparison>()),
+                ValidationName = nameof(ParameterValidation.StartWith),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation("starter", null),
+                ValidationName = nameof(ParameterValidation.StartWith),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.StartWithExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.NewGuid() },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    A.Dummy<Guid>(),
+                    Guid.Empty,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
+                    new Guid?[] { Guid.NewGuid(), null, Guid.NewGuid() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string> { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "starter", null, "starter" },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "starter",
+                    "starter" + A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "starter", "starter" + A.Dummy<string>() },
+                },
+                MustFailingValues = new string[]
+                {
+                    string.Empty,
+                    "Astarter",
+                    "Somestarter",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "starter", string.Empty, "starter" + A.Dummy<string>() },
+                },
+            };
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation("staRTer", StringComparison.OrdinalIgnoreCase),
+                ValidationName = nameof(ParameterValidation.StartWith),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.StartWithExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "starter",
+                    "starteR" + A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "stArter", "STarter" + A.Dummy<string>() },
+                },
+                MustFailingValues = new string[]
+                {
+                    string.Empty,
+                    "AstaRTer",
+                    "SomestaRTer",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "staRTer", string.Empty, "staRTer" + A.Dummy<string>() },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(stringTestValues1);
+
+            validationTest2.Run(guidTestValues);
+            validationTest2.Run(nullableGuidTestValues);
+            validationTest2.Run(objectTestValues);
+            validationTest2.Run(stringTestValues2);
+
+            validationTest3.Run(stringTestValues3);
+        }
+
+        [Fact]
+        public static void StartWith___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = "some-string";
+            var expected1 = Invariant($"Parameter 'testParameter1' does not start with the specified comparison value.  Parameter value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+
+            var testParameter2 = new[] { "starter", "some-string", "starter" };
+            var expected2 = "Parameter 'testParameter2' contains an element that does not start with the specified comparison value.  Element value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().StartWith("starter"));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().StartWith("starter", StringComparison.OrdinalIgnoreCase));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void NotStartWith___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        {
+            // Arrange, Act
+            var testParameter = A.Dummy<string>();
+            var actual = Record.Exception(() => new { testParameter }.Must().NotStartWith(null));
+
+            // Assert
+            actual.Should().BeOfType<ArgumentNullException>();
+            actual.Message.Should().Contain("comparisonValue");
+        }
+
+        [Fact]
+        public static void NotStartWith___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            Validation GetValidation(string comparisonValue, StringComparison? comparisonType)
+            {
+                return (parameter, because, applyBecause, data) => parameter.NotStartWith(comparisonValue, comparisonType, because, applyBecause, data);
+            }
+
+            var validationTest1 = new ValidationTest
+            {
+                Validation = GetValidation("starter", A.Dummy<StringComparison>()),
+                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ExceptionType = typeof(ArgumentNullException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var validationTest2 = new ValidationTest
+            {
+                Validation = GetValidation("starter", null),
+                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotStartWithExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustParameterInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.NewGuid() },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustParameterInvalidTypeValues = new Guid?[]
+                {
+                    A.Dummy<Guid>(),
+                    Guid.Empty,
+                    null,
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
+                    new Guid?[] { Guid.NewGuid(), null, Guid.NewGuid() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustParameterInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string> { null },
+                },
+                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var stringTestValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "something", null, "something" },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "something",
+                    "something-starter",
+                    "Starter",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "something", "something-starter", "Starter" },
+                },
+                MustFailingValues = new string[]
+                {
+                    "starter",
+                    "starter-something",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "something", "starter", "something" },
+                },
+            };
+
+            var validationTest3 = new ValidationTest
+            {
+                Validation = GetValidation("STarter", StringComparison.OrdinalIgnoreCase),
+                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ExceptionType = typeof(ArgumentException),
+                EachExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = ParameterValidation.NotStartWithExceptionMessageSuffix,
+                ParameterInvalidCastExpectedTypes = "String",
+                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<String>",
+            };
+
+            var stringTestValues3 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    "something",
+                    "something-STarter",
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { "something", "something-STarter" },
+                },
+                MustFailingValues = new string[]
+                {
+                    "STarter",
+                    "STarter-something",
+                    "starter",
+                    "starter-something",
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "something", "starter", "something" },
+                },
+            };
+
+            // Act, Assert
+            validationTest1.Run(guidTestValues);
+            validationTest1.Run(nullableGuidTestValues);
+            validationTest1.Run(objectTestValues);
+            validationTest1.Run(stringTestValues1);
+
+            validationTest2.Run(guidTestValues);
+            validationTest2.Run(nullableGuidTestValues);
+            validationTest2.Run(objectTestValues);
+            validationTest2.Run(stringTestValues2);
+
+            validationTest3.Run(stringTestValues3);
+        }
+
+        [Fact]
+        public static void NotStartWith___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            string testParameter1 = "starter-something";
+            var expected1 = Invariant($"Parameter 'testParameter1' starts with the specified comparison value.  Parameter value is 'starter-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+
+            var testParameter2 = new[] { "something", "STARTER-something", "something" };
+            var expected2 = "Parameter 'testParameter2' contains an element that starts with the specified comparison value.  Element value is 'STARTER-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotStartWith("starter"));
+            var actual2 = Record.Exception(() => new { testParameter2 }.Must().Each().NotStartWith("starter", StringComparison.OrdinalIgnoreCase));
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
         private static void Run<T>(
             this ValidationTest validationTest,
             TestValues<T> testValues)

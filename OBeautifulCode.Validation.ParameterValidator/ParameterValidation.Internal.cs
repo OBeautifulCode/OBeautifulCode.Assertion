@@ -12,6 +12,7 @@ namespace OBeautifulCode.Validation.Recipes
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -892,6 +893,54 @@ namespace OBeautifulCode.Validation.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildArgumentExceptionMessage(validation, NotBeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
+            }
+        }
+
+        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to validate with comparisonType or not.")]
+        private static void StartWithInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var parameterValue = (string)validation.Value;
+            var comparisonValue = (string)validation.ValidationParameters[0].Value;
+            var comparisonType = (StringComparison?)validation.ValidationParameters[1].Value;
+
+            var shouldThrow = comparisonType == null
+                ? !parameterValue.StartsWith(comparisonValue)
+                : !parameterValue.StartsWith(comparisonValue, (StringComparison) comparisonType);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, StartWithExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
+
+                throw exception;
+            }
+        }
+
+        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to validate with comparisonType or not.")]
+        private static void NotStartWithInternal(
+            Validation validation)
+        {
+            NotBeNullInternal(validation);
+
+            var parameterValue = (string)validation.Value;
+            var comparisonValue = (string)validation.ValidationParameters[0].Value;
+            var comparisonType = (StringComparison?)validation.ValidationParameters[1].Value;
+
+            var shouldThrow = comparisonType == null
+                ? parameterValue.StartsWith(comparisonValue)
+                : parameterValue.StartsWith(comparisonValue, (StringComparison)comparisonType);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildArgumentExceptionMessage(validation, NotStartWithExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(validation.Data);
 

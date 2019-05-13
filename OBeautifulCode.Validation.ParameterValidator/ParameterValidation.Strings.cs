@@ -143,6 +143,10 @@ namespace OBeautifulCode.Validation.Recipes
 
         public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{1}' is less than '{0}'.  Specified '{0}' is '{2}'.  Specified '{1}' is '{3}'.";
 
+        public const string StartWithExceptionMessageSuffix = "does not start with the specified comparison value";
+
+        public const string NotStartWithExceptionMessageSuffix = "starts with the specified comparison value";
+
 #pragma warning restore SA1600
 #pragma warning restore 1591
     }
