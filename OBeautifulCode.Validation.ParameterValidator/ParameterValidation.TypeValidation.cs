@@ -186,6 +186,7 @@ namespace OBeautifulCode.Validation.Recipes
             TypeValidation typeValidation)
         {
             var parameterValueTypeName = validation.ValueType.GetFriendlyTypeName();
+
             throw new InvalidCastException(Invariant($"validationName: {validation.ValidationName}, isElementInEnumerable: {validation.IsElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
         }
 
@@ -281,6 +282,7 @@ namespace OBeautifulCode.Validation.Recipes
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
+
             ThrowParameterUnexpectedType(validation, expectedTypeStrings);
         }
 
@@ -293,8 +295,11 @@ namespace OBeautifulCode.Validation.Recipes
             var isElementInEnumerable = validation.IsElementInEnumerable;
 
             var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));
+
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.GetFriendlyTypeName()}>") : valueType.GetFriendlyTypeName();
+
             var exceptionMessage = Invariant($"Called {validationName}() on a parameter of type {valueTypeMessage}, which is not one of the following expected type(s): {expectedTypesMessage}.");
+
             throw new InvalidCastException(exceptionMessage);
         }
 
@@ -305,8 +310,11 @@ namespace OBeautifulCode.Validation.Recipes
             params Type[] expectedTypes)
         {
             var expectedTypesStrings = expectedTypes.Select(_ => _.GetFriendlyTypeName()).ToArray();
+
             var expectedTypesMessage = string.Join(", ", expectedTypesStrings);
+
             var exceptionMessage = Invariant($"Called {validationName}({validationParameterName}:) where '{validationParameterName}' is of type {validationParameterType.GetFriendlyTypeName()}, which is not one of the following expected type(s): {expectedTypesMessage}.");
+
             throw new InvalidCastException(exceptionMessage);
         }
 
