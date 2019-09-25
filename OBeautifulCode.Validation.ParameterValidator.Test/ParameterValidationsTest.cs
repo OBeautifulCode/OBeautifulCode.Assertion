@@ -2644,7 +2644,7 @@ namespace OBeautifulCode.Validation.Recipes.Test
                         new Dictionary<string, string>(),
                     },
                 },
-             };
+            };
 
             var dictionaryTest3C = new TestValues<Dictionary<string, string>>
             {
