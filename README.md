@@ -1,5 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/qm4h0ox3fuma81h7?svg=true)](https://ci.appveyor.com/project/SurajGupta/obeautifulcode-validation)
+[![Build status](https://ci.appveyor.com/api/projects/status/kr3gtvor521ab2tw?svg=true)](https://ci.appveyor.com/project/SurajGupta/obeautifulcode-assertion)
 
-![NuGet](https://img.shields.io/nuget/v/OBeautifulCode.Validation.Recipes.ParameterValidator.svg)  OBeautifulCode.Validation.Recipes.ParameterValidator
+[![Nuget status](https://img.shields.io/nuget/v/OBeautifulCode.Assertion.Recipes.Must.svg)](https://www.nuget.org/packages/OBeautifulCode.Assertion.Recipes.Must)  OBeautifulCode.Assertion.Recipes.Must
 
-# OBeautifulCode.Validation
+# OBeautifulCode.Assertion
