@@ -206,7 +206,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             var valueType = verification.ValueType;
 
-            var enumerableType = GetEnumerableGenericType(valueType);
+            var enumerableType = valueType.GetEnumerableElementType();
 
             if (enumerableType.IsValueType && (Nullable.GetUnderlyingType(enumerableType) == null))
             {
@@ -222,7 +222,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             var valueType = verification.ValueType;
 
-            var dictionaryValueType = GetDictionaryGenericValueType(valueType);
+            var dictionaryValueType = valueType.GetDictionaryValueType();
 
             if (dictionaryValueType.IsValueType && (Nullable.GetUnderlyingType(dictionaryValueType) == null))
             {
@@ -264,7 +264,7 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             TypeValidation typeValidation)
         {
-            var enumerableType = GetEnumerableGenericType(verification.ValueType);
+            var enumerableType = verification.ValueType.GetEnumerableElementType();
 
             foreach (var validationParameter in verification.VerificationParameters)
             {

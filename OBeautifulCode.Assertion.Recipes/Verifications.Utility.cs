@@ -76,7 +76,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 }
 
                 var valueAsEnumerable = (IEnumerable)assertionTracker.SubjectValue;
-                var enumerableType = GetEnumerableGenericType(assertionTracker.SubjectType);
+                var enumerableType = assertionTracker.SubjectType.GetEnumerableElementType();
                 verification.ValueType = enumerableType;
 
                 foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
@@ -105,84 +105,6 @@ namespace OBeautifulCode.Assertion.Recipes
             }
 
             assertionTracker.Actions |= Actions.VerifiedAtLeastOnce;
-        }
-
-        private static Type GetEnumerableGenericType(
-            Type enumerableType)
-        {
-            // note: this method has a very similar structure to IsAssignableTo()
-            // in the future, look for a way to extract the commonality
-            // adapted from: https://stackoverflow.com/a/17713382/356790
-            Type result;
-            if (enumerableType.IsArray)
-            {
-                // type is array, shortcut
-                result = enumerableType.GetElementType();
-            }
-            else if (enumerableType.IsGenericType && (enumerableType.GetGenericTypeDefinition() == UnboundGenericEnumerableType))
-            {
-                // type is IEnumerable<T>
-                result = enumerableType.GetGenericArguments()[0];
-            }
-            else
-            {
-                // type implements IEnumerable<T> or is a subclass (sub-sub-class, ...)
-                // of a type that implements IEnumerable<T>
-                // note that we are grabbing the first implementation.  it is possible, but
-                // highly unlikely, for a type to have multiple implementations of IEnumerable<T>
-                result = enumerableType
-                    .GetInterfaces()
-                    .Where(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == UnboundGenericEnumerableType))
-                    .Select(_ => _.GenericTypeArguments[0])
-                    .FirstOrDefault();
-
-                if (result == null)
-                {
-                    var baseType = enumerableType.BaseType;
-                    result = baseType == null ? ObjectType : GetEnumerableGenericType(baseType);
-                }
-            }
-
-            return result;
-        }
-
-        private static Type GetDictionaryGenericValueType(
-            Type dictionaryType)
-        {
-            // note: this method has a very similar structure to IsAssignableTo()
-            // in the future, look for a way to extract the commonality
-            Type result;
-
-            if (dictionaryType.IsGenericType && (dictionaryType.GetGenericTypeDefinition() == UnboundGenericDictionaryType))
-            {
-                // type is IDictionary<T,K>
-                result = dictionaryType.GetGenericArguments()[1];
-            }
-            else if (dictionaryType.IsGenericType && (dictionaryType.GetGenericTypeDefinition() == UnboundGenericReadOnlyDictionaryType))
-            {
-                // type is IReadOnlyDictionary<T,K>
-                result = dictionaryType.GetGenericArguments()[1];
-            }
-            else
-            {
-                // type implements IDictionary<T,K>/IReadOnlyDictionary<T,K> or is a subclass (sub-sub-class, ...)
-                // of a type that implements those types
-                // note that we are grabbing the first implementation.  it is possible, but
-                // highly unlikely, for a type to have multiple implementations of IDictionary<T,K>
-                result = dictionaryType
-                    .GetInterfaces()
-                    .Where(_ => _.IsGenericType && ((_.GetGenericTypeDefinition() == UnboundGenericDictionaryType) || (_.GetGenericTypeDefinition() == UnboundGenericReadOnlyDictionaryType)))
-                    .Select(_ => _.GenericTypeArguments[1])
-                    .FirstOrDefault();
-
-                if (result == null)
-                {
-                    var baseType = dictionaryType.BaseType;
-                    result = baseType == null ? ObjectType : GetEnumerableGenericType(baseType);
-                }
-            }
-
-            return result;
         }
 
         private static void ThrowIfMalformedRange(

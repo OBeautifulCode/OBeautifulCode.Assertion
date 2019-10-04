@@ -5,7 +5,7 @@
     <tags>assertion assertions parameter parameters argument arguments unit test</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Assertion/master/OBeautifulCode.Assertion.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.19" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.21" />
     </dependencies>
   </metadata>
   <files>
