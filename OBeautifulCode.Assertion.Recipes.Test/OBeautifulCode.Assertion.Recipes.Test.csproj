@@ -106,7 +106,6 @@
     <Compile Include=".recipes\OBeautifulCode.Validation\ParameterValidator.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\Range.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\ValidatedNotNullAttribute.cs" />
-    <Compile Include="DictionaryExtensionsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="TestCommon.cs" />
     <Compile Include="ParameterEqualityComparer.cs" />

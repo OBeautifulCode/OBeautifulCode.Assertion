@@ -22,7 +22,7 @@ namespace OBeautifulCode.Assertion.Recipes
 #else
     public
 #endif
-        static partial class ParameterValidation
+        static partial class Verifications
     {
 #pragma warning disable 1591
 #pragma warning disable SA1600

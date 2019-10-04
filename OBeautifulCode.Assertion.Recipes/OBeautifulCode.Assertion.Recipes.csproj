@@ -47,21 +47,20 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
-    <Compile Include="Lifecycle\Actions.cs" />
-    <Compile Include="ApplyBecause.cs" />
-    <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="Lifecycle\AssertionTrackerShould.cs" />
+    <Compile Include="Framework\Actions.cs" />
+    <Compile Include="Verification\CustomParameters\ApplyBecause.cs" />
+    <Compile Include="Framework\AssertionTrackerShould.cs" />
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
-    <Compile Include="ParameterValidation.Strings.cs" />
-    <Compile Include="ParameterValidation.TypeValidation.cs" />
-    <Compile Include="ParameterValidation.Utility.cs" />
-    <Compile Include="ParameterValidation.Internal.cs" />
-    <Compile Include="Lifecycle\WorkflowExtensions.cs" />
-    <Compile Include="Lifecycle\AssertionTracker.cs" />
+    <Compile Include="Verifications.Strings.cs" />
+    <Compile Include="Verifications.TypeValidation.cs" />
+    <Compile Include="Verifications.Utility.cs" />
+    <Compile Include="Verifications.Internal.cs" />
+    <Compile Include="Framework\WorkflowExtensions.cs" />
+    <Compile Include="Framework\AssertionTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Range.cs" />
-    <Compile Include="ValidatedNotNullAttribute.cs" />
-    <Compile Include="ParameterValidation.cs" />
+    <Compile Include="Verification\CustomParameters\Range.cs" />
+    <Compile Include="Framework\ValidatedNotNullAttribute.cs" />
+    <Compile Include="Verifications.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include=".analyzers\stylecop.json" />

@@ -39,7 +39,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -118,7 +118,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -135,7 +135,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -153,7 +153,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -171,7 +171,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -188,7 +188,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -222,7 +222,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+            actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
         }
 
         [Fact]
@@ -375,7 +375,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -393,7 +393,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -411,7 +411,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -465,7 +465,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -483,7 +483,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
@@ -500,7 +500,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 

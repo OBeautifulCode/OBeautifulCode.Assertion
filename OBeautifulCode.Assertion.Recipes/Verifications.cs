@@ -28,7 +28,7 @@ namespace OBeautifulCode.Assertion.Recipes
 #else
     public
 #endif
-        static partial class ParameterValidation
+        static partial class Verifications
     {
         /// <summary>
         /// Validates that the reference type or nullable parameter is null.

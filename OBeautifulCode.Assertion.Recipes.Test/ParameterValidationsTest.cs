@@ -227,11 +227,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeNull,
-                ValidationName = nameof(ParameterValidation.BeNull),
+                Validation = Verifications.BeNull,
+                ValidationName = nameof(Verifications.BeNull),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
@@ -350,11 +350,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeNull,
-                ValidationName = nameof(ParameterValidation.NotBeNull),
+                Validation = Verifications.NotBeNull,
+                ValidationName = nameof(Verifications.NotBeNull),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
@@ -472,11 +472,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeTrue,
-                ValidationName = nameof(ParameterValidation.BeTrue),
+                Validation = Verifications.BeTrue,
+                ValidationName = nameof(Verifications.BeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeTrueExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeTrueExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "bool, bool?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
@@ -622,11 +622,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeTrue,
-                ValidationName = nameof(ParameterValidation.NotBeTrue),
+                Validation = Verifications.NotBeTrue,
+                ValidationName = nameof(Verifications.NotBeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeTrueExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeTrueExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "bool, bool?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
@@ -772,11 +772,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeFalse,
-                ValidationName = nameof(ParameterValidation.BeFalse),
+                Validation = Verifications.BeFalse,
+                ValidationName = nameof(Verifications.BeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeFalseExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeFalseExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "bool, bool?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
@@ -922,11 +922,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeFalse,
-                ValidationName = nameof(ParameterValidation.NotBeFalse),
+                Validation = Verifications.NotBeFalse,
+                ValidationName = nameof(Verifications.NotBeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeFalseExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeFalseExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "bool, bool?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
@@ -1072,22 +1072,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest1 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeNullNorWhiteSpace,
-                ValidationName = nameof(ParameterValidation.NotBeNullNorWhiteSpace),
+                Validation = Verifications.NotBeNullNorWhiteSpace,
+                ValidationName = nameof(Verifications.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var validationTest2 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeNullNorWhiteSpace,
-                ValidationName = nameof(ParameterValidation.NotBeNullNorWhiteSpace),
+                Validation = Verifications.NotBeNullNorWhiteSpace,
+                ValidationName = nameof(Verifications.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -1212,11 +1212,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeNullOrNotWhiteSpace,
-                ValidationName = nameof(ParameterValidation.BeNullOrNotWhiteSpace),
+                Validation = Verifications.BeNullOrNotWhiteSpace,
+                ValidationName = nameof(Verifications.BeNullOrNotWhiteSpace),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeNullOrNotWhiteSpaceExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeNullOrNotWhiteSpaceExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -1323,11 +1323,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeEmptyGuid,
-                ValidationName = nameof(ParameterValidation.BeEmptyGuid),
+                Validation = Verifications.BeEmptyGuid,
+                ValidationName = nameof(Verifications.BeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEmptyGuidExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeEmptyGuidExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "Guid, Guid?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
             };
@@ -1488,11 +1488,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeEmptyGuid,
-                ValidationName = nameof(ParameterValidation.NotBeEmptyGuid),
+                Validation = Verifications.NotBeEmptyGuid,
+                ValidationName = nameof(Verifications.NotBeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyGuidExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyGuidExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "Guid, Guid?",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
             };
@@ -1654,11 +1654,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeEmptyString,
-                ValidationName = nameof(ParameterValidation.BeEmptyString),
+                Validation = Verifications.BeEmptyString,
+                ValidationName = nameof(Verifications.BeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEmptyStringExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeEmptyStringExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -1817,11 +1817,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeEmptyString,
-                ValidationName = nameof(ParameterValidation.NotBeEmptyString),
+                Validation = Verifications.NotBeEmptyString,
+                ValidationName = nameof(Verifications.NotBeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyStringExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyStringExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -1980,22 +1980,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest1 = new ValidationTest
             {
-                Validation = ParameterValidation.BeEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
+                Validation = Verifications.BeEmptyEnumerable,
+                ValidationName = nameof(Verifications.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var validationTest2 = new ValidationTest
             {
-                Validation = ParameterValidation.BeEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.BeEmptyEnumerable),
+                Validation = Verifications.BeEmptyEnumerable,
+                ValidationName = nameof(Verifications.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEmptyEnumerableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeEmptyEnumerableExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -2234,22 +2234,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest1 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
+                Validation = Verifications.NotBeEmptyEnumerable,
+                ValidationName = nameof(Verifications.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var validationTest2 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.NotBeEmptyEnumerable),
+                Validation = Verifications.NotBeEmptyEnumerable,
+                ValidationName = nameof(Verifications.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -2484,8 +2484,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.BeEmptyDictionary;
-            var validationName = nameof(ParameterValidation.BeEmptyDictionary);
+            Validation validation = Verifications.BeEmptyDictionary;
+            var validationName = nameof(Verifications.BeEmptyDictionary);
 
             var validationTest1 = new ValidationTest
             {
@@ -2566,7 +2566,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest = new TestValues<IDictionary>
@@ -2589,7 +2589,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEmptyDictionaryExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeEmptyDictionaryExceptionMessageSuffix,
             };
 
             var dictionaryTest3A = new TestValues<IDictionary>
@@ -2761,8 +2761,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotBeEmptyDictionary;
-            var validationName = nameof(ParameterValidation.NotBeEmptyDictionary);
+            Validation validation = Verifications.NotBeEmptyDictionary;
+            var validationName = nameof(Verifications.NotBeEmptyDictionary);
 
             var validationTest1 = new ValidationTest
             {
@@ -2843,7 +2843,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest = new TestValues<IDictionary>
@@ -2866,7 +2866,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyDictionaryExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
             var dictionaryTest3A = new TestValues<IDictionary>
@@ -3038,8 +3038,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void ContainSomeNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.ContainSomeNullElements;
-            var validationName = nameof(ParameterValidation.ContainSomeNullElements);
+            Validation validation = Verifications.ContainSomeNullElements;
+            var validationName = nameof(Verifications.ContainSomeNullElements);
 
             var validationTest1 = new ValidationTest
             {
@@ -3178,7 +3178,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -3201,7 +3201,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.ContainSomeNullElementsExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.ContainSomeNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -3303,8 +3303,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContainAnyNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotContainAnyNullElements;
-            var validationName = nameof(ParameterValidation.NotContainAnyNullElements);
+            Validation validation = Verifications.NotContainAnyNullElements;
+            var validationName = nameof(Verifications.NotContainAnyNullElements);
 
             var validationTest1 = new ValidationTest
             {
@@ -3443,7 +3443,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -3466,7 +3466,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullElementsExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -3569,8 +3569,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void ContainSomeKeyValuePairsWithNullValue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.ContainSomeKeyValuePairsWithNullValue;
-            var validationName = nameof(ParameterValidation.ContainSomeKeyValuePairsWithNullValue);
+            Validation validation = Verifications.ContainSomeKeyValuePairsWithNullValue;
+            var validationName = nameof(Verifications.ContainSomeKeyValuePairsWithNullValue);
 
             var validationTest1 = new ValidationTest
             {
@@ -3712,7 +3712,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest3 = new TestValues<IDictionary>
@@ -3735,7 +3735,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
             var dictionaryTest4A = new TestValues<IDictionary>
@@ -3928,8 +3928,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContainAnyKeyValuePairsWithNullValue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotContainAnyKeyValuePairsWithNullValue;
-            var validationName = nameof(ParameterValidation.NotContainAnyKeyValuePairsWithNullValue);
+            Validation validation = Verifications.NotContainAnyKeyValuePairsWithNullValue;
+            var validationName = nameof(Verifications.NotContainAnyKeyValuePairsWithNullValue);
 
             var validationTest1 = new ValidationTest
             {
@@ -4071,7 +4071,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest3 = new TestValues<IDictionary>
@@ -4094,7 +4094,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
             var dictionaryTest4A = new TestValues<IDictionary>
@@ -4289,22 +4289,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest1 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeNullNorEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerable),
+                Validation = Verifications.NotBeNullNorEmptyEnumerable,
+                ValidationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var validationTest2 = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeNullNorEmptyEnumerable,
-                ValidationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerable),
+                Validation = Verifications.NotBeNullNorEmptyEnumerable,
+                ValidationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "IEnumerable",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
@@ -4539,8 +4539,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotBeNullNorEmptyDictionary;
-            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyDictionary);
+            Validation validation = Verifications.NotBeNullNorEmptyDictionary;
+            var validationName = nameof(Verifications.NotBeNullNorEmptyDictionary);
 
             var validationTest1 = new ValidationTest
             {
@@ -4621,7 +4621,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest = new TestValues<IDictionary>
@@ -4644,7 +4644,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyDictionaryExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
             var dictionaryTest3A = new TestValues<IDictionary>
@@ -4815,8 +4815,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyEnumerableNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotBeNullNorEmptyEnumerableNorContainAnyNulls;
-            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyEnumerableNorContainAnyNulls);
+            Validation validation = Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls;
+            var validationName = nameof(Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls);
 
             var validationTest1 = new ValidationTest
             {
@@ -4955,7 +4955,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable>
@@ -4978,7 +4978,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyEnumerableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
             };
 
             var enumerableTestValues4A = new TestValues<IEnumerable>
@@ -5029,7 +5029,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyNullElementsExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
             var enumerableTestValues5A = new TestValues<IEnumerable>
@@ -5110,8 +5110,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyDictionaryNorContainAnyNullValues___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = ParameterValidation.NotBeNullNorEmptyDictionaryNorContainAnyNullValues;
-            var validationName = nameof(ParameterValidation.NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
+            Validation validation = Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues;
+            var validationName = nameof(Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
 
             var validationTest1 = new ValidationTest
             {
@@ -5253,7 +5253,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var dictionaryTest3 = new TestValues<IDictionary>
@@ -5276,7 +5276,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEmptyDictionaryExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
             var dictionaryTest4A = new TestValues<IDictionary>
@@ -5425,7 +5425,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
             var dictionaryTest5A = new TestValues<IDictionary>
@@ -5591,11 +5591,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.BeDefault,
-                ValidationName = nameof(ParameterValidation.BeDefault),
+                Validation = Verifications.BeDefault,
+                ValidationName = nameof(Verifications.BeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeDefaultExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeDefaultExceptionMessageSuffix,
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -5766,11 +5766,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var validationTest = new ValidationTest
             {
-                Validation = ParameterValidation.NotBeDefault,
-                ValidationName = nameof(ParameterValidation.NotBeDefault),
+                Validation = Verifications.NotBeDefault,
+                ValidationName = nameof(Verifications.NotBeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeDefaultExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeDefaultExceptionMessageSuffix,
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -5945,7 +5945,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeLessThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.BeLessThan);
+            var validationName = nameof(Verifications.BeLessThan);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -5981,7 +5981,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -6067,7 +6067,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -6102,7 +6102,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -6185,7 +6185,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeLessThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeLessThan);
+            var validationName = nameof(Verifications.NotBeLessThan);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -6221,7 +6221,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -6307,7 +6307,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -6342,7 +6342,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -6412,7 +6412,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.BeGreaterThan);
+            var validationName = nameof(Verifications.BeGreaterThan);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -6448,7 +6448,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -6535,7 +6535,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -6570,7 +6570,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -6653,7 +6653,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeGreaterThan);
+            var validationName = nameof(Verifications.NotBeGreaterThan);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -6689,7 +6689,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -6774,7 +6774,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -6809,7 +6809,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -6880,7 +6880,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.BeLessThanOrEqualTo);
+            var validationName = nameof(Verifications.BeLessThanOrEqualTo);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -6916,7 +6916,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -7001,7 +7001,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -7036,7 +7036,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -7107,7 +7107,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeLessThanOrEqualTo);
+            var validationName = nameof(Verifications.NotBeLessThanOrEqualTo);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -7143,7 +7143,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -7230,7 +7230,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -7265,7 +7265,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeLessThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -7348,7 +7348,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.BeGreaterThanOrEqualTo);
+            var validationName = nameof(Verifications.BeGreaterThanOrEqualTo);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -7384,7 +7384,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -7470,7 +7470,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -7505,7 +7505,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -7575,7 +7575,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeGreaterThanOrEqualTo);
+            var validationName = nameof(Verifications.NotBeGreaterThanOrEqualTo);
 
             // here the comparisonValue type doesn't match the parameter type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
@@ -7611,7 +7611,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -7697,7 +7697,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues5 = new TestValues<decimal>
@@ -7732,7 +7732,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues6 = new TestValues<decimal?>
@@ -7815,7 +7815,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.BeEqualTo);
+            var validationName = nameof(Verifications.BeEqualTo);
 
             var validationTest1 = new ValidationTest
             {
@@ -7874,7 +7874,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -7959,7 +7959,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeEqualTo);
+            var validationName = nameof(Verifications.NotBeEqualTo);
 
             var validationTest1 = new ValidationTest
             {
@@ -8018,7 +8018,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeEqualToExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeEqualToExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -8090,7 +8090,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
-            var validationName = nameof(ParameterValidation.BeInRange);
+            var validationName = nameof(Verifications.BeInRange);
 
             var ex1 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
             var ex2 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
@@ -8134,7 +8134,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -8224,7 +8224,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var maximum5 = 4.5m;
             var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
             validationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
@@ -8234,7 +8234,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
             var decimalTestValues6 = new TestValues<decimal>
@@ -8275,7 +8275,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
             var decimalTestValues7 = new TestValues<decimal>
@@ -8305,7 +8305,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             validationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
             var validationTest9 = new ValidationTest
@@ -8314,7 +8314,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues9 = new TestValues<decimal?>
@@ -8350,7 +8350,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues10 = new TestValues<decimal?>
@@ -8441,7 +8441,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
-            var validationName = nameof(ParameterValidation.NotBeInRange);
+            var validationName = nameof(Verifications.NotBeInRange);
 
             var ex1 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
             var ex2 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
@@ -8485,7 +8485,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues2 = new TestValues<decimal?>
@@ -8573,7 +8573,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var maximum5 = 4.5m;
             var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().NotBeInRange(minimum5, maximum5, because: A.Dummy<string>()));
             validationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
@@ -8583,7 +8583,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
             var decimalTestValues6 = new TestValues<decimal>
@@ -8623,7 +8623,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
             var decimalTestValues7 = new TestValues<decimal>
@@ -8652,7 +8652,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             validationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
+            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
             var validationTest9 = new ValidationTest
@@ -8661,7 +8661,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues9 = new TestValues<decimal?>
@@ -8698,7 +8698,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeInRangeExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
             var nullableDecimalTestValues10 = new TestValues<decimal?>
@@ -8735,7 +8735,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.Contain(item, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.Contain);
+            var validationName = nameof(Verifications.Contain);
 
             var validationTest1 = new ValidationTest
             {
@@ -8832,7 +8832,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable<string>>
@@ -8856,7 +8856,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.ContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<IEnumerable<decimal>>
@@ -8929,7 +8929,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 return (parameter, because, applyBecause, data) => parameter.NotContain(item, because, applyBecause, data);
             }
 
-            var validationName = nameof(ParameterValidation.NotContain);
+            var validationName = nameof(Verifications.NotContain);
 
             var validationTest1 = new ValidationTest
             {
@@ -9025,7 +9025,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
             var enumerableTestValues3 = new TestValues<IEnumerable<string>>
@@ -9049,7 +9049,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ValidationName = validationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<IEnumerable<decimal>>
@@ -9126,10 +9126,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation(A.Dummy<char[]>()),
-                ValidationName = nameof(ParameterValidation.BeAlphabetic),
+                ValidationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -9239,10 +9239,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(null),
-                ValidationName = nameof(ParameterValidation.BeAlphabetic),
+                ValidationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphabeticExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -9274,10 +9274,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest3 = new ValidationTest
             {
                 Validation = GetValidation(new char[0]),
-                ValidationName = nameof(ParameterValidation.BeAlphabetic),
+                ValidationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphabeticExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -9309,10 +9309,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest4 = new ValidationTest
             {
                 Validation = GetValidation(new[] { 'b', '-', '_', '^', '\\', '/', '(', 'b', ' ' }),
-                ValidationName = nameof(ParameterValidation.BeAlphabetic),
+                ValidationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphabeticExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
             var stringTestValues4 = new TestValues<string>
@@ -9398,10 +9398,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation(A.Dummy<char[]>()),
-                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ValidationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -9511,10 +9511,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(null),
-                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ValidationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -9547,10 +9547,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest3 = new ValidationTest
             {
                 Validation = GetValidation(new char[0]),
-                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ValidationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -9583,10 +9583,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest4 = new ValidationTest
             {
                 Validation = GetValidation(new[] { '0', '-', '_', '^', '\\', '/', '(', '0', ' ' }),
-                ValidationName = nameof(ParameterValidation.BeAlphanumeric),
+                ValidationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAlphanumericExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
             var stringTestValues4 = new TestValues<string>
@@ -9671,10 +9671,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation(false),
-                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ValidationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -9784,10 +9784,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(false),
-                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ValidationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAsciiPrintableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -9821,10 +9821,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest3 = new ValidationTest
             {
                 Validation = GetValidation(true),
-                ValidationName = nameof(ParameterValidation.BeAsciiPrintable),
+                ValidationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeAsciiPrintableExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -9918,10 +9918,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(ParameterValidation.BeMatchedByRegex),
+                ValidationName = nameof(Verifications.BeMatchedByRegex),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10031,10 +10031,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(ParameterValidation.BeMatchedByRegex),
+                ValidationName = nameof(Verifications.BeMatchedByRegex),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.BeMatchedByRegexExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeMatchedByRegexExceptionMessageSuffix,
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -10118,10 +10118,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(ParameterValidation.NotBeMatchedByRegex),
+                ValidationName = nameof(Verifications.NotBeMatchedByRegex),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10231,10 +10231,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(ParameterValidation.NotBeMatchedByRegex),
+                ValidationName = nameof(Verifications.NotBeMatchedByRegex),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeMatchedByRegexExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeMatchedByRegexExceptionMessageSuffix,
             };
 
             var stringTestValues2 = new TestValues<string>
@@ -10318,10 +10318,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation("starter", A.Dummy<StringComparison>()),
-                ValidationName = nameof(ParameterValidation.StartWith),
+                ValidationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10329,10 +10329,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation("starter", null),
-                ValidationName = nameof(ParameterValidation.StartWith),
+                ValidationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.StartWithExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10422,10 +10422,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest3 = new ValidationTest
             {
                 Validation = GetValidation("staRTer", StringComparison.OrdinalIgnoreCase),
-                ValidationName = nameof(ParameterValidation.StartWith),
+                ValidationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.StartWithExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10511,10 +10511,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest1 = new ValidationTest
             {
                 Validation = GetValidation("starter", A.Dummy<StringComparison>()),
-                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ValidationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotBeNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10522,10 +10522,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest2 = new ValidationTest
             {
                 Validation = GetValidation("starter", null),
-                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ValidationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotStartWithExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10615,10 +10615,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var validationTest3 = new ValidationTest
             {
                 Validation = GetValidation("STarter", StringComparison.OrdinalIgnoreCase),
-                ValidationName = nameof(ParameterValidation.NotStartWith),
+                ValidationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = ParameterValidation.NotStartWithExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
                 ParameterInvalidCastExpectedTypes = "string",
                 ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
             };
@@ -10867,11 +10867,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             string expectedExceptionMessage2;
             if (parameterName == null)
             {
-                expectedExceptionMessage2 = "Parameter " + ParameterValidation.NotBeNullExceptionMessageSuffix + ".";
+                expectedExceptionMessage2 = "Parameter " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
             else
             {
-                expectedExceptionMessage2 = "Parameter '" + parameterName + "' " + ParameterValidation.NotBeNullExceptionMessageSuffix + ".";
+                expectedExceptionMessage2 = "Parameter '" + parameterName + "' " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
 
             // Act

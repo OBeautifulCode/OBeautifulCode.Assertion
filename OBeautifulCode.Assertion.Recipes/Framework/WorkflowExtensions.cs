@@ -235,7 +235,7 @@ namespace OBeautifulCode.Assertion.Recipes
             //   - if tracker != null then the user doesn't understand how the framework is designed to be used
             //     and what the framework's limitations are.  Some negative outcome might occur (throwing when
             //     not expected or not throwing when expected).
-            message = message == null ? ParameterValidation.ImproperUseOfFrameworkExceptionMessage : message + "  " + ParameterValidation.ImproperUseOfFrameworkExceptionMessage;
+            message = message == null ? Verifications.ImproperUseOfFrameworkExceptionMessage : message + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             throw new ImproperUseOfAssertionFrameworkException(message);
         }
