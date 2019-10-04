@@ -9,30 +9,47 @@
 
 namespace OBeautifulCode.Assertion.Recipes
 {
+    using System;
+
     /// <summary>
-    /// Determines how to apply the optional, user-specified rationale for a verification.
+    /// The actions that have been performed in the lifecycle of an assertion.
     /// </summary>
+    [Flags]
 #if !OBeautifulCodeAssertionRecipesProject
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]
     internal
 #else
     public
 #endif
-        enum ApplyBecause
+    enum Actions
     {
         /// <summary>
-        /// Apply the rationale prefixed to the default exception message.
+        /// 
         /// </summary>
-        PrefixedToDefaultMessage,
+        None = 0,
 
         /// <summary>
-        /// Apply the rationale suffixed to the default exception message.
+        /// The subject should have been name with a call to
+        /// <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/>.
         /// </summary>
-        SuffixedToDefaultMessage,
+        Named = 1,
 
         /// <summary>
-        /// Apply the rationale in lieu of the default exception message.
+        /// The subject should have been Must'ed with a call to
+        /// <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/>.
         /// </summary>
-        InLieuOfDefaultMessage,
+        Musted = 2,
+
+        /// <summary>
+        /// The parameter should have been Each'ed with a call to
+        /// <see cref="ParameterValidator.Each(AssertionTracker)"/>.
+        /// </summary>
+        Eached = 4,
+
+        /// <summary>
+        /// The parameter should have been verified by at least one verification.
+        /// </summary>
+        VerifiedAtLeastOnce = 8,
     }
 }

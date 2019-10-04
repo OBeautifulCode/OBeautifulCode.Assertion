@@ -29,7 +29,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     {
         private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
 
-        private delegate Parameter Validation(Parameter parameter, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
+        private delegate AssertionTracker Validation(AssertionTracker assertionTracker, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
 
         [Fact]
         public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
@@ -10723,7 +10723,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var parameter in parameters)
             {
                 // Arrange
-                var expected = parameter.CloneWithHasBeenValidated();
+                var expected = parameter.CloneWithActionVerifiedAtLeastOnce();
 
                 // Act
                 var actual = validationTest.Validation(parameter, data: data);
@@ -10858,12 +10858,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
             object notEnumerable = new object();
             var parameter1 = notEnumerable.Named(parameterName).Must();
-            parameter1.HasBeenEached = true;
+            parameter1.Actions |= Actions.Eached;
             var expectedExceptionMessage1 = Invariant($"Called Each() on a parameter of type object, which is not one of the following expected type(s): IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
             var parameter2 = nullEnumerable.Named(parameterName).Must();
-            parameter2.HasBeenEached = true;
+            parameter2.Actions |= Actions.Eached;
             string expectedExceptionMessage2;
             if (parameterName == null)
             {

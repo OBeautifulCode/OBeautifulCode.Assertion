@@ -17,6 +17,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     using FluentAssertions;
 
     using OBeautifulCode.AutoFakeItEasy;
+    using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Math.Recipes;
 
     using Xunit;
@@ -50,48 +51,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var value = A.Dummy<decimal?>();
             var name = A.Dummy<string>();
 
-            var expected1 = new Parameter
+            var expected1 = new AssertionTracker
             {
-                Value = nullValue,
-                ValueType = typeof(string),
-                Name = null,
-                HasBeenNamed = true,
-                HasBeenMusted = false,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = nullValue,
+                SubjectType = typeof(string),
+                SubjectName = null,
+                Actions = Actions.Named,
             };
 
-            var expected2 = new Parameter
+            var expected2 = new AssertionTracker
             {
-                Value = nullValue,
-                ValueType = typeof(string),
-                Name = name,
-                HasBeenNamed = true,
-                HasBeenMusted = false,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = nullValue,
+                SubjectType = typeof(string),
+                SubjectName = name,
+                Actions = Actions.Named,
             };
 
-            var expected3 = new Parameter
+            var expected3 = new AssertionTracker
             {
-                Value = value,
-                ValueType = typeof(decimal?),
-                Name = null,
-                HasBeenNamed = true,
-                HasBeenMusted = false,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = value,
+                SubjectType = typeof(decimal?),
+                SubjectName = null,
+                Actions = Actions.Named,
             };
 
-            var expected4 = new Parameter
+            var expected4 = new AssertionTracker
             {
-                Value = value,
-                ValueType = typeof(decimal?),
-                Name = name,
-                HasBeenNamed = true,
-                HasBeenMusted = false,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = value,
+                SubjectType = typeof(decimal?),
+                SubjectName = name,
+                Actions = Actions.Named,
             };
 
             // Act
@@ -111,10 +100,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_with_null_ValueType()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenNamed).Where(_ => !_.HasBeenMusted).Where(_ => !_.HasBeenEached).Where(_ => !_.HasBeenValidated).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.Named))
+                .Where(_ => !_.Actions.HasFlag(Actions.Musted))
+                .Where(_ => !_.Actions.HasFlag(Actions.Eached))
+                .Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+
             foreach (var parameter in parameters)
             {
-                parameter.ValueType = null;
+                parameter.SubjectType = null;
             }
 
             // Act
@@ -132,7 +126,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_not_been_named()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenNamed).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Named)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
@@ -150,7 +144,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
@@ -168,7 +162,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_eached()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenEached).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
@@ -185,7 +179,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_validated()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenValidated).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
@@ -205,11 +199,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Must___Should_return_same_Parameter_but_with_HasBeenMusted_set_to_true___When_value_is_a_Parameter_with_ValueType_that_is_named_and_not_musted_and_not_eached_and_not_validated()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenNamed).Where(_ => !_.HasBeenMusted).Where(_ => !_.HasBeenEached).Where(_ => !_.HasBeenValidated).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Named)).Where(_ => !_.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
             var expecteds = parameters.Select(_ =>
             {
                 var result = _.Clone();
-                result.HasBeenMusted = true;
+                result.Actions |= Actions.Musted;
                 return result;
             }).ToList();
 
@@ -239,26 +233,20 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var value1 = A.Dummy<object>();
             string value2 = null;
 
-            var expected1 = new Parameter
+            var expected1 = new AssertionTracker
             {
-                Value = value1,
-                ValueType = typeof(object),
-                Name = "someParameter",
-                HasBeenNamed = false,
-                HasBeenMusted = true,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = value1,
+                SubjectType = typeof(object),
+                SubjectName = "someParameter",
+                Actions = Actions.Musted,
             };
 
-            var expected2 = new Parameter
+            var expected2 = new AssertionTracker
             {
-                Value = value2,
-                ValueType = typeof(string),
-                Name = "someParameter",
-                HasBeenNamed = false,
-                HasBeenMusted = true,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = value2,
+                SubjectType = typeof(string),
+                SubjectName = "someParameter",
+                Actions = Actions.Musted,
             };
 
             // Act
@@ -283,26 +271,20 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             string value2 = null;
 
-            var expected1 = new Parameter
+            var expected1 = new AssertionTracker
             {
-                Value = null,
-                ValueType = value1Type,
-                Name = null,
-                HasBeenNamed = false,
-                HasBeenMusted = true,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = null,
+                SubjectType = value1Type,
+                SubjectName = null,
+                Actions = Actions.Musted,
             };
 
-            var expected2 = new Parameter
+            var expected2 = new AssertionTracker
             {
-                Value = null,
-                ValueType = typeof(string),
-                Name = null,
-                HasBeenNamed = false,
-                HasBeenMusted = true,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = null,
+                SubjectType = typeof(string),
+                SubjectName = null,
+                Actions = Actions.Musted,
             };
 
             // Act
@@ -322,15 +304,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var value = A.Dummy<string>();
 
-            var expected = new Parameter
+            var expected = new AssertionTracker
             {
-                Value = value,
-                ValueType = typeof(string),
-                Name = null,
-                HasBeenNamed = false,
-                HasBeenMusted = true,
-                HasBeenEached = false,
-                HasBeenValidated = false,
+                SubjectValue = value,
+                SubjectType = typeof(string),
+                SubjectName = null,
+                Actions = Actions.Musted,
             };
 
             // Act
@@ -345,28 +324,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter = A.Dummy<string>();
-            var expected1 = new Parameter
+            var expected1 = new AssertionTracker
             {
-                Value = testParameter,
-                ValueType = typeof(string),
-                HasBeenMusted = true,
+                SubjectValue = testParameter,
+                SubjectType = typeof(string),
+                Actions = Actions.Musted,
             };
 
-            var expected2 = new Parameter
+            var expected2 = new AssertionTracker
             {
-                Value = testParameter,
-                ValueType = typeof(string),
-                Name = nameof(testParameter),
-                HasBeenMusted = true,
-                HasBeenNamed = true,
+                SubjectValue = testParameter,
+                SubjectType = typeof(string),
+                SubjectName = nameof(testParameter),
+                Actions = Actions.Named | Actions.Musted,
             };
 
-            var expected3 = new Parameter
+            var expected3 = new AssertionTracker
             {
-                Value = testParameter,
-                ValueType = typeof(string),
-                Name = nameof(testParameter),
-                HasBeenMusted = true,
+                SubjectValue = testParameter,
+                SubjectType = typeof(string),
+                SubjectName = nameof(testParameter),
+                Actions = Actions.Musted,
             };
 
             // Act
@@ -384,10 +362,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Each___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
             foreach (var parameter in parameters)
             {
-                parameter.ValueType = null;
+                parameter.SubjectType = null;
             }
 
             // Act
@@ -406,7 +384,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Each___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenMusted).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
@@ -424,7 +402,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Each___Should_throw_InvalidOperationException___When_parameter_has_been_eached()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenEached).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
@@ -444,20 +422,20 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached()
         {
             // Arrange
-            var parameters1 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(object)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
-            var parameters2 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.HasBeenMusted).Where(_ => !_.HasBeenEached).ToList();
+            var parameters1 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(object)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
+            var parameters2 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
 
             var expecteds1 = parameters1.Select(_ =>
             {
                 var result = _.Clone();
-                result.HasBeenEached = true;
+                result.Actions |= Actions.Eached;
                 return result;
             }).ToList();
 
             var expecteds2 = parameters2.Select(_ =>
             {
                 var result = _.Clone();
-                result.HasBeenEached = true;
+                result.Actions |= Actions.Eached;
                 return result;
             }).ToList();
 
@@ -474,10 +452,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void And___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => _.HasBeenValidated).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
             foreach (var parameter in parameters)
             {
-                parameter.ValueType = null;
+                parameter.SubjectType = null;
             }
 
             // Act
@@ -496,7 +474,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenMusted).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
@@ -513,7 +491,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_validated()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.HasBeenValidated).ToList();
+            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
             var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
@@ -531,7 +509,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void And___Should_return_same_parameter___When_parameter_is_musted_and_validated()
         {
             // Arrange
-            var expecteds = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.HasBeenMusted).Where(_ => _.HasBeenValidated).ToList();
+            var expecteds = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
             var actuals = expecteds.Select(_ => _.And()).ToList();
@@ -540,7 +518,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
         }
 
-        private static IReadOnlyCollection<Parameter> BuildParametersWithAllCombinationsOfFlags(
+        private static IReadOnlyCollection<AssertionTracker> BuildParametersWithAllCombinationsOfFlags(
             Type valueType = null,
             bool valueCanBeNull = true,
             bool valueMustBeNull = false)
@@ -550,33 +528,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 valueType = typeof(object);
             }
 
-            var flags = new[] { true, false };
-            var result = new List<Parameter>();
-
-            foreach (var nameFlag in flags)
-            {
-                foreach (var mustFlag in flags)
-                {
-                    foreach (var eachFlag in flags)
+            var result = EnumExtensions.GetAllPossibleEnumValues<Actions>().Select(
+                _ =>
+                    new AssertionTracker
                     {
-                        foreach (var validatedFlag in flags)
-                        {
-                            var parameter = new Parameter
-                            {
-                                Value = valueMustBeNull ? null : valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
-                                ValueType = valueType,
-                                Name = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
-                                HasBeenNamed = nameFlag,
-                                HasBeenMusted = mustFlag,
-                                HasBeenEached = eachFlag,
-                                HasBeenValidated = validatedFlag,
-                            };
-
-                            result.Add(parameter);
-                        }
-                    }
-                }
-            }
+                        SubjectValue = valueMustBeNull ? null : valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
+                        SubjectType = valueType,
+                        SubjectName = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
+                        Actions = _,
+                    })
+                .ToList();
 
             return result;
         }

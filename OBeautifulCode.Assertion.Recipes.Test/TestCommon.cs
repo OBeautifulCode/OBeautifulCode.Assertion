@@ -8,28 +8,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 {
     public static class TestCommon
     {
-        public static Parameter Clone(
-            this Parameter parameter)
+        public static AssertionTracker Clone(
+            this AssertionTracker assertionTracker)
         {
-            var result = new Parameter
+            var result = new AssertionTracker
             {
-                Value = parameter.Value,
-                ValueType = parameter.ValueType,
-                Name = parameter.Name,
-                HasBeenNamed = parameter.HasBeenNamed,
-                HasBeenMusted = parameter.HasBeenMusted,
-                HasBeenEached = parameter.HasBeenEached,
-                HasBeenValidated = parameter.HasBeenValidated,
+                SubjectValue = assertionTracker.SubjectValue,
+                SubjectType = assertionTracker.SubjectType,
+                SubjectName = assertionTracker.SubjectName,
+                Actions  = assertionTracker.Actions,
             };
 
             return result;
         }
 
-        public static Parameter CloneWithHasBeenValidated(
-            this Parameter parameter)
+        public static AssertionTracker CloneWithActionVerifiedAtLeastOnce(
+            this AssertionTracker assertionTracker)
         {
-            var result = parameter.Clone();
-            result.HasBeenValidated = true;
+            var result = assertionTracker.Clone();
+            result.Actions |= Actions.VerifiedAtLeastOnce;
             return result;
         }
     }

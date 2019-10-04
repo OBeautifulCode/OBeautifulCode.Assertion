@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".analyzers\SuppressBecause.cs" />
+    <Compile Include="Actions.cs" />
     <Compile Include="ApplyBecause.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="ParameterShould.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="ParameterValidation.Utility.cs" />
     <Compile Include="ParameterValidation.Internal.cs" />
     <Compile Include="ParameterValidator.cs" />
-    <Compile Include="Parameter.cs" />
+    <Compile Include="AssertionTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="ValidatedNotNullAttribute.cs" />

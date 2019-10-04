@@ -10,11 +10,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using OBeautifulCode.Equality.Recipes;
 
-    public class ParameterEqualityComparer : IEqualityComparer<Parameter>
+    public class ParameterEqualityComparer : IEqualityComparer<AssertionTracker>
     {
         public bool Equals(
-            Parameter x,
-            Parameter y)
+            AssertionTracker x,
+            AssertionTracker y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -27,26 +27,20 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
 
             var result =
-                ((x.Value == y.Value) || x.Value.Equals(y.Value)) && // .Equals will throw with null values, but == doesn't always return true when values are equal (e.g. two Guids will not be equal)
-                (x.ValueType == y.ValueType) &&
-                (x.Name == y.Name) &&
-                (x.HasBeenNamed == y.HasBeenNamed) &&
-                (x.HasBeenMusted == y.HasBeenMusted) &&
-                (x.HasBeenEached == y.HasBeenEached) &&
-                (x.HasBeenValidated == y.HasBeenValidated);
+                ((x.SubjectValue == y.SubjectValue) || x.SubjectValue.Equals(y.SubjectValue)) && // .Equals will throw with null values, but == doesn't always return true when values are equal (e.g. two Guids will not be equal)
+                (x.SubjectType == y.SubjectType) &&
+                (x.SubjectName == y.SubjectName) &&
+                (x.Actions == y.Actions);
             return result;
         }
 
         public int GetHashCode(
-            Parameter obj) =>
+            AssertionTracker obj) =>
             HashCodeHelper.Initialize()
-                .Hash(obj.Value)
-                .Hash(obj.ValueType)
-                .Hash(obj.Name)
-                .Hash(obj.HasBeenNamed)
-                .Hash(obj.HasBeenMusted)
-                .Hash(obj.HasBeenEached)
-                .Hash(obj.HasBeenValidated)
+                .Hash(obj.SubjectValue)
+                .Hash(obj.SubjectType)
+                .Hash(obj.SubjectName)
+                .Hash(obj.Actions)
                 .Value;
     }
 }
