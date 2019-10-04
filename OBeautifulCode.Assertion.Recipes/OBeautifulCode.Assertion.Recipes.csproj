@@ -46,6 +46,7 @@
     <Compile Include=".analyzers\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
     <Compile Include="Lifecycle\Actions.cs" />
     <Compile Include="ApplyBecause.cs" />
     <Compile Include="DictionaryExtensions.cs" />
