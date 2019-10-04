@@ -32,19 +32,19 @@ namespace OBeautifulCode.Assertion.Recipes
 
         /// <summary>
         /// The subject should have been name with a call to
-        /// <see cref="AssertionExtensions.Named{TParameterValue}(TParameterValue, string)"/>.
+        /// <see cref="WorkflowExtensions.Named{TParameterValue}(TParameterValue, string)"/>.
         /// </summary>
         Named = 1,
 
         /// <summary>
         /// The subject should have been Must'ed with a call to
-        /// <see cref="AssertionExtensions.Must{TParameterValue}(TParameterValue)"/>.
+        /// <see cref="WorkflowExtensions.Must{TParameterValue}(TParameterValue)"/>.
         /// </summary>
         Musted = 2,
 
         /// <summary>
         /// The parameter should have been Each'ed with a call to
-        /// <see cref="AssertionExtensions.Each(AssertionTracker)"/>.
+        /// <see cref="WorkflowExtensions.Each(AssertionTracker)"/>.
         /// </summary>
         Eached = 4,
 
