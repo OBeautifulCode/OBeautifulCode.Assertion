@@ -17,7 +17,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// <remarks>
     /// <see cref="BuildArgumentExceptionMessage"/> has some strings in code.
     /// </remarks>
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
     public

@@ -20,7 +20,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]

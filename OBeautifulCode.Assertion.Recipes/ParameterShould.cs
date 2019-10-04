@@ -14,7 +14,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// <summary>
     /// Specifies what should or should not be true about a parameter.
     /// </summary>
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]
     internal
 #else

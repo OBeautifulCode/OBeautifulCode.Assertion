@@ -20,7 +20,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized parameter validation library is going to require lots of types.")]
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
     public

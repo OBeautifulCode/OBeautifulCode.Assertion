@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>OBeautifulCodeValidationRecipesProject</DefineConstants>
+    <DefineConstants>OBeautifulCodeAssertionRecipesProject</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -31,7 +31,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>OBeautifulCodeValidationRecipesProject</DefineConstants>
+    <DefineConstants>OBeautifulCodeAssertionRecipesProject</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -63,7 +63,7 @@
     <None Include=".analyzers\release.ruleset" />
     <None Include="nuget-icon.png" />
     <None Include="packages.config" />
-    <None Include="ParameterValidator.recipe-nuspec" />
+    <None Include="Must.recipe-nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

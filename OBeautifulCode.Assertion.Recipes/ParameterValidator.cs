@@ -15,7 +15,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// <summary>
     /// Extension methods.
     /// </summary>
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]

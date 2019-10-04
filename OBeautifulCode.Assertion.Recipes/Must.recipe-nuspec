@@ -1,0 +1,22 @@
+﻿<package>
+  <metadata>
+    <id>OBeautifulCode.Assertion.Recipes.Must</id>
+    <description>Generalized assertion library, covering argument, operation, and unit test assertions.</description>
+    <tags>assertion assertions parameter parameters argument arguments unit test</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Assertion/master/OBeautifulCode.Assertion.Recipes/nuget-icon.png</iconUrl>
+  </metadata>
+  <files>
+    <file src="ApplyBecause.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ApplyBecause.cs" />
+    <file src="DictionaryExtensions.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\DictionaryExtensions.cs" />
+    <file src="Parameter.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Parameter.cs" />
+    <file src="ParameterShould.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterShould.cs" />
+    <file src="ParameterValidation.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidation.cs" />
+    <file src="ParameterValidation.Internal.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidation.Internal.cs" />
+    <file src="ParameterValidation.Strings.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidation.Strings.cs" />
+    <file src="ParameterValidation.TypeValidation.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidation.TypeValidation.cs" />
+    <file src="ParameterValidation.Utility.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidation.Utility.cs" />
+    <file src="ParameterValidator.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ParameterValidator.cs" />
+    <file src="Range.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Range.cs" />
+    <file src="ValidatedNotNullAttribute.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ValidatedNotNullAttribute.cs" />
+  </files>
+</package>

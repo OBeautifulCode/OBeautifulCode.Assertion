@@ -19,7 +19,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// <summary>
     /// Contains all validations that can be applied to a <see cref="Parameter"/>.
     /// </summary>
-#if !OBeautifulCodeValidationRecipesProject
+#if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
     public
