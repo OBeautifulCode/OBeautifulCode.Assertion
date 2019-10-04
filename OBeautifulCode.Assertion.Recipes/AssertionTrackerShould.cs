@@ -12,7 +12,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// Specifies what should or should not be true about a subject.
+    /// Specifies what should or should not be true about an <see cref="AssertionTracker"/>.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]
@@ -20,7 +20,7 @@ namespace OBeautifulCode.Assertion.Recipes
 #else
     public
 #endif
-        enum ParameterShould
+        enum AssertionTrackerShould
     {
         /// <summary>
         /// Unknown (default).
@@ -29,57 +29,51 @@ namespace OBeautifulCode.Assertion.Recipes
         Unknown,
 
         /// <summary>
-        /// The parameter should not exist.
+        /// The tracker should not exist.
         /// </summary>
         NotExist,
 
         /// <summary>
-        /// The parameter should have been Named with a call to
-        /// <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/>.
+        /// The tracker should be <see cref="Actions.Named"/>.
         /// </summary>
         BeNamed,
 
         /// <summary>
-        /// The parameter should not have been Named.
-        /// No call to <see cref="ParameterValidator.Named{TParameterValue}(TParameterValue, string)"/> should have occured.
+        /// The tracker should not be <see cref="Actions.Named"/>.
         /// </summary>
         NotBeNamed,
 
         /// <summary>
-        /// The parameter should have been Must'ed with a call to
-        /// <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/>.
+        /// The tracker should be <see cref="Actions.Musted"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         BeMusted,
 
         /// <summary>
-        /// The parameter should not have been Must'ed.
-        /// No call to <see cref="ParameterValidator.Must{TParameterValue}(TParameterValue)"/> should have occured.
+        /// The tracker should not be <see cref="Actions.Musted"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         NotBeMusted,
 
         /// <summary>
-        /// The parameter should have been Each'ed with a call to
-        /// <see cref="ParameterValidator.Each(AssertionTracker)"/>.
+        /// The tracker should be <see cref="Actions.Eached"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
         BeEached,
 
         /// <summary>
-        /// The parameter should not have been Each'ed.
-        /// No call to <see cref="ParameterValidator.Each(AssertionTracker)"/> should have occured.
+        /// The tracker should not be <see cref="Actions.Eached"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
         NotBeEached,
 
         /// <summary>
-        /// The parameter should have been verified through at least one verification.
+        /// The tracker should be <see cref="Actions.VerifiedAtLeastOnce"/>.
         /// </summary>
         BeVerifiedAtLeastOnce,
 
         /// <summary>
-        /// The parameter should not have been verified through any verification.
+        /// The tracker should not be <see cref="Actions.VerifiedAtLeastOnce"/>.
         /// </summary>
         NotBeVerified,
     }

@@ -112,7 +112,7 @@
     <Compile Include="ParameterEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ParameterValidationsTest.cs" />
-    <Compile Include="ParameterValidatorTest.cs" />
+    <Compile Include="AssertionExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBeautifulCode.Assertion.Recipes\OBeautifulCode.Assertion.Recipes.csproj">

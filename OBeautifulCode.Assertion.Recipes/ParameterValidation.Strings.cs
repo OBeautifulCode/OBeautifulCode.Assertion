@@ -27,7 +27,7 @@ namespace OBeautifulCode.Assertion.Recipes
 #pragma warning disable 1591
 #pragma warning disable SA1600
 
-        public const string ImproperUseOfFrameworkExceptionMessage = "The parameter validation framework is being used improperly; see: https://github.com/OBeautifulCode/OBeautifulCode.Assertion for documentation on proper usage.";
+        public const string ImproperUseOfFrameworkExceptionMessage = "The assertion framework is being used improperly; see: https://github.com/OBeautifulCode/OBeautifulCode.Assertion for documentation on proper usage.";
 
         public const string AnyReferenceTypeName = "Any Reference Type";
 

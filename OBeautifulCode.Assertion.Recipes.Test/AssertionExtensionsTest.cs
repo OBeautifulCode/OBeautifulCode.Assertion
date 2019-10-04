@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ParameterValidatorTest.cs" company="OBeautifulCode">
+// <copyright file="AssertionExtensionsTest.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -22,12 +22,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using Xunit;
 
-    public static class ParameterValidatorTest
+    public static class AssertionExtensionsTest
     {
         private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
 
         [Fact]
-        public static void Named___Should_throw_InvalidOperationException___When_value_is_of_type_Parameter()
+        public static void Named___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_of_type_Parameter()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags();
@@ -38,7 +38,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
@@ -97,7 +97,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_with_null_ValueType()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_with_null_ValueType()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags()
@@ -117,13 +117,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_not_been_named()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_not_been_named()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Named)).ToList();
@@ -134,14 +134,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_musted()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_musted()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).ToList();
@@ -152,14 +152,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_eached()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_eached()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
@@ -170,13 +170,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_a_Parameter_that_has_been_validated()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_validated()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
@@ -187,7 +187,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
@@ -215,13 +215,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_InvalidOperationException___When_value_is_an_anonymous_object_with_multiple_properties()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_an_anonymous_object_with_multiple_properties()
         {
             // Arrange, Act
             var actual = Record.Exception(() => new { someParameter = A.Dummy<object>(), someParameter2 = A.Dummy<object>() }.Must());
 
             // Assert
-            actual.Should().BeOfType<InvalidOperationException>();
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
         }
 
@@ -359,7 +359,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Each___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_ValueType_is_null()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
@@ -374,14 +374,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_musted()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
@@ -392,14 +392,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_throw_InvalidOperationException___When_parameter_has_been_eached()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_been_eached()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
@@ -410,7 +410,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
@@ -449,7 +449,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void And___Should_throw_InvalidOperationException___When_parameter_ValueType_is_null()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_ValueType_is_null()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
@@ -464,14 +464,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_musted()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_musted()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
@@ -482,13 +482,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }
 
         [Fact]
-        public static void And___Should_throw_InvalidOperationException___When_parameter_has_not_been_validated()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_validated()
         {
             // Arrange
             var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
@@ -499,7 +499,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Assert
             foreach (var actual in actuals)
             {
-                actual.Should().BeOfType<InvalidOperationException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(ParameterValidation.ImproperUseOfFrameworkExceptionMessage);
             }
         }

@@ -75,7 +75,7 @@ namespace OBeautifulCode.Assertion.Recipes
             this AssertionTracker assertionTracker,
             Validation validation)
         {
-            ParameterValidator.ThrowImproperUseOfFrameworkIfDetected(assertionTracker, ParameterShould.BeMusted);
+            AssertionExtensions.ThrowImproperUseOfFrameworkIfDetected(assertionTracker, AssertionTrackerShould.BeMusted);
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 
@@ -90,7 +90,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     var eachValidation = new Validation
                     {
                         ParameterName = assertionTracker.SubjectName,
-                        ValidationName = nameof(ParameterValidator.Each),
+                        ValidationName = nameof(AssertionExtensions.Each),
                         Value = assertionTracker.SubjectValue,
                         ValueType = assertionTracker.SubjectType,
                         IsElementInEnumerable = false,
@@ -226,7 +226,7 @@ namespace OBeautifulCode.Assertion.Recipes
             // note that the parameter checks in OBC.Reflection were replaced with the following, single check:
             if (type.IsGenericTypeDefinition)
             {
-                ParameterValidator.ThrowImproperUseOfFramework(Invariant($"The parameter type is an unbounded generic type."));
+                AssertionExtensions.ThrowImproperUseOfFramework(Invariant($"The parameter type is an unbounded generic type."));
             }
 
             // type is equal to the other type
@@ -278,7 +278,7 @@ namespace OBeautifulCode.Assertion.Recipes
             if (rangeIsMalformed)
             {
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
-                ParameterValidator.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
+                AssertionExtensions.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
         }
 
