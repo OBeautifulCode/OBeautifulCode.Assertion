@@ -10816,7 +10816,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 // Arrange
                 var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
                 var parameter = invalidTypeValue.Named(parameterName).Must();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
@@ -10838,7 +10838,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 // Arrange
                 var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
                 var parameter = invalidTypeValue.Named(parameterName).Must().Each();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a parameter of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
+                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
 
                 // Act
                 var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
@@ -10859,7 +10859,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             object notEnumerable = new object();
             var parameter1 = notEnumerable.Named(parameterName).Must();
             parameter1.Actions |= Actions.Eached;
-            var expectedExceptionMessage1 = Invariant($"Called Each() on a parameter of type object, which is not one of the following expected type(s): IEnumerable.");
+            var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
             var parameter2 = nullEnumerable.Named(parameterName).Must();
