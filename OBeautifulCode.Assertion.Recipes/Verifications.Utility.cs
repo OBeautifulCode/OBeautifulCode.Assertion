@@ -16,7 +16,6 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
 
     using OBeautifulCode.Type.Recipes;
 
@@ -186,66 +185,6 @@ namespace OBeautifulCode.Assertion.Recipes
             return result;
         }
 
-        private static bool IsAssignableTo(
-            this Type type,
-            Type otherType,
-            bool treatUnboundGenericAsAssignableTo = false)
-        {
-            // A copy of this method exists in OBC.Reflection.
-            // Any bug fixes made here should also be applied to OBC.Reflection.
-            // OBC.Validation cannot take a reference to OBC.Reflection because it creates a circular reference
-            // since OBC.Reflection itself depends on OBC.Validation.
-            // We considered converting all usages of OBC.Validation in OBC.Reflection to vanilla if..then..throw
-            // but decided against because it was going to be too much work and we like the way OBC.Validation reads (e.g. Must().NotBeNull()) in OBC.Reflection.
-            // The other option was to create a third package that OBC.Validation and OBC.Reflection could both depend on, but
-            // that didn't feel right because this method naturally fits with TypeHelper.
-            // note that the parameter checks in OBC.Reflection were replaced with the following, single check:
-            if (type.IsGenericTypeDefinition)
-            {
-                WorkflowExtensions.ThrowImproperUseOfFramework(Invariant($"The parameter type is an unbounded generic type."));
-            }
-
-            // type is equal to the other type
-            if (type == otherType)
-            {
-                return true;
-            }
-
-            // type is assignable to the other type
-            if (otherType.IsAssignableFrom(type))
-            {
-                return true;
-            }
-
-            // type is generic and other type is an unbounded generic type
-            if (treatUnboundGenericAsAssignableTo && otherType.IsGenericTypeDefinition)
-            {
-                // type's unbounded generic version is the other type
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == otherType)
-                {
-                    return true;
-                }
-
-                // type implements an interface who's unbounded generic version is the other type
-                if (type.GetInterfaces().Any(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == otherType)))
-                {
-                    return true;
-                }
-
-                var baseType = type.BaseType;
-                if (baseType == null)
-                {
-                    return false;
-                }
-
-                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
-                var result = baseType.IsAssignableTo(otherType, treatUnboundGenericAsAssignableTo);
-                return result;
-            }
-
-            return false;
-        }
-
         private static void ThrowIfMalformedRange(
             VerificationParameter[] validationParameters)
         {
@@ -256,38 +195,6 @@ namespace OBeautifulCode.Assertion.Recipes
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
                 WorkflowExtensions.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
-        }
-
-        private static bool IsNullableType(
-            this Type type)
-        {
-            // A copy of this method exists in OBC.Reflection.
-            // Any bug fixes made here should also be applied to OBC.Reflection.
-            // OBC.Validation cannot take a reference to OBC.Reflection because it creates a circular reference
-            // since OBC.Reflection itself depends on OBC.Validation.
-            new { type }.Must().NotBeNull();
-
-            var result = Nullable.GetUnderlyingType(type) != null;
-
-            return result;
-        }
-
-        private static bool IsAnonymous(
-            this Type type)
-        {
-            // A copy of this method exists in OBC.Reflection.
-            // Any bug fixes made here should also be applied to OBC.Reflection.
-            // OBC.Validation cannot take a reference to OBC.Reflection because it creates a circular reference
-            // since OBC.Reflection itself depends on OBC.Validation.
-            new { type }.Must().NotBeNull();
-
-            var result = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
-                         && type.Namespace == null
-                         && type.IsGenericType && type.Name.Contains("AnonymousType")
-                         && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal))
-                         && (type.Attributes & TypeAttributes.NotPublic) == TypeAttributes.NotPublic;
-
-            return result;
         }
 
         private static string BuildArgumentExceptionMessage(
