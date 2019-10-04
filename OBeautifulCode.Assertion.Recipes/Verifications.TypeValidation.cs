@@ -14,6 +14,8 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Collections.Generic;
     using System.Linq;
 
+    using OBeautifulCode.Type.Recipes;
+
     using static System.FormattableString;
 
     /// <summary>
@@ -28,7 +30,7 @@ namespace OBeautifulCode.Assertion.Recipes
     {
 #pragma warning disable SA1201
         private delegate void TypeValidationHandler(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation);
 
         private static readonly Type EnumerableType = typeof(IEnumerable);
@@ -182,31 +184,31 @@ namespace OBeautifulCode.Assertion.Recipes
 
         // ReSharper disable once UnusedParameter.Local
         private static void Throw(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var parameterValueTypeName = validation.ValueType.ToStringReadable();
+            var parameterValueTypeName = verification.ValueType.ToStringReadable();
 
-            throw new InvalidCastException(Invariant($"validationName: {validation.ValidationName}, isElementInEnumerable: {validation.IsElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
+            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verification.IsElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var valueType = validation.ValueType;
+            var valueType = verification.ValueType;
 
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ThrowParameterUnexpectedType(validation, AnyReferenceTypeName, NullableGenericTypeName);
+                ThrowParameterUnexpectedType(verification, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
         private static void ThrowIfEnumerableTypeCannotBeNull(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var valueType = validation.ValueType;
+            var valueType = verification.ValueType;
 
             var enumerableType = GetEnumerableGenericType(valueType);
 
@@ -214,15 +216,15 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
                 // see: https://stackoverflow.com/a/3149180/356790
-                ThrowParameterUnexpectedType(validation, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
+                ThrowParameterUnexpectedType(verification, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
             }
         }
 
         private static void ThrowIfDictionaryTypeCannotBeNull(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var valueType = validation.ValueType;
+            var valueType = verification.ValueType;
 
             var dictionaryValueType = GetDictionaryGenericValueType(valueType);
 
@@ -230,69 +232,69 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
                 // see: https://stackoverflow.com/a/3149180/356790
-                ThrowParameterUnexpectedType(validation, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
+                ThrowParameterUnexpectedType(verification, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
             }
         }
 
         private static void ThrowIfNotOfType(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var valueType = validation.ValueType;
+            var valueType = verification.ValueType;
             var validTypes = typeValidation.ReferenceTypes;
 
             if (!validTypes.Any(_ => valueType.IsAssignableTo(_, treatUnboundGenericAsAssignableTo: true)))
             {
-                ThrowParameterUnexpectedType(validation, validTypes);
+                ThrowParameterUnexpectedType(verification, validTypes);
             }
         }
 
         private static void ThrowIfAnyValidationParameterTypeDoesNotEqualValueType(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var valueType = validation.ValueType;
+            var valueType = verification.ValueType;
 
-            foreach (var validationParameter in validation.ValidationParameters)
+            foreach (var validationParameter in verification.VerificationParameters)
             {
                 if (validationParameter.ValueType != valueType)
                 {
-                    ThrowValidationParameterUnexpectedType(validation.ValidationName, validationParameter.ValueType, validationParameter.Name, valueType);
+                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.ValueType, validationParameter.Name, valueType);
                 }
             }
         }
 
         private static void ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType(
-            Validation validation,
+            Verification verification,
             TypeValidation typeValidation)
         {
-            var enumerableType = GetEnumerableGenericType(validation.ValueType);
+            var enumerableType = GetEnumerableGenericType(verification.ValueType);
 
-            foreach (var validationParameter in validation.ValidationParameters)
+            foreach (var validationParameter in verification.VerificationParameters)
             {
                 if (validationParameter.ValueType != enumerableType)
                 {
-                    ThrowValidationParameterUnexpectedType(validation.ValidationName, validationParameter.ValueType, validationParameter.Name, enumerableType);
+                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.ValueType, validationParameter.Name, enumerableType);
                 }
             }
         }
 
         private static void ThrowParameterUnexpectedType(
-            Validation validation,
+            Verification verification,
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.ToStringReadable()).ToArray();
 
-            ThrowParameterUnexpectedType(validation, expectedTypeStrings);
+            ThrowParameterUnexpectedType(verification, expectedTypeStrings);
         }
 
         private static void ThrowParameterUnexpectedType(
-            Validation validation,
+            Verification verification,
             params string[] expectedTypes)
         {
-            var valueType = validation.ValueType;
-            var validationName = validation.ValidationName;
-            var isElementInEnumerable = validation.IsElementInEnumerable;
+            var valueType = verification.ValueType;
+            var validationName = verification.Name;
+            var isElementInEnumerable = verification.IsElementInEnumerable;
 
             var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));
 

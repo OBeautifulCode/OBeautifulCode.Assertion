@@ -18,7 +18,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using static System.FormattableString;
 
     /// <summary>
-    /// Contains all validations that can be applied to a <see cref="AssertionTracker"/>.
+    /// Contains all verifications that can be applied to an <see cref="AssertionTracker"/>.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
@@ -31,14 +31,14 @@ namespace OBeautifulCode.Assertion.Recipes
         static partial class Verifications
     {
         /// <summary>
-        /// Validates that the reference type or nullable parameter is null.
+        /// Verifies that the reference type or nullable subject is null.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeNull(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -46,29 +46,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeNullInternal,
-                ValidationName = nameof(BeNull),
+                Handler = BeNullInternal,
+                Name = nameof(BeNull),
                 TypeValidations = MustBeNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the reference type or nullable parameter is not null.
+        /// Verifies that the reference type or nullable subject is not null.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNull(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -76,29 +77,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeNullInternal,
-                ValidationName = nameof(NotBeNull),
+                Handler = NotBeNullInternal,
+                Name = nameof(NotBeNull),
                 TypeValidations = MustBeNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the bool or bool? parameter is true.
+        /// Verifies that the bool or bool? subject is true.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeTrue(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -106,29 +108,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeTrueInternal,
-                ValidationName = nameof(BeTrue),
+                Handler = BeTrueInternal,
+                Name = nameof(BeTrue),
                 TypeValidations = MustBeBooleanTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the bool or bool? parameter is not true.
+        /// Verifies that the bool or bool? subject is not true.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeTrue(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -136,29 +139,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeTrueInternal,
-                ValidationName = nameof(NotBeTrue),
+                Handler = NotBeTrueInternal,
+                Name = nameof(NotBeTrue),
                 TypeValidations = MustBeBooleanTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the bool or bool? parameter is false.
+        /// Verifies that the bool or bool? subject is false.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeFalse(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -166,29 +170,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeFalseInternal,
-                ValidationName = nameof(BeFalse),
+                Handler = BeFalseInternal,
+                Name = nameof(BeFalse),
                 TypeValidations = MustBeBooleanTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the bool? or bool? parameter is not false.
+        /// Verifies that the bool? or bool? subject is not false.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeFalse(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -196,29 +201,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeFalseInternal,
-                ValidationName = nameof(NotBeFalse),
+                Handler = NotBeFalseInternal,
+                Name = nameof(NotBeFalse),
                 TypeValidations = MustBeBooleanTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is neither null nor whitespace.
+        /// Verifies that the string subject is neither null nor whitespace.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNullNorWhiteSpace(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -226,29 +232,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeNullNorWhiteSpaceInternal,
-                ValidationName = nameof(NotBeNullNorWhiteSpace),
+                Handler = NotBeNullNorWhiteSpaceInternal,
+                Name = nameof(NotBeNullNorWhiteSpace),
                 TypeValidations = MustBeStringTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is null or not white space.
+        /// Verifies that the string subject is null or not white space.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeNullOrNotWhiteSpace(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -256,29 +263,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeNullOrNotWhiteSpaceInternal,
-                ValidationName = nameof(BeNullOrNotWhiteSpace),
+                Handler = BeNullOrNotWhiteSpaceInternal,
+                Name = nameof(BeNullOrNotWhiteSpace),
                 TypeValidations = MustBeStringTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the guid or guid? parameter is empty.
+        /// Verifies that the guid or guid? subject is empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeEmptyGuid(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -286,29 +294,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeEmptyGuidInternal,
-                ValidationName = nameof(BeEmptyGuid),
+                Handler = BeEmptyGuidInternal,
+                Name = nameof(BeEmptyGuid),
                 TypeValidations = MustBeGuidTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the guid or guid? parameter is not empty.
+        /// Verifies that the guid or guid? subject is not empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeEmptyGuid(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -316,29 +325,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyGuidInternal,
-                ValidationName = nameof(NotBeEmptyGuid),
+                Handler = NotBeEmptyGuidInternal,
+                Name = nameof(NotBeEmptyGuid),
                 TypeValidations = MustBeGuidTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is empty.
+        /// Verifies that the string subject is empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeEmptyString(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -346,29 +356,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeEmptyStringInternal,
-                ValidationName = nameof(BeEmptyString),
+                Handler = BeEmptyStringInternal,
+                Name = nameof(BeEmptyString),
                 TypeValidations = MustBeStringTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is not empty.
+        /// Verifies that the string subject is not empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeEmptyString(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -376,29 +387,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyStringInternal,
-                ValidationName = nameof(NotBeEmptyString),
+                Handler = NotBeEmptyStringInternal,
+                Name = nameof(NotBeEmptyString),
                 TypeValidations = MustBeStringTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter is empty.
+        /// Verifies that the IEnumerable subject is empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeEmptyEnumerable(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -406,29 +418,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeEmptyEnumerableInternal,
-                ValidationName = nameof(BeEmptyEnumerable),
+                Handler = BeEmptyEnumerableInternal,
+                Name = nameof(BeEmptyEnumerable),
                 TypeValidations = MustBeEnumerableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter is not empty.
+        /// Verifies that the IEnumerable subject is not empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeEmptyEnumerable(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -436,29 +449,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyEnumerableInternal,
-                ValidationName = nameof(NotBeEmptyEnumerable),
+                Handler = NotBeEmptyEnumerableInternal,
+                Name = nameof(NotBeEmptyEnumerable),
                 TypeValidations = MustBeEnumerableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is empty.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject is empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeEmptyDictionary(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -466,29 +480,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeEmptyDictionaryInternal,
-                ValidationName = nameof(BeEmptyDictionary),
+                Handler = BeEmptyDictionaryInternal,
+                Name = nameof(BeEmptyDictionary),
                 TypeValidations = MustBeDictionaryTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not empty.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject is not empty.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeEmptyDictionary(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -496,29 +511,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyDictionaryInternal,
-                ValidationName = nameof(NotBeEmptyDictionary),
+                Handler = NotBeEmptyDictionaryInternal,
+                Name = nameof(NotBeEmptyDictionary),
                 TypeValidations = MustBeDictionaryTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter contains at least one null element.
+        /// Verifies that the IEnumerable subject contains at least one null element.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker ContainSomeNullElements(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -526,29 +542,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = ContainSomeNullElementsInternal,
-                ValidationName = nameof(ContainSomeNullElements),
+                Handler = ContainSomeNullElementsInternal,
+                Name = nameof(ContainSomeNullElements),
                 TypeValidations = MustBeEnumerableOfNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter does not contain any null elements.
+        /// Verifies that the IEnumerable subject does not contain any null elements.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotContainAnyNullElements(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -556,29 +573,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotContainAnyNullElementsInternal,
-                ValidationName = nameof(NotContainAnyNullElements),
+                Handler = NotContainAnyNullElementsInternal,
+                Name = nameof(NotContainAnyNullElements),
                 TypeValidations = MustBeEnumerableOfNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter contains at least one null value.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject contains at least one null value.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker ContainSomeKeyValuePairsWithNullValue(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -586,29 +604,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = ContainSomeKeyValuePairsWithNullValueInternal,
-                ValidationName = nameof(ContainSomeKeyValuePairsWithNullValue),
+                Handler = ContainSomeKeyValuePairsWithNullValueInternal,
+                Name = nameof(ContainSomeKeyValuePairsWithNullValue),
                 TypeValidations = MustBeDictionaryOfNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter does not contain any null values.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject does not contain any null values.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotContainAnyKeyValuePairsWithNullValue(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -616,32 +635,33 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotContainAnyKeyValuePairsWithNullValueInternal,
-                ValidationName = nameof(NotContainAnyKeyValuePairsWithNullValue),
+                Handler = NotContainAnyKeyValuePairsWithNullValueInternal,
+                Name = nameof(NotContainAnyKeyValuePairsWithNullValue),
                 TypeValidations = MustBeDictionaryOfNullableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter is not null nor empty.
+        /// Verifies that the IEnumerable subject is not null nor empty.
         /// </summary>
         /// <remarks>
-        /// This validation is effectively the same as <see cref="NotBeEmptyEnumerable"/> and exists for completeness.
+        /// This verification is effectively the same as <see cref="NotBeEmptyEnumerable"/> and exists for completeness.
         /// </remarks>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNullNorEmptyEnumerable(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -649,30 +669,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyEnumerableInternal,
-                ValidationName = nameof(NotBeNullNorEmptyEnumerable),
+                Handler = NotBeEmptyEnumerableInternal,
+                Name = nameof(NotBeNullNorEmptyEnumerable),
                 TypeValidations = MustBeEnumerableTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
 
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter is not null nor empty nor contains any null elements.
+        /// Verifies that the IEnumerable subject is not null nor empty nor contains any null elements.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNullNorEmptyEnumerableNorContainAnyNulls(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -680,42 +700,42 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validationName = nameof(NotBeNullNorEmptyEnumerableNorContainAnyNulls);
+            var verificationName = nameof(NotBeNullNorEmptyEnumerableNorContainAnyNulls);
 
-            var validation1 = new Validation
+            var verification1 = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyEnumerableInternal,
-                ValidationName = validationName,
+                Handler = NotBeEmptyEnumerableInternal,
+                Name = verificationName,
                 TypeValidations = MustBeEnumerableOfNullableTypeValidations,
                 Data = data,
             };
 
-            var validation2 = new Validation
+            var verification2 = new Verification
             {
                 Because = because,
-                ValueValidationHandler = NotContainAnyNullElementsInternal,
-                ValidationName = validationName,
+                Handler = NotContainAnyNullElementsInternal,
+                Name = verificationName,
                 TypeValidations = null,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation1);
-            assertionTracker.Validate(validation2);
+            assertionTracker.ExecuteVerification(verification1);
+            assertionTracker.ExecuteVerification(verification2);
 
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty nor contains any null values.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject is not null nor empty nor contains any null values.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNullNorEmptyDictionaryNorContainAnyNullValues(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -723,45 +743,45 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validationName = nameof(NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
+            var verificationName = nameof(NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
 
-            var validation1 = new Validation
+            var verification1 = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyDictionaryInternal,
-                ValidationName = validationName,
+                Handler = NotBeEmptyDictionaryInternal,
+                Name = verificationName,
                 TypeValidations = MustBeDictionaryOfNullableTypeValidations,
                 Data = data,
             };
 
-            var validation2 = new Validation
+            var verification2 = new Verification
             {
                 Because = because,
-                ValueValidationHandler = NotContainAnyKeyValuePairsWithNullValueInternal,
-                ValidationName = validationName,
+                Handler = NotContainAnyKeyValuePairsWithNullValueInternal,
+                Name = verificationName,
                 TypeValidations = null,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation1);
-            assertionTracker.Validate(validation2);
+            assertionTracker.ExecuteVerification(verification1);
+            assertionTracker.ExecuteVerification(verification2);
 
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} parameter is not null nor empty.
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject is not null nor empty.
         /// </summary>
         /// <remarks>
-        /// This validation is effectively the same as <see cref="NotBeEmptyDictionary"/> and exists for completeness.
+        /// This verification is effectively the same as <see cref="NotBeEmptyDictionary"/> and exists for completeness.
         /// </remarks>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeNullNorEmptyDictionary(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -769,30 +789,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEmptyDictionaryInternal,
-                ValidationName = nameof(NotBeNullNorEmptyDictionary),
+                Handler = NotBeEmptyDictionaryInternal,
+                Name = nameof(NotBeNullNorEmptyDictionary),
                 TypeValidations = MustBeDictionaryTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
 
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the parameter is equal to default(T).
+        /// Verifies that the subject is equal to default(T).
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeDefault(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -800,29 +820,30 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeDefaultInternal,
-                ValidationName = nameof(BeDefault),
+                Handler = BeDefaultInternal,
+                Name = nameof(BeDefault),
                 TypeValidations = null,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the parameter is not equal to default(T).
+        /// Verifies that the subject is not equal to default(T).
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeDefault(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -830,31 +851,32 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeDefaultInternal,
-                ValidationName = nameof(NotBeDefault),
+                Handler = NotBeDefaultInternal,
+                Name = nameof(NotBeDefault),
                 TypeValidations = null,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is less than some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is less than some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeLessThan<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -863,15 +885,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeLessThanInternal,
-                ValidationName = nameof(BeLessThan),
-                ValidationParameters = new[]
+                Handler = BeLessThanInternal,
+                Name = nameof(BeLessThan),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -882,21 +904,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is not less than some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is not less than some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeLessThan<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -905,15 +928,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeLessThanInternal,
-                ValidationName = nameof(NotBeLessThan),
-                ValidationParameters = new[]
+                Handler = NotBeLessThanInternal,
+                Name = nameof(NotBeLessThan),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -924,21 +947,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is greater than some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is greater than some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeGreaterThan<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -947,15 +971,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeGreaterThanInternal,
-                ValidationName = nameof(BeGreaterThan),
-                ValidationParameters = new[]
+                Handler = BeGreaterThanInternal,
+                Name = nameof(BeGreaterThan),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -966,21 +990,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is not greater than some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is not greater than some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeGreaterThan<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -989,15 +1014,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeGreaterThanInternal,
-                ValidationName = nameof(NotBeGreaterThan),
-                ValidationParameters = new[]
+                Handler = NotBeGreaterThanInternal,
+                Name = nameof(NotBeGreaterThan),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1008,21 +1033,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is less than or equal to some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is less than or equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeLessThanOrEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1031,15 +1057,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeLessThanOrEqualToInternal,
-                ValidationName = nameof(BeLessThanOrEqualTo),
-                ValidationParameters = new[]
+                Handler = BeLessThanOrEqualToInternal,
+                Name = nameof(BeLessThanOrEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1050,21 +1076,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is not less or equal to some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is not less or equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeLessThanOrEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1073,15 +1100,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeLessThanOrEqualToInternal,
-                ValidationName = nameof(NotBeLessThanOrEqualTo),
-                ValidationParameters = new[]
+                Handler = NotBeLessThanOrEqualToInternal,
+                Name = nameof(NotBeLessThanOrEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1092,21 +1119,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is greater than or equal to some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is greater than or equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeGreaterThanOrEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1115,15 +1143,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeGreaterThanOrEqualToInternal,
-                ValidationName = nameof(BeGreaterThanOrEqualTo),
-                ValidationParameters = new[]
+                Handler = BeGreaterThanOrEqualToInternal,
+                Name = nameof(BeGreaterThanOrEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1134,21 +1162,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is not greater than or equal to some specified value.
+        /// Verifies that the IComparable or IComparable{T} subject is not greater than or equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeGreaterThanOrEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1157,15 +1186,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeGreaterThanOrEqualToInternal,
-                ValidationName = nameof(NotBeGreaterThanOrEqualTo),
-                ValidationParameters = new[]
+                Handler = NotBeGreaterThanOrEqualToInternal,
+                Name = nameof(NotBeGreaterThanOrEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1176,21 +1205,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the parameter is equal to some specified value.
+        /// Verifies that the subject is equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1199,15 +1229,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeEqualToInternal,
-                ValidationName = nameof(BeEqualTo),
-                ValidationParameters = new[]
+                Handler = BeEqualToInternal,
+                Name = nameof(BeEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1218,21 +1248,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the parameter is not equal to some specified value.
+        /// Verifies that the subject is not equal to some specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="comparisonValue">The value to compare the parameter value to.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeEqualTo<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1241,15 +1272,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeEqualToInternal,
-                ValidationName = nameof(NotBeEqualTo),
-                ValidationParameters = new[]
+                Handler = NotBeEqualToInternal,
+                Name = nameof(NotBeEqualTo),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
@@ -1260,23 +1291,24 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is within a specified range.
+        /// Verifies that the IComparable or IComparable{T} subject is within a specified range.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="minimum">The minimum comparison value (start of the range).</param>
         /// <param name="maximum">The maximum comparison value (end of the range).</param>
         /// <param name="endpointDelineation">Optional instruction on whether the range is inclusive or exclusive of the endpoints.  Default is to include both the <paramref name="minimum"/> and <paramref name="maximum"/> in the range.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeInRange<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1292,21 +1324,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation);
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeInRangeInternal,
-                ValidationName = nameof(BeInRange),
-                ValidationParameters = new[]
+                Handler = BeInRangeInternal,
+                Name = nameof(BeInRange),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(minimum),
                         Value = minimum,
                         ValueType = typeof(T),
                     },
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(maximum),
                         Value = maximum,
@@ -1317,23 +1349,24 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IComparable or IComparable{T} parameter is not within a specified range.
+        /// Verifies that the IComparable or IComparable{T} subject is not within a specified range.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="minimum">The minimum comparison value (start of the range).</param>
         /// <param name="maximum">The maximum comparison value (end of the range).</param>
         /// <param name="endpointDelineation">Optional instruction on whether the range is inclusive or exclusive of the endpoints.  Default is to include both the <paramref name="minimum"/> and <paramref name="maximum"/> in the range.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeInRange<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1349,21 +1382,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new NotImplementedException("This endpoint delineation is not yet implemented: " + endpointDelineation + ".");
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeInRangeInternal,
-                ValidationName = nameof(NotBeInRange),
-                ValidationParameters = new[]
+                Handler = NotBeInRangeInternal,
+                Name = nameof(NotBeInRange),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(minimum),
                         Value = minimum,
                         ValueType = typeof(T),
                     },
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(maximum),
                         Value = maximum,
@@ -1374,21 +1407,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter contains a specified value.
+        /// Verifies that the IEnumerable subject contains a specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="itemToSearchFor">The item to search for.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker Contain<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1397,15 +1431,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = ContainInternal,
-                ValidationName = nameof(Contain),
-                ValidationParameters = new[]
+                Handler = ContainInternal,
+                Name = nameof(Contain),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(itemToSearchFor),
                         Value = itemToSearchFor,
@@ -1416,21 +1450,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the IEnumerable parameter does not contain a specified value.
+        /// Verifies that the IEnumerable subject does not contain a specified value.
         /// </summary>
         /// <typeparam name="T">The type of the comparison value.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="itemToSearchFor">The item to search for.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotContain<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1439,15 +1474,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotContainInternal,
-                ValidationName = nameof(NotContain),
-                ValidationParameters = new[]
+                Handler = NotContainInternal,
+                Name = nameof(NotContain),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(itemToSearchFor),
                         Value = itemToSearchFor,
@@ -1458,23 +1493,24 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is alphabetic.
+        /// Verifies that the string subject is alphabetic.
         /// </summary>
         /// <remarks>
         /// An empty string is considered to be alphabetic.
         /// </remarks>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="otherAllowedCharacters">Optional set of other characters that are allowed (e.g. '-').  Default is none (strict definition of alphabetic).</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeAlphabetic(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1483,15 +1519,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeAlphabeticInternal,
-                ValidationName = nameof(BeAlphabetic),
-                ValidationParameters = new[]
+                Handler = BeAlphabeticInternal,
+                Name = nameof(BeAlphabetic),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(otherAllowedCharacters),
                         Value = otherAllowedCharacters,
@@ -1521,23 +1557,24 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is alphanumeric.
+        /// Verifies that the string subject is alphanumeric.
         /// </summary>
         /// <remarks>
         /// An empty string is considered to be alphanumeric.
         /// </remarks>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="otherAllowedCharacters">Optional set of other characters that are allowed (e.g. '-').  Default is none (strict definition of alphanumeric).</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeAlphanumeric(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1546,15 +1583,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeAlphanumericInternal,
-                ValidationName = nameof(BeAlphanumeric),
-                ValidationParameters = new[]
+                Handler = BeAlphanumericInternal,
+                Name = nameof(BeAlphanumeric),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(otherAllowedCharacters),
                         Value = otherAllowedCharacters,
@@ -1584,23 +1621,24 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter is in the ASCII printable set (ASCII 32-126).
+        /// Verifies that the string subject is in the ASCII printable set (ASCII 32-126).
         /// </summary>
         /// <remarks>
         /// An empty string is considered to be printable.
         /// </remarks>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="treatNewLineAsPrintable">Optional value indicating whether to treat newline as printable.  Default value is false; newline will not be treated as printable.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeAsciiPrintable(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1609,15 +1647,15 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeAsciiPrintableInternal,
-                ValidationName = nameof(BeAsciiPrintable),
-                ValidationParameters = new[]
+                Handler = BeAsciiPrintableInternal,
+                Name = nameof(BeAsciiPrintable),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(treatNewLineAsPrintable),
                         Value = treatNewLineAsPrintable,
@@ -1628,21 +1666,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
 
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that a regex finds a match in the string parameter.
+        /// Verifies that a regex finds a match in the string subject.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="regex">The regex to use.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeMatchedByRegex(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1656,15 +1694,15 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new ArgumentNullException(nameof(regex));
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = BeMatchedByRegexInternal,
-                ValidationName = nameof(BeMatchedByRegex),
-                ValidationParameters = new[]
+                Handler = BeMatchedByRegexInternal,
+                Name = nameof(BeMatchedByRegex),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(regex),
                         Value = regex,
@@ -1676,20 +1714,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that a regex does not find a match in the string parameter.
+        /// Verifies that a regex does not find a match in the string subject.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="regex">The regex to use.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotBeMatchedByRegex(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1703,15 +1742,15 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new ArgumentNullException(nameof(regex));
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotBeMatchedByRegexInternal,
-                ValidationName = nameof(NotBeMatchedByRegex),
-                ValidationParameters = new[]
+                Handler = NotBeMatchedByRegexInternal,
+                Name = nameof(NotBeMatchedByRegex),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(regex),
                         Value = regex,
@@ -1723,21 +1762,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter starts with a specified string.
+        /// Verifies that the string subject starts with a specified string.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="comparisonValue">The string value to find.</param>
-        /// <param name="comparisonType">Optional value that determines how the string parameter and <paramref name="comparisonValue"/> are compared.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonType">Optional value that determines how the string subject and <paramref name="comparisonValue"/> are compared.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker StartWith(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1752,21 +1792,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new ArgumentNullException(nameof(comparisonValue));
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = StartWithInternal,
-                ValidationName = nameof(StartWith),
-                ValidationParameters = new[]
+                Handler = StartWithInternal,
+                Name = nameof(StartWith),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
                         ValueType = typeof(string),
                     },
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonType),
                         Value = comparisonType,
@@ -1777,21 +1817,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
         /// <summary>
-        /// Validates that the string parameter does not starts with a specified string.
+        /// Verifies that the string subject does not starts with a specified string.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="comparisonValue">The string value to find.</param>
-        /// <param name="comparisonType">Optional value that determines how the string parameter and <paramref name="comparisonValue"/> are compared.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="comparisonType">Optional value that determines how the string subject and <paramref name="comparisonValue"/> are compared.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker NotStartWith(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1806,21 +1847,21 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw new ArgumentNullException(nameof(comparisonValue));
             }
 
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = NotStartWithInternal,
-                ValidationName = nameof(NotStartWith),
-                ValidationParameters = new[]
+                Handler = NotStartWithInternal,
+                Name = nameof(NotStartWith),
+                VerificationParameters = new[]
                 {
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
                         ValueType = typeof(string),
                     },
-                    new ValidationParameter
+                    new VerificationParameter
                     {
                         Name = nameof(comparisonType),
                         Value = comparisonType,
@@ -1831,7 +1872,8 @@ namespace OBeautifulCode.Assertion.Recipes
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
 
@@ -1839,11 +1881,11 @@ namespace OBeautifulCode.Assertion.Recipes
         /// Always throws.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
-        /// <param name="because">Optional rationale for the validation, used in the exception message if the parameter fails this validation.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
         /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
         /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
         /// <returns>
-        /// The validated parameter.
+        /// The assertion tracker.
         /// </returns>
         public static AssertionTracker BeOfTypeThatDoesNotExist(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
@@ -1851,17 +1893,18 @@ namespace OBeautifulCode.Assertion.Recipes
             ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
             IDictionary data = null)
         {
-            var validation = new Validation
+            var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                ValueValidationHandler = null,
-                ValidationName = nameof(BeOfTypeThatDoesNotExist),
+                Handler = null,
+                Name = nameof(BeOfTypeThatDoesNotExist),
                 TypeValidations = AlwaysThrowTypeValidations,
                 Data = data,
             };
 
-            assertionTracker.Validate(validation);
+            assertionTracker.ExecuteVerification(verification);
+
             return assertionTracker;
         }
     }

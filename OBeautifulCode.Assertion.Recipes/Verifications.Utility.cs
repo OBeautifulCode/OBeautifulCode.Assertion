@@ -10,8 +10,6 @@
 namespace OBeautifulCode.Assertion.Recipes
 {
     using System;
-    using System.CodeDom;
-    using System.CodeDom.Compiler;
     using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -19,7 +17,8 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-    using System.Text.RegularExpressions;
+
+    using OBeautifulCode.Type.Recipes;
 
     using static System.FormattableString;
 
@@ -35,30 +34,6 @@ namespace OBeautifulCode.Assertion.Recipes
     {
 #pragma warning disable SA1201
 
-        private static readonly Regex GenericBracketsRegex = new Regex("<.*>", RegexOptions.Compiled);
-
-        private static readonly CodeDomProvider CodeDomProvider = CodeDomProvider.CreateProvider("CSharp");
-
-        private static readonly Dictionary<Type, string> Aliases = new Dictionary<Type, string>
-        {
-            { typeof(byte), "byte" },
-            { typeof(sbyte), "sbyte" },
-            { typeof(short), "short" },
-            { typeof(ushort), "ushort" },
-            { typeof(int), "int" },
-            { typeof(uint), "uint" },
-            { typeof(long), "long" },
-            { typeof(ulong), "ulong" },
-            { typeof(float), "float" },
-            { typeof(double), "double" },
-            { typeof(decimal), "decimal" },
-            { typeof(object), "object" },
-            { typeof(bool), "bool" },
-            { typeof(char), "char" },
-            { typeof(string), "string" },
-            { typeof(void), "void" },
-        };
-
         private static readonly MethodInfo GetDefaultValueOpenGenericMethodInfo = ((Func<object>)GetDefaultValue<object>).Method.GetGenericMethodDefinition();
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
@@ -71,62 +46,63 @@ namespace OBeautifulCode.Assertion.Recipes
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> CompareUsingDefaultComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
-        private static void Validate(
+        private static void ExecuteVerification(
             this AssertionTracker assertionTracker,
-            Validation validation)
+            Verification verification)
         {
             WorkflowExtensions.ThrowImproperUseOfFrameworkIfDetected(assertionTracker, AssertionTrackerShould.BeMusted);
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 
-            validation.ParameterName = assertionTracker.SubjectName;
-            validation.IsElementInEnumerable = hasBeenEached;
+            verification.SubjectName = assertionTracker.SubjectName;
+            verification.IsElementInEnumerable = hasBeenEached;
 
             if (hasBeenEached)
             {
                 // check that the parameter is an IEnumerable and not null
                 if (!assertionTracker.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
                 {
-                    var eachValidation = new Validation
+                    var eachValidation = new Verification
                     {
-                        ParameterName = assertionTracker.SubjectName,
-                        ValidationName = nameof(WorkflowExtensions.Each),
+                        SubjectName = assertionTracker.SubjectName,
+                        Name = nameof(WorkflowExtensions.Each),
                         Value = assertionTracker.SubjectValue,
                         ValueType = assertionTracker.SubjectType,
                         IsElementInEnumerable = false,
                     };
 
                     ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
+
                     NotBeNullInternal(eachValidation);
                 }
 
                 var valueAsEnumerable = (IEnumerable)assertionTracker.SubjectValue;
                 var enumerableType = GetEnumerableGenericType(assertionTracker.SubjectType);
-                validation.ValueType = enumerableType;
+                verification.ValueType = enumerableType;
 
-                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
+                foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(validation, typeValidation);
+                    typeValidation.TypeValidationHandler(verification, typeValidation);
                 }
 
                 foreach (var element in valueAsEnumerable)
                 {
-                    validation.Value = element;
+                    verification.Value = element;
 
-                    validation.ValueValidationHandler(validation);
+                    verification.Handler(verification);
                 }
             }
             else
             {
-                validation.Value = assertionTracker.SubjectValue;
-                validation.ValueType = assertionTracker.SubjectType;
+                verification.Value = assertionTracker.SubjectValue;
+                verification.ValueType = assertionTracker.SubjectType;
 
-                foreach (var typeValidation in validation.TypeValidations ?? new TypeValidation[] { })
+                foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(validation, typeValidation);
+                    typeValidation.TypeValidationHandler(verification, typeValidation);
                 }
 
-                validation.ValueValidationHandler(validation);
+                verification.Handler(verification);
             }
 
             assertionTracker.Actions |= Actions.VerifiedAtLeastOnce;
@@ -271,7 +247,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ThrowIfMalformedRange(
-            ValidationParameter[] validationParameters)
+            VerificationParameter[] validationParameters)
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
             var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
@@ -314,125 +290,67 @@ namespace OBeautifulCode.Assertion.Recipes
             return result;
         }
 
-        private static string ToStringReadable(
-            this Type type)
-        {
-            // A more full solution copy of this method exists in OBC.Representation.System (as ToStringReadableInternal, not ToStringReadable).
-            // Any bug fixes made here should also be applied to OBC.Representation.System.
-            // OBC.Validation cannot take a reference to OBC.Representation.System because it creates a circular reference
-            // since OBC.Representation.System itself depends on OBC.Validation.
-            string result;
-
-            if (type == null)
-            {
-            }
-            if (type.IsGenericParameter)
-            {
-                result = type.Name;
-            }
-            else if (Aliases.ContainsKey(type))
-            {
-                result = Aliases[type];
-            }
-            else if (type.IsNullableType())
-            {
-                result = Nullable.GetUnderlyingType(type).ToStringReadable() + "?";
-            }
-            else if (type.IsArray)
-            {
-                result = type.GetElementType().ToStringReadable() + "[]";
-            }
-            else
-            {
-                result = CodeDomProvider.GetTypeOutput(new CodeTypeReference(type.FullName?.Replace(type.Namespace + ".", string.Empty) ?? type.Name));
-
-                if (type.IsGenericType)
-                {
-                    var isAnonymous = type.IsAnonymous();
-
-                    if (isAnonymous)
-                    {
-                        result = result.Replace("<>f__", string.Empty);
-                    }
-
-                    string[] genericParameters;
-                    if (isAnonymous && type.IsGenericTypeDefinition)
-                    {
-                        genericParameters = type.GetGenericArguments().Select((_, i) => "T" + (i + 1)).ToArray();
-                    }
-                    else
-                    {
-                        genericParameters = type.GetGenericArguments().Select(_ => _.ToStringReadable()).ToArray();
-                    }
-
-                    result = GenericBracketsRegex.Replace(result, "<" + string.Join(", ", genericParameters) + ">");
-                }
-            }
-
-            return result;
-        }
-
         private static string BuildArgumentExceptionMessage(
-            Validation validation,
+            Verification verification,
             string exceptionMessageSuffix,
             Include include = Include.None,
             Type genericTypeOverride = null)
         {
-            if (validation.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
+            if (verification.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
             {
                 // we force to empty string if null because otherwise when the exception is
                 // constructed the framework chooses some generic message like 'An exception of type ArgumentException was thrown'
-                return validation.Because ?? string.Empty;
+                return verification.Because ?? string.Empty;
             }
 
-            var parameterNameQualifier = validation.ParameterName == null ? string.Empty : Invariant($" '{validation.ParameterName}'");
-            var enumerableQualifier = validation.IsElementInEnumerable ? " contains an element that" : string.Empty;
-            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? validation.ValueType.ToStringReadable()) : string.Empty;
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (validation.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{validation.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
-            var validationParameterQualifiers = validation.ValidationParameters == null || !validation.ValidationParameters.Any() ? string.Empty : string.Join(string.Empty, validation.ValidationParameters.Select(_ => _.ToExceptionMessageComponent()));
+            var parameterNameQualifier = verification.SubjectName == null ? string.Empty : Invariant($" '{verification.SubjectName}'");
+            var enumerableQualifier = verification.IsElementInEnumerable ? " contains an element that" : string.Empty;
+            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verification.ValueType.ToStringReadable()) : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verification.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verification.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
+            var validationParameterQualifiers = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
             var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
 
-            if (validation.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
+            if (verification.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {
-                if (!string.IsNullOrWhiteSpace(validation.Because))
+                if (!string.IsNullOrWhiteSpace(verification.Because))
                 {
-                    result = validation.Because + "  " + result;
+                    result = verification.Because + "  " + result;
                 }
             }
-            else if (validation.ApplyBecause == ApplyBecause.SuffixedToDefaultMessage)
+            else if (verification.ApplyBecause == ApplyBecause.SuffixedToDefaultMessage)
             {
-                if (!string.IsNullOrWhiteSpace(validation.Because))
+                if (!string.IsNullOrWhiteSpace(verification.Because))
                 {
-                    result = result + "  " + validation.Because;
+                    result = result + "  " + verification.Because;
                 }
             }
             else
             {
-                throw new NotSupportedException(Invariant($"This {nameof(ApplyBecause)} is not supported: {validation.ApplyBecause}"));
+                throw new NotSupportedException(Invariant($"This {nameof(ApplyBecause)} is not supported: {verification.ApplyBecause}"));
             }
 
             return result;
         }
 
         private static string ToExceptionMessageComponent(
-            this ValidationParameter validationParameter)
+            this VerificationParameter verificationParameter)
         {
-            var result = Invariant($"  Specified '{validationParameter.Name}' is");
-            if (validationParameter.ValueToStringFunc == null)
+            var result = Invariant($"  Specified '{verificationParameter.Name}' is");
+            if (verificationParameter.ValueToStringFunc == null)
             {
                 // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (validationParameter.Value == null)
+                if (verificationParameter.Value == null)
                 {
                     result = Invariant($"{result} '{NullValueToString}'");
                 }
                 else
                 {
-                    result = Invariant($"{result} '{validationParameter.Value}'");
+                    result = Invariant($"{result} '{verificationParameter.Value}'");
                 }
             }
             else
             {
-                result = Invariant($"{result} {validationParameter.ValueToStringFunc()}");
+                result = Invariant($"{result} {verificationParameter.ValueToStringFunc()}");
             }
 
             result = Invariant($"{result}.");
@@ -555,32 +473,32 @@ namespace OBeautifulCode.Assertion.Recipes
             Value1GreaterThanValue2,
         }
 
-        private class Validation
+        private class Verification
         {
-            public string ValidationName { get; set; }
+            public string Name { get; set; }
 
             public string Because { get; set; }
 
             public ApplyBecause ApplyBecause { get; set; }
 
-            public ValueValidationHandler ValueValidationHandler { get; set; }
+            public VerificationHandler Handler { get; set; }
 
-            public ValidationParameter[] ValidationParameters { get; set; }
+            public VerificationParameter[] VerificationParameters { get; set; }
 
-            public string ParameterName { get; set; }
+            public IReadOnlyCollection<TypeValidation> TypeValidations { get; set; }
+
+            public IDictionary Data { get; set; }
+
+            public string SubjectName { get; set; }
 
             public object Value { get; set; }
 
             public Type ValueType { get; set; }
 
             public bool IsElementInEnumerable { get; set; }
-
-            public IReadOnlyCollection<TypeValidation> TypeValidations { get; set; }
-
-            public IDictionary Data { get; set; }
         }
 
-        private class ValidationParameter
+        private class VerificationParameter
         {
             public string Name { get; set; }
 
