@@ -48,6 +48,9 @@
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
     <Compile Include="Framework\Actions.cs" />
+    <Compile Include="Verification\Containers\TypeValidation.cs" />
+    <Compile Include="Verification\Containers\VerificationParameter.cs" />
+    <Compile Include="Verification\Containers\Verification.cs" />
     <Compile Include="Verification\CustomParameters\ApplyBecause.cs" />
     <Compile Include="Framework\AssertionTrackerShould.cs" />
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="Verification\CustomParameters\Range.cs" />
     <Compile Include="Framework\ValidatedNotNullAttribute.cs" />
     <Compile Include="Verifications.cs" />
+    <Compile Include="Verification\Delegates.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include=".analyzers\stylecop.json" />

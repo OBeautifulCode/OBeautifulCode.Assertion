@@ -29,10 +29,6 @@ namespace OBeautifulCode.Assertion.Recipes
         static partial class Verifications
     {
 #pragma warning disable SA1201
-        private delegate void TypeValidationHandler(
-            Verification verification,
-            TypeValidation typeValidation);
-
         private static readonly Type EnumerableType = typeof(IEnumerable);
 
         private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
@@ -65,7 +61,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfTypeCannotBeNull,
+                Handler = ThrowIfTypeCannotBeNull,
             },
         };
 
@@ -73,7 +69,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { BoolType, NullableBoolType },
             },
         };
@@ -82,7 +78,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { StringType },
             },
         };
@@ -91,7 +87,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { GuidType, NullableGuidType },
             },
         };
@@ -100,7 +96,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { EnumerableType },
             },
         };
@@ -109,12 +105,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { EnumerableType },
             },
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfEnumerableTypeCannotBeNull,
+                Handler = ThrowIfEnumerableTypeCannotBeNull,
             },
         };
 
@@ -122,7 +118,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { DictionaryType, UnboundGenericDictionaryType, UnboundGenericReadOnlyDictionaryType },
             },
         };
@@ -131,12 +127,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { DictionaryType, UnboundGenericDictionaryType, UnboundGenericReadOnlyDictionaryType },
             },
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfDictionaryTypeCannotBeNull,
+                Handler = ThrowIfDictionaryTypeCannotBeNull,
             },
         };
 
@@ -144,12 +140,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { ComparableType, UnboundGenericComparableType, NullableType },
             },
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+                Handler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
             },
         };
 
@@ -157,7 +153,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
+                Handler = ThrowIfAnyValidationParameterTypeDoesNotEqualValueType,
             },
         };
 
@@ -165,7 +161,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = Throw,
+                Handler = Throw,
             },
         };
 
@@ -173,12 +169,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfNotOfType,
+                Handler = ThrowIfNotOfType,
                 ReferenceTypes = new[] { EnumerableType },
             },
             new TypeValidation
             {
-                TypeValidationHandler = ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType,
+                Handler = ThrowIfAnyValidationParameterTypeDoesNotEqualEnumerableValueType,
             },
         };
 
@@ -257,9 +253,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             foreach (var validationParameter in verification.VerificationParameters)
             {
-                if (validationParameter.ValueType != valueType)
+                if (validationParameter.Type != valueType)
                 {
-                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.ValueType, validationParameter.Name, valueType);
+                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.Type, validationParameter.Name, valueType);
                 }
             }
         }
@@ -272,9 +268,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             foreach (var validationParameter in verification.VerificationParameters)
             {
-                if (validationParameter.ValueType != enumerableType)
+                if (validationParameter.Type != enumerableType)
                 {
-                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.ValueType, validationParameter.Name, enumerableType);
+                    ThrowValidationParameterUnexpectedType(verification.Name, validationParameter.Type, validationParameter.Name, enumerableType);
                 }
             }
         }
@@ -319,14 +315,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
             throw new InvalidCastException(exceptionMessage);
         }
-
-        private class TypeValidation
-        {
-            public TypeValidationHandler TypeValidationHandler { get; set; }
-
-            public Type[] ReferenceTypes { get; set; }
-        }
-
 #pragma warning restore SA1201
     }
 }

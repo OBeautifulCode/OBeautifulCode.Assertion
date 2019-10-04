@@ -82,7 +82,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(verification, typeValidation);
+                    typeValidation.Handler(verification, typeValidation);
                 }
 
                 foreach (var element in valueAsEnumerable)
@@ -99,7 +99,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.TypeValidationHandler(verification, typeValidation);
+                    typeValidation.Handler(verification, typeValidation);
                 }
 
                 verification.Handler(verification);
@@ -250,7 +250,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerificationParameter[] validationParameters)
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
-            var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].ValueType, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].Type, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
@@ -461,6 +461,7 @@ namespace OBeautifulCode.Assertion.Recipes
             // Type T does not implement either the System.IComparable<T> generic interface or the System.IComparable interface
             // However we already check for this upfront in ThrowIfNotComparable
             var result = (CompareOutcome)CompareUsingDefaultComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
+
             return result;
         }
 
@@ -471,42 +472,6 @@ namespace OBeautifulCode.Assertion.Recipes
             Value1EqualsValue2,
 
             Value1GreaterThanValue2,
-        }
-
-        private class Verification
-        {
-            public string Name { get; set; }
-
-            public string Because { get; set; }
-
-            public ApplyBecause ApplyBecause { get; set; }
-
-            public VerificationHandler Handler { get; set; }
-
-            public VerificationParameter[] VerificationParameters { get; set; }
-
-            public IReadOnlyCollection<TypeValidation> TypeValidations { get; set; }
-
-            public IDictionary Data { get; set; }
-
-            public string SubjectName { get; set; }
-
-            public object Value { get; set; }
-
-            public Type ValueType { get; set; }
-
-            public bool IsElementInEnumerable { get; set; }
-        }
-
-        private class VerificationParameter
-        {
-            public string Name { get; set; }
-
-            public object Value { get; set; }
-
-            public Type ValueType { get; set; }
-
-            public Func<string> ValueToStringFunc { get; set; }
         }
 
         [Flags]

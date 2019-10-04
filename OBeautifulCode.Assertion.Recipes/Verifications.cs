@@ -897,7 +897,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -940,7 +940,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -983,7 +983,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1026,7 +1026,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1069,7 +1069,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1112,7 +1112,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1155,7 +1155,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1198,7 +1198,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1241,7 +1241,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = EqualsTypeValidations,
@@ -1284,7 +1284,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = EqualsTypeValidations,
@@ -1336,13 +1336,13 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(minimum),
                         Value = minimum,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                     new VerificationParameter
                     {
                         Name = nameof(maximum),
                         Value = maximum,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1394,13 +1394,13 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(minimum),
                         Value = minimum,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                     new VerificationParameter
                     {
                         Name = nameof(maximum),
                         Value = maximum,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = InequalityTypeValidations,
@@ -1443,7 +1443,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(itemToSearchFor),
                         Value = itemToSearchFor,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = ContainmentTypeValidations,
@@ -1486,7 +1486,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(itemToSearchFor),
                         Value = itemToSearchFor,
-                        ValueType = typeof(T),
+                        Type = typeof(T),
                     },
                 },
                 TypeValidations = ContainmentTypeValidations,
@@ -1531,7 +1531,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(otherAllowedCharacters),
                         Value = otherAllowedCharacters,
-                        ValueType = typeof(IReadOnlyCollection<char>),
+                        Type = typeof(IReadOnlyCollection<char>),
                         ValueToStringFunc = () =>
                         {
                             string result;
@@ -1595,7 +1595,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(otherAllowedCharacters),
                         Value = otherAllowedCharacters,
-                        ValueType = typeof(IReadOnlyCollection<char>),
+                        Type = typeof(IReadOnlyCollection<char>),
                         ValueToStringFunc = () =>
                         {
                             string result;
@@ -1659,7 +1659,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(treatNewLineAsPrintable),
                         Value = treatNewLineAsPrintable,
-                        ValueType = typeof(bool),
+                        Type = typeof(bool),
                     },
                 },
                 TypeValidations = MustBeStringTypeValidations,
@@ -1706,7 +1706,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(regex),
                         Value = regex,
-                        ValueType = typeof(Regex),
+                        Type = typeof(Regex),
                         ValueToStringFunc = regex.ToString,
                     },
                 },
@@ -1754,7 +1754,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(regex),
                         Value = regex,
-                        ValueType = typeof(Regex),
+                        Type = typeof(Regex),
                         ValueToStringFunc = regex.ToString,
                     },
                 },
@@ -1804,13 +1804,13 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(string),
+                        Type = typeof(string),
                     },
                     new VerificationParameter
                     {
                         Name = nameof(comparisonType),
                         Value = comparisonType,
-                        ValueType = typeof(StringComparison),
+                        Type = typeof(StringComparison),
                     },
                 },
                 TypeValidations = MustBeStringTypeValidations,
@@ -1859,13 +1859,13 @@ namespace OBeautifulCode.Assertion.Recipes
                     {
                         Name = nameof(comparisonValue),
                         Value = comparisonValue,
-                        ValueType = typeof(string),
+                        Type = typeof(string),
                     },
                     new VerificationParameter
                     {
                         Name = nameof(comparisonType),
                         Value = comparisonType,
-                        ValueType = typeof(StringComparison),
+                        Type = typeof(StringComparison),
                     },
                 },
                 TypeValidations = MustBeStringTypeValidations,
