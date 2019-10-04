@@ -17,9 +17,9 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Contains all validations that can be applied to a <see cref="AssertionTracker"/>.
+    /// Contains the implementation of all verifications.
     /// </summary>
-    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized parameter validation library is going to require lots of types.")]
+    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
@@ -189,7 +189,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
+        [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void BeEmptyStringInternal(
             Verification verification)
         {
@@ -205,7 +205,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
+        [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void NotBeEmptyStringInternal(
             Verification verification)
         {
@@ -221,7 +221,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyEnumerableInternal(
             Verification verification)
         {
@@ -247,7 +247,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyEnumerableInternal(
             Verification verification)
         {
@@ -273,7 +273,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyDictionaryInternal(
             Verification verification)
         {
@@ -293,7 +293,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyDictionaryInternal(
             Verification verification)
         {
@@ -898,7 +898,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to validate with comparisonType or not.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to verify with comparisonType or not.")]
         private static void StartWithInternal(
             Verification verification)
         {
@@ -922,7 +922,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to validate with comparisonType or not.")]
+        [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to verify with comparisonType or not.")]
         private static void NotStartWithInternal(
             Verification verification)
         {

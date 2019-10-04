@@ -58,13 +58,13 @@
     <Compile Include="Verifications.Strings.cs" />
     <Compile Include="Verifications.TypeValidation.cs" />
     <Compile Include="Verifications.Utility.cs" />
-    <Compile Include="Verifications.Internal.cs" />
+    <Compile Include="Verification\Verifications.Internal.cs" />
     <Compile Include="Framework\WorkflowExtensions.cs" />
     <Compile Include="Framework\AssertionTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verification\CustomParameters\Range.cs" />
     <Compile Include="Framework\ValidatedNotNullAttribute.cs" />
-    <Compile Include="Verifications.cs" />
+    <Compile Include="Verification\Verifications.cs" />
     <Compile Include="Verification\Delegates.cs" />
   </ItemGroup>
   <ItemGroup>

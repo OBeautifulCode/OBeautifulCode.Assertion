@@ -31,13 +31,9 @@ namespace OBeautifulCode.Assertion.Recipes
 #pragma warning disable SA1201
         private static readonly Type EnumerableType = typeof(IEnumerable);
 
-        private static readonly Type UnboundGenericEnumerableType = typeof(IEnumerable<>);
-
         private static readonly Type ComparableType = typeof(IComparable);
 
         private static readonly Type UnboundGenericComparableType = typeof(IComparable<>);
-
-        private static readonly Type ObjectType = typeof(object);
 
         private static readonly Type BoolType = typeof(bool);
 
