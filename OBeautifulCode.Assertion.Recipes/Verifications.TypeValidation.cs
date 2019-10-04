@@ -12,6 +12,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
 
     using OBeautifulCode.Type.Recipes;
@@ -292,7 +293,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.ToStringReadable()}>") : valueType.ToStringReadable();
 
-            var exceptionMessage = Invariant($"Called {verificationName}() on a value of type {valueTypeMessage}, which is not one of the following expected type(s): {expectedTypesMessage}.");
+            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
             throw new InvalidCastException(exceptionMessage);
         }
@@ -307,7 +308,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var expectedTypesMessage = string.Join(", ", expectedTypesStrings);
 
-            var exceptionMessage = Invariant($"Called {verificationName}({verificationParameterName}:) where '{verificationParameterName}' is of type {verificationParameterType.ToStringReadable()}, which is not one of the following expected type(s): {expectedTypesMessage}.");
+            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterUnexpectedTypeMessage, verificationName, verificationParameterName, verificationParameterName, verificationParameterType.ToStringReadable(), expectedTypesMessage);
 
             throw new InvalidCastException(exceptionMessage);
         }

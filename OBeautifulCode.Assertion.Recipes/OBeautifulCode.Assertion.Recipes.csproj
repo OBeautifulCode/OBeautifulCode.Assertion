@@ -55,7 +55,7 @@
     <Compile Include="Verification\CustomParameters\ApplyBecause.cs" />
     <Compile Include="Framework\AssertionTrackerShould.cs" />
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
-    <Compile Include="Verifications.Strings.cs" />
+    <Compile Include="Verification\Verifications.Strings.cs" />
     <Compile Include="Verifications.TypeValidation.cs" />
     <Compile Include="Verifications.Utility.cs" />
     <Compile Include="Verification\Verifications.Internal.cs" />
