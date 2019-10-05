@@ -52,7 +52,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (hasBeenEached)
             {
-                // check that the parameter is an IEnumerable and not null
+                // check that the subject is an IEnumerable and not null
                 if (!assertionTracker.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
                 {
                     var eachVerification = new Verification
@@ -114,13 +114,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ThrowIfMalformedRange(
-            VerificationParameter[] validationParameters)
+            VerificationParameter[] verificationParameters)
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
-            var rangeIsMalformed = CompareUsingDefaultComparer(validationParameters[0].Type, validationParameters[0].Value, validationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var rangeIsMalformed = CompareUsingDefaultComparer(verificationParameters[0].Type, verificationParameters[0].Value, verificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
-                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, validationParameters[0].Name, validationParameters[1].Name, validationParameters[0].Value?.ToString() ?? NullValueToString, validationParameters[1].Value?.ToString() ?? NullValueToString);
+                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, verificationParameters[0].Name, verificationParameters[1].Name, verificationParameters[0].Value?.ToString() ?? NullValueToString, verificationParameters[1].Value?.ToString() ?? NullValueToString);
                 WorkflowExtensions.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
             }
         }
@@ -140,12 +140,12 @@ namespace OBeautifulCode.Assertion.Recipes
                 return verification.Because ?? string.Empty;
             }
 
-            var parameterNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" '{assertionTracker.SubjectName}'");
+            var subjectNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" '{assertionTracker.SubjectName}'");
             var enumerableQualifier = verifiableItem.IsElementInEnumerable ? " contains an element that" : string.Empty;
             var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
             var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verifiableItem.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
-            var validationParameterQualifiers = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
-            var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
+            var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
+            var result = Invariant($"Parameter{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{verificationParametersQualifier}");
 
             if (verification.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {
@@ -292,9 +292,9 @@ namespace OBeautifulCode.Assertion.Recipes
             // https://stackoverflow.com/questions/34433043/check-whether-propertyinfo-setvalue-will-throw-an-argumentexception
             // Instead of relying on this heuristic, we just check upfront that value2's type == the specified type
             // (value1's type will always be the specified type).  This constrains our capabilities - for example, we
-            // can't compare an integer to a decimal.  That said, we feel like this is a good constraint in a parameter
-            // validation framework.  We'd rather be forced to make the types align than get a false negative
-            // (a validation passes when it should fail).
+            // can't compare an integer to a decimal.  That said, we feel like this is a good constraint in an
+            // assertion framework.  We'd rather be forced to make the types align than get a false negative
+            // (a verification passes when it should fail).
 
             // otherwise, if reflection is able to call Compare(T, T), then ArgumentException can be thrown if
             // Type T does not implement either the System.IComparable<T> generic interface or the System.IComparable interface
