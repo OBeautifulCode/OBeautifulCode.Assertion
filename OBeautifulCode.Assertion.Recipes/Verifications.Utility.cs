@@ -50,7 +50,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 
-            verification.SubjectName = assertionTracker.SubjectName;
             verification.IsElementInEnumerable = hasBeenEached;
 
             if (hasBeenEached)
@@ -60,7 +59,6 @@ namespace OBeautifulCode.Assertion.Recipes
                 {
                     var eachValidation = new Verification
                     {
-                        SubjectName = assertionTracker.SubjectName,
                         Name = nameof(WorkflowExtensions.Each),
                         Value = assertionTracker.SubjectValue,
                         ValueType = assertionTracker.SubjectType,
@@ -69,7 +67,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
                     ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
 
-                    NotBeNullInternal(eachValidation);
+                    NotBeNullInternal(assertionTracker, eachValidation);
                 }
 
                 var valueAsEnumerable = (IEnumerable)assertionTracker.SubjectValue;
@@ -85,7 +83,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 {
                     verification.Value = element;
 
-                    verification.Handler(verification);
+                    verification.Handler(assertionTracker, verification);
                 }
             }
             else
@@ -98,7 +96,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     typeValidation.Handler(verification, typeValidation);
                 }
 
-                verification.Handler(verification);
+                verification.Handler(assertionTracker, verification);
             }
 
             assertionTracker.Actions |= Actions.VerifiedAtLeastOnce;
@@ -117,6 +115,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static string BuildArgumentExceptionMessage(
+            AssertionTracker assertionTracker,
             Verification verification,
             string exceptionMessageSuffix,
             Include include = Include.None,
@@ -129,7 +128,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 return verification.Because ?? string.Empty;
             }
 
-            var parameterNameQualifier = verification.SubjectName == null ? string.Empty : Invariant($" '{verification.SubjectName}'");
+            var parameterNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" '{assertionTracker.SubjectName}'");
             var enumerableQualifier = verification.IsElementInEnumerable ? " contains an element that" : string.Empty;
             var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verification.ValueType.ToStringReadable()) : string.Empty;
             var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verification.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verification.Value?.ToString() ?? NullValueToString}'.") : string.Empty;

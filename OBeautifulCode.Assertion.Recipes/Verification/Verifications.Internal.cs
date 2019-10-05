@@ -38,11 +38,12 @@ namespace OBeautifulCode.Assertion.Recipes
                     .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
 
         private static void BeNullInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             if (!ReferenceEquals(verification.Value, null))
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeNullExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeNullExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -51,11 +52,12 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeNullInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             if (ReferenceEquals(verification.Value, null))
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeNullExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeNullExceptionMessageSuffix);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -73,12 +75,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeTrueInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = ReferenceEquals(verification.Value, null) || ((bool)verification.Value != true);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeTrueExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeTrueExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -87,12 +90,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeTrueInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldNotThrow = ReferenceEquals(verification.Value, null) || ((bool)verification.Value == false);
             if (!shouldNotThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeTrueExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeTrueExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -101,12 +105,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeFalseInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = ReferenceEquals(verification.Value, null) || (bool)verification.Value;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeFalseExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeFalseExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -115,12 +120,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeFalseInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldNotThrow = ReferenceEquals(verification.Value, null) || (bool)verification.Value;
             if (!shouldNotThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeFalseExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeFalseExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -129,14 +135,15 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeNullNorWhiteSpaceInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var shouldThrow = string.IsNullOrWhiteSpace((string)verification.Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -145,12 +152,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeNullOrNotWhiteSpaceInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = !ReferenceEquals(verification.Value, null) && string.IsNullOrWhiteSpace((string)verification.Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeNullOrNotWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeNullOrNotWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -159,12 +167,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeEmptyGuidInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = ReferenceEquals(verification.Value, null) || ((Guid)verification.Value != Guid.Empty);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -173,12 +182,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeEmptyGuidInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = (!ReferenceEquals(verification.Value, null)) && ((Guid)verification.Value == Guid.Empty);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeEmptyGuidExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeEmptyGuidExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -188,13 +198,14 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void BeEmptyStringInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = (string)verification.Value != string.Empty;
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeEmptyStringExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeEmptyStringExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -204,13 +215,14 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1820:TestForEmptyStringsUsingStringLength", Justification = "string.IsNullOrEmpty does not work here")]
         private static void NotBeEmptyStringInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = (string)verification.Value == string.Empty;
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeEmptyStringExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeEmptyStringExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -220,9 +232,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyEnumerableInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = false;
@@ -236,7 +249,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeEmptyEnumerableExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeEmptyEnumerableExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -246,9 +259,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyEnumerableInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = true;
@@ -262,7 +276,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeEmptyEnumerableExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeEmptyEnumerableExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -272,9 +286,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void BeEmptyDictionaryInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsDictionary = verification.Value as IDictionary;
 
@@ -282,7 +297,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = valueAsDictionary.Count != 0;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeEmptyDictionaryExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeEmptyDictionaryExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -292,9 +307,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
         private static void NotBeEmptyDictionaryInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsDictionary = verification.Value as IDictionary;
 
@@ -302,7 +318,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = valueAsDictionary.Count == 0;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeEmptyDictionaryExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeEmptyDictionaryExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -311,9 +327,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ContainSomeNullElementsInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = true;
@@ -330,7 +347,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, ContainSomeNullElementsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, ContainSomeNullElementsExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -339,9 +356,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotContainAnyNullElementsInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = false;
@@ -358,7 +376,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotContainAnyNullElementsExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotContainAnyNullElementsExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -367,9 +385,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ContainSomeKeyValuePairsWithNullValueInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = true;
@@ -386,7 +405,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -395,9 +414,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotContainAnyKeyValuePairsWithNullValueInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = verification.Value as IEnumerable;
             var shouldThrow = false;
@@ -414,7 +434,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -423,13 +443,14 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeDefaultInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var defaultValue = GetDefaultValue(verification.ValueType);
             var shouldThrow = !EqualUsingDefaultEqualityComparer(verification.ValueType, verification.Value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -438,13 +459,14 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeDefaultInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var defaultValue = GetDefaultValue(verification.ValueType);
             var shouldThrow = EqualUsingDefaultEqualityComparer(verification.ValueType, verification.Value, defaultValue);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -453,12 +475,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeLessThanInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -476,12 +499,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeLessThanInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -499,12 +523,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeGreaterThanInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -522,12 +547,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeGreaterThanInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -545,12 +571,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeLessThanOrEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -568,12 +595,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeLessThanOrEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -591,12 +619,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeGreaterThanOrEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -614,12 +643,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeGreaterThanOrEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = CompareUsingDefaultComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -637,12 +667,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = !EqualUsingDefaultEqualityComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
                 if (verification.IsElementInEnumerable)
                 {
                     var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
@@ -659,12 +690,13 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeEqualToInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             var shouldThrow = EqualUsingDefaultEqualityComparer(verification.ValueType, verification.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
                 if (verification.IsElementInEnumerable)
                 {
                     var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
@@ -681,6 +713,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeInRangeInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             ThrowIfMalformedRange(verification.VerificationParameters);
@@ -690,7 +723,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeInRangeExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeInRangeExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -708,6 +741,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeInRangeInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
             ThrowIfMalformedRange(verification.VerificationParameters);
@@ -717,7 +751,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeInRangeExceptionMessageSuffix, Include.GenericType);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeInRangeExceptionMessageSuffix, Include.GenericType);
 
                 if (verification.IsElementInEnumerable)
                 {
@@ -735,9 +769,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ContainInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = (IEnumerable)verification.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
@@ -750,7 +785,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 }
             }
 
-            var exceptionMessage = BuildArgumentExceptionMessage(verification, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+            var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
             var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -758,9 +793,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotContainInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var valueAsEnumerable = (IEnumerable)verification.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
@@ -769,7 +805,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
                 {
-                    var exceptionMessage = BuildArgumentExceptionMessage(verification, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+                    var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
                     var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -779,23 +815,26 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeAlphabeticInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            BeInCharacterSetInternal(verification, AlphabeticCharactersHashSet, BeAlphabeticExceptionMessageSuffix);
+            BeInCharacterSetInternal(assertionTracker, verification, AlphabeticCharactersHashSet, BeAlphabeticExceptionMessageSuffix);
         }
 
         private static void BeAlphanumericInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            BeInCharacterSetInternal(verification, AlphaNumericCharactersHashSet, BeAlphanumericExceptionMessageSuffix);
+            BeInCharacterSetInternal(assertionTracker, verification, AlphaNumericCharactersHashSet, BeAlphanumericExceptionMessageSuffix);
         }
 
         private static void BeInCharacterSetInternal(
+            AssertionTracker assertionTracker,
             Verification verification,
             HashSet<char> allowedCharactersHashSet,
             string exceptionMessageSuffix)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var otherAllowedCharacters = (IReadOnlyCollection<char>)verification.VerificationParameters[0].Value;
 
@@ -819,7 +858,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, exceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, exceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -828,9 +867,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeAsciiPrintableInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var treatNewLineAsPrintable = (bool)verification.VerificationParameters[0].Value;
 
@@ -845,7 +885,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeAsciiPrintableExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeAsciiPrintableExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -854,9 +894,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void BeMatchedByRegexInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var regex = (Regex)verification.VerificationParameters[0].Value;
 
@@ -866,7 +907,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, BeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, BeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -875,9 +916,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void NotBeMatchedByRegexInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var regex = (Regex)verification.VerificationParameters[0].Value;
 
@@ -887,7 +929,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotBeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotBeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -897,9 +939,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to verify with comparisonType or not.")]
         private static void StartWithInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var subjectValue = (string)verification.Value;
             var comparisonValue = (string)verification.VerificationParameters[0].Value;
@@ -911,7 +954,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, StartWithExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, StartWithExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
@@ -921,9 +964,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         [SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.StartsWith(System.String)", Justification = "User can specify whether to verify with comparisonType or not.")]
         private static void NotStartWithInternal(
+            AssertionTracker assertionTracker,
             Verification verification)
         {
-            NotBeNullInternal(verification);
+            NotBeNullInternal(assertionTracker, verification);
 
             var subjectValue = (string)verification.Value;
             var comparisonValue = (string)verification.VerificationParameters[0].Value;
@@ -935,7 +979,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildArgumentExceptionMessage(verification, NotStartWithExceptionMessageSuffix, Include.FailingValue);
+                var exceptionMessage = BuildArgumentExceptionMessage(assertionTracker, verification, NotStartWithExceptionMessageSuffix, Include.FailingValue);
 
                 var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 

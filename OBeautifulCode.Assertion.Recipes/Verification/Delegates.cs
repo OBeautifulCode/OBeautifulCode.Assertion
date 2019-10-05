@@ -25,8 +25,10 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Executes a <see cref="Verification"/>.
         /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="verification">The verification.</param>
         public delegate void VerificationHandler(
+            AssertionTracker assertionTracker,
             Verification verification);
 
         /// <summary>

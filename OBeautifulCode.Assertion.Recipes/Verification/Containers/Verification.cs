@@ -65,11 +65,6 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Gets or sets - TO BE MOVED.
         /// </summary>
-        public string SubjectName { get; set; }
-
-        /// <summary>
-        /// Gets or sets - TO BE MOVED.
-        /// </summary>
         public object Value { get; set; }
 
         /// <summary>
