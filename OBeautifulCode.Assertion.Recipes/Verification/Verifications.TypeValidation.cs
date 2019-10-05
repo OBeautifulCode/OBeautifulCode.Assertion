@@ -19,9 +19,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
     using static System.FormattableString;
 
-    /// <summary>
-    /// Contains all validations that can be applied to a <see cref="AssertionTracker"/>.
-    /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
@@ -175,14 +172,13 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
-        // ReSharper disable once UnusedParameter.Local
         private static void Throw(
             Verification verification,
             TypeValidation typeValidation)
         {
-            var parameterValueTypeName = verification.ValueType.ToStringReadable();
+            var valueTypeString = verification.ValueType.ToStringReadable();
 
-            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verification.IsElementInEnumerable}, parameterValueTypeName: {parameterValueTypeName}"));
+            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verification.IsElementInEnumerable}, parameterValueTypeName: {valueTypeString}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(

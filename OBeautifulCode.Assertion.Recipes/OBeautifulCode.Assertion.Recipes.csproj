@@ -56,7 +56,7 @@
     <Compile Include="Framework\AssertionTrackerShould.cs" />
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
     <Compile Include="Verification\Verifications.Strings.cs" />
-    <Compile Include="Verifications.TypeValidation.cs" />
+    <Compile Include="Verification\Verifications.TypeValidation.cs" />
     <Compile Include="Verifications.Utility.cs" />
     <Compile Include="Verification\Verifications.Internal.cs" />
     <Compile Include="Framework\WorkflowExtensions.cs" />

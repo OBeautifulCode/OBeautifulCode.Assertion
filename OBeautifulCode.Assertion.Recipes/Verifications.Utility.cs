@@ -21,9 +21,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
     using static System.FormattableString;
 
-    /// <summary>
-    /// Contains all validations that can be applied to a <see cref="AssertionTracker"/>.
-    /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
@@ -49,7 +46,7 @@ namespace OBeautifulCode.Assertion.Recipes
             this AssertionTracker assertionTracker,
             Verification verification)
         {
-            WorkflowExtensions.ThrowImproperUseOfFrameworkIfDetected(assertionTracker, AssertionTrackerShould.BeMusted);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted);
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 

@@ -42,7 +42,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (value is AssertionTracker tracker)
             {
-                ThrowImproperUseOfFrameworkIfDetected(tracker, AssertionTrackerShould.NotExist);
+                tracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.NotExist);
             }
 
             var result = new AssertionTracker
@@ -71,7 +71,7 @@ namespace OBeautifulCode.Assertion.Recipes
             // it a tracker itself? pass-thru
             if (value is AssertionTracker tracker)
             {
-                ThrowImproperUseOfFrameworkIfDetected(tracker, AssertionTrackerShould.BeNamed, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified);
+                tracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeNamed, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified);
 
                 tracker.Actions |= Actions.Musted;
 
@@ -127,7 +127,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker Each(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            ThrowImproperUseOfFrameworkIfDetected(assertionTracker, AssertionTrackerShould.BeMusted, AssertionTrackerShould.NotBeEached);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted, AssertionTrackerShould.NotBeEached);
 
             assertionTracker.Actions |= Actions.Eached;
 
@@ -144,7 +144,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker And(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            ThrowImproperUseOfFrameworkIfDetected(assertionTracker, AssertionTrackerShould.BeMusted, AssertionTrackerShould.BeVerifiedAtLeastOnce);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted, AssertionTrackerShould.BeVerifiedAtLeastOnce);
 
             return assertionTracker;
         }
@@ -155,7 +155,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="assertionTrackerShoulds">Specifies what should or should not be true about the assertion tracker.</param>
         internal static void ThrowImproperUseOfFrameworkIfDetected(
-            [ValidatedNotNull] AssertionTracker assertionTracker,
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
             params AssertionTrackerShould[] assertionTrackerShoulds)
         {
             bool shouldThrow = false;

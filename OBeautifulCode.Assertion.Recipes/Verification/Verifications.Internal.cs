@@ -16,9 +16,6 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// Contains the implementation of all verifications.
-    /// </summary>
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
     internal
@@ -904,13 +901,13 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(verification);
 
-            var parameterValue = (string)verification.Value;
+            var subjectValue = (string)verification.Value;
             var comparisonValue = (string)verification.VerificationParameters[0].Value;
             var comparisonType = (StringComparison?)verification.VerificationParameters[1].Value;
 
             var shouldThrow = comparisonType == null
-                ? !parameterValue.StartsWith(comparisonValue)
-                : !parameterValue.StartsWith(comparisonValue, (StringComparison) comparisonType);
+                ? !subjectValue.StartsWith(comparisonValue)
+                : !subjectValue.StartsWith(comparisonValue, (StringComparison) comparisonType);
 
             if (shouldThrow)
             {
@@ -928,13 +925,13 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(verification);
 
-            var parameterValue = (string)verification.Value;
+            var subjectValue = (string)verification.Value;
             var comparisonValue = (string)verification.VerificationParameters[0].Value;
             var comparisonType = (StringComparison?)verification.VerificationParameters[1].Value;
 
             var shouldThrow = comparisonType == null
-                ? parameterValue.StartsWith(comparisonValue)
-                : parameterValue.StartsWith(comparisonValue, (StringComparison)comparisonType);
+                ? subjectValue.StartsWith(comparisonValue)
+                : subjectValue.StartsWith(comparisonValue, (StringComparison)comparisonType);
 
             if (shouldThrow)
             {

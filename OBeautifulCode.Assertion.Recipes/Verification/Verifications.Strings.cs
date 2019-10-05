@@ -11,12 +11,6 @@ namespace OBeautifulCode.Assertion.Recipes
 {
     using System.Collections;
 
-    /// <summary>
-    /// Contains all validations that can be applied to a <see cref="AssertionTracker"/>.
-    /// </summary>
-    /// <remarks>
-    /// <see cref="BuildArgumentExceptionMessage"/> has some strings in code.
-    /// </remarks>
 #if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
