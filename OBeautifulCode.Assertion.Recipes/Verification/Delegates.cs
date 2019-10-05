@@ -27,17 +27,21 @@ namespace OBeautifulCode.Assertion.Recipes
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="verification">The verification.</param>
+        /// <param name="verifiableItem">The verifiable item.</param>
         public delegate void VerificationHandler(
             AssertionTracker assertionTracker,
-            Verification verification);
+            Verification verification,
+            VerifiableItem verifiableItem);
 
         /// <summary>
         /// Executes a <see cref="TypeValidation"/>.
         /// </summary>
         /// <param name="verification">The verification.</param>
+        /// <param name="verifiableItem">The verifiable item.</param>
         /// <param name="typeValidation">The type validation.</param>
         public delegate void TypeValidationHandler(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation);
     }
 }

@@ -174,30 +174,33 @@ namespace OBeautifulCode.Assertion.Recipes
 
         private static void Throw(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueTypeString = verification.ValueType.ToStringReadable();
+            var valueTypeString = verifiableItem.ValueType.ToStringReadable();
 
-            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verification.IsElementInEnumerable}, parameterValueTypeName: {valueTypeString}"));
+            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, parameterValueTypeName: {valueTypeString}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
 
             if (valueType.IsValueType && (Nullable.GetUnderlyingType(valueType) == null))
             {
-                ThrowSubjectUnexpectedType(verification, AnyReferenceTypeName, NullableGenericTypeName);
+                ThrowSubjectUnexpectedType(verification, verifiableItem, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
         private static void ThrowIfEnumerableTypeCannotBeNull(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
 
             var enumerableType = valueType.GetEnumerableElementType();
 
@@ -205,15 +208,16 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
                 // see: https://stackoverflow.com/a/3149180/356790
-                ThrowSubjectUnexpectedType(verification, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
+                ThrowSubjectUnexpectedType(verification, verifiableItem, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
             }
         }
 
         private static void ThrowIfDictionaryTypeCannotBeNull(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
 
             var dictionaryValueType = valueType.GetDictionaryValueType();
 
@@ -221,28 +225,30 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 // Nullable<T> is a struct, not a reference type, which is why we explicitly call it out
                 // see: https://stackoverflow.com/a/3149180/356790
-                ThrowSubjectUnexpectedType(verification, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
+                ThrowSubjectUnexpectedType(verification, verifiableItem, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
             }
         }
 
         private static void ThrowIfNotOfType(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
             var validTypes = typeValidation.ReferenceTypes;
 
             if (!validTypes.Any(_ => valueType.IsAssignableTo(_, treatUnboundGenericAsAssignableTo: true)))
             {
-                ThrowSubjectUnexpectedType(verification, validTypes);
+                ThrowSubjectUnexpectedType(verification, verifiableItem, validTypes);
             }
         }
 
         private static void ThrowIfAnyVerificationParameterTypeDoesNotEqualValueType(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
@@ -255,9 +261,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         private static void ThrowIfAnyVerificationParameterTypeDoesNotEqualEnumerableValueType(
             Verification verification,
+            VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var enumerableType = verification.ValueType.GetEnumerableElementType();
+            var enumerableType = verifiableItem.ValueType.GetEnumerableElementType();
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
@@ -270,20 +277,22 @@ namespace OBeautifulCode.Assertion.Recipes
 
         private static void ThrowSubjectUnexpectedType(
             Verification verification,
+            VerifiableItem verifiableItem,
             params Type[] expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.ToStringReadable()).ToArray();
 
-            ThrowSubjectUnexpectedType(verification, expectedTypeStrings);
+            ThrowSubjectUnexpectedType(verification, verifiableItem, expectedTypeStrings);
         }
 
         private static void ThrowSubjectUnexpectedType(
             Verification verification,
+            VerifiableItem verifiableItem,
             params string[] expectedTypes)
         {
-            var valueType = verification.ValueType;
+            var valueType = verifiableItem.ValueType;
             var verificationName = verification.Name;
-            var isElementInEnumerable = verification.IsElementInEnumerable;
+            var isElementInEnumerable = verifiableItem.IsElementInEnumerable;
 
             var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));
 

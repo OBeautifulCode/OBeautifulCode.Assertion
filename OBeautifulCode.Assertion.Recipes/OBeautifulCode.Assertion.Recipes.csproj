@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
     <Compile Include="Framework\Actions.cs" />
     <Compile Include="Verification\Containers\TypeValidation.cs" />
+    <Compile Include="Verification\Containers\VerifiableItem.cs" />
     <Compile Include="Verification\Containers\VerificationParameter.cs" />
     <Compile Include="Verification\Containers\Verification.cs" />
     <Compile Include="Verification\CustomParameters\ApplyBecause.cs" />

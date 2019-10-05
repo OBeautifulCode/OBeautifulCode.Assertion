@@ -14,7 +14,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Collections.Generic;
 
     /// <summary>
-    /// Fully specifies a verification.
+    /// Specifies a verification, a condition that the subject must satisfy.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
@@ -61,20 +61,5 @@ namespace OBeautifulCode.Assertion.Recipes
         /// that is added to the exception's <see cref="Exception.Data"/> property, if thrown.
         /// </summary>
         public IDictionary Data { get; set; }
-
-        /// <summary>
-        /// Gets or sets - TO BE MOVED.
-        /// </summary>
-        public object Value { get; set; }
-
-        /// <summary>
-        /// Gets or sets - TO BE MOVED.
-        /// </summary>
-        public Type ValueType { get; set; }
-
-        /// <summary>
-        /// Gets or sets - TO BE MOVED.
-        /// </summary>
-        public bool IsElementInEnumerable { get; set; }
     }
 }

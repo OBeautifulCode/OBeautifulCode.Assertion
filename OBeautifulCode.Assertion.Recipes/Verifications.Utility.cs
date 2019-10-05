@@ -50,53 +50,64 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 
-            verification.IsElementInEnumerable = hasBeenEached;
-
             if (hasBeenEached)
             {
                 // check that the parameter is an IEnumerable and not null
                 if (!assertionTracker.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
                 {
-                    var eachValidation = new Verification
+                    var eachVerification = new Verification
                     {
                         Name = nameof(WorkflowExtensions.Each),
+                    };
+
+                    var eachVerifiableItem = new VerifiableItem
+                    {
                         Value = assertionTracker.SubjectValue,
                         ValueType = assertionTracker.SubjectType,
                         IsElementInEnumerable = false,
                     };
 
-                    ThrowIfNotOfType(eachValidation, MustBeEnumerableTypeValidations.Single());
+                    ThrowIfNotOfType(eachVerification, eachVerifiableItem, MustBeEnumerableTypeValidations.Single());
 
-                    NotBeNullInternal(assertionTracker, eachValidation);
+                    NotBeNullInternal(assertionTracker, eachVerification, eachVerifiableItem);
                 }
 
                 var valueAsEnumerable = (IEnumerable)assertionTracker.SubjectValue;
                 var enumerableType = assertionTracker.SubjectType.GetEnumerableElementType();
-                verification.ValueType = enumerableType;
+
+                var verifiableItem = new VerifiableItem
+                {
+                    IsElementInEnumerable = true,
+                    ValueType = enumerableType,
+                };
 
                 foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.Handler(verification, typeValidation);
+                    typeValidation.Handler(verification, verifiableItem, typeValidation);
                 }
 
                 foreach (var element in valueAsEnumerable)
                 {
-                    verification.Value = element;
+                    verifiableItem.Value = element;
 
-                    verification.Handler(assertionTracker, verification);
+                    verification.Handler(assertionTracker, verification, verifiableItem);
                 }
             }
             else
             {
-                verification.Value = assertionTracker.SubjectValue;
-                verification.ValueType = assertionTracker.SubjectType;
+                var verifiableItem = new VerifiableItem
+                {
+                    IsElementInEnumerable = false,
+                    Value = assertionTracker.SubjectValue,
+                    ValueType = assertionTracker.SubjectType,
+                };
 
                 foreach (var typeValidation in verification.TypeValidations ?? new TypeValidation[] { })
                 {
-                    typeValidation.Handler(verification, typeValidation);
+                    typeValidation.Handler(verification, verifiableItem, typeValidation);
                 }
 
-                verification.Handler(assertionTracker, verification);
+                verification.Handler(assertionTracker, verification, verifiableItem);
             }
 
             assertionTracker.Actions |= Actions.VerifiedAtLeastOnce;
@@ -117,6 +128,7 @@ namespace OBeautifulCode.Assertion.Recipes
         private static string BuildArgumentExceptionMessage(
             AssertionTracker assertionTracker,
             Verification verification,
+            VerifiableItem verifiableItem,
             string exceptionMessageSuffix,
             Include include = Include.None,
             Type genericTypeOverride = null)
@@ -129,9 +141,9 @@ namespace OBeautifulCode.Assertion.Recipes
             }
 
             var parameterNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" '{assertionTracker.SubjectName}'");
-            var enumerableQualifier = verification.IsElementInEnumerable ? " contains an element that" : string.Empty;
-            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verification.ValueType.ToStringReadable()) : string.Empty;
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verification.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verification.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
+            var enumerableQualifier = verifiableItem.IsElementInEnumerable ? " contains an element that" : string.Empty;
+            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verifiableItem.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
             var validationParameterQualifiers = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
             var result = Invariant($"Parameter{parameterNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{validationParameterQualifiers}");
 
