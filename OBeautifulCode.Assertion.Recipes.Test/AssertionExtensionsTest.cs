@@ -24,7 +24,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     public static class AssertionExtensionsTest
     {
-        private static readonly ParameterEqualityComparer ParameterComparer = new ParameterEqualityComparer();
+        private static readonly AssertionTrackerEqualityComparer AssertionTrackerComparer = new AssertionTrackerEqualityComparer();
 
         [Fact]
         public static void Named___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_of_type_Parameter()
@@ -90,10 +90,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual4 = value.Named(name);
 
             // Assert
-            ParameterComparer.Equals(actual1, expected1).Should().BeTrue();
-            ParameterComparer.Equals(actual2, expected2).Should().BeTrue();
-            ParameterComparer.Equals(actual3, expected3).Should().BeTrue();
-            ParameterComparer.Equals(actual4, expected4).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual1, expected1).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual2, expected2).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual3, expected3).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual4, expected4).Should().BeTrue();
         }
 
         [Fact]
@@ -211,7 +211,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actuals = parameters.Select(_ => _.Must()).ToList();
 
             // Assert
-            actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+            actuals.Should().Equal(expecteds, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
         }
 
         [Fact]
@@ -254,8 +254,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual2 = new { someParameter = value2 }.Must();
 
             // Assert
-            ParameterComparer.Equals(expected1, actual1).Should().BeTrue();
-            ParameterComparer.Equals(expected2, actual2).Should().BeTrue();
+            AssertionTrackerComparer.Equals(expected1, actual1).Should().BeTrue();
+            AssertionTrackerComparer.Equals(expected2, actual2).Should().BeTrue();
         }
 
         [Fact]
@@ -292,8 +292,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual2 = value2.Must();
 
             // Assert
-            ParameterComparer.Equals(expected1, actual1).Should().BeTrue();
-            ParameterComparer.Equals(expected2, actual2).Should().BeTrue();
+            AssertionTrackerComparer.Equals(expected1, actual1).Should().BeTrue();
+            AssertionTrackerComparer.Equals(expected2, actual2).Should().BeTrue();
         }
 
         [Fact]
@@ -316,7 +316,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual = value.Must();
 
             // Assert
-            ParameterComparer.Equals(expected, actual).Should().BeTrue();
+            AssertionTrackerComparer.Equals(expected, actual).Should().BeTrue();
         }
 
         [Fact]
@@ -353,9 +353,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual3 = new { testParameter }.Must();
 
             // Assert
-            ParameterComparer.Equals(actual1, expected1).Should().BeTrue();
-            ParameterComparer.Equals(actual2, expected2).Should().BeTrue();
-            ParameterComparer.Equals(actual3, expected3).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual1, expected1).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual2, expected2).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual3, expected3).Should().BeTrue();
         }
 
         [Fact]
@@ -444,8 +444,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actuals2 = parameters2.Select(_ => _.Each()).ToList();
 
             // Assert
-            actuals1.Should().Equal(expecteds1, (expected, actual) => ParameterComparer.Equals(expected, actual));
-            actuals2.Should().Equal(expecteds2, (expected, actual) => ParameterComparer.Equals(expected, actual));
+            actuals1.Should().Equal(expecteds1, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
+            actuals2.Should().Equal(expecteds2, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
         }
 
         [Fact]
@@ -515,7 +515,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actuals = expecteds.Select(_ => _.And()).ToList();
 
             // Assert
-            actuals.Should().Equal(expecteds, (expected, actual) => ParameterComparer.Equals(expected, actual));
+            actuals.Should().Equal(expecteds, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
         }
 
         private static IReadOnlyCollection<AssertionTracker> BuildParametersWithAllCombinationsOfFlags(

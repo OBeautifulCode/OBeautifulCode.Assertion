@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ParameterEqualityComparer.cs" company="OBeautifulCode">
+// <copyright file="AssertionTrackerEqualityComparer.cs" company="OBeautifulCode">
 //   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using OBeautifulCode.Equality.Recipes;
 
-    public class ParameterEqualityComparer : IEqualityComparer<AssertionTracker>
+    public class AssertionTrackerEqualityComparer : IEqualityComparer<AssertionTracker>
     {
         public bool Equals(
             AssertionTracker x,

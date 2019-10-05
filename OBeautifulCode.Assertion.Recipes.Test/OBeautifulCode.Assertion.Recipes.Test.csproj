@@ -109,9 +109,9 @@
     <Compile Include=".recipes\OBeautifulCode.Validation\ValidatedNotNullAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="TestCommon.cs" />
-    <Compile Include="ParameterEqualityComparer.cs" />
+    <Compile Include="AssertionTrackerEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ParameterValidationsTest.cs" />
+    <Compile Include="VerificationsTest.cs" />
     <Compile Include="AssertionExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>

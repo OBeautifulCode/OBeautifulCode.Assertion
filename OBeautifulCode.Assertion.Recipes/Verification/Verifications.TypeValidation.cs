@@ -179,7 +179,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             var valueTypeString = verifiableItem.ValueType.ToStringReadable();
 
-            throw new InvalidCastException(Invariant($"validationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, parameterValueTypeName: {valueTypeString}"));
+            throw new InvalidCastException(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(
