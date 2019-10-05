@@ -125,7 +125,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        private static string BuildArgumentExceptionMessage(
+        private static string BuildVerificationFailedExceptionMessage(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem,
@@ -140,12 +140,12 @@ namespace OBeautifulCode.Assertion.Recipes
                 return verification.Because ?? string.Empty;
             }
 
-            var subjectNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" '{assertionTracker.SubjectName}'");
+            var subjectNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" (name: '{assertionTracker.SubjectName}')");
             var enumerableQualifier = verifiableItem.IsElementInEnumerable ? " contains an element that" : string.Empty;
             var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Parameter value") + Invariant($" is '{verifiableItem.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is '{verifiableItem.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
             var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
-            var result = Invariant($"Parameter{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{verificationParametersQualifier}");
+            var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{verificationParametersQualifier}");
 
             if (verification.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {

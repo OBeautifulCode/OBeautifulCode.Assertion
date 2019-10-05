@@ -110,10 +110,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty guid.  Provided value is '<null>'.";
 
             var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.PrefixedToDefaultMessage));
@@ -129,10 +129,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty guid.  Provided value is '<null>'.";
 
             var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: null, applyBecause: ApplyBecause.SuffixedToDefaultMessage));
@@ -150,10 +150,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var because = A.Dummy<string>();
 
             Guid? testParameter1 = null;
-            var expected1 = because + "  Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+            var expected1 = because + "  Provided value (name: 'testParameter1') is not an empty guid.  Provided value is '<null>'.";
 
             var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
-            var expected2 = because + "  Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+            var expected2 = because + "  Provided value (name: 'testParameter2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.PrefixedToDefaultMessage));
@@ -171,10 +171,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var because = A.Dummy<string>();
 
             Guid? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.  " + because;
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty guid.  Provided value is '<null>'.  " + because;
 
             var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.  " + because;
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.  " + because;
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid(because: because, applyBecause: ApplyBecause.SuffixedToDefaultMessage));
@@ -330,10 +330,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             decimal? testParameter1 = 5;
-            var expected1 = "Parameter 'testParameter1' is not null.  Parameter value is '5'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not null.  Provided value is '5'.";
 
             var testParameter2 = new decimal?[] { null, -6, null };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not null.  Element value is '-6'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not null.  Element value is '-6'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeNull());
@@ -452,10 +452,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             decimal? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is null.";
+            var expected1 = "Provided value (name: 'testParameter1') is null.";
 
             var testParameter2 = new decimal?[] { -6, null, -5 };
-            var expected2 = "Parameter 'testParameter2' contains an element that is null.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is null.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNull());
@@ -602,10 +602,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not true.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not true.  Provided value is '<null>'.";
 
             var testParameter2 = new[] { true, false, true };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not true.  Element value is 'False'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not true.  Element value is 'False'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeTrue());
@@ -752,10 +752,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? testParameter1 = true;
-            var expected1 = "Parameter 'testParameter1' is true.";
+            var expected1 = "Provided value (name: 'testParameter1') is true.";
 
             var testParameter2 = new[] { false, true, false };
-            var expected2 = "Parameter 'testParameter2' contains an element that is true.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is true.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeTrue());
@@ -902,10 +902,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not false.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not false.  Provided value is '<null>'.";
 
             var testParameter2 = new[] { false, true, false };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not false.  Element value is 'True'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not false.  Element value is 'True'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeFalse());
@@ -1052,10 +1052,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? testParameter1 = false;
-            var expected1 = "Parameter 'testParameter1' is false.";
+            var expected1 = "Provided value (name: 'testParameter1') is false.";
 
             var testParameter2 = new[] { true, false, true };
-            var expected2 = "Parameter 'testParameter2' contains an element that is false.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is false.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeFalse());
@@ -1192,10 +1192,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = "\r\n";
-            var expected1 = Invariant($"Parameter 'testParameter1' is white space.  Parameter value is '{Environment.NewLine}'.");
+            var expected1 = Invariant($"Provided value (name: 'testParameter1') is white space.  Provided value is '{Environment.NewLine}'.");
 
             var testParameter2 = new[] { A.Dummy<string>(), "    ", A.Dummy<string>() };
-            var expected2 = "Parameter 'testParameter2' contains an element that is white space.  Element value is '    '.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is white space.  Element value is '    '.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorWhiteSpace());
@@ -1303,10 +1303,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = "\r\n";
-            var expected1 = Invariant($"Parameter 'testParameter1' is not null and is white space.  Parameter value is '{Environment.NewLine}'.");
+            var expected1 = Invariant($"Provided value (name: 'testParameter1') is not null and is white space.  Provided value is '{Environment.NewLine}'.");
 
             var testParameter2 = new[] { A.Dummy<string>(), "    ", A.Dummy<string>() };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not null and is white space.  Element value is '    '.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not null and is white space.  Element value is '    '.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeNullOrNotWhiteSpace());
@@ -1468,10 +1468,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not an empty guid.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty guid.  Provided value is '<null>'.";
 
             var testParameter2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyGuid());
@@ -1634,10 +1634,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? testParameter1 = Guid.Empty;
-            var expected1 = "Parameter 'testParameter1' is an empty guid.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty guid.";
 
             var testParameter2 = new Guid[] { Guid.NewGuid(), Guid.Empty, Guid.NewGuid() };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty guid.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty guid.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyGuid());
@@ -1797,10 +1797,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is not an empty string.  Parameter value is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty string.  Provided value is '<null>'.";
 
             var testParameter2 = new[] { string.Empty, "abcd", string.Empty };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty string.  Element value is 'abcd'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty string.  Element value is 'abcd'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyString());
@@ -1960,10 +1960,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = string.Empty;
-            var expected1 = "Parameter 'testParameter1' is an empty string.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty string.";
 
             var testParameter2 = new[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty string.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty string.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyString());
@@ -2214,10 +2214,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new[] { A.Dummy<object>() };
-            var expected1 = "Parameter 'testParameter1' is not an empty enumerable.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty enumerable.";
 
             var testParameter2 = new[] { new object[] { }, new[] { A.Dummy<object>() }, new object[] { } };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty enumerable.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty enumerable.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyEnumerable());
@@ -2466,10 +2466,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new object[] { };
-            var expected1 = "Parameter 'testParameter1' is an empty enumerable.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty enumerable.";
 
             var testParameter2 = new[] { new[] { A.Dummy<object>() }, new object[] { }, new[] { A.Dummy<object>() } };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty enumerable.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty enumerable.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyEnumerable());
@@ -2739,14 +2739,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } };
-            var expected1 = "Parameter 'testParameter1' is not an empty dictionary.";
+            var expected1 = "Provided value (name: 'testParameter1') is not an empty dictionary.";
 
             var testParameter2 = new IReadOnlyDictionary<string, string>[]
             {
                 new Dictionary<string, string>(),
                 new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
             };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not an empty dictionary.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not an empty dictionary.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEmptyDictionary());
@@ -3016,14 +3016,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new Dictionary<string, string>();
-            var expected1 = "Parameter 'testParameter1' is an empty dictionary.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty dictionary.";
 
             var testParameter2 = new IReadOnlyDictionary<string, string>[]
             {
                 new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
                 new Dictionary<string, string>(),
             };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty dictionary.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty dictionary.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEmptyDictionary());
@@ -3285,10 +3285,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new[] { A.Dummy<object>() };
-            var expected1 = "Parameter 'testParameter1' contains no null elements.";
+            var expected1 = "Provided value (name: 'testParameter1') contains no null elements.";
 
             var testParameter2 = new[] { new object[] { }, new object[] { }, new object[] { } };
-            var expected2 = "Parameter 'testParameter2' contains an element that contains no null elements.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that contains no null elements.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().ContainSomeNullElements());
@@ -3551,10 +3551,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new[] { A.Dummy<object>(), null, A.Dummy<object>() };
-            var expected1 = "Parameter 'testParameter1' contains at least one null element.";
+            var expected1 = "Provided value (name: 'testParameter1') contains at least one null element.";
 
             var testParameter2 = new[] { new object[] { }, new object[] { A.Dummy<object>(), null, A.Dummy<object>() }, new object[] { } };
-            var expected2 = "Parameter 'testParameter2' contains an element that contains at least one null element.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that contains at least one null element.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContainAnyNullElements());
@@ -3910,10 +3910,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new Dictionary<string, string>();
-            var expected1 = "Parameter 'testParameter1' contains no key-value pairs with a null value.";
+            var expected1 = "Provided value (name: 'testParameter1') contains no key-value pairs with a null value.";
 
             var testParameter2 = new[] { new Dictionary<string, string>() };
-            var expected2 = "Parameter 'testParameter2' contains an element that contains no key-value pairs with a null value.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that contains no key-value pairs with a null value.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().ContainSomeKeyValuePairsWithNullValue());
@@ -4269,10 +4269,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new Dictionary<string, string>() { { A.Dummy<string>(), null } };
-            var expected1 = "Parameter 'testParameter1' contains at least one key-value pair with a null value.";
+            var expected1 = "Provided value (name: 'testParameter1') contains at least one key-value pair with a null value.";
 
             var testParameter2 = new[] { new Dictionary<string, string>() { { A.Dummy<string>(), null } } };
-            var expected2 = "Parameter 'testParameter2' contains an element that contains at least one key-value pair with a null value.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that contains at least one key-value pair with a null value.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContainAnyKeyValuePairsWithNullValue());
@@ -4521,10 +4521,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new object[] { };
-            var expected1 = "Parameter 'testParameter1' is an empty enumerable.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty enumerable.";
 
             var testParameter2 = new[] { new[] { A.Dummy<object>() }, new object[] { }, new[] { A.Dummy<object>() } };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty enumerable.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty enumerable.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorEmptyEnumerable());
@@ -4793,14 +4793,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = new Dictionary<string, string>();
-            var expected1 = "Parameter 'testParameter1' is an empty dictionary.";
+            var expected1 = "Provided value (name: 'testParameter1') is an empty dictionary.";
 
             var testParameter2 = new IReadOnlyDictionary<string, string>[]
             {
                 new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
                 new Dictionary<string, string>(),
             };
-            var expected2 = "Parameter 'testParameter2' contains an element that is an empty dictionary.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is an empty dictionary.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeNullNorEmptyDictionary());
@@ -5746,10 +5746,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int testParameter1 = 5;
-            var expected1 = "Parameter 'testParameter1' is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Parameter value is '5'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Provided value is '5'.";
 
             var testParameter2 = new[] { 0, 1, 0 };
-            var expected2 = "Parameter 'testParameter2' contains an element that is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Element value is '1'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Element value is '1'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeDefault());
@@ -5922,10 +5922,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int? testParameter1 = null;
-            var expected1 = "Parameter 'testParameter1' is equal to default(T) using EqualityComparer<T>.Default, where T: int?.";
+            var expected1 = "Provided value (name: 'testParameter1') is equal to default(T) using EqualityComparer<T>.Default, where T: int?.";
 
             var testParameter2 = new[] { 1, 0, 1 };
-            var expected2 = "Parameter 'testParameter2' contains an element that is equal to default(T) using EqualityComparer<T>.Default, where T: int.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is equal to default(T) using EqualityComparer<T>.Default, where T: int.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeDefault());
@@ -6135,27 +6135,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Parameter 'testParameter1' is not less than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             int? testParameter2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is not less than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 10;
             int comparisonValue3 = 5;
-            var expected3 = "Parameter 'testParameter3' is not less than the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '10'.  Specified 'comparisonValue' is '5'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not less than the comparison value using Comparer<T>.Default, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '5'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = null;
-            var expected4 = "Parameter 'testParameter4' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 10 };
             int comparisonValue6 = 5;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeLessThan(comparisonValue1));
@@ -6374,19 +6374,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Parameter 'testParameter1' is less than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'testParameter1') is less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int testParameter3 = 10;
             int comparisonValue3 = 20;
-            var expected3 = "Parameter 'testParameter3' is less than the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected3 = "Provided value (name: 'testParameter3') is less than the comparison value using Comparer<T>.Default, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '20'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter6 = new int[] { 10 };
             int comparisonValue6 = 20;
-            var expected6 = "Parameter 'testParameter6' contains an element that is less than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is less than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeLessThan(comparisonValue1));
@@ -6603,27 +6603,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Parameter 'testParameter1' is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int? testParameter2 = null;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 5;
             int comparisonValue3 = 10;
-            var expected3 = "Parameter 'testParameter3' is not greater than the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not greater than the comparison value using Comparer<T>.Default, where T: int.  Provided value is '5'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter5 = new int?[] { null };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 5 };
             int comparisonValue6 = 10;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeGreaterThan(comparisonValue1));
@@ -6842,19 +6842,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is greater than the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 10;
             int comparisonValue3 = 5;
-            var expected3 = "Parameter 'testParameter3' is greater than the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '10'.  Specified 'comparisonValue' is '5'.";
+            var expected3 = "Provided value (name: 'testParameter3') is greater than the comparison value using Comparer<T>.Default, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '5'.";
 
             var testParameter5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 10 };
             int comparisonValue6 = 5;
-            var expected6 = "Parameter 'testParameter6' contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '5'.";
 
             // Act
             var actual2 = Record.Exception(() => new { testParameter2 }.Must().NotBeGreaterThan(comparisonValue2));
@@ -7069,19 +7069,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 20;
             int comparisonValue3 = 10;
-            var expected3 = "Parameter 'testParameter3' is not less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '20'.  Specified 'comparisonValue' is '10'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Provided value is '20'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 20 };
             int comparisonValue6 = 10;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual2 = Record.Exception(() => new { testParameter2 }.Must().BeLessThanOrEqualTo(comparisonValue2));
@@ -7298,27 +7298,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Parameter 'testParameter1' is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'testParameter1') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int? testParameter2 = null;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 5;
             int comparisonValue3 = 10;
-            var expected3 = "Parameter 'testParameter3' is less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected3 = "Provided value (name: 'testParameter3') is less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Provided value is '5'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter5 = new int?[] { null };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 5 };
             int comparisonValue6 = 10;
-            var expected6 = "Parameter 'testParameter6' contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeLessThanOrEqualTo(comparisonValue1));
@@ -7537,19 +7537,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Parameter 'testParameter1' is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int testParameter3 = 5;
             int comparisonValue3 = 10;
-            var expected3 = "Parameter 'testParameter3' is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Provided value is '5'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter6 = new int[] { 5 };
             int comparisonValue6 = 10;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeGreaterThanOrEqualTo(comparisonValue1));
@@ -7765,27 +7765,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Parameter 'testParameter1' is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             int? testParameter2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 20;
             int comparisonValue3 = 10;
-            var expected3 = "Parameter 'testParameter3' is greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Parameter value is '20'.  Specified 'comparisonValue' is '10'.";
+            var expected3 = "Provided value (name: 'testParameter3') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Provided value is '20'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = null;
-            var expected4 = "Parameter 'testParameter4' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 20 };
             int comparisonValue6 = 10;
-            var expected6 = "Parameter 'testParameter6' contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int.  Element value is '20'.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeGreaterThanOrEqualTo(comparisonValue1));
@@ -7909,27 +7909,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Parameter 'testParameter1' is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int? testParameter2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Parameter 'testParameter2' is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Parameter value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter3 = 10;
             int comparisonValue3 = 20;
-            var expected3 = "Parameter 'testParameter3' is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Parameter value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '20'.";
 
             var testParameter4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var testParameter5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter6 = new int[] { 10 };
             int comparisonValue6 = 20;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeEqualTo(comparisonValue1));
@@ -8052,19 +8052,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? testParameter1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Parameter 'testParameter1' is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
 
             int testParameter2 = 10;
             int comparisonValue2 = 10;
-            var expected2 = "Parameter 'testParameter2' is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
+            var expected2 = "Provided value (name: 'testParameter2') is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
 
             var testParameter3 = new int?[] { null };
             int? comparisonValue3 = null;
-            var expected3 = "Parameter 'testParameter3' contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected3 = "Provided value (name: 'testParameter3') contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
 
             var testParameter4 = new int[] { 10 };
             int comparisonValue4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeEqualTo(comparisonValue1));
@@ -8386,32 +8386,32 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             int? testParameter1 = null;
             int? minimum1 = 10;
             int? maximum1 = 20;
-            var expected1 = "Parameter 'testParameter1' is not within the specified range using Comparer<T>.Default, where T: int?.  Parameter value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected1 = "Provided value (name: 'testParameter1') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             int? testParameter2 = 5;
             int? minimum2 = null;
             int? maximum2 = null;
-            var expected2 = "Parameter 'testParameter2' is not within the specified range using Comparer<T>.Default, where T: int?.  Parameter value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+            var expected2 = "Provided value (name: 'testParameter2') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
 
             int testParameter3 = 5;
             int minimum3 = 10;
             int maximum3 = 20;
-            var expected3 = "Parameter 'testParameter3' is not within the specified range using Comparer<T>.Default, where T: int.  Parameter value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected3 = "Provided value (name: 'testParameter3') is not within the specified range using Comparer<T>.Default, where T: int.  Provided value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             var testParameter4 = new int?[] { null };
             int? minimum4 = 10;
             int? maximum4 = 20;
-            var expected4 = "Parameter 'testParameter4' contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             var testParameter5 = new int?[] { 5 };
             int? minimum5 = null;
             int? maximum5 = null;
-            var expected5 = "Parameter 'testParameter5' contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+            var expected5 = "Provided value (name: 'testParameter5') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
 
             var testParameter6 = new int[] { 5 };
             int minimum6 = 10;
             int maximum6 = 20;
-            var expected6 = "Parameter 'testParameter6' contains an element that is not within the specified range using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected6 = "Provided value (name: 'testParameter6') contains an element that is not within the specified range using Comparer<T>.Default, where T: int.  Element value is '5'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeInRange(minimum1, maximum1));
@@ -8891,19 +8891,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var testParameter1 = new int?[] { 1, 2, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Parameter 'testParameter1' does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var testParameter2 = new int[] { 1, 2, 3 };
             int itemToSearchFor2 = 10;
-            var expected2 = "Parameter 'testParameter2' does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected2 = "Provided value (name: 'testParameter2') does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             var testParameter3 = new int?[][] { new int?[] { 1, 2, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Parameter 'testParameter3' contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'testParameter3') contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var testParameter4 = new int[][] { new int[] { 1, 2, 3 } };
             int itemToSearchFor4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().Contain(itemToSearchFor1));
@@ -9085,19 +9085,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var testParameter1 = new int?[] { 1, null, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Parameter 'testParameter1' contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'testParameter1') contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var testParameter2 = new int[] { 1, 10, 3 };
             int itemToSearchFor2 = 10;
-            var expected2 = "Parameter 'testParameter2' contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             var testParameter3 = new int?[][] { new int?[] { 1, null, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Parameter 'testParameter3' contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'testParameter3') contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var testParameter4 = new int[][] { new int[] { 1, 10, 3 } };
             int itemToSearchFor4 = 10;
-            var expected4 = "Parameter 'testParameter4' contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotContain(itemToSearchFor1));
@@ -9362,16 +9362,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = "abc-def";
-            var expected1 = "Parameter 'testParameter1' is not alphabetic.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is <null>.";
+            var expected1 = "Provided value (name: 'testParameter1') is not alphabetic.  Provided value is 'abc-def'.  Specified 'otherAllowedCharacters' is <null>.";
 
             var testParameter2 = "abc-def";
-            var expected2 = "Parameter 'testParameter2' is not alphabetic.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is [<empty>].";
+            var expected2 = "Provided value (name: 'testParameter2') is not alphabetic.  Provided value is 'abc-def'.  Specified 'otherAllowedCharacters' is [<empty>].";
 
             var testParameter3 = "abc4def";
-            var expected3 = "Parameter 'testParameter3' is not alphabetic.  Parameter value is 'abc4def'.  Specified 'otherAllowedCharacters' is ['-'].";
+            var expected3 = "Provided value (name: 'testParameter3') is not alphabetic.  Provided value is 'abc4def'.  Specified 'otherAllowedCharacters' is ['-'].";
 
             var testParameter4 = new[] { "a-c", "d7f", "g*i" };
-            var expected4 = "Parameter 'testParameter4' contains an element that is not alphabetic.  Element value is 'd7f'.  Specified 'otherAllowedCharacters' is ['-', '*'].";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not alphabetic.  Element value is 'd7f'.  Specified 'otherAllowedCharacters' is ['-', '*'].";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAlphabetic());
@@ -9635,16 +9635,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = "abc-def";
-            var expected1 = "Parameter 'testParameter1' is not alphanumeric.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is <null>.";
+            var expected1 = "Provided value (name: 'testParameter1') is not alphanumeric.  Provided value is 'abc-def'.  Specified 'otherAllowedCharacters' is <null>.";
 
             var testParameter2 = "abc-def";
-            var expected2 = "Parameter 'testParameter2' is not alphanumeric.  Parameter value is 'abc-def'.  Specified 'otherAllowedCharacters' is [<empty>].";
+            var expected2 = "Provided value (name: 'testParameter2') is not alphanumeric.  Provided value is 'abc-def'.  Specified 'otherAllowedCharacters' is [<empty>].";
 
             var testParameter3 = "abc*def";
-            var expected3 = "Parameter 'testParameter3' is not alphanumeric.  Parameter value is 'abc*def'.  Specified 'otherAllowedCharacters' is ['-'].";
+            var expected3 = "Provided value (name: 'testParameter3') is not alphanumeric.  Provided value is 'abc*def'.  Specified 'otherAllowedCharacters' is ['-'].";
 
             var testParameter4 = new[] { "a-c", "d f", "g*i" };
-            var expected4 = "Parameter 'testParameter4' contains an element that is not alphanumeric.  Element value is 'd f'.  Specified 'otherAllowedCharacters' is ['-', '*'].";
+            var expected4 = "Provided value (name: 'testParameter4') contains an element that is not alphanumeric.  Element value is 'd f'.  Specified 'otherAllowedCharacters' is ['-', '*'].";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAlphanumeric());
@@ -9870,16 +9870,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var testParameter1 = $"abc{Environment.NewLine}def";
-            var expected1 = $"Parameter 'testParameter1' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def'.  Specified 'treatNewLineAsPrintable' is 'False'.";
+            var expected1 = $"Provided value (name: 'testParameter1') is not ASCII Printable.  Provided value is 'abc{Environment.NewLine}def'.  Specified 'treatNewLineAsPrintable' is 'False'.";
 
             var testParameter2 = $"abc{Environment.NewLine}def" + Convert.ToChar(30);
-            var expected2 = $"Parameter 'testParameter2' is not ASCII Printable.  Parameter value is 'abc{Environment.NewLine}def{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
+            var expected2 = $"Provided value (name: 'testParameter2') is not ASCII Printable.  Provided value is 'abc{Environment.NewLine}def{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
 
             var testParameter3 = new[] { "a-c", $"d{Environment.NewLine}f", "g*i" };
-            var expected3 = $"Parameter 'testParameter3' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f'.  Specified 'treatNewLineAsPrintable' is 'False'.";
+            var expected3 = $"Provided value (name: 'testParameter3') contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f'.  Specified 'treatNewLineAsPrintable' is 'False'.";
 
             var testParameter4 = new[] { "a-c", $"d{Environment.NewLine}f" + Convert.ToChar(30), "g*i" };
-            var expected4 = $"Parameter 'testParameter4' contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
+            var expected4 = $"Provided value (name: 'testParameter4') contains an element that is not ASCII Printable.  Element value is 'd{Environment.NewLine}f{Convert.ToChar(30)}'.  Specified 'treatNewLineAsPrintable' is 'True'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeAsciiPrintable());
@@ -10079,11 +10079,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var testParameter1 = "abc-def";
             var regex1 = new Regex("^abc$");
-            var expected1 = "Parameter 'testParameter1' is not matched by the specified regex.  Parameter value is 'abc-def'.  Specified 'regex' is ^abc$.";
+            var expected1 = "Provided value (name: 'testParameter1') is not matched by the specified regex.  Provided value is 'abc-def'.  Specified 'regex' is ^abc$.";
 
             var testParameter2 = new[] { "abc", "abc-def", "abc" };
             var regex2 = new Regex("^abc$");
-            var expected2 = "Parameter 'testParameter2' contains an element that is not matched by the specified regex.  Element value is 'abc-def'.  Specified 'regex' is ^abc$.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is not matched by the specified regex.  Element value is 'abc-def'.  Specified 'regex' is ^abc$.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().BeMatchedByRegex(regex1));
@@ -10279,11 +10279,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var testParameter1 = "def-abc-def";
             var regex1 = new Regex("abc");
-            var expected1 = "Parameter 'testParameter1' is matched by the specified regex.  Parameter value is 'def-abc-def'.  Specified 'regex' is abc.";
+            var expected1 = "Provided value (name: 'testParameter1') is matched by the specified regex.  Provided value is 'def-abc-def'.  Specified 'regex' is abc.";
 
             var testParameter2 = new[] { "def", "def-abc-def", "def" };
             var regex2 = new Regex("abc");
-            var expected2 = "Parameter 'testParameter2' contains an element that is matched by the specified regex.  Element value is 'def-abc-def'.  Specified 'regex' is abc.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that is matched by the specified regex.  Element value is 'def-abc-def'.  Specified 'regex' is abc.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotBeMatchedByRegex(regex1));
@@ -10473,10 +10473,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = "some-string";
-            var expected1 = Invariant($"Parameter 'testParameter1' does not start with the specified comparison value.  Parameter value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+            var expected1 = Invariant($"Provided value (name: 'testParameter1') does not start with the specified comparison value.  Provided value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
 
             var testParameter2 = new[] { "starter", "some-string", "starter" };
-            var expected2 = "Parameter 'testParameter2' contains an element that does not start with the specified comparison value.  Element value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that does not start with the specified comparison value.  Element value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().StartWith("starter"));
@@ -10667,10 +10667,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string testParameter1 = "starter-something";
-            var expected1 = Invariant($"Parameter 'testParameter1' starts with the specified comparison value.  Parameter value is 'starter-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+            var expected1 = Invariant($"Provided value (name: 'testParameter1') starts with the specified comparison value.  Provided value is 'starter-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
 
             var testParameter2 = new[] { "something", "STARTER-something", "something" };
-            var expected2 = "Parameter 'testParameter2' contains an element that starts with the specified comparison value.  Element value is 'STARTER-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
+            var expected2 = "Provided value (name: 'testParameter2') contains an element that starts with the specified comparison value.  Element value is 'STARTER-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
 
             // Act
             var actual1 = Record.Exception(() => new { testParameter1 }.Must().NotStartWith("starter"));
@@ -10746,11 +10746,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 string expectedExceptionMessage;
                 if (parameterName == null)
                 {
-                    expectedExceptionMessage = "Parameter " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value " + validationTest.ExceptionMessageSuffix;
                 }
                 else
                 {
-                    expectedExceptionMessage = "Parameter '" + parameterName + "' " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value (name: '" + parameterName + "') " + validationTest.ExceptionMessageSuffix;
                 }
 
                 var expectedData = data == null ? new Hashtable() : data;
@@ -10782,11 +10782,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 string expectedExceptionMessage;
                 if (parameterName == null)
                 {
-                    expectedExceptionMessage = "Parameter contains an element that " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value contains an element that " + validationTest.ExceptionMessageSuffix;
                 }
                 else
                 {
-                    expectedExceptionMessage = "Parameter '" + parameterName + "' contains an element that " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value (name: '" + parameterName + "') contains an element that " + validationTest.ExceptionMessageSuffix;
                 }
 
                 var expectedData = data == null ? new Hashtable() : data;
@@ -10867,11 +10867,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             string expectedExceptionMessage2;
             if (parameterName == null)
             {
-                expectedExceptionMessage2 = "Parameter " + Verifications.NotBeNullExceptionMessageSuffix + ".";
+                expectedExceptionMessage2 = "Provided value " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
             else
             {
-                expectedExceptionMessage2 = "Parameter '" + parameterName + "' " + Verifications.NotBeNullExceptionMessageSuffix + ".";
+                expectedExceptionMessage2 = "Provided value (name: '" + parameterName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
 
             // Act
