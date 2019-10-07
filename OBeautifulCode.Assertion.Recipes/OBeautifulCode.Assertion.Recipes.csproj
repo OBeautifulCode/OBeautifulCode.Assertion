@@ -48,6 +48,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
+    <Compile Include="Framework\AssertionKind.cs" />
     <Compile Include="Framework\Actions.cs" />
     <Compile Include="Verification\Containers\TypeValidation.cs" />
     <Compile Include="Verification\Containers\VerifiableItem.cs" />

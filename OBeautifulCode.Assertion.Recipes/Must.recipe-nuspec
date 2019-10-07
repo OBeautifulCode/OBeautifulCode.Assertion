@@ -12,6 +12,7 @@
     <file src="Exceptions\ImproperUseOfAssertionFrameworkException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\ImproperUseOfAssertionFrameworkException.cs" />
     <file src="Exceptions\TestAssertionVerificationFailedException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\TestAssertionVerificationFailedException.cs" />
     <file src="Framework\Actions.cs"                                    target="content\net462\.recipes\OBeautifulCode.Assertion\Actions.cs" />
+    <file src="Framework\AssertionKind.cs"                              target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionKind.cs" />
     <file src="Framework\AssertionTracker.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTracker.cs" />
     <file src="Framework\AssertionTrackerShould.cs"                     target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTrackerShould.cs" />
     <file src="Framework\ValidatedNotNullAttribute.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\ValidatedNotNullAttribute.cs" />
