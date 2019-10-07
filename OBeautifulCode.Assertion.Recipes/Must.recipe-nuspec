@@ -24,8 +24,10 @@
     <file src="Verification\CustomParameters\Range.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Range.cs" />
     <file src="Verification\Delegates.cs"                               target="content\net462\.recipes\OBeautifulCode.Assertion\Delegates.cs" />
     <file src="Verification\Verifications.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.cs" />
+    <file src="Verification\Verifications.Helpers.cs"                   target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Helpers.cs" />
     <file src="Verification\Verifications.Internal.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Internal.cs" />
     <file src="Verification\Verifications.Strings.cs"                   target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Strings.cs" />
     <file src="Verification\Verifications.TypeValidations.cs"           target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.TypeValidations.cs" />
+    <file src="Verification\Verifications.Workflow.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Workflow.cs" />
   </files>
 </package>
