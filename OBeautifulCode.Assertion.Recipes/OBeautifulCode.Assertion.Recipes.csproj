@@ -56,9 +56,10 @@
     <Compile Include="Verification\CustomParameters\ApplyBecause.cs" />
     <Compile Include="Framework\AssertionTrackerShould.cs" />
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
+    <Compile Include="Verification\Verifications.Helpers.cs" />
     <Compile Include="Verification\Verifications.Strings.cs" />
     <Compile Include="Verification\Verifications.TypeValidation.cs" />
-    <Compile Include="Verifications.Utility.cs" />
+    <Compile Include="Verification\Verifications.Workflow.cs" />
     <Compile Include="Verification\Verifications.Internal.cs" />
     <Compile Include="Framework\WorkflowExtensions.cs" />
     <Compile Include="Framework\AssertionTracker.cs" />

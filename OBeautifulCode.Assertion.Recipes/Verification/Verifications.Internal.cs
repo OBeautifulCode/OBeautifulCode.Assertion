@@ -24,19 +24,6 @@ namespace OBeautifulCode.Assertion.Recipes
 #endif
         static partial class Verifications
     {
-        private static readonly HashSet<char> AlphaNumericCharactersHashSet =
-            new HashSet<char>(
-                new char[0]
-                    .Concat(Enumerable.Range(48, 10).Select(Convert.ToChar))
-                    .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
-                    .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
-
-        private static readonly HashSet<char> AlphabeticCharactersHashSet =
-            new HashSet<char>(
-                new char[0]
-                    .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
-                    .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
-
         private static void BeNullInternal(
             AssertionTracker assertionTracker,
             Verification verification,
