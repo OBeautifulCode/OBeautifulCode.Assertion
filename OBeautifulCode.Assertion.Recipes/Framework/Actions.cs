@@ -32,24 +32,24 @@ namespace OBeautifulCode.Assertion.Recipes
 
         /// <summary>
         /// The subject should have been name with a call to
-        /// <see cref="WorkflowExtensions.Named{TParameterValue}(TParameterValue, string)"/>.
+        /// <see cref="WorkflowExtensions.Named{TSubject}(TSubject, string)"/>.
         /// </summary>
         Named = 1,
 
         /// <summary>
         /// The subject should have been Must'ed with a call to
-        /// <see cref="WorkflowExtensions.Must{TParameterValue}(TParameterValue)"/>.
+        /// <see cref="WorkflowExtensions.Must{TSubject}(TSubject)"/>.
         /// </summary>
         Musted = 2,
 
         /// <summary>
-        /// The parameter should have been Each'ed with a call to
+        /// The subject should have been Each'ed with a call to
         /// <see cref="WorkflowExtensions.Each(AssertionTracker)"/>.
         /// </summary>
         Eached = 4,
 
         /// <summary>
-        /// The parameter should have been verified by at least one verification.
+        /// The subject should have been verified by at least one verification.
         /// </summary>
         VerifiedAtLeastOnce = 8,
     }

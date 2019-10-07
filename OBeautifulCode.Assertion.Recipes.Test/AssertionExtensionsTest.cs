@@ -27,13 +27,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         private static readonly AssertionTrackerEqualityComparer AssertionTrackerComparer = new AssertionTrackerEqualityComparer();
 
         [Fact]
-        public static void Named___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_of_type_Parameter()
+        public static void Named___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_of_type_AssertionTracker()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Named(A.Dummy<string>())));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Named(A.Dummy<string>())));
 
             // Assert
             foreach (var actual in actuals)
@@ -44,7 +44,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Named___Should_create_Parameter_and_set_Value_to_value_and_ValueType_to_TParameterValue_and_Name_to_name_and_HasBeenNamed_to_true___When_value_not_of_type_Parameter()
+        public static void Named___Should_create_AssertionTracker_and_set_SubjectValue_to_parameter_value_and_SubjectType_to_TSubject_and_Name_to_name_and_HasBeenNamed_to_true___When_parameter_value_not_of_type_AssertionTracker()
         {
             // Arrange
             string nullValue = null;
@@ -97,22 +97,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_with_null_ValueType()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_with_null_SubjectType()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags()
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
                 .Where(_ => _.Actions.HasFlag(Actions.Named))
                 .Where(_ => !_.Actions.HasFlag(Actions.Musted))
                 .Where(_ => !_.Actions.HasFlag(Actions.Eached))
                 .Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
-            foreach (var parameter in parameters)
+            foreach (var assertionTracker in assertionTrackers)
             {
-                parameter.SubjectType = null;
+                assertionTracker.SubjectType = null;
             }
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Must()));
 
             // Assert
             foreach (var actual in actuals)
@@ -123,13 +123,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_not_been_named()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_not_been_named()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Named)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Named)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Must()));
 
             // Assert
             foreach (var actual in actuals)
@@ -141,13 +141,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_musted()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Must()));
 
             // Assert
             foreach (var actual in actuals)
@@ -159,13 +159,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_eached()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_eached()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Must()));
 
             // Assert
             foreach (var actual in actuals)
@@ -176,13 +176,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_a_Parameter_that_has_been_validated()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_verified_at_least_once()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Must()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Must()));
 
             // Assert
             foreach (var actual in actuals)
@@ -196,11 +196,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_same_Parameter_but_with_HasBeenMusted_set_to_true___When_value_is_a_Parameter_with_ValueType_that_is_named_and_not_musted_and_not_eached_and_not_validated()
+        public static void Must___Should_return_same_AssertionTracker_but_with_HasBeenMusted_set_to_true___When_parameter_value_is_an_AssertionTracker_with_SubjectType_that_is_named_and_not_musted_and_not_eached_and_not_verified_at_least_once()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Named)).Where(_ => !_.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
-            var expecteds = parameters.Select(_ =>
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Named)).Where(_ => !_.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+            var expecteds = assertionTrackers.Select(_ =>
             {
                 var result = _.Clone();
                 result.Actions |= Actions.Musted;
@@ -208,17 +208,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => _.Must()).ToList();
+            var actuals = assertionTrackers.Select(_ => _.Must()).ToList();
 
             // Assert
             actuals.Should().Equal(expecteds, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_value_is_an_anonymous_object_with_multiple_properties()
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
         {
             // Arrange, Act
-            var actual = Record.Exception(() => new { someParameter = A.Dummy<object>(), someParameter2 = A.Dummy<object>() }.Must());
+            var actual = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.Must());
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
@@ -227,7 +227,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_Parameter_with_Value_and_ValueType_and_Name_pulled_out_of_anonymous_object_property_and_HasBeenMusted_set_to_true___When_value_is_an_anonymous_object_with_one_property()
+        public static void Must___Should_return_AssertionTracker_with_SubjectValue_and_SubjectType_and_Name_pulled_out_of_anonymous_object_property_and_HasBeenMusted_set_to_true___When_parameter_value_is_an_anonymous_object_with_one_property()
         {
             // Arrange
             var value1 = A.Dummy<object>();
@@ -237,7 +237,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 SubjectValue = value1,
                 SubjectType = typeof(object),
-                SubjectName = "someParameter",
+                SubjectName = "someSubject",
                 Actions = Actions.Musted,
             };
 
@@ -245,13 +245,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 SubjectValue = value2,
                 SubjectType = typeof(string),
-                SubjectName = "someParameter",
+                SubjectName = "someSubject",
                 Actions = Actions.Musted,
             };
 
             // Act
-            var actual1 = new { someParameter = value1 }.Must();
-            var actual2 = new { someParameter = value2 }.Must();
+            var actual1 = new { someSubject = value1 }.Must();
+            var actual2 = new { someSubject = value2 }.Must();
 
             // Assert
             AssertionTrackerComparer.Equals(expected1, actual1).Should().BeTrue();
@@ -262,10 +262,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = "This is cased correctly.")]
-        public static void Must___Should_return_Parameter_with_null_Value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_null()
+        public static void Must___Should_return_AssertionTracker_with_null_SubjectValue_and_SubjectType_set_to_TSubject_and_null_Name_and_HasBeenMusted_set_to_true___When_parameter_value_is_null()
         {
             // Arrange
-            var value1 = new { someParameter = A.Dummy<object>() };
+            var value1 = new { someSubject = A.Dummy<object>() };
             var value1Type = value1.GetType();
             value1 = null;
 
@@ -299,7 +299,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = "This is cased correctly.")]
-        public static void Must___Should_return_Parameter_with_Value_set_to_value_and_ValueType_set_to_TParameterValue_and_null_Name_and_HasBeenMusted_set_to_true___When_value_is_not_an_anonymous_object_and_not_null()
+        public static void Must___Should_return_AssertionTracker_with_SubjectValue_set_to_parameter_value_and_SubjectType_set_to_TSubject_and_null_Name_and_HasBeenMusted_set_to_true___When_parameter_value_is_not_an_anonymous_object_and_not_null()
         {
             // Arrange
             var value = A.Dummy<string>();
@@ -320,37 +320,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Named_and_Must___Should_return_expected_Parameter___When_all_supported_chaining_combinations_are_executed()
+        public static void Named_and_Must___Should_return_expected_AssertionTracker___When_all_supported_chaining_combinations_are_executed()
         {
             // Arrange
-            var testParameter = A.Dummy<string>();
+            var testSubject = A.Dummy<string>();
             var expected1 = new AssertionTracker
             {
-                SubjectValue = testParameter,
+                SubjectValue = testSubject,
                 SubjectType = typeof(string),
                 Actions = Actions.Musted,
             };
 
             var expected2 = new AssertionTracker
             {
-                SubjectValue = testParameter,
+                SubjectValue = testSubject,
                 SubjectType = typeof(string),
-                SubjectName = nameof(testParameter),
+                SubjectName = nameof(testSubject),
                 Actions = Actions.Named | Actions.Musted,
             };
 
             var expected3 = new AssertionTracker
             {
-                SubjectValue = testParameter,
+                SubjectValue = testSubject,
                 SubjectType = typeof(string),
-                SubjectName = nameof(testParameter),
+                SubjectName = nameof(testSubject),
                 Actions = Actions.Musted,
             };
 
             // Act
-            var actual1 = testParameter.Must();
-            var actual2 = testParameter.Named(nameof(testParameter)).Must();
-            var actual3 = new { testParameter }.Must();
+            var actual1 = testSubject.Must();
+            var actual2 = testSubject.Named(nameof(testSubject)).Must();
+            var actual3 = new { testSubject = testSubject }.Must();
 
             // Assert
             AssertionTrackerComparer.Equals(actual1, expected1).Should().BeTrue();
@@ -359,17 +359,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_ValueType_is_null()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_SubjectType_is_null()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
-            foreach (var parameter in parameters)
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
+            foreach (var assertionTracker in assertionTrackers)
             {
-                parameter.SubjectType = null;
+                assertionTracker.SubjectType = null;
             }
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Each()));
 
             // Assert
             foreach (var actual in actuals)
@@ -381,13 +381,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_musted()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_has_not_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Each()));
 
             // Assert
             foreach (var actual in actuals)
@@ -399,13 +399,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_been_eached()
+        public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_has_been_eached()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Eached)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.Each()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.Each()));
 
             // Assert
             foreach (var actual in actuals)
@@ -419,20 +419,20 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "eached", Justification = "This is the best wording for this identifier.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_return_same_parameter_but_with_HasBeenEached_set_to_true___When_parameter_is_musted_and_not_eached()
+        public static void Each___Should_return_same_AssertionTracker_but_with_HasBeenEached_set_to_true___When_AssertionTracker_is_musted_and_not_eached()
         {
             // Arrange
-            var parameters1 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(object)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
-            var parameters2 = BuildParametersWithAllCombinationsOfFlags(valueType: typeof(IEnumerable)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
+            var assertionTrackers1 = BuildAssertionTrackersWithAllCombinationsOfFlags(subjectType: typeof(object)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
+            var assertionTrackers2 = BuildAssertionTrackersWithAllCombinationsOfFlags(subjectType: typeof(IEnumerable)).Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => !_.Actions.HasFlag(Actions.Eached)).ToList();
 
-            var expecteds1 = parameters1.Select(_ =>
+            var expecteds1 = assertionTrackers1.Select(_ =>
             {
                 var result = _.Clone();
                 result.Actions |= Actions.Eached;
                 return result;
             }).ToList();
 
-            var expecteds2 = parameters2.Select(_ =>
+            var expecteds2 = assertionTrackers2.Select(_ =>
             {
                 var result = _.Clone();
                 result.Actions |= Actions.Eached;
@@ -440,8 +440,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }).ToList();
 
             // Act
-            var actuals1 = parameters1.Select(_ => _.Each()).ToList();
-            var actuals2 = parameters2.Select(_ => _.Each()).ToList();
+            var actuals1 = assertionTrackers1.Select(_ => _.Each()).ToList();
+            var actuals2 = assertionTrackers2.Select(_ => _.Each()).ToList();
 
             // Assert
             actuals1.Should().Equal(expecteds1, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
@@ -449,17 +449,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_ValueType_is_null()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_SubjectType_is_null()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
-            foreach (var parameter in parameters)
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+            foreach (var assertionTracker in assertionTrackers)
             {
-                parameter.SubjectType = null;
+                assertionTracker.SubjectType = null;
             }
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.And()));
 
             // Assert
             foreach (var actual in actuals)
@@ -471,13 +471,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_musted()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_has_not_been_musted()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.Musted)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.And()));
 
             // Assert
             foreach (var actual in actuals)
@@ -488,13 +488,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_has_not_been_validated()
+        public static void And___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_has_not_been_verified_at_least_once()
         {
             // Arrange
-            var parameters = BuildParametersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
-            var actuals = parameters.Select(_ => Record.Exception(() => _.And()));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.And()));
 
             // Assert
             foreach (var actual in actuals)
@@ -506,10 +506,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void And___Should_return_same_parameter___When_parameter_is_musted_and_validated()
+        public static void And___Should_return_same_AssertionTracker___When_AssertionTracker_is_musted_and_verified_at_least_once()
         {
             // Arrange
-            var expecteds = BuildParametersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
+            var expecteds = BuildAssertionTrackersWithAllCombinationsOfFlags().Where(_ => _.Actions.HasFlag(Actions.Musted)).Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce)).ToList();
 
             // Act
             var actuals = expecteds.Select(_ => _.And()).ToList();
@@ -518,22 +518,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             actuals.Should().Equal(expecteds, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
         }
 
-        private static IReadOnlyCollection<AssertionTracker> BuildParametersWithAllCombinationsOfFlags(
-            Type valueType = null,
-            bool valueCanBeNull = true,
-            bool valueMustBeNull = false)
+        private static IReadOnlyCollection<AssertionTracker> BuildAssertionTrackersWithAllCombinationsOfFlags(
+            Type subjectType = null,
+            bool subjectCanBeNull = true,
+            bool subjectMustBeNull = false)
         {
-            if (valueType == null)
+            if (subjectType == null)
             {
-                valueType = typeof(object);
+                subjectType = typeof(object);
             }
 
             var result = EnumExtensions.GetAllPossibleEnumValues<Actions>().Select(
                 _ =>
                     new AssertionTracker
                     {
-                        SubjectValue = valueMustBeNull ? null : valueCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(valueType) : null) : AD.ummy(valueType),
-                        SubjectType = valueType,
+                        SubjectValue = subjectMustBeNull ? null : subjectCanBeNull ? (ThreadSafeRandom.Next(0, 2) == 0 ? AD.ummy(subjectType) : null) : AD.ummy(subjectType),
+                        SubjectType = subjectType,
                         SubjectName = ThreadSafeRandom.Next(0, 2) == 0 ? A.Dummy<string>() : null,
                         Actions = _,
                     })

@@ -29,7 +29,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     {
         private static readonly AssertionTrackerEqualityComparer AssertionTrackerComparer = new AssertionTrackerEqualityComparer();
 
-        private delegate AssertionTracker Validation(AssertionTracker assertionTracker, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
+        private delegate AssertionTracker VerificationHandler(AssertionTracker assertionTracker, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
 
         [Fact]
         public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
@@ -225,25 +225,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeNull,
-                ValidationName = nameof(Verifications.BeNull),
+                VerificationHandler = Verifications.BeNull,
+                VerificationName = nameof(Verifications.BeNull),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Reference Type, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -319,10 +319,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
         }
 
         [Fact]
@@ -348,25 +348,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeNull,
-                ValidationName = nameof(Verifications.NotBeNull),
+                VerificationHandler = Verifications.NotBeNull,
+                VerificationName = nameof(Verifications.NotBeNull),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "Any Reference Type, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Reference Type, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -441,10 +441,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
         }
 
         [Fact]
@@ -470,25 +470,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeTrue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeTrue,
-                ValidationName = nameof(Verifications.BeTrue),
+                VerificationHandler = Verifications.BeTrue,
+                VerificationName = nameof(Verifications.BeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeTrueExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "bool, bool?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
+                SubjectInvalidTypeExpectedTypes = "bool, bool?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -497,13 +497,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -513,14 +513,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -530,13 +530,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     A.Dummy<object>(),
                     new List<string> { null },
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -589,12 +589,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -620,25 +620,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeTrue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeTrue,
-                ValidationName = nameof(Verifications.NotBeTrue),
+                VerificationHandler = Verifications.NotBeTrue,
+                VerificationName = nameof(Verifications.NotBeTrue),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeTrueExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "bool, bool?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
+                SubjectInvalidTypeExpectedTypes = "bool, bool?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -647,13 +647,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -663,14 +663,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -680,13 +680,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -739,12 +739,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -770,25 +770,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeFalse___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeFalse,
-                ValidationName = nameof(Verifications.BeFalse),
+                VerificationHandler = Verifications.BeFalse,
+                VerificationName = nameof(Verifications.BeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeFalseExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "bool, bool?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
+                SubjectInvalidTypeExpectedTypes = "bool, bool?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -797,13 +797,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -813,14 +813,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -830,13 +830,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -889,12 +889,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -920,25 +920,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeFalse___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeFalse,
-                ValidationName = nameof(Verifications.NotBeFalse),
+                VerificationHandler = Verifications.NotBeFalse,
+                VerificationName = nameof(Verifications.NotBeFalse),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeFalseExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "bool, bool?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
+                SubjectInvalidTypeExpectedTypes = "bool, bool?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -947,13 +947,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -963,14 +963,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     string.Empty,
                     " \r\n  ",
                     A.Dummy<string>(),
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { string.Empty, " \r\n  ", A.Dummy<string>() },
@@ -980,13 +980,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1039,12 +1039,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -1070,36 +1070,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorWhiteSpace___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = Verifications.NotBeNullNorWhiteSpace,
-                ValidationName = nameof(Verifications.NotBeNullNorWhiteSpace),
+                VerificationHandler = Verifications.NotBeNullNorWhiteSpace,
+                VerificationName = nameof(Verifications.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = Verifications.NotBeNullNorWhiteSpace,
-                ValidationName = nameof(Verifications.NotBeNullNorWhiteSpace),
+                VerificationHandler = Verifications.NotBeNullNorWhiteSpace,
+                VerificationName = nameof(Verifications.NotBeNullNorWhiteSpace),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -1108,13 +1108,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -1124,13 +1124,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1176,15 +1176,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(stringTestValues1);
 
-            validationTest2.Run(guidTestValues);
-            validationTest2.Run(nullableGuidTestValues);
-            validationTest2.Run(objectTestValues);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(guidTestValues);
+            verificationTest2.Run(nullableGuidTestValues);
+            verificationTest2.Run(objectTestValues);
+            verificationTest2.Run(stringTestValues2);
         }
 
         [Fact]
@@ -1210,25 +1210,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeNullOrNotWhiteSpace___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeNullOrNotWhiteSpace,
-                ValidationName = nameof(Verifications.BeNullOrNotWhiteSpace),
+                VerificationHandler = Verifications.BeNullOrNotWhiteSpace,
+                VerificationName = nameof(Verifications.BeNullOrNotWhiteSpace),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeNullOrNotWhiteSpaceExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -1237,13 +1237,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -1253,13 +1253,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1292,10 +1292,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(stringTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(stringTestValues);
         }
 
         [Fact]
@@ -1321,15 +1321,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyGuid___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeEmptyGuid,
-                ValidationName = nameof(Verifications.BeEmptyGuid),
+                VerificationHandler = Verifications.BeEmptyGuid,
+                VerificationName = nameof(Verifications.BeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyGuidExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "Guid, Guid?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
+                SubjectInvalidTypeExpectedTypes = "Guid, Guid?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -1378,14 +1378,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     "   ",
                     "   \r\n ",
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new[] { string.Empty },
@@ -1394,13 +1394,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1409,13 +1409,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1425,12 +1425,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1439,13 +1439,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1454,13 +1454,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(enumerableTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(enumerableTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -1486,15 +1486,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEmptyGuid___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeEmptyGuid,
-                ValidationName = nameof(Verifications.NotBeEmptyGuid),
+                VerificationHandler = Verifications.NotBeEmptyGuid,
+                VerificationName = nameof(Verifications.NotBeEmptyGuid),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyGuidExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "Guid, Guid?",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
+                SubjectInvalidTypeExpectedTypes = "Guid, Guid?",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
             };
 
             var guidTestValues = new TestValues<Guid>
@@ -1544,14 +1544,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     "   ",
                     "   \r\n ",
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new[] { string.Empty },
@@ -1560,13 +1560,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1575,13 +1575,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1591,12 +1591,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1605,13 +1605,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1620,13 +1620,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(enumerableTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(enumerableTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -1652,25 +1652,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeEmptyString,
-                ValidationName = nameof(Verifications.BeEmptyString),
+                VerificationHandler = Verifications.BeEmptyString,
+                VerificationName = nameof(Verifications.BeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyStringExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1680,13 +1680,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1723,13 +1723,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1738,13 +1738,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1754,12 +1754,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1768,13 +1768,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1783,13 +1783,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(enumerableTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(enumerableTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -1815,25 +1815,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEmptyString___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeEmptyString,
-                ValidationName = nameof(Verifications.NotBeEmptyString),
+                VerificationHandler = Verifications.NotBeEmptyString,
+                VerificationName = nameof(Verifications.NotBeEmptyString),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyStringExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -1843,13 +1843,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -1886,13 +1886,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string>(),
                     new List<string> { string.Empty },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { },
                     new IEnumerable[] { new List<string>(), new string[] { } },
@@ -1901,13 +1901,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -1917,12 +1917,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -1931,13 +1931,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -1946,13 +1946,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(enumerableTestValues);
-            validationTest.Run(objectTestValues);
-            validationTest.Run(boolTestValues);
-            validationTest.Run(nullableBoolTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(enumerableTestValues);
+            verificationTest.Run(objectTestValues);
+            verificationTest.Run(boolTestValues);
+            verificationTest.Run(nullableBoolTestValues);
         }
 
         [Fact]
@@ -1978,36 +1978,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = Verifications.BeEmptyEnumerable,
-                ValidationName = nameof(Verifications.BeEmptyEnumerable),
+                VerificationHandler = Verifications.BeEmptyEnumerable,
+                VerificationName = nameof(Verifications.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = Verifications.BeEmptyEnumerable,
-                ValidationName = nameof(Verifications.BeEmptyEnumerable),
+                VerificationHandler = Verifications.BeEmptyEnumerable,
+                VerificationName = nameof(Verifications.BeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyEnumerableExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2017,13 +2017,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2150,13 +2150,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -2166,12 +2166,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -2180,13 +2180,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -2195,18 +2195,18 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues1);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues1);
 
-            validationTest2.Run(stringTestValues2);
-            validationTest2.Run(enumerableTestValues2A);
-            validationTest2.Run(enumerableTestValues2B);
-            validationTest2.Run(enumerableTestValues2C);
+            verificationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2A);
+            verificationTest2.Run(enumerableTestValues2B);
+            verificationTest2.Run(enumerableTestValues2C);
         }
 
         [Fact]
@@ -2232,36 +2232,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = Verifications.NotBeEmptyEnumerable,
-                ValidationName = nameof(Verifications.NotBeEmptyEnumerable),
+                VerificationHandler = Verifications.NotBeEmptyEnumerable,
+                VerificationName = nameof(Verifications.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = Verifications.NotBeEmptyEnumerable,
-                ValidationName = nameof(Verifications.NotBeEmptyEnumerable),
+                VerificationHandler = Verifications.NotBeEmptyEnumerable,
+                VerificationName = nameof(Verifications.NotBeEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2271,13 +2271,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2402,13 +2402,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -2418,12 +2418,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -2432,13 +2432,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -2447,18 +2447,18 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues1);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues1);
 
-            validationTest2.Run(stringTestValues2);
-            validationTest2.Run(enumerableTestValues2A);
-            validationTest2.Run(enumerableTestValues2B);
-            validationTest2.Run(enumerableTestValues2C);
+            verificationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2A);
+            verificationTest2.Run(enumerableTestValues2B);
+            verificationTest2.Run(enumerableTestValues2C);
         }
 
         [Fact]
@@ -2484,25 +2484,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.BeEmptyDictionary;
-            var validationName = nameof(Verifications.BeEmptyDictionary);
+            VerificationHandler verificationHandler = Verifications.BeEmptyDictionary;
+            var verificationName = nameof(Verifications.BeEmptyDictionary);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2512,13 +2512,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2529,13 +2529,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -2544,26 +2544,26 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -2581,12 +2581,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(dictionaryTest);
+            verificationTest2.Run(dictionaryTest);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyDictionaryExceptionMessageSuffix,
@@ -2727,11 +2727,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3A);
-            validationTest3.Run(dictionaryTest3B);
-            validationTest3.Run(dictionaryTest3C);
-            validationTest3.Run(dictionaryTest3D);
-            validationTest3.Run(dictionaryTest3E);
+            verificationTest3.Run(dictionaryTest3A);
+            verificationTest3.Run(dictionaryTest3B);
+            verificationTest3.Run(dictionaryTest3C);
+            verificationTest3.Run(dictionaryTest3D);
+            verificationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
@@ -2761,25 +2761,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotBeEmptyDictionary;
-            var validationName = nameof(Verifications.NotBeEmptyDictionary);
+            VerificationHandler verificationHandler = Verifications.NotBeEmptyDictionary;
+            var verificationName = nameof(Verifications.NotBeEmptyDictionary);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -2789,13 +2789,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -2806,13 +2806,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -2821,26 +2821,26 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -2858,12 +2858,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(dictionaryTest);
+            verificationTest2.Run(dictionaryTest);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
@@ -3004,11 +3004,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3A);
-            validationTest3.Run(dictionaryTest3B);
-            validationTest3.Run(dictionaryTest3C);
-            validationTest3.Run(dictionaryTest3D);
-            validationTest3.Run(dictionaryTest3E);
+            verificationTest3.Run(dictionaryTest3A);
+            verificationTest3.Run(dictionaryTest3B);
+            verificationTest3.Run(dictionaryTest3C);
+            verificationTest3.Run(dictionaryTest3D);
+            verificationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
@@ -3038,25 +3038,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void ContainSomeNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.ContainSomeNullElements;
-            var validationName = nameof(Verifications.ContainSomeNullElements);
+            VerificationHandler verificationHandler = Verifications.ContainSomeNullElements;
+            var verificationName = nameof(Verifications.ContainSomeNullElements);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -3066,13 +3066,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -3083,13 +3083,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -3099,12 +3099,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -3113,13 +3113,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -3127,29 +3127,29 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -3159,23 +3159,23 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
+                MustSubjectInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
             };
 
-            validationTest2.Run(enumerableTestValues2);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -3193,12 +3193,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(enumerableTestValues3);
+            verificationTest3.Run(enumerableTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainSomeNullElementsExceptionMessageSuffix,
@@ -3275,9 +3275,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(enumerableTestValues4A);
-            validationTest4.Run(enumerableTestValues4B);
-            validationTest4.Run(enumerableTestValues4C);
+            verificationTest4.Run(enumerableTestValues4A);
+            verificationTest4.Run(enumerableTestValues4B);
+            verificationTest4.Run(enumerableTestValues4C);
         }
 
         [Fact]
@@ -3303,25 +3303,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContainAnyNullElements___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotContainAnyNullElements;
-            var validationName = nameof(Verifications.NotContainAnyNullElements);
+            VerificationHandler verificationHandler = Verifications.NotContainAnyNullElements;
+            var verificationName = nameof(Verifications.NotContainAnyNullElements);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -3331,13 +3331,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -3348,13 +3348,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -3364,12 +3364,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -3378,13 +3378,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -3392,29 +3392,29 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -3424,23 +3424,23 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
+                MustSubjectInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
             };
 
-            validationTest2.Run(enumerableTestValues2);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -3458,12 +3458,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(enumerableTestValues3);
+            verificationTest3.Run(enumerableTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
@@ -3541,9 +3541,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(enumerableTestValues4A);
-            validationTest4.Run(enumerableTestValues4B);
-            validationTest4.Run(enumerableTestValues4C);
+            verificationTest4.Run(enumerableTestValues4A);
+            verificationTest4.Run(enumerableTestValues4B);
+            verificationTest4.Run(enumerableTestValues4C);
         }
 
         [Fact]
@@ -3569,25 +3569,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void ContainSomeKeyValuePairsWithNullValue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.ContainSomeKeyValuePairsWithNullValue;
-            var validationName = nameof(Verifications.ContainSomeKeyValuePairsWithNullValue);
+            VerificationHandler verificationHandler = Verifications.ContainSomeKeyValuePairsWithNullValue;
+            var verificationName = nameof(Verifications.ContainSomeKeyValuePairsWithNullValue);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -3597,13 +3597,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -3614,13 +3614,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -3629,37 +3629,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
             };
 
             var dictionaryTest2A = new TestValues<IDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -3667,11 +3667,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2B = new TestValues<Dictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new Dictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new Dictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -3679,11 +3679,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2C = new TestValues<IReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -3691,25 +3691,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2D = new TestValues<ReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
                 {
                     new ReadOnlyDictionary<string, bool>(new Dictionary<string, bool>()),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new ReadOnlyDictionary<string, bool>[] { },
                 },
             };
 
-            validationTest2.Run(dictionaryTest2A);
-            validationTest2.Run(dictionaryTest2B);
-            validationTest2.Run(dictionaryTest2C);
-            validationTest2.Run(dictionaryTest2D);
+            verificationTest2.Run(dictionaryTest2A);
+            verificationTest2.Run(dictionaryTest2B);
+            verificationTest2.Run(dictionaryTest2C);
+            verificationTest2.Run(dictionaryTest2D);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -3727,12 +3727,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3);
+            verificationTest3.Run(dictionaryTest3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix,
@@ -3898,11 +3898,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(dictionaryTest4A);
-            validationTest4.Run(dictionaryTest4B);
-            validationTest4.Run(dictionaryTest4C);
-            validationTest4.Run(dictionaryTest4D);
-            validationTest4.Run(dictionaryTest4E);
+            verificationTest4.Run(dictionaryTest4A);
+            verificationTest4.Run(dictionaryTest4B);
+            verificationTest4.Run(dictionaryTest4C);
+            verificationTest4.Run(dictionaryTest4D);
+            verificationTest4.Run(dictionaryTest4E);
         }
 
         [Fact]
@@ -3928,25 +3928,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContainAnyKeyValuePairsWithNullValue___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotContainAnyKeyValuePairsWithNullValue;
-            var validationName = nameof(Verifications.NotContainAnyKeyValuePairsWithNullValue);
+            VerificationHandler verificationHandler = Verifications.NotContainAnyKeyValuePairsWithNullValue;
+            var verificationName = nameof(Verifications.NotContainAnyKeyValuePairsWithNullValue);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -3956,13 +3956,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -3973,13 +3973,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -3988,37 +3988,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
             };
 
             var dictionaryTest2A = new TestValues<IDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -4026,11 +4026,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2B = new TestValues<Dictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new Dictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new Dictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -4038,11 +4038,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2C = new TestValues<IReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -4050,25 +4050,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2D = new TestValues<ReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
                 {
                     new ReadOnlyDictionary<string, bool>(new Dictionary<string, bool>()),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new ReadOnlyDictionary<string, bool>[] { },
                 },
             };
 
-            validationTest2.Run(dictionaryTest2A);
-            validationTest2.Run(dictionaryTest2B);
-            validationTest2.Run(dictionaryTest2C);
-            validationTest2.Run(dictionaryTest2D);
+            verificationTest2.Run(dictionaryTest2A);
+            verificationTest2.Run(dictionaryTest2B);
+            verificationTest2.Run(dictionaryTest2C);
+            verificationTest2.Run(dictionaryTest2D);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -4086,12 +4086,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3);
+            verificationTest3.Run(dictionaryTest3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
@@ -4257,11 +4257,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(dictionaryTest4A);
-            validationTest4.Run(dictionaryTest4B);
-            validationTest4.Run(dictionaryTest4C);
-            validationTest4.Run(dictionaryTest4D);
-            validationTest4.Run(dictionaryTest4E);
+            verificationTest4.Run(dictionaryTest4A);
+            verificationTest4.Run(dictionaryTest4B);
+            verificationTest4.Run(dictionaryTest4C);
+            verificationTest4.Run(dictionaryTest4D);
+            verificationTest4.Run(dictionaryTest4E);
         }
 
         [Fact]
@@ -4287,36 +4287,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyEnumerable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = Verifications.NotBeNullNorEmptyEnumerable,
-                ValidationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
+                VerificationHandler = Verifications.NotBeNullNorEmptyEnumerable,
+                VerificationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = Verifications.NotBeNullNorEmptyEnumerable,
-                ValidationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
+                VerificationHandler = Verifications.NotBeNullNorEmptyEnumerable,
+                VerificationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -4326,13 +4326,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -4457,13 +4457,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -4473,12 +4473,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -4487,13 +4487,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -4502,18 +4502,18 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues1);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues1);
 
-            validationTest2.Run(stringTestValues2);
-            validationTest2.Run(enumerableTestValues2A);
-            validationTest2.Run(enumerableTestValues2B);
-            validationTest2.Run(enumerableTestValues2C);
+            verificationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2A);
+            verificationTest2.Run(enumerableTestValues2B);
+            verificationTest2.Run(enumerableTestValues2C);
         }
 
         [Fact]
@@ -4539,25 +4539,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotBeNullNorEmptyDictionary;
-            var validationName = nameof(Verifications.NotBeNullNorEmptyDictionary);
+            VerificationHandler verificationHandler = Verifications.NotBeNullNorEmptyDictionary;
+            var verificationName = nameof(Verifications.NotBeNullNorEmptyDictionary);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -4567,13 +4567,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -4584,13 +4584,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -4599,26 +4599,26 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -4636,12 +4636,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(dictionaryTest);
+            verificationTest2.Run(dictionaryTest);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
@@ -4781,11 +4781,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3A);
-            validationTest3.Run(dictionaryTest3B);
-            validationTest3.Run(dictionaryTest3C);
-            validationTest3.Run(dictionaryTest3D);
-            validationTest3.Run(dictionaryTest3E);
+            verificationTest3.Run(dictionaryTest3A);
+            verificationTest3.Run(dictionaryTest3B);
+            verificationTest3.Run(dictionaryTest3C);
+            verificationTest3.Run(dictionaryTest3D);
+            verificationTest3.Run(dictionaryTest3E);
         }
 
         [Fact]
@@ -4815,25 +4815,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeNullNorEmptyEnumerableNorContainAnyNulls___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls;
-            var validationName = nameof(Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls);
+            VerificationHandler verificationHandler = Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls;
+            var verificationName = nameof(Verifications.NotBeNullNorEmptyEnumerableNorContainAnyNulls);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -4843,13 +4843,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -4860,13 +4860,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -4876,12 +4876,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -4890,13 +4890,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -4904,29 +4904,29 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>, IEnumerable when not IEnumerable<Any Value Type>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable<Any Reference Type>>, IEnumerable<IEnumerable<Nullable<T>>>, IEnumerable<IEnumerable when not IEnumerable<Any Value Type>>",
             };
 
             var stringTestValues2 = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { null, A.Dummy<string>() },
                     new string[] { string.Empty, null },
@@ -4936,23 +4936,23 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues2 = new TestValues<IEnumerable<bool>>
             {
-                MustParameterInvalidTypeValues = new IEnumerable<bool>[]
+                MustSubjectInvalidTypeValues = new IEnumerable<bool>[]
                 {
                     new bool[] { },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable<bool>[] { new bool[] { }, },
                 },
             };
 
-            validationTest2.Run(enumerableTestValues2);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -4970,12 +4970,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(enumerableTestValues3);
+            verificationTest3.Run(enumerableTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
@@ -5019,14 +5019,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(enumerableTestValues4A);
-            validationTest4.Run(enumerableTestValues4B);
-            validationTest4.Run(enumerableTestValues4C);
+            verificationTest4.Run(enumerableTestValues4A);
+            verificationTest4.Run(enumerableTestValues4B);
+            verificationTest4.Run(enumerableTestValues4C);
 
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
@@ -5101,34 +5101,34 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(enumerableTestValues5A);
-            validationTest5.Run(enumerableTestValues5B);
-            validationTest5.Run(enumerableTestValues5C);
+            verificationTest5.Run(enumerableTestValues5A);
+            verificationTest5.Run(enumerableTestValues5B);
+            verificationTest5.Run(enumerableTestValues5C);
         }
 
         [Fact]
         public static void NotBeNullNorEmptyDictionaryNorContainAnyNullValues___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation validation = Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues;
-            var validationName = nameof(Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
+            VerificationHandler verificationHandler = Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues;
+            var verificationName = nameof(Verifications.NotBeNullNorEmptyDictionaryNorContainAnyNullValues);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -5138,13 +5138,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -5155,13 +5155,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var stringTestValues = new TestValues<string>
             {
-                MustParameterInvalidTypeValues = new string[]
+                MustSubjectInvalidTypeValues = new string[]
                 {
                     A.Dummy<string>(),
                     string.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new string[] { },
                     new string[] { A.Dummy<string>(), string.Empty, null },
@@ -5170,37 +5170,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                     new List<string> { A.Dummy<string>() },
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
                 },
             };
 
-            validationTest1.Run(stringTestValues);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey,Any Reference Type>, IDictionary<TKey,Nullable<T>>, IReadOnlyDictionary<TKey,Any Reference Type>, IReadOnlyDictionary<TKey,Nullable<T>>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey,Any Reference Type>>, IEnumerable<IDictionary<TKey,Nullable<T>>>, IEnumerable<IReadOnlyDictionary<TKey,Any Reference Type>>, IEnumerable<IReadOnlyDictionary<TKey,Nullable<T>>>",
             };
 
             var dictionaryTest2A = new TestValues<IDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -5208,11 +5208,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2B = new TestValues<Dictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new Dictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new Dictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -5220,11 +5220,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2C = new TestValues<IReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new IReadOnlyDictionary<string, bool>[]
                 {
                     new Dictionary<string, bool>(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Dictionary<string, bool>[] { },
                 },
@@ -5232,25 +5232,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var dictionaryTest2D = new TestValues<ReadOnlyDictionary<string, bool>>
             {
-                MustParameterInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
+                MustSubjectInvalidTypeValues = new ReadOnlyDictionary<string, bool>[]
                 {
                     new ReadOnlyDictionary<string, bool>(new Dictionary<string, bool>()),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new ReadOnlyDictionary<string, bool>[] { },
                 },
             };
 
-            validationTest2.Run(dictionaryTest2A);
-            validationTest2.Run(dictionaryTest2B);
-            validationTest2.Run(dictionaryTest2C);
-            validationTest2.Run(dictionaryTest2D);
+            verificationTest2.Run(dictionaryTest2A);
+            verificationTest2.Run(dictionaryTest2B);
+            verificationTest2.Run(dictionaryTest2C);
+            verificationTest2.Run(dictionaryTest2D);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -5268,12 +5268,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(dictionaryTest3);
+            verificationTest3.Run(dictionaryTest3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
@@ -5413,16 +5413,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(dictionaryTest4A);
-            validationTest4.Run(dictionaryTest4B);
-            validationTest4.Run(dictionaryTest4C);
-            validationTest4.Run(dictionaryTest4D);
-            validationTest4.Run(dictionaryTest4E);
+            verificationTest4.Run(dictionaryTest4A);
+            verificationTest4.Run(dictionaryTest4B);
+            verificationTest4.Run(dictionaryTest4C);
+            verificationTest4.Run(dictionaryTest4D);
+            verificationTest4.Run(dictionaryTest4E);
 
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = validation,
-                ValidationName = validationName,
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
@@ -5578,21 +5578,21 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(dictionaryTest5A);
-            validationTest5.Run(dictionaryTest5B);
-            validationTest5.Run(dictionaryTest5C);
-            validationTest5.Run(dictionaryTest5D);
-            validationTest5.Run(dictionaryTest5E);
+            verificationTest5.Run(dictionaryTest5A);
+            verificationTest5.Run(dictionaryTest5B);
+            verificationTest5.Run(dictionaryTest5C);
+            verificationTest5.Run(dictionaryTest5D);
+            verificationTest5.Run(dictionaryTest5E);
         }
 
         [Fact]
         public static void BeDefault___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.BeDefault,
-                ValidationName = nameof(Verifications.BeDefault),
+                VerificationHandler = Verifications.BeDefault,
+                VerificationName = nameof(Verifications.BeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeDefaultExceptionMessageSuffix,
@@ -5733,12 +5733,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(dateTimeTestValues);
-            validationTest.Run(decimalTestValues);
-            validationTest.Run(objectTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(dateTimeTestValues);
+            verificationTest.Run(decimalTestValues);
+            verificationTest.Run(objectTestValues);
         }
 
         [Fact]
@@ -5764,10 +5764,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeDefault___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            var validationTest = new ValidationTest
+            var verificationTest = new VerificationTest
             {
-                Validation = Verifications.NotBeDefault,
-                ValidationName = nameof(Verifications.NotBeDefault),
+                VerificationHandler = Verifications.NotBeDefault,
+                VerificationName = nameof(Verifications.NotBeDefault),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeDefaultExceptionMessageSuffix,
@@ -5909,12 +5909,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest.Run(guidTestValues);
-            validationTest.Run(nullableGuidTestValues);
-            validationTest.Run(stringTestValues);
-            validationTest.Run(dateTimeTestValues);
-            validationTest.Run(decimalTestValues);
-            validationTest.Run(objectTestValues);
+            verificationTest.Run(guidTestValues);
+            verificationTest.Run(nullableGuidTestValues);
+            verificationTest.Run(stringTestValues);
+            verificationTest.Run(dateTimeTestValues);
+            verificationTest.Run(decimalTestValues);
+            verificationTest.Run(objectTestValues);
         }
 
         [Fact]
@@ -5940,31 +5940,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeLessThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeLessThan(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeLessThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.BeLessThan);
+            var verificationName = nameof(Verifications.BeLessThan);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -5972,13 +5972,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
@@ -6008,25 +6008,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -6034,37 +6034,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
@@ -6094,12 +6094,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
@@ -6126,7 +6126,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -6180,31 +6180,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeLessThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeLessThan(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeLessThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotBeLessThan);
+            var verificationName = nameof(Verifications.NotBeLessThan);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -6212,13 +6212,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
@@ -6248,25 +6248,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -6274,37 +6274,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
@@ -6334,12 +6334,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
@@ -6365,7 +6365,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -6407,31 +6407,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeGreaterThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeGreaterThan(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.BeGreaterThan);
+            var verificationName = nameof(Verifications.BeGreaterThan);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -6439,13 +6439,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             decimal? comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
@@ -6476,25 +6476,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -6502,37 +6502,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
@@ -6562,12 +6562,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
@@ -6594,7 +6594,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -6648,31 +6648,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeGreaterThan___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThan(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeGreaterThan(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotBeGreaterThan);
+            var verificationName = nameof(Verifications.NotBeGreaterThan);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -6680,13 +6680,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
@@ -6715,25 +6715,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -6741,37 +6741,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
@@ -6801,12 +6801,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
@@ -6833,7 +6833,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -6875,31 +6875,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.BeLessThanOrEqualTo);
+            var verificationName = nameof(Verifications.BeLessThanOrEqualTo);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -6907,13 +6907,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
@@ -6942,25 +6942,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -6968,37 +6968,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
@@ -7028,12 +7028,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
@@ -7060,7 +7060,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -7102,31 +7102,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeLessThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeLessThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotBeLessThanOrEqualTo);
+            var verificationName = nameof(Verifications.NotBeLessThanOrEqualTo);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -7134,13 +7134,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
@@ -7171,25 +7171,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -7197,37 +7197,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
@@ -7257,12 +7257,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
@@ -7289,7 +7289,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -7343,31 +7343,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.BeGreaterThanOrEqualTo);
+            var verificationName = nameof(Verifications.BeGreaterThanOrEqualTo);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -7375,13 +7375,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7411,25 +7411,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -7437,37 +7437,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7497,12 +7497,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7528,7 +7528,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -7570,31 +7570,31 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeGreaterThanOrEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeGreaterThanOrEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotBeGreaterThanOrEqualTo);
+            var verificationName = nameof(Verifications.NotBeGreaterThanOrEqualTo);
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -7602,13 +7602,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             var comparisonValue2 = A.Dummy<decimal?>();
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7638,25 +7638,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -7664,37 +7664,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var comparisonValue5 = A.Dummy<decimal>();
-            var validationTest5 = new ValidationTest
+            var verificationTest5 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue5),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7724,12 +7724,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest5.Run(decimalTestValues5);
+            verificationTest5.Run(decimalTestValues5);
 
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation((decimal?)null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler((decimal?)null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
@@ -7756,7 +7756,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(nullableDecimalTestValues6);
+            verificationTest6.Run(nullableDecimalTestValues6);
         }
 
         [Fact]
@@ -7810,30 +7810,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.BeEqualTo);
+            var verificationName = nameof(Verifications.BeEqualTo);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues1 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -7841,37 +7841,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(stringTestValues1);
+            verificationTest1.Run(stringTestValues1);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues2 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest2.Run(decimalTestValues2);
+            verificationTest2.Run(decimalTestValues2);
 
             var comparisonValue3 = A.Dummy<decimal>();
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue3),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue3),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEqualToExceptionMessageSuffix,
@@ -7900,7 +7900,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(decimalTestValues3);
+            verificationTest3.Run(decimalTestValues3);
         }
 
         [Fact]
@@ -7954,30 +7954,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeEqualTo___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T comparisonValue)
+            VerificationHandler GetVerificationHandler<T>(T comparisonValue)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeEqualTo(comparisonValue, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeEqualTo(comparisonValue, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotBeEqualTo);
+            var verificationName = nameof(Verifications.NotBeEqualTo);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var stringTestValues1 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -7985,37 +7985,37 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(stringTestValues1);
+            verificationTest1.Run(stringTestValues1);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "comparisonValue",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "comparisonValue",
             };
 
             var decimalTestValues2 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest2.Run(decimalTestValues2);
+            verificationTest2.Run(decimalTestValues2);
 
             var comparisonValue3 = A.Dummy<decimal>();
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue3),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue3),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEqualToExceptionMessageSuffix,
@@ -8043,7 +8043,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(decimalTestValues3);
+            verificationTest3.Run(decimalTestValues3);
         }
 
         [Fact]
@@ -8085,12 +8085,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeInRange___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T minimum, T maximum)
+            VerificationHandler GetVerificationHandler<T>(T minimum, T maximum)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
+                return (subject, because, applyBecause, data) => subject.BeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
-            var validationName = nameof(Verifications.BeInRange);
+            var verificationName = nameof(Verifications.BeInRange);
 
             var ex1 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
             var ex2 = Record.Exception(() => A.Dummy<object>().Must().BeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
@@ -8099,24 +8099,24 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             ex2.Should().BeOfType<NotImplementedException>();
             ex3.Should().BeOfType<NotImplementedException>();
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>(), A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -8124,14 +8124,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             decimal? minimum2 = 10m;
             decimal? maximum2 = 20m;
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(minimum2, maximum2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(minimum2, maximum2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
@@ -8168,25 +8168,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>(), A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "minimum",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>(), A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "minimum",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -8194,44 +8194,44 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>(), A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "minimum",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>(), A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "minimum",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var minimum5 = 5m;
             var maximum5 = 4.5m;
-            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
-            validationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            var verificationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().BeInRange(minimum5, maximum5, because: A.Dummy<string>()));
+            verificationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            verificationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation(minimum6, maximum6),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(minimum6, maximum6),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
@@ -8266,13 +8266,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(decimalTestValues6);
+            verificationTest6.Run(decimalTestValues6);
 
             var comparisonValue7 = A.Dummy<decimal>();
-            var validationTest7 = new ValidationTest
+            var verificationTest7 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue7, comparisonValue7),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue7, comparisonValue7),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
@@ -8301,17 +8301,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest7.Run(decimalTestValues7);
+            verificationTest7.Run(decimalTestValues7);
 
-            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
-            validationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            var verificationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
+            verificationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
-            var validationTest9 = new ValidationTest
+            var verificationTest9 = new VerificationTest
             {
-                Validation = GetValidation(null, maximum9),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(null, maximum9),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
@@ -8342,12 +8342,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest9.Run(nullableDecimalTestValues9);
+            verificationTest9.Run(nullableDecimalTestValues9);
 
-            var validationTest10 = new ValidationTest
+            var verificationTest10 = new VerificationTest
             {
-                Validation = GetValidation<decimal?>(null, null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler<decimal?>(null, null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
@@ -8376,7 +8376,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest10.Run(nullableDecimalTestValues10);
+            verificationTest10.Run(nullableDecimalTestValues10);
         }
 
         [Fact]
@@ -8436,12 +8436,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeInRange___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T minimum, T maximum)
+            VerificationHandler GetVerificationHandler<T>(T minimum, T maximum)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
+                return (subject, because, applyBecause, data) => subject.NotBeInRange(minimum, maximum, because: because, applyBecause: applyBecause, data: data);
             }
 
-            var validationName = nameof(Verifications.NotBeInRange);
+            var verificationName = nameof(Verifications.NotBeInRange);
 
             var ex1 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.IncludesMinimumAndExcludesMaximum));
             var ex2 = Record.Exception(() => A.Dummy<object>().Must().NotBeInRange(A.Dummy<object>(), A.Dummy<object>(), Range.ExcludesMinimumAndIncludesMaximum));
@@ -8450,24 +8450,24 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             ex2.Should().BeOfType<NotImplementedException>();
             ex3.Should().BeOfType<NotImplementedException>();
 
-            // here the comparisonValue type doesn't match the parameter type, but
+            // here the comparisonValue type doesn't match the subject type, but
             // that shouldn't matter because it first fails on TestClass not being comparable
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>(), A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>(), A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     null,
                     new TestClass(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<TestClass>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<TestClass>[]
                 {
                     new TestClass[] { },
                     new TestClass[] { null },
@@ -8475,14 +8475,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(customClassTestValues1);
+            verificationTest1.Run(customClassTestValues1);
 
             decimal? minimum2 = 10m;
             decimal? maximum2 = 20m;
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(minimum2, maximum2),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(minimum2, maximum2),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
@@ -8517,25 +8517,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(nullableDecimalTestValues2);
+            verificationTest2.Run(nullableDecimalTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>(), A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "minimum",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>(), A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "minimum",
             };
 
             var stringTestValues3 = new TestValues<string>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     null,
                     string.Empty,
                     A.Dummy<string>(),
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new string[] { },
                     new string[] { null },
@@ -8543,44 +8543,44 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<int>(), A.Dummy<int>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "decimal",
-                ValidationParameterInvalidCastParameterName = "minimum",
+                VerificationHandler = GetVerificationHandler(A.Dummy<int>(), A.Dummy<int>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "decimal",
+                VerificationParameterInvalidTypeName = "minimum",
             };
 
             var decimalTestValues4 = new TestValues<decimal>
             {
-                MustValidationParameterInvalidTypeValues = new[]
+                MustVerificationParameterInvalidTypeValues = new[]
                 {
                     A.Dummy<decimal>(),
                     decimal.MaxValue,
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<decimal>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<decimal>[]
                 {
                     new decimal[] { },
                     new decimal[] { A.Dummy<decimal>() },
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
 
             var minimum5 = 5m;
             var maximum5 = 4.5m;
-            var validationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().NotBeInRange(minimum5, maximum5, because: A.Dummy<string>()));
-            validationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            var verificationTest5Actual = Record.Exception(() => A.Dummy<decimal>().Must().NotBeInRange(minimum5, maximum5, because: A.Dummy<string>()));
+            verificationTest5Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            verificationTest5Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '5'.  Specified 'maximum' is '4.5'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             var minimum6 = 10m;
             var maximum6 = 20m;
-            var validationTest6 = new ValidationTest
+            var verificationTest6 = new VerificationTest
             {
-                Validation = GetValidation(minimum6, maximum6),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(minimum6, maximum6),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
@@ -8614,13 +8614,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest6.Run(decimalTestValues6);
+            verificationTest6.Run(decimalTestValues6);
 
             var comparisonValue7 = A.Dummy<decimal>();
-            var validationTest7 = new ValidationTest
+            var verificationTest7 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue7, comparisonValue7),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue7, comparisonValue7),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
@@ -8648,17 +8648,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest7.Run(decimalTestValues7);
+            verificationTest7.Run(decimalTestValues7);
 
-            var validationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
-            validationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            validationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            var verificationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
+            verificationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
 
             decimal? maximum9 = 20m;
-            var validationTest9 = new ValidationTest
+            var verificationTest9 = new VerificationTest
             {
-                Validation = GetValidation(null, maximum9),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(null, maximum9),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
@@ -8690,12 +8690,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest9.Run(nullableDecimalTestValues9);
+            verificationTest9.Run(nullableDecimalTestValues9);
 
-            var validationTest10 = new ValidationTest
+            var verificationTest10 = new VerificationTest
             {
-                Validation = GetValidation<decimal?>(null, null),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler<decimal?>(null, null),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentOutOfRangeException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
@@ -8723,36 +8723,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest10.Run(nullableDecimalTestValues10);
+            verificationTest10.Run(nullableDecimalTestValues10);
         }
 
         [Fact]
         public static void Contain___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T item)
+            VerificationHandler GetVerificationHandler<T>(T item)
             {
-                return (parameter, because, applyBecause, data) => parameter.Contain(item, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.Contain(item, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.Contain);
+            var verificationName = nameof(Verifications.Contain);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -8762,13 +8762,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -8779,13 +8779,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -8793,28 +8793,28 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "itemToSearchFor",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "itemToSearchFor",
             };
 
             var stringTestValues2 = new TestValues<IEnumerable<string>>
             {
-                MustValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new List<string> { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
                     new string[] { A.Dummy<string>(), A.Dummy<string>() },
                     new List<string> { A.Dummy<string>(), null },
                     new string[] { A.Dummy<string>(), null },
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<IEnumerable<string>>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<IEnumerable<string>>[]
                 {
                     new IEnumerable<string>[] { },
                     new IEnumerable<string>[] { new List<string> { null }, new string[] { A.Dummy<string>(), null } },
@@ -8823,13 +8823,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
             var comparisonValue3 = A.Dummy<string>();
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue3),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue3),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -8847,13 +8847,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(enumerableTestValues3);
+            verificationTest3.Run(enumerableTestValues3);
 
             var comparisonValue4 = 10m;
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue4),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue4),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
@@ -8882,7 +8882,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
         }
 
         [Fact]
@@ -8924,29 +8924,29 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContain___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
-            Validation GetValidation<T>(T item)
+            VerificationHandler GetVerificationHandler<T>(T item)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotContain(item, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotContain(item, because, applyBecause, data);
             }
 
-            var validationName = nameof(Verifications.NotContain);
+            var verificationName = nameof(Verifications.NotContain);
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<object>()),
-                ValidationName = validationName,
-                ParameterInvalidCastExpectedTypes = "IEnumerable",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+                VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -8956,13 +8956,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.Empty, Guid.Empty },
@@ -8973,13 +8973,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -8987,28 +8987,28 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<decimal>()),
-                ValidationName = validationName,
-                ValidationParameterInvalidCastExpectedTypes = "string",
-                ValidationParameterInvalidCastParameterName = "itemToSearchFor",
+                VerificationHandler = GetVerificationHandler(A.Dummy<decimal>()),
+                VerificationName = verificationName,
+                VerificationParameterInvalidTypeExpectedTypes = "string",
+                VerificationParameterInvalidTypeName = "itemToSearchFor",
             };
 
             var stringTestValues2 = new TestValues<IEnumerable<string>>
             {
-                MustValidationParameterInvalidTypeValues = new IEnumerable<string>[]
+                MustVerificationParameterInvalidTypeValues = new IEnumerable<string>[]
                 {
                     new List<string> { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
                     new string[] { A.Dummy<string>(), A.Dummy<string>() },
                     new List<string> { A.Dummy<string>(), null },
                     new string[] { A.Dummy<string>(), null },
                 },
-                MustEachValidationParameterInvalidTypeValues = new IEnumerable<IEnumerable<string>>[]
+                MustEachVerificationParameterInvalidTypeValues = new IEnumerable<IEnumerable<string>>[]
                 {
                     new IEnumerable<string>[] { },
                     new IEnumerable<string>[] { new List<string> { null }, new string[] { A.Dummy<string>(), null } },
@@ -9017,12 +9017,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<string>()),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(A.Dummy<string>()),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
@@ -9040,13 +9040,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest3.Run(enumerableTestValues3);
+            verificationTest3.Run(enumerableTestValues3);
 
             var comparisonValue4 = 10m;
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(comparisonValue4),
-                ValidationName = validationName,
+                VerificationHandler = GetVerificationHandler(comparisonValue4),
+                VerificationName = verificationName,
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
@@ -9076,7 +9076,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            validationTest4.Run(decimalTestValues4);
+            verificationTest4.Run(decimalTestValues4);
         }
 
         [Fact]
@@ -9118,30 +9118,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeAlphabetic___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(char[] otherAllowedCharacters)
+            VerificationHandler GetVerificationHandler(char[] otherAllowedCharacters)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeAlphabetic(otherAllowedCharacters, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeAlphabetic(otherAllowedCharacters, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<char[]>()),
-                ValidationName = nameof(Verifications.BeAlphabetic),
+                VerificationHandler = GetVerificationHandler(A.Dummy<char[]>()),
+                VerificationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -9151,13 +9151,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -9180,11 +9180,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new List<string> { A.Dummy<string>() } },
                 },
@@ -9192,13 +9192,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -9208,12 +9208,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -9222,13 +9222,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -9236,10 +9236,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(null),
-                ValidationName = nameof(Verifications.BeAlphabetic),
+                VerificationHandler = GetVerificationHandler(null),
+                VerificationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
@@ -9271,10 +9271,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(new char[0]),
-                ValidationName = nameof(Verifications.BeAlphabetic),
+                VerificationHandler = GetVerificationHandler(new char[0]),
+                VerificationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
@@ -9306,10 +9306,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(new[] { 'b', '-', '_', '^', '\\', '/', '(', 'b', ' ' }),
-                ValidationName = nameof(Verifications.BeAlphabetic),
+                VerificationHandler = GetVerificationHandler(new[] { 'b', '-', '_', '^', '\\', '/', '(', 'b', ' ' }),
+                VerificationName = nameof(Verifications.BeAlphabetic),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
@@ -9342,19 +9342,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            validationTest4.Run(stringTestValues4);
+            verificationTest4.Run(stringTestValues4);
         }
 
         [Fact]
@@ -9390,30 +9390,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeAlphanumeric___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(char[] otherAllowedCharacters)
+            VerificationHandler GetVerificationHandler(char[] otherAllowedCharacters)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeAlphanumeric(otherAllowedCharacters, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeAlphanumeric(otherAllowedCharacters, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(A.Dummy<char[]>()),
-                ValidationName = nameof(Verifications.BeAlphanumeric),
+                VerificationHandler = GetVerificationHandler(A.Dummy<char[]>()),
+                VerificationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -9423,13 +9423,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -9452,11 +9452,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new List<string> { A.Dummy<string>() } },
                 },
@@ -9464,13 +9464,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -9480,12 +9480,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -9494,13 +9494,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -9508,10 +9508,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(null),
-                ValidationName = nameof(Verifications.BeAlphanumeric),
+                VerificationHandler = GetVerificationHandler(null),
+                VerificationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
@@ -9544,10 +9544,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(new char[0]),
-                ValidationName = nameof(Verifications.BeAlphanumeric),
+                VerificationHandler = GetVerificationHandler(new char[0]),
+                VerificationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
@@ -9580,10 +9580,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest4 = new ValidationTest
+            var verificationTest4 = new VerificationTest
             {
-                Validation = GetValidation(new[] { '0', '-', '_', '^', '\\', '/', '(', '0', ' ' }),
-                ValidationName = nameof(Verifications.BeAlphanumeric),
+                VerificationHandler = GetVerificationHandler(new[] { '0', '-', '_', '^', '\\', '/', '(', '0', ' ' }),
+                VerificationName = nameof(Verifications.BeAlphanumeric),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
@@ -9615,19 +9615,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
 
-            validationTest4.Run(stringTestValues4);
+            verificationTest4.Run(stringTestValues4);
         }
 
         [Fact]
@@ -9663,30 +9663,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeAsciiPrintable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(bool treatNewlineAsPrintable)
+            VerificationHandler GetVerificationHandler(bool treatNewlineAsPrintable)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeAsciiPrintable(treatNewlineAsPrintable, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeAsciiPrintable(treatNewlineAsPrintable, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(false),
-                ValidationName = nameof(Verifications.BeAsciiPrintable),
+                VerificationHandler = GetVerificationHandler(false),
+                VerificationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -9696,13 +9696,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -9725,11 +9725,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new List<string> { A.Dummy<string>() } },
                 },
@@ -9737,13 +9737,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -9753,12 +9753,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -9767,13 +9767,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -9781,10 +9781,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(false),
-                ValidationName = nameof(Verifications.BeAsciiPrintable),
+                VerificationHandler = GetVerificationHandler(false),
+                VerificationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
@@ -9818,10 +9818,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation(true),
-                ValidationName = nameof(Verifications.BeAsciiPrintable),
+                VerificationHandler = GetVerificationHandler(true),
+                VerificationName = nameof(Verifications.BeAsciiPrintable),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
@@ -9852,17 +9852,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
         }
 
         [Fact]
@@ -9910,30 +9910,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeMatchedByRegex___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(Regex regex)
+            VerificationHandler GetVerificationHandler(Regex regex)
             {
-                return (parameter, because, applyBecause, data) => parameter.BeMatchedByRegex(regex, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeMatchedByRegex(regex, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(Verifications.BeMatchedByRegex),
+                VerificationHandler = GetVerificationHandler(new Regex("abc")),
+                VerificationName = nameof(Verifications.BeMatchedByRegex),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -9943,13 +9943,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -9972,11 +9972,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new List<string> { A.Dummy<string>() } },
                 },
@@ -9984,13 +9984,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -10000,12 +10000,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -10014,13 +10014,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -10028,10 +10028,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(Verifications.BeMatchedByRegex),
+                VerificationHandler = GetVerificationHandler(new Regex("abc")),
+                VerificationName = nameof(Verifications.BeMatchedByRegex),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeMatchedByRegexExceptionMessageSuffix,
@@ -10062,15 +10062,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
         }
 
         [Fact]
@@ -10110,30 +10110,30 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeMatchedByRegex___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(Regex regex)
+            VerificationHandler GetVerificationHandler(Regex regex)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotBeMatchedByRegex(regex, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeMatchedByRegex(regex, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(Verifications.NotBeMatchedByRegex),
+                VerificationHandler = GetVerificationHandler(new Regex("abc")),
+                VerificationName = nameof(Verifications.NotBeMatchedByRegex),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.Empty, Guid.Empty },
@@ -10143,13 +10143,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     Guid.Empty,
                     null,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
@@ -10172,11 +10172,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var enumerableTestValues = new TestValues<IEnumerable>
             {
-                MustParameterInvalidTypeValues = new IEnumerable[]
+                MustSubjectInvalidTypeValues = new IEnumerable[]
                 {
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new IEnumerable[] { new List<string> { A.Dummy<string>() } },
                 },
@@ -10184,13 +10184,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string>() { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -10200,12 +10200,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var boolTestValues = new TestValues<bool>
             {
-                MustParameterInvalidTypeValues = new bool[]
+                MustSubjectInvalidTypeValues = new bool[]
                 {
                     true,
                     false,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool[] { },
                     new bool[] { true },
@@ -10214,13 +10214,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableBoolTestValues = new TestValues<bool?>
             {
-                MustParameterInvalidTypeValues = new bool?[]
+                MustSubjectInvalidTypeValues = new bool?[]
                 {
                     true,
                     false,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new[]
+                MustEachSubjectInvalidTypeValues = new[]
                 {
                     new bool?[] { },
                     new bool?[] { true },
@@ -10228,10 +10228,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation(new Regex("abc")),
-                ValidationName = nameof(Verifications.NotBeMatchedByRegex),
+                VerificationHandler = GetVerificationHandler(new Regex("abc")),
+                VerificationName = nameof(Verifications.NotBeMatchedByRegex),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeMatchedByRegexExceptionMessageSuffix,
@@ -10262,15 +10262,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(stringTestValues1);
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(boolTestValues);
-            validationTest1.Run(nullableBoolTestValues);
-            validationTest1.Run(enumerableTestValues);
+            verificationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+            verificationTest1.Run(enumerableTestValues);
 
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(stringTestValues2);
         }
 
         [Fact]
@@ -10310,41 +10310,41 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void StartWith___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(string comparisonValue, StringComparison? comparisonType)
+            VerificationHandler GetVerificationHandler(string comparisonValue, StringComparison? comparisonType)
             {
-                return (parameter, because, applyBecause, data) => parameter.StartWith(comparisonValue, comparisonType, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.StartWith(comparisonValue, comparisonType, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation("starter", A.Dummy<StringComparison>()),
-                ValidationName = nameof(Verifications.StartWith),
+                VerificationHandler = GetVerificationHandler("starter", A.Dummy<StringComparison>()),
+                VerificationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation("starter", null),
-                ValidationName = nameof(Verifications.StartWith),
+                VerificationHandler = GetVerificationHandler("starter", null),
+                VerificationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -10353,13 +10353,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -10369,13 +10369,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -10419,15 +10419,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation("staRTer", StringComparison.OrdinalIgnoreCase),
-                ValidationName = nameof(Verifications.StartWith),
+                VerificationHandler = GetVerificationHandler("staRTer", StringComparison.OrdinalIgnoreCase),
+                VerificationName = nameof(Verifications.StartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -10455,17 +10455,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(stringTestValues1);
 
-            validationTest2.Run(guidTestValues);
-            validationTest2.Run(nullableGuidTestValues);
-            validationTest2.Run(objectTestValues);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(guidTestValues);
+            verificationTest2.Run(nullableGuidTestValues);
+            verificationTest2.Run(objectTestValues);
+            verificationTest2.Run(stringTestValues2);
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
         }
 
         [Fact]
@@ -10503,41 +10503,41 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotStartWith___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
-            Validation GetValidation(string comparisonValue, StringComparison? comparisonType)
+            VerificationHandler GetVerificationHandler(string comparisonValue, StringComparison? comparisonType)
             {
-                return (parameter, because, applyBecause, data) => parameter.NotStartWith(comparisonValue, comparisonType, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotStartWith(comparisonValue, comparisonType, because, applyBecause, data);
             }
 
-            var validationTest1 = new ValidationTest
+            var verificationTest1 = new VerificationTest
             {
-                Validation = GetValidation("starter", A.Dummy<StringComparison>()),
-                ValidationName = nameof(Verifications.NotStartWith),
+                VerificationHandler = GetVerificationHandler("starter", A.Dummy<StringComparison>()),
+                VerificationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentNullException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
-            var validationTest2 = new ValidationTest
+            var verificationTest2 = new VerificationTest
             {
-                Validation = GetValidation("starter", null),
-                ValidationName = nameof(Verifications.NotStartWith),
+                VerificationHandler = GetVerificationHandler("starter", null),
+                VerificationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var guidTestValues = new TestValues<Guid>
             {
-                MustParameterInvalidTypeValues = new[]
+                MustSubjectInvalidTypeValues = new[]
                 {
                     Guid.Empty,
                     Guid.NewGuid(),
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid>[]
                 {
                     new Guid[] { },
                     new Guid[] { Guid.NewGuid() },
@@ -10546,13 +10546,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var nullableGuidTestValues = new TestValues<Guid?>
             {
-                MustParameterInvalidTypeValues = new Guid?[]
+                MustSubjectInvalidTypeValues = new Guid?[]
                 {
                     A.Dummy<Guid>(),
                     Guid.Empty,
                     null,
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<Guid?>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
                 {
                     new Guid?[] { },
                     new Guid?[] { Guid.NewGuid(), Guid.NewGuid() },
@@ -10562,13 +10562,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var objectTestValues = new TestValues<object>
             {
-                MustParameterInvalidTypeValues = new object[]
+                MustSubjectInvalidTypeValues = new object[]
                 {
                     null,
                     A.Dummy<object>(),
                     new List<string> { null },
                 },
-                MustEachParameterInvalidTypeValues = new IEnumerable<object>[]
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
                 {
                     new object[] { },
                     new object[] { A.Dummy<object>(), A.Dummy<object>() },
@@ -10612,15 +10612,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 },
             };
 
-            var validationTest3 = new ValidationTest
+            var verificationTest3 = new VerificationTest
             {
-                Validation = GetValidation("STarter", StringComparison.OrdinalIgnoreCase),
-                ValidationName = nameof(Verifications.NotStartWith),
+                VerificationHandler = GetVerificationHandler("STarter", StringComparison.OrdinalIgnoreCase),
+                VerificationName = nameof(Verifications.NotStartWith),
                 ExceptionType = typeof(ArgumentException),
                 EachExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
-                ParameterInvalidCastExpectedTypes = "string",
-                ParameterInvalidCastExpectedEnumerableTypes = "IEnumerable<string>",
+                SubjectInvalidTypeExpectedTypes = "string",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
             };
 
             var stringTestValues3 = new TestValues<string>
@@ -10649,17 +10649,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             // Act, Assert
-            validationTest1.Run(guidTestValues);
-            validationTest1.Run(nullableGuidTestValues);
-            validationTest1.Run(objectTestValues);
-            validationTest1.Run(stringTestValues1);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(stringTestValues1);
 
-            validationTest2.Run(guidTestValues);
-            validationTest2.Run(nullableGuidTestValues);
-            validationTest2.Run(objectTestValues);
-            validationTest2.Run(stringTestValues2);
+            verificationTest2.Run(guidTestValues);
+            verificationTest2.Run(nullableGuidTestValues);
+            verificationTest2.Run(objectTestValues);
+            verificationTest2.Run(stringTestValues2);
 
-            validationTest3.Run(stringTestValues3);
+            verificationTest3.Run(stringTestValues3);
         }
 
         [Fact]
@@ -10682,51 +10682,51 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void Run<T>(
-            this ValidationTest validationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues)
         {
-            var parameterNames = new[] { null, A.Dummy<string>() };
+            var subjectNames = new[] { null, A.Dummy<string>() };
 
             var userData = new[] { null, A.Dummy<Dictionary<string, string>>() };
 
-            foreach (var parameterName in parameterNames)
+            foreach (var subjectName in subjectNames)
             {
                 foreach (var data in userData)
                 {
-                    RunPassingScenarios(validationTest, testValues, parameterName, data);
+                    RunPassingScenarios(verificationTest, testValues, subjectName, data);
 
-                    RunMustFailingScenarios(validationTest, testValues, parameterName, data);
+                    RunMustFailingScenarios(verificationTest, testValues, subjectName, data);
 
-                    RunMustEachImproperUseOfFrameworkScenarios<T>(validationTest, parameterName, data);
+                    RunMustEachImproperUseOfFrameworkScenarios<T>(verificationTest, subjectName, data);
 
-                    RunMustEachFailingScenarios(validationTest, testValues, parameterName, data);
+                    RunMustEachFailingScenarios(verificationTest, testValues, subjectName, data);
 
-                    RunMustInvalidParameterTypeScenarios(validationTest, testValues, parameterName, data);
+                    RunMustInvalidSubjectTypeScenarios(verificationTest, testValues, subjectName, data);
 
-                    RunMustEachInvalidParameterTypeScenarios(validationTest, testValues, parameterName, data);
+                    RunMustEachInvalidSubjectTypeScenarios(verificationTest, testValues, subjectName, data);
 
-                    RunInvalidValidationParameterTypeScenarios(validationTest, testValues, parameterName, data);
+                    RunInvalidVerificationParameterTypeScenarios(verificationTest, testValues, subjectName, data);
                 }
             }
         }
 
         private static void RunPassingScenarios<T>(
-            ValidationTest validationTest,
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
-            var mustParameters = testValues.MustPassingValues.Select(_ => _.Named(parameterName).Must());
-            var mustEachParameters = testValues.MustEachPassingValues.Select(_ => _.Named(parameterName).Must().Each());
-            var parameters = mustParameters.Concat(mustEachParameters).ToList();
+            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.Named(subjectName).Must());
+            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.Named(subjectName).Must().Each());
+            var assertionTrackers = mustAssertionTrackers.Concat(muchEachAssertionTrackers).ToList();
 
-            foreach (var parameter in parameters)
+            foreach (var assertionTracker in assertionTrackers)
             {
                 // Arrange
-                var expected = parameter.CloneWithActionVerifiedAtLeastOnce();
+                var expected = assertionTracker.CloneWithActionVerifiedAtLeastOnce();
 
                 // Act
-                var actual = validationTest.Validation(parameter, data: data);
+                var actual = verificationTest.VerificationHandler(assertionTracker, data: data);
 
                 // Assert
                 AssertionTrackerComparer.Equals(actual, expected).Should().BeTrue();
@@ -10734,32 +10734,33 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustFailingScenarios<T>(
-            ValidationTest validationTest,
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
             foreach (var failingValue in testValues.MustFailingValues)
             {
                 // Arrange
-                var parameter = failingValue.Named(parameterName).Must();
+                var assertionTracker = failingValue.Named(subjectName).Must();
+
                 string expectedExceptionMessage;
-                if (parameterName == null)
+                if (subjectName == null)
                 {
-                    expectedExceptionMessage = "Provided value " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value " + verificationTest.ExceptionMessageSuffix;
                 }
                 else
                 {
-                    expectedExceptionMessage = "Provided value (name: '" + parameterName + "') " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value (name: '" + subjectName + "') " + verificationTest.ExceptionMessageSuffix;
                 }
 
                 var expectedData = data == null ? new Hashtable() : data;
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
+                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType(validationTest.ExceptionType);
+                actual.Should().BeOfType(verificationTest.ExceptionType);
                 actual.Message.Should().StartWith(expectedExceptionMessage);
                 actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
                 foreach (var dataKey in actual.Data.Keys)
@@ -10770,32 +10771,33 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustEachFailingScenarios<T>(
-            ValidationTest validationTest,
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
                 // Arrange
-                var parameter = eachFailingValue.Named(parameterName).Must().Each();
+                var assertionTracker = eachFailingValue.Named(subjectName).Must().Each();
+
                 string expectedExceptionMessage;
-                if (parameterName == null)
+                if (subjectName == null)
                 {
-                    expectedExceptionMessage = "Provided value contains an element that " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value contains an element that " + verificationTest.ExceptionMessageSuffix;
                 }
                 else
                 {
-                    expectedExceptionMessage = "Provided value (name: '" + parameterName + "') contains an element that " + validationTest.ExceptionMessageSuffix;
+                    expectedExceptionMessage = "Provided value (name: '" + subjectName + "') contains an element that " + verificationTest.ExceptionMessageSuffix;
                 }
 
                 var expectedData = data == null ? new Hashtable() : data;
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
+                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType(validationTest.EachExceptionType);
+                actual.Should().BeOfType(verificationTest.EachExceptionType);
                 actual.Message.Should().StartWith(expectedExceptionMessage);
                 actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
                 foreach (var dataKey in actual.Data.Keys)
@@ -10805,21 +10807,21 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
         }
 
-        private static void RunMustInvalidParameterTypeScenarios<T>(
-            ValidationTest validationTest,
+        private static void RunMustInvalidSubjectTypeScenarios<T>(
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
-            foreach (var invalidTypeValue in testValues.MustParameterInvalidTypeValues)
+            foreach (var invalidTypeValue in testValues.MustSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var parameter = invalidTypeValue.Named(parameterName).Must();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedTypes}.");
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
+                var assertionTracker = invalidTypeValue.Named(subjectName).Must();
+                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
+                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -10827,21 +10829,21 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
         }
 
-        private static void RunMustEachInvalidParameterTypeScenarios<T>(
-            ValidationTest validationTest,
+        private static void RunMustEachInvalidSubjectTypeScenarios<T>(
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
-            foreach (var invalidTypeValue in testValues.MustEachParameterInvalidTypeValues)
+            foreach (var invalidTypeValue in testValues.MustEachSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustParameterInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var parameter = invalidTypeValue.Named(parameterName).Must().Each();
-                var expectedMessage = Invariant($"Called {validationTest.ValidationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {validationTest.ParameterInvalidCastExpectedEnumerableTypes}.");
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
+                var assertionTracker = invalidTypeValue.Named(subjectName).Must().Each();
+                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
+                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -10850,33 +10852,33 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustEachImproperUseOfFrameworkScenarios<T>(
-            ValidationTest validationTest,
-            string parameterName,
+            VerificationTest verificationTest,
+            string subjectName,
             IDictionary data)
         {
             // Arrange
             // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
             object notEnumerable = new object();
-            var parameter1 = notEnumerable.Named(parameterName).Must();
-            parameter1.Actions |= Actions.Eached;
+            var assertionTracker1 = notEnumerable.Named(subjectName).Must();
+            assertionTracker1.Actions |= Actions.Eached;
             var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
-            var parameter2 = nullEnumerable.Named(parameterName).Must();
-            parameter2.Actions |= Actions.Eached;
+            var assertionTracker2 = nullEnumerable.Named(subjectName).Must();
+            assertionTracker2.Actions |= Actions.Eached;
             string expectedExceptionMessage2;
-            if (parameterName == null)
+            if (subjectName == null)
             {
                 expectedExceptionMessage2 = "Provided value " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
             else
             {
-                expectedExceptionMessage2 = "Provided value (name: '" + parameterName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
+                expectedExceptionMessage2 = "Provided value (name: '" + subjectName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
             }
 
             // Act
-            var actual1 = Record.Exception(() => validationTest.Validation(parameter1, data: data));
-            var actual2 = Record.Exception(() => validationTest.Validation(parameter2, data: data));
+            var actual1 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker1, data: data));
+            var actual2 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
 
             // Assert
             actual1.Should().BeOfType<InvalidCastException>();
@@ -10886,25 +10888,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             actual2.Message.Should().Be(expectedExceptionMessage2);
         }
 
-        private static void RunInvalidValidationParameterTypeScenarios<T>(
-            ValidationTest validationTest,
+        private static void RunInvalidVerificationParameterTypeScenarios<T>(
+            VerificationTest verificationTest,
             TestValues<T> testValues,
-            string parameterName,
+            string subjectName,
             IDictionary data)
         {
-            var mustParameters = testValues.MustValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must());
-            var mustEachParameters = testValues.MustEachValidationParameterInvalidTypeValues.Select(_ => _.Named(parameterName).Must().Each());
-            var parameters = mustParameters.Concat(mustEachParameters).ToList();
+            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.Named(subjectName).Must());
+            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.Named(subjectName).Must().Each());
+            var assertionTrackers = mustAssertionTrackers.Concat(mustEachAssertionTrackers).ToList();
 
-            foreach (var parameter in parameters)
+            foreach (var assertionTracker in assertionTrackers)
             {
                 // Arrange
                 testValues.GetType().GetGenericArguments().First().ToStringReadable();
-                var expectedStartOfMessage = Invariant($"Called {validationTest.ValidationName}({validationTest.ValidationParameterInvalidCastParameterName}:) where '{validationTest.ValidationParameterInvalidCastParameterName}' is of type");
-                var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {validationTest.ValidationParameterInvalidCastExpectedTypes}.");
+                var expectedStartOfMessage = Invariant($"Called {verificationTest.VerificationName}({verificationTest.VerificationParameterInvalidTypeName}:) where '{verificationTest.VerificationParameterInvalidTypeName}' is of type");
+                var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {verificationTest.VerificationParameterInvalidTypeExpectedTypes}.");
 
                 // Act
-                var actual = Record.Exception(() => validationTest.Validation(parameter, data: data));
+                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
                 actual.Should().BeOfType<InvalidCastException>();
@@ -10953,9 +10955,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             return result;
         }
 
-        private class ValidationTest
+        private class VerificationTest
         {
-            public Validation Validation { get; set; }
+            public VerificationHandler VerificationHandler { get; set; }
 
             public Type ExceptionType { get; set; }
 
@@ -10963,26 +10965,26 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             public string ExceptionMessageSuffix { get; set; }
 
-            public string ParameterInvalidCastExpectedTypes { get; set; }
+            public string SubjectInvalidTypeExpectedTypes { get; set; }
 
-            public string ParameterInvalidCastExpectedEnumerableTypes { get; set; }
+            public string SubjectInvalidTypeExpectedEnumerableTypes { get; set; }
 
-            public string ValidationParameterInvalidCastExpectedTypes { get; set; }
+            public string VerificationParameterInvalidTypeExpectedTypes { get; set; }
 
-            public string ValidationParameterInvalidCastParameterName { get; set; }
+            public string VerificationParameterInvalidTypeName { get; set; }
 
-            public string ValidationName { get; set; }
+            public string VerificationName { get; set; }
         }
 
         private class TestValues<T>
         {
-            public IReadOnlyCollection<T> MustParameterInvalidTypeValues { get; set; } = new List<T>();
+            public IReadOnlyCollection<T> MustSubjectInvalidTypeValues { get; set; } = new List<T>();
 
-            public IReadOnlyCollection<IEnumerable<T>> MustEachParameterInvalidTypeValues { get; set; } = new List<List<T>>();
+            public IReadOnlyCollection<IEnumerable<T>> MustEachSubjectInvalidTypeValues { get; set; } = new List<List<T>>();
 
-            public IReadOnlyCollection<T> MustValidationParameterInvalidTypeValues { get; set; } = new List<T>();
+            public IReadOnlyCollection<T> MustVerificationParameterInvalidTypeValues { get; set; } = new List<T>();
 
-            public IReadOnlyCollection<IEnumerable<T>> MustEachValidationParameterInvalidTypeValues { get; set; } = new List<List<T>>();
+            public IReadOnlyCollection<IEnumerable<T>> MustEachVerificationParameterInvalidTypeValues { get; set; } = new List<List<T>>();
 
             public IReadOnlyCollection<T> MustPassingValues { get; set; } = new List<T>();
 

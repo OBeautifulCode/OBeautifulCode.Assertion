@@ -13,7 +13,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
     /// <summary>
     /// A validation that should be performed on the subject type and
-    /// verification parameter types to ensure that the validation can executed.
+    /// verification parameter types to ensure that the verification can be executed.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]
@@ -31,7 +31,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public Delegates.TypeValidationHandler Handler { get; set; }
 
         /// <summary>
-        /// Gets or sets some reference types required by the validation.
+        /// Gets or sets some reference types required by the type validation.
         /// </summary>
         public Type[] ReferenceTypes { get; set; }
     }

@@ -26,7 +26,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             this AssertionTracker assertionTracker)
         {
             var result = assertionTracker.Clone();
+
             result.Actions |= Actions.VerifiedAtLeastOnce;
+
             return result;
         }
     }
