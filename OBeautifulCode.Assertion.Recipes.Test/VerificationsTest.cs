@@ -57,27 +57,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual6 = Record.Exception(() => values6.Must().Each().BeOfTypeThatDoesNotExist());
 
             // Assert
-            actual1.Should().BeOfType<InvalidCastException>();
+            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual1.Message.Should().Be(expectedStringMessage);
 
-            actual2.Should().BeOfType<InvalidCastException>();
+            actual2.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual2.Message.Should().Be(expectedStringMessage);
 
-            actual3.Should().BeOfType<InvalidCastException>();
+            actual3.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual3.Message.Should().Be(expectedObjectMessage);
 
-            actual4.Should().BeOfType<InvalidCastException>();
+            actual4.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual4.Message.Should().Be(expectedKvpMessage);
 
-            actual5.Should().BeOfType<InvalidCastException>();
+            actual5.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual5.Message.Should().Be(expectedStringMessage);
 
-            actual6.Should().BeOfType<InvalidCastException>();
+            actual6.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual6.Message.Should().Be(expectedStringMessage);
         }
 
         [Fact]
-        public static void Verifications_with_verification_parameter___Should_throw_InvalidCastException_with_expected_Exception_message___When_verification_parameter_is_not_of_the_expected_type()
+        public static void Verifications_with_verification_parameter___Should_throw_ImproperUseOfAssertionFrameworkException_with_expected_Exception_message___When_verification_parameter_is_not_of_the_expected_type()
         {
             // Arrange
             var subject1 = A.Dummy<string>();
@@ -10824,7 +10824,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType<InvalidCastException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(expectedMessage);
             }
         }
@@ -10846,7 +10846,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType<InvalidCastException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().Be(expectedMessage);
             }
         }
@@ -10881,7 +10881,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual2 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
 
             // Assert
-            actual1.Should().BeOfType<InvalidCastException>();
+            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
             actual1.Message.Should().Be(expectedExceptionMessage1);
 
             actual2.Should().BeOfType<ArgumentNullException>();
@@ -10909,7 +10909,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType<InvalidCastException>();
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
                 actual.Message.Should().StartWith(expectedStartOfMessage);
                 actual.Message.Should().EndWith(expectedEndOfMessage);
             }

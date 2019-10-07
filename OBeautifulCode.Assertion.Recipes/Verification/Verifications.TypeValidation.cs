@@ -179,7 +179,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             var valueTypeString = verifiableItem.ValueType.ToStringReadable();
 
-            throw new InvalidCastException(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
+            throw new ImproperUseOfAssertionFrameworkException(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
         }
 
         private static void ThrowIfTypeCannotBeNull(
@@ -300,7 +300,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
-            throw new InvalidCastException(exceptionMessage);
+            throw new ImproperUseOfAssertionFrameworkException(exceptionMessage);
         }
 
         private static void ThrowVerificationParameterUnexpectedType(
@@ -315,7 +315,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var exceptionMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterUnexpectedTypeMessage, verificationName, verificationParameterName, verificationParameterName, verificationParameterType.ToStringReadable(), expectedTypesMessage);
 
-            throw new InvalidCastException(exceptionMessage);
+            throw new ImproperUseOfAssertionFrameworkException(exceptionMessage);
         }
 #pragma warning restore SA1201
     }
