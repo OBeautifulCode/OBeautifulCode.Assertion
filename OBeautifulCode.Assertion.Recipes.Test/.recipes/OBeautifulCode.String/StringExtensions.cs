@@ -15,7 +15,7 @@ namespace OBeautifulCode.String.Recipes
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
