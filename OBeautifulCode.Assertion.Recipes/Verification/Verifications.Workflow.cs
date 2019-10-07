@@ -31,7 +31,7 @@ namespace OBeautifulCode.Assertion.Recipes
             this AssertionTracker assertionTracker,
             Verification verification)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted);
 
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
 

@@ -31,26 +31,38 @@ namespace OBeautifulCode.Assertion.Recipes
         None = 0,
 
         /// <summary>
-        /// The subject should have been name with a call to
-        /// <see cref="WorkflowExtensions.Named{TSubject}(TSubject, string)"/>.
+        /// The subject should have been categorized with a call to:
+        /// <see cref="WorkflowExtensions.AsArg{TSubject}(TSubject, string)"/> or
+        /// <see cref="WorkflowExtensions.AsOp{TSubject}(TSubject, string)"/> or
+        /// <see cref="WorkflowExtensions.AsTest{TSubject}(TSubject, string)"/>
         /// </summary>
-        Named = 1,
+        Categorized = 1,
+
+        /// <summary>
+        /// The subject should have been named with non-null value for the name parameter of:
+        /// <see cref="WorkflowExtensions.AsArg{TSubject}(TSubject, string)"/> or
+        /// <see cref="WorkflowExtensions.AsOp{TSubject}(TSubject, string)"/> or
+        /// <see cref="WorkflowExtensions.AsTest{TSubject}(TSubject, string)"/>
+        /// OR
+        /// by calling <see cref="WorkflowExtensions.Must{TSubject}(TSubject)"/> on a single-property anonymous object.
+        /// </summary>
+        Named = 2,
 
         /// <summary>
         /// The subject should have been Must'ed with a call to
         /// <see cref="WorkflowExtensions.Must{TSubject}(TSubject)"/>.
         /// </summary>
-        Musted = 2,
+        Musted = 4,
 
         /// <summary>
         /// The subject should have been Each'ed with a call to
         /// <see cref="WorkflowExtensions.Each(AssertionTracker)"/>.
         /// </summary>
-        Eached = 4,
+        Eached = 8,
 
         /// <summary>
         /// The subject should have been verified by at least one verification.
         /// </summary>
-        VerifiedAtLeastOnce = 8,
+        VerifiedAtLeastOnce = 16,
     }
 }

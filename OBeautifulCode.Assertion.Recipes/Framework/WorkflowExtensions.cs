@@ -28,30 +28,115 @@ namespace OBeautifulCode.Assertion.Recipes
         static class WorkflowExtensions
     {
         /// <summary>
-        /// Specifies the name of the subject.
+        /// Initializes an argument-related subject for verification.
         /// </summary>
         /// <typeparam name="TSubject">The type of subject.</typeparam>
         /// <param name="value">The value of the subject.</param>
-        /// <param name="name">The name of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker Named<TSubject>(
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker MustForArg<TSubject>(
             [ValidatedNotNull] this TSubject value,
-            string name)
+            string name = null)
         {
-            if (value is AssertionTracker tracker)
-            {
-                tracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.NotExist);
-            }
+            var result = value.AsArg(name).Must();
 
-            var result = new AssertionTracker
-            {
-                SubjectValue = value,
-                SubjectName = name,
-                SubjectType = typeof(TSubject),
-                Actions = Actions.Named,
-            };
+            return result;
+        }
+
+        /// <summary>
+        /// Initializes an operation-related subject for verification.
+        /// </summary>
+        /// <typeparam name="TSubject">The type of subject.</typeparam>
+        /// <param name="value">The value of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker MustForOp<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null)
+        {
+            var result = value.AsOp(name).Must();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Initializes an test-related subject for verification.
+        /// </summary>
+        /// <typeparam name="TSubject">The type of subject.</typeparam>
+        /// <param name="value">The value of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker MustForTest<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null)
+        {
+            var result = value.AsTest(name).Must();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Initializes an argument-related subject for verification.
+        /// </summary>
+        /// <typeparam name="TSubject">The type of subject.</typeparam>
+        /// <param name="value">The value of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker AsArg<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null)
+        {
+            var result = value.As(name, AssertionKind.Argument);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Initializes an operation-related subject for verification.
+        /// </summary>
+        /// <typeparam name="TSubject">The type of subject.</typeparam>
+        /// <param name="value">The value of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker AsOp<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null)
+        {
+            var result = value.As(name, AssertionKind.Operation);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Initializes an test-related subject for verification.
+        /// </summary>
+        /// <typeparam name="TSubject">The type of subject.</typeparam>
+        /// <param name="value">The value of the subject.</param>
+        /// <param name="name">Optional name of the subject.  Default is null; the subject is unnamed.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static AssertionTracker AsTest<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null)
+        {
+            var result = value.As(name, AssertionKind.Test);
 
             return result;
         }
@@ -68,51 +153,27 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker Must<TSubject>(
             [ValidatedNotNull] this TSubject value)
         {
-            // it a tracker itself? pass-thru
+            AssertionTracker result;
             if (value is AssertionTracker tracker)
             {
-                tracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeNamed, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified);
+                // As... has already been called
+                result = tracker;
 
-                tracker.Actions |= Actions.Musted;
-
-                return tracker;
+                result.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeCategorized, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified);
             }
-
-            var subjectType = typeof(TSubject);
-
-            if (!ReferenceEquals(value, null))
+            else
             {
-                if (subjectType.IsAnonymousFastCheck())
+                // As... has not yet been called
+                result = BuildTrackerFromAnonymousObject(value) ?? new AssertionTracker
                 {
-                    // with one property?  that's the subject we are trying to apply verification to.
-                    var properties = subjectType.GetProperties();
-                    if (properties.Length == 1)
-                    {
-                        var trackerForSubjectInAnonymousObject = new AssertionTracker
-                        {
-                            SubjectValue = properties[0].GetValue(value, null),
-                            SubjectName = properties[0].Name,
-                            SubjectType = properties[0].PropertyType,
-                            Actions = Actions.Musted,
-                        };
-
-                        return trackerForSubjectInAnonymousObject;
-                    }
-                    else
-                    {
-                        ThrowImproperUseOfFramework();
-                    }
-                }
+                    SubjectValue = value,
+                    SubjectType = typeof(TSubject),
+                };
             }
 
-            var trackerForDirectlySpecifiedSubject = new AssertionTracker
-            {
-                SubjectValue = value,
-                Actions = Actions.Musted,
-                SubjectType = subjectType,
-            };
+            result.Actions |= Actions.Musted;
 
-            return trackerForDirectlySpecifiedSubject;
+            return result;
         }
 
         /// <summary>
@@ -127,7 +188,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker Each(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted, AssertionTrackerShould.NotBeEached);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted, AssertionTrackerShould.NotBeEached);
 
             assertionTracker.Actions |= Actions.Eached;
 
@@ -144,7 +205,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker And(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.BeMusted, AssertionTrackerShould.BeVerifiedAtLeastOnce);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted, AssertionTrackerShould.BeVerifiedAtLeastOnce);
 
             return assertionTracker;
         }
@@ -158,12 +219,9 @@ namespace OBeautifulCode.Assertion.Recipes
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             params AssertionTrackerShould[] assertionTrackerShoulds)
         {
-            bool shouldThrow = false;
+            var shouldThrow = false;
+
             if (assertionTracker == null)
-            {
-                shouldThrow = true;
-            }
-            else if (assertionTracker.SubjectType == null)
             {
                 shouldThrow = true;
             }
@@ -173,14 +231,23 @@ namespace OBeautifulCode.Assertion.Recipes
                 {
                     switch (assertionTrackerShould)
                     {
+                        case AssertionTrackerShould.Exist:
+                            shouldThrow = assertionTracker.SubjectType == null;
+                            break;
                         case AssertionTrackerShould.NotExist:
                             shouldThrow = true;
                             break;
+                        case AssertionTrackerShould.BeCategorized:
+                            shouldThrow = (!assertionTracker.Actions.HasFlag(Actions.Categorized)) || (assertionTracker.AssertionKind == AssertionKind.Unknown);
+                            break;
+                        case AssertionTrackerShould.NotBeCategorized:
+                            shouldThrow = assertionTracker.Actions.HasFlag(Actions.Categorized) || (assertionTracker.AssertionKind != AssertionKind.Unknown);
+                            break;
                         case AssertionTrackerShould.BeNamed:
-                            shouldThrow = !assertionTracker.Actions.HasFlag(Actions.Named);
+                            shouldThrow = (!assertionTracker.Actions.HasFlag(Actions.Named)) || (assertionTracker.SubjectName == null);
                             break;
                         case AssertionTrackerShould.NotBeNamed:
-                            shouldThrow = assertionTracker.Actions.HasFlag(Actions.Named);
+                            shouldThrow = assertionTracker.Actions.HasFlag(Actions.Named) || (assertionTracker.SubjectName != null);
                             break;
                         case AssertionTrackerShould.BeMusted:
                             shouldThrow = !assertionTracker.Actions.HasFlag(Actions.Musted);
@@ -238,6 +305,80 @@ namespace OBeautifulCode.Assertion.Recipes
             message = message == null ? Verifications.ImproperUseOfFrameworkExceptionMessage : message + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             throw new ImproperUseOfAssertionFrameworkException(message);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static AssertionTracker As<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name,
+            AssertionKind assertionKind)
+        {
+            if (value is AssertionTracker tracker)
+            {
+                tracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.NotExist);
+            }
+
+            var result = value.BuildTrackerFromAnonymousObject(name, assertionKind) ?? new AssertionTracker
+            {
+                SubjectValue = value,
+                SubjectName = name,
+                SubjectType = typeof(TSubject),
+                Actions = Actions.Categorized,
+                AssertionKind = assertionKind,
+            };
+
+            if (name != null)
+            {
+                result.Actions |= Actions.Named;
+            }
+
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static AssertionTracker BuildTrackerFromAnonymousObject<TSubject>(
+            [ValidatedNotNull] this TSubject value,
+            string name = null,
+            AssertionKind assertionKind = AssertionKind.Unknown)
+        {
+            var subjectType = typeof(TSubject);
+
+            AssertionTracker result = null;
+
+            if (!ReferenceEquals(value, null))
+            {
+                if (subjectType.IsAnonymousFastCheck())
+                {
+                    // with one property?  that's the subject we are trying to apply verification to.
+                    var properties = subjectType.GetProperties();
+                    if (properties.Length == 1)
+                    {
+                        result = new AssertionTracker
+                        {
+                            SubjectValue = properties[0].GetValue(value, null),
+                            SubjectName = name ?? properties[0].Name,
+                            SubjectType = properties[0].PropertyType,
+                            AssertionKind = assertionKind,
+                        };
+
+                        if (assertionKind != AssertionKind.Unknown)
+                        {
+                            result.Actions |= Actions.Categorized;
+                        }
+
+                        if (result.SubjectName != null)
+                        {
+                            result.Actions |= Actions.Named;
+                        }
+                    }
+                    else
+                    {
+                        ThrowImproperUseOfFramework();
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

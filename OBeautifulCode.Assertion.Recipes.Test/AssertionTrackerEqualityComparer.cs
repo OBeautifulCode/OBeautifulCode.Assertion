@@ -30,7 +30,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 ((x.SubjectValue == y.SubjectValue) || x.SubjectValue.Equals(y.SubjectValue)) && // .Equals will throw with null values, but == doesn't always return true when values are equal (e.g. two Guids will not be equal)
                 (x.SubjectType == y.SubjectType) &&
                 (x.SubjectName == y.SubjectName) &&
-                (x.Actions == y.Actions);
+                (x.Actions == y.Actions) &&
+                (x.AssertionKind == y.AssertionKind);
             return result;
         }
 
@@ -41,6 +42,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 .Hash(obj.SubjectType)
                 .Hash(obj.SubjectName)
                 .Hash(obj.Actions)
+                .Hash(obj.AssertionKind)
                 .Value;
     }
 }

@@ -29,9 +29,24 @@ namespace OBeautifulCode.Assertion.Recipes
         Unknown,
 
         /// <summary>
+        /// The tracker should exist.
+        /// </summary>
+        Exist,
+
+        /// <summary>
         /// The tracker should not exist.
         /// </summary>
         NotExist,
+
+        /// <summary>
+        /// The tracker should be <see cref="Actions.Categorized"/>.
+        /// </summary>
+        BeCategorized,
+
+        /// <summary>
+        /// The tracker should not be <see cref="Actions.Categorized"/>.
+        /// </summary>
+        NotBeCategorized,
 
         /// <summary>
         /// The tracker should be <see cref="Actions.Named"/>.

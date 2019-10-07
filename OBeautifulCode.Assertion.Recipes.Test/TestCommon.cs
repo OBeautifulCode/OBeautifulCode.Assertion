@@ -17,17 +17,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 SubjectType = assertionTracker.SubjectType,
                 SubjectName = assertionTracker.SubjectName,
                 Actions  = assertionTracker.Actions,
+                AssertionKind = assertionTracker.AssertionKind,
             };
-
-            return result;
-        }
-
-        public static AssertionTracker CloneWithActionVerifiedAtLeastOnce(
-            this AssertionTracker assertionTracker)
-        {
-            var result = assertionTracker.Clone();
-
-            result.Actions |= Actions.VerifiedAtLeastOnce;
 
             return result;
         }
