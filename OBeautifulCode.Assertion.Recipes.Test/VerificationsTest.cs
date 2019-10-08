@@ -5702,10 +5702,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int subject1 = 5;
-            var expected1 = "Provided value (name: 'subject1') is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Provided value is '5'.";
+            var expected1 = "Provided value (name: 'subject1') is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  Provided value is '5'.";
 
             var subject2 = new[] { 0, 1, 0 };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityComparer<T>.Default, where T: int.  Element value is '1'.";
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '1'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeDefault());
@@ -5878,10 +5878,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityComparer<T>.Default, where T: int?.";
+            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int?.";
 
             var subject2 = new[] { 1, 0, 1 };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is equal to default(T) using EqualityComparer<T>.Default, where T: int.";
+            var expected2 = "Provided value (name: 'subject2') contains an element that is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeDefault());
@@ -7961,27 +7961,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             int subject3 = 10;
             int comparisonValue3 = 20;
-            var expected3 = "Provided value (name: 'subject3') is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected3 = "Provided value (name: 'subject3') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int.  Provided value is '10'.  Specified 'comparisonValue' is '20'.";
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
 
             var subject6 = new int[] { 10 };
             int comparisonValue6 = 20;
-            var expected6 = "Provided value (name: 'subject6') contains an element that is not equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
+            var expected6 = "Provided value (name: 'subject6') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '10'.  Specified 'comparisonValue' is '20'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeEqualTo(comparisonValue1));
@@ -8241,19 +8241,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Provided value (name: 'subject1') is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is '<null>'.";
 
             int subject2 = 10;
             int comparisonValue2 = 10;
-            var expected2 = "Provided value (name: 'subject2') is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
+            var expected2 = "Provided value (name: 'subject2') is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'comparisonValue' is '10'.";
 
             var subject3 = new int?[] { null };
             int? comparisonValue3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is '<null>'.";
 
             var subject4 = new int[] { 10 };
             int comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is equal to the comparison value using EqualityComparer<T>.Default, where T: int.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'comparisonValue' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEqualTo(comparisonValue1));
@@ -9169,19 +9169,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var subject1 = new int?[] { 1, 2, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Provided value (name: 'subject1') does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var subject2 = new int[] { 1, 2, 3 };
             int itemToSearchFor2 = 10;
-            var expected2 = "Provided value (name: 'subject2') does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected2 = "Provided value (name: 'subject2') does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             var subject3 = new int?[][] { new int?[] { 1, 2, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var subject4 = new int[][] { new int[] { 1, 2, 3 } };
             int itemToSearchFor4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().ContainElement(itemToSearchFor1));
@@ -9457,19 +9457,19 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var subject1 = new int?[] { 1, null, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Provided value (name: 'subject1') contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var subject2 = new int[] { 1, 10, 3 };
             int itemToSearchFor2 = 10;
-            var expected2 = "Provided value (name: 'subject2') contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected2 = "Provided value (name: 'subject2') contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             var subject3 = new int?[][] { new int?[] { 1, null, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
 
             var subject4 = new int[][] { new int[] { 1, 10, 3 } };
             int itemToSearchFor4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotContainElement(itemToSearchFor1));

@@ -93,13 +93,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix = "contains at least one key-value pair with a null value";
 
-        public const string DefaultEqualityComparer = "EqualityComparer<T>.Default";
+        public const string IsEqualToMethod = "EqualityExtensions.IsEqualTo<T>";
 
         public const string DefaultComparer = "Comparer<T>.Default";
 
-        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T) using " + DefaultEqualityComparer;
+        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T) using " + IsEqualToMethod;
 
-        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T) using " + DefaultEqualityComparer;
+        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T) using " + IsEqualToMethod;
 
         public const string BeLessThanExceptionMessageSuffix = "is not less than the comparison value using " + DefaultComparer;
 
@@ -117,17 +117,17 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeGreaterThanOrEqualToExceptionMessageSuffix = "is greater than or equal to the comparison value using " + DefaultComparer;
 
-        public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value using " + DefaultEqualityComparer;
+        public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value using " + IsEqualToMethod;
 
-        public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value using " + DefaultEqualityComparer;
+        public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value using " + IsEqualToMethod;
 
         public const string BeInRangeExceptionMessageSuffix = "is not within the specified range using " + DefaultComparer;
 
         public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range using " + DefaultComparer;
 
-        public const string ContainElementExceptionMessageSuffix = "does not contain the item to search for using " + DefaultEqualityComparer;
+        public const string ContainElementExceptionMessageSuffix = "does not contain the item to search for using " + IsEqualToMethod;
 
-        public const string NotContainElementExceptionMessageSuffix = "contains the item to search for using " + DefaultEqualityComparer;
+        public const string NotContainElementExceptionMessageSuffix = "contains the item to search for using " + IsEqualToMethod;
 
         public const string BeAlphabeticExceptionMessageSuffix = "is not alphabetic";
 
