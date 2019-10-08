@@ -19,6 +19,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     using FluentAssertions;
 
     using OBeautifulCode.AutoFakeItEasy;
+    using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Type.Recipes;
 
     using Xunit;
@@ -30,51 +31,6 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         private static readonly AssertionTrackerEqualityComparer AssertionTrackerComparer = new AssertionTrackerEqualityComparer();
 
         private delegate AssertionTracker VerificationHandler(AssertionTracker assertionTracker, string because = null, ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage, IDictionary data = null);
-
-        [Fact]
-        public static void GetEnumerableGenericType___Gets_the_correct_generic_type___When_called_with_various_flavors_of_IEnumerable()
-        {
-            // Arrange
-            var values1 = new[] { string.Empty };
-            var values2 = new List<string> { string.Empty };
-            var values3 = new ArrayList();
-            var values4 = new Dictionary<string, object>();
-            IEnumerable<string> values5 = new List<string>();
-            IReadOnlyCollection<string> values6 = new List<string>();
-
-            var expectedStringMessage = "verificationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, verifiableItemTypeName: string";
-            var expectedObjectMessage = "verificationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, verifiableItemTypeName: object";
-            var expectedKvpMessage = "verificationName: BeOfTypeThatDoesNotExist, isElementInEnumerable: True, verifiableItemTypeName: KeyValuePair<string, object>";
-
-            // Act
-            // note: GetEnumerableGenericType is not public, so we're using BeOfNonExistentType which
-            // always throws and checking that verifiableItemTypeName is the expected type
-            var actual1 = Record.Exception(() => values1.Must().Each().BeOfTypeThatDoesNotExist());
-            var actual2 = Record.Exception(() => values2.Must().Each().BeOfTypeThatDoesNotExist());
-            var actual3 = Record.Exception(() => values3.Must().Each().BeOfTypeThatDoesNotExist());
-            var actual4 = Record.Exception(() => values4.Must().Each().BeOfTypeThatDoesNotExist());
-            var actual5 = Record.Exception(() => values5.Must().Each().BeOfTypeThatDoesNotExist());
-            var actual6 = Record.Exception(() => values6.Must().Each().BeOfTypeThatDoesNotExist());
-
-            // Assert
-            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual1.Message.Should().Be(expectedStringMessage);
-
-            actual2.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual2.Message.Should().Be(expectedStringMessage);
-
-            actual3.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual3.Message.Should().Be(expectedObjectMessage);
-
-            actual4.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual4.Message.Should().Be(expectedKvpMessage);
-
-            actual5.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual5.Message.Should().Be(expectedStringMessage);
-
-            actual6.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual6.Message.Should().Be(expectedStringMessage);
-        }
 
         [Fact]
         public static void Verifications_with_verification_parameter___Should_throw_ImproperUseOfAssertionFrameworkException_with_expected_Exception_message___When_verification_parameter_is_not_of_the_expected_type()
@@ -229,8 +185,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeNull,
                 VerificationName = nameof(Verifications.BeNull),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "Any Reference Type, Nullable<T>",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
@@ -352,8 +308,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeNull,
                 VerificationName = nameof(Verifications.NotBeNull),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "Any Reference Type, Nullable<T>",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Reference Type>, IEnumerable<Nullable<T>>",
@@ -474,8 +430,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeTrue,
                 VerificationName = nameof(Verifications.BeTrue),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeTrueExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "bool, bool?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
@@ -624,8 +580,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeTrue,
                 VerificationName = nameof(Verifications.NotBeTrue),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeTrueExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "bool, bool?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
@@ -774,8 +730,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeFalse,
                 VerificationName = nameof(Verifications.BeFalse),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeFalseExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "bool, bool?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
@@ -924,8 +880,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeFalse,
                 VerificationName = nameof(Verifications.NotBeFalse),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeFalseExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "bool, bool?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<bool>, IEnumerable<bool?>",
@@ -1074,8 +1030,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeNullNorWhiteSpace,
                 VerificationName = nameof(Verifications.NotBeNullNorWhiteSpace),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -1085,8 +1041,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeNullNorWhiteSpace,
                 VerificationName = nameof(Verifications.NotBeNullNorWhiteSpace),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullNorWhiteSpaceExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -1214,8 +1170,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeNullOrNotWhiteSpace,
                 VerificationName = nameof(Verifications.BeNullOrNotWhiteSpace),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeNullOrNotWhiteSpaceExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -1325,8 +1281,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeEmptyGuid,
                 VerificationName = nameof(Verifications.BeEmptyGuid),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyGuidExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "Guid, Guid?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
@@ -1490,8 +1446,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeEmptyGuid,
                 VerificationName = nameof(Verifications.NotBeEmptyGuid),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyGuidExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "Guid, Guid?",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Guid>, IEnumerable<Guid?>",
@@ -1656,8 +1612,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeEmptyString,
                 VerificationName = nameof(Verifications.BeEmptyString),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyStringExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -1819,8 +1775,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeEmptyString,
                 VerificationName = nameof(Verifications.NotBeEmptyString),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyStringExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -1982,8 +1938,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeEmptyEnumerable,
                 VerificationName = nameof(Verifications.BeEmptyEnumerable),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -1993,8 +1949,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeEmptyEnumerable,
                 VerificationName = nameof(Verifications.BeEmptyEnumerable),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyEnumerableExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -2236,8 +2192,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeEmptyEnumerable,
                 VerificationName = nameof(Verifications.NotBeEmptyEnumerable),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -2247,8 +2203,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeEmptyEnumerable,
                 VerificationName = nameof(Verifications.NotBeEmptyEnumerable),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -2564,8 +2520,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -2587,8 +2543,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEmptyDictionaryExceptionMessageSuffix,
             };
 
@@ -2841,8 +2797,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -2864,8 +2820,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
@@ -3176,8 +3132,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -3199,8 +3155,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainSomeNullElementsExceptionMessageSuffix,
             };
 
@@ -3441,8 +3397,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -3464,8 +3420,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
@@ -3710,8 +3666,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -3733,8 +3689,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
@@ -4069,8 +4025,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -4092,8 +4048,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
@@ -4291,8 +4247,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeNullNorEmptyEnumerable,
                 VerificationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -4302,8 +4258,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeNullNorEmptyEnumerable,
                 VerificationName = nameof(Verifications.NotBeNullNorEmptyEnumerable),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "IEnumerable",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
@@ -4619,8 +4575,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -4642,8 +4598,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
@@ -4953,8 +4909,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -4976,8 +4932,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableExceptionMessageSuffix,
             };
 
@@ -5027,8 +4983,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyNullElementsExceptionMessageSuffix,
             };
 
@@ -5251,8 +5207,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -5274,8 +5230,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryExceptionMessageSuffix,
             };
 
@@ -5423,8 +5379,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = verificationHandler,
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix,
             };
 
@@ -5593,8 +5549,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.BeDefault,
                 VerificationName = nameof(Verifications.BeDefault),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeDefaultExceptionMessageSuffix,
             };
 
@@ -5768,8 +5724,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = Verifications.NotBeDefault,
                 VerificationName = nameof(Verifications.NotBeDefault),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeDefaultExceptionMessageSuffix,
             };
 
@@ -5979,8 +5935,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
@@ -6065,8 +6021,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
@@ -6100,8 +6056,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanExceptionMessageSuffix,
             };
 
@@ -6219,8 +6175,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
@@ -6305,8 +6261,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
@@ -6340,8 +6296,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanExceptionMessageSuffix,
             };
 
@@ -6446,8 +6402,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6533,8 +6489,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6568,8 +6524,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6687,8 +6643,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6772,8 +6728,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6807,8 +6763,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanExceptionMessageSuffix,
             };
 
@@ -6914,8 +6870,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -6999,8 +6955,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7034,8 +6990,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7141,8 +7097,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7228,8 +7184,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7263,8 +7219,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeLessThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7382,8 +7338,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7468,8 +7424,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7503,8 +7459,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7609,8 +7565,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7695,8 +7651,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue5),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7730,8 +7686,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler((decimal?)null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeGreaterThanOrEqualToExceptionMessageSuffix,
             };
 
@@ -7872,8 +7828,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue3),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeEqualToExceptionMessageSuffix,
             };
 
@@ -8016,8 +7972,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue3),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeEqualToExceptionMessageSuffix,
             };
 
@@ -8132,8 +8088,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(minimum2, maximum2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
@@ -8232,8 +8188,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(minimum6, maximum6),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
@@ -8273,8 +8229,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue7, comparisonValue7),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
@@ -8312,8 +8268,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(null, maximum9),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
@@ -8348,8 +8304,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler<decimal?>(null, null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeInRangeExceptionMessageSuffix,
             };
 
@@ -8483,8 +8439,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(minimum2, maximum2),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
@@ -8581,8 +8537,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(minimum6, maximum6),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
@@ -8621,8 +8577,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue7, comparisonValue7),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
@@ -8659,8 +8615,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(null, maximum9),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
@@ -8696,8 +8652,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler<decimal?>(null, null),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentOutOfRangeException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeInRangeExceptionMessageSuffix,
             };
 
@@ -8830,8 +8786,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue3),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -8854,8 +8810,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue4),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
             };
 
@@ -9023,8 +8979,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<string>()),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
             };
 
@@ -9047,8 +9003,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(comparisonValue4),
                 VerificationName = verificationName,
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
             };
 
@@ -9127,8 +9083,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<char[]>()),
                 VerificationName = nameof(Verifications.BeAlphabetic),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -9240,8 +9196,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(null),
                 VerificationName = nameof(Verifications.BeAlphabetic),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
@@ -9275,8 +9231,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new char[0]),
                 VerificationName = nameof(Verifications.BeAlphabetic),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
@@ -9310,8 +9266,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new[] { 'b', '-', '_', '^', '\\', '/', '(', 'b', ' ' }),
                 VerificationName = nameof(Verifications.BeAlphabetic),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphabeticExceptionMessageSuffix,
             };
 
@@ -9399,8 +9355,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<char[]>()),
                 VerificationName = nameof(Verifications.BeAlphanumeric),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -9512,8 +9468,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(null),
                 VerificationName = nameof(Verifications.BeAlphanumeric),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
@@ -9548,8 +9504,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new char[0]),
                 VerificationName = nameof(Verifications.BeAlphanumeric),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
@@ -9584,8 +9540,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new[] { '0', '-', '_', '^', '\\', '/', '(', '0', ' ' }),
                 VerificationName = nameof(Verifications.BeAlphanumeric),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAlphanumericExceptionMessageSuffix,
             };
 
@@ -9672,8 +9628,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(false),
                 VerificationName = nameof(Verifications.BeAsciiPrintable),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -9785,8 +9741,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(false),
                 VerificationName = nameof(Verifications.BeAsciiPrintable),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
             };
 
@@ -9822,8 +9778,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(true),
                 VerificationName = nameof(Verifications.BeAsciiPrintable),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeAsciiPrintableExceptionMessageSuffix,
             };
 
@@ -9919,8 +9875,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new Regex("abc")),
                 VerificationName = nameof(Verifications.BeMatchedByRegex),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10032,8 +9988,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new Regex("abc")),
                 VerificationName = nameof(Verifications.BeMatchedByRegex),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.BeMatchedByRegexExceptionMessageSuffix,
             };
 
@@ -10119,8 +10075,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new Regex("abc")),
                 VerificationName = nameof(Verifications.NotBeMatchedByRegex),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10232,8 +10188,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(new Regex("abc")),
                 VerificationName = nameof(Verifications.NotBeMatchedByRegex),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeMatchedByRegexExceptionMessageSuffix,
             };
 
@@ -10319,8 +10275,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("starter", A.Dummy<StringComparison>()),
                 VerificationName = nameof(Verifications.StartWith),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10330,8 +10286,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("starter", null),
                 VerificationName = nameof(Verifications.StartWith),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10423,8 +10379,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("staRTer", StringComparison.OrdinalIgnoreCase),
                 VerificationName = nameof(Verifications.StartWith),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.StartWithExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10512,8 +10468,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("starter", A.Dummy<StringComparison>()),
                 VerificationName = nameof(Verifications.NotStartWith),
-                ExceptionType = typeof(ArgumentNullException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10523,8 +10479,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("starter", null),
                 VerificationName = nameof(Verifications.NotStartWith),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10616,8 +10572,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler("STarter", StringComparison.OrdinalIgnoreCase),
                 VerificationName = nameof(Verifications.NotStartWith),
-                ExceptionType = typeof(ArgumentException),
-                EachExceptionType = typeof(ArgumentException),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
                 ExceptionMessageSuffix = Verifications.NotStartWithExceptionMessageSuffix,
                 SubjectInvalidTypeExpectedTypes = "string",
                 SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<string>",
@@ -10685,40 +10641,54 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             this VerificationTest verificationTest,
             TestValues<T> testValues)
         {
+            var assertionKinds = EnumExtensions.GetDefinedEnumValues<AssertionKind>();
+
             var subjectNames = new[] { null, A.Dummy<string>() };
 
             var userData = new[] { null, A.Dummy<Dictionary<string, string>>() };
 
-            foreach (var subjectName in subjectNames)
+            foreach (var assertionKind in assertionKinds)
             {
-                foreach (var data in userData)
+                foreach (var subjectName in subjectNames)
                 {
-                    RunPassingScenarios(verificationTest, testValues, subjectName, data);
+                    foreach (var data in userData)
+                    {
+                        // the only way to specify a subject name in an uncategorized assertion is to use
+                        // an anonymous object and none of these tests do that...
+                        var subjectNameToUse = assertionKind == AssertionKind.Unknown ? null : subjectName;
 
-                    RunMustFailingScenarios(verificationTest, testValues, subjectName, data);
+                        verificationTest.RunPassingScenarios(testValues, assertionKind, subjectNameToUse, data);
 
-                    RunMustEachImproperUseOfFrameworkScenarios<T>(verificationTest, subjectName, data);
+                        verificationTest.RunMustFailingScenarios(testValues, assertionKind, subjectNameToUse, data);
 
-                    RunMustEachFailingScenarios(verificationTest, testValues, subjectName, data);
+                        verificationTest.RunMustEachFailingScenarios(testValues, assertionKind, subjectNameToUse, data);
 
-                    RunMustInvalidSubjectTypeScenarios(verificationTest, testValues, subjectName, data);
+                        verificationTest.RunMustEachImproperUseOfFrameworkScenarios(assertionKind, subjectNameToUse, data);
 
-                    RunMustEachInvalidSubjectTypeScenarios(verificationTest, testValues, subjectName, data);
+                        verificationTest.RunMustInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
 
-                    RunInvalidVerificationParameterTypeScenarios(verificationTest, testValues, subjectName, data);
+                        verificationTest.RunMustEachInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
+
+                        verificationTest.RunInvalidVerificationParameterTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
+                    }
                 }
             }
         }
 
         private static void RunPassingScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
-            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.AsArg(subjectName).Must());
-            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.AsArg(subjectName).Must().Each());
-            var assertionTrackers = mustAssertionTrackers.Concat(muchEachAssertionTrackers).ToList();
+            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false));
+            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
+
+            var assertionTrackers = new AssertionTracker[0]
+                .Concat(mustAssertionTrackers)
+                .Concat(muchEachAssertionTrackers)
+                .ToList();
 
             foreach (var assertionTracker in assertionTrackers)
             {
@@ -10734,33 +10704,28 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustFailingScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
             foreach (var failingValue in testValues.MustFailingValues)
             {
                 // Arrange
-                var assertionTracker = failingValue.AsArg(subjectName).Must();
+                var assertionTracker = failingValue.RunMust(assertionKind, subjectName, each: false);
 
-                string expectedExceptionMessage;
-                if (subjectName == null)
-                {
-                    expectedExceptionMessage = "Provided value " + verificationTest.ExceptionMessageSuffix;
-                }
-                else
-                {
-                    expectedExceptionMessage = "Provided value (name: '" + subjectName + "') " + verificationTest.ExceptionMessageSuffix;
-                }
+                var expectedExceptionMessage = subjectName == null
+                    ? "Provided value " + verificationTest.ExceptionMessageSuffix
+                    : "Provided value (name: '" + subjectName + "') " + verificationTest.ExceptionMessageSuffix;
 
-                var expectedData = data == null ? new Hashtable() : data;
+                var expectedData = data ?? new Hashtable();
 
                 // Act
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType(verificationTest.ExceptionType);
+                actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.ArgumentExceptionType));
                 actual.Message.Should().StartWith(expectedExceptionMessage);
                 actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
                 foreach (var dataKey in actual.Data.Keys)
@@ -10771,33 +10736,28 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustEachFailingScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
                 // Arrange
-                var assertionTracker = eachFailingValue.AsArg(subjectName).Must().Each();
+                var assertionTracker = eachFailingValue.RunMust(assertionKind, subjectName, each: true);
 
-                string expectedExceptionMessage;
-                if (subjectName == null)
-                {
-                    expectedExceptionMessage = "Provided value contains an element that " + verificationTest.ExceptionMessageSuffix;
-                }
-                else
-                {
-                    expectedExceptionMessage = "Provided value (name: '" + subjectName + "') contains an element that " + verificationTest.ExceptionMessageSuffix;
-                }
+                var expectedExceptionMessage = subjectName == null
+                    ? "Provided value contains an element that " + verificationTest.ExceptionMessageSuffix
+                    : "Provided value (name: '" + subjectName + "') contains an element that " + verificationTest.ExceptionMessageSuffix;
 
-                var expectedData = data == null ? new Hashtable() : data;
+                var expectedData = data ?? new Hashtable();
 
                 // Act
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
 
                 // Assert
-                actual.Should().BeOfType(verificationTest.EachExceptionType);
+                actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.EachArgumentExceptionType));
                 actual.Message.Should().StartWith(expectedExceptionMessage);
                 actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
                 foreach (var dataKey in actual.Data.Keys)
@@ -10807,17 +10767,49 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
         }
 
+        private static void RunMustEachImproperUseOfFrameworkScenarios(
+            this VerificationTest verificationTest,
+            AssertionKind assertionKind,
+            string subjectName,
+            IDictionary data)
+        {
+            // Arrange
+            // calling Each() on object that is not IEnumerable
+            var notEnumerable = new object();
+            var assertionTracker1 = notEnumerable.RunMust(assertionKind, subjectName, each: true);
+            var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
+
+            // calling Each() on object that is IEnumerable, but null
+            IEnumerable<string> nullEnumerable = null;
+            var assertionTracker2 = nullEnumerable.RunMust(assertionKind, subjectName, each: true);
+            var expectedExceptionMessage2 = subjectName == null
+                ? "Provided value " + Verifications.NotBeNullExceptionMessageSuffix + "."
+                : "Provided value (name: '" + subjectName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
+
+            // Act
+            var actual1 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker1, data: data));
+            var actual2 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
+
+            // Assert
+            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual1.Message.Should().Be(expectedExceptionMessage1);
+
+            actual2.Should().BeOfType(assertionKind.GetExpectedExceptionType(typeof(ArgumentNullException)));
+            actual2.Message.Should().Be(expectedExceptionMessage2);
+        }
+
         private static void RunMustInvalidSubjectTypeScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
             foreach (var invalidTypeValue in testValues.MustSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.AsArg(subjectName).Must();
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
+                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: false);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.");
 
                 // Act
@@ -10830,16 +10822,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         private static void RunMustEachInvalidSubjectTypeScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
             foreach (var invalidTypeValue in testValues.MustEachSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.AsArg(subjectName).Must().Each();
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
+                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: true);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.");
 
                 // Act
@@ -10851,51 +10844,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
         }
 
-        private static void RunMustEachImproperUseOfFrameworkScenarios<T>(
-            VerificationTest verificationTest,
-            string subjectName,
-            IDictionary data)
-        {
-            // Arrange
-            // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
-            object notEnumerable = new object();
-            var assertionTracker1 = notEnumerable.AsArg(subjectName).Must();
-            assertionTracker1.Actions |= Actions.Eached;
-            var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
-
-            IEnumerable<string> nullEnumerable = null;
-            var assertionTracker2 = nullEnumerable.AsArg(subjectName).Must();
-            assertionTracker2.Actions |= Actions.Eached;
-            string expectedExceptionMessage2;
-            if (subjectName == null)
-            {
-                expectedExceptionMessage2 = "Provided value " + Verifications.NotBeNullExceptionMessageSuffix + ".";
-            }
-            else
-            {
-                expectedExceptionMessage2 = "Provided value (name: '" + subjectName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
-            }
-
-            // Act
-            var actual1 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker1, data: data));
-            var actual2 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
-
-            // Assert
-            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual1.Message.Should().Be(expectedExceptionMessage1);
-
-            actual2.Should().BeOfType<ArgumentNullException>();
-            actual2.Message.Should().Be(expectedExceptionMessage2);
-        }
-
         private static void RunInvalidVerificationParameterTypeScenarios<T>(
-            VerificationTest verificationTest,
+            this VerificationTest verificationTest,
             TestValues<T> testValues,
+            AssertionKind assertionKind,
             string subjectName,
             IDictionary data)
         {
-            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.AsArg(subjectName).Must());
-            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.AsArg(subjectName).Must().Each());
+            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false));
+            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
             var assertionTrackers = mustAssertionTrackers.Concat(mustEachAssertionTrackers).ToList();
 
             foreach (var assertionTracker in assertionTrackers)
@@ -10915,41 +10872,62 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
         }
 
-        private static Type GetEnumerableGenericType(
-            this Type enumerableType)
+        private static AssertionTracker RunMust<T>(
+            this T value,
+            AssertionKind assertionKind,
+            string subjectName,
+            bool each)
         {
-            // adapted from: https://stackoverflow.com/a/17713382/356790
-            Type result;
-            if (enumerableType.IsArray)
-            {
-                // type is array, shortcut
-                result = enumerableType.GetElementType();
-            }
-            else if (enumerableType.IsGenericType && (enumerableType.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
-            {
-                // type is IEnumerable<T>
-                result = enumerableType.GetGenericArguments()[0];
-            }
-            else
-            {
-                // type implements IEnumerable<T> or is a subclass (sub-sub-class, ...)
-                // of a type that implements IEnumerable<T>
-                // note that we are grabing the first implementation.  it is possible, but
-                // highly unlikely, for a type to have multiple implementations of IEnumerable<T>
-                result = enumerableType
-                    .GetInterfaces()
-                    .Where(_ => _.IsGenericType && (_.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
-                    .Select(_ => _.GenericTypeArguments[0])
-                    .FirstOrDefault();
+            AssertionTracker result;
 
-                if (result == null)
-                {
-                    // here we just assume it's an IEnumerable and return typeof(object),
-                    // however, for completeness, we should recurse through all interface implementations
-                    // and check whether those are IEnumerable<T>.
-                    // see: https://stackoverflow.com/questions/5461295/using-isassignablefrom-with-open-generic-types
-                    result = typeof(object);
-                }
+            switch (assertionKind)
+            {
+                case AssertionKind.Unknown:
+                    result = value.Must();
+                    break;
+                case AssertionKind.Argument:
+                    result = value.AsArg(subjectName).Must();
+                    break;
+                case AssertionKind.Operation:
+                    result = value.AsOp(subjectName).Must();
+                    break;
+                case AssertionKind.Test:
+                    result = value.AsTest(subjectName).Must();
+                    break;
+                default:
+                    throw new NotSupportedException("this assertion kind is not supported: " + assertionKind);
+            }
+
+            if (each)
+            {
+                result.Each();
+            }
+
+            return result;
+        }
+
+        private static Type GetExpectedExceptionType(
+            this AssertionKind assertionKind,
+            Type argumentExceptionType)
+        {
+            Type result;
+
+            switch (assertionKind)
+            {
+                case AssertionKind.Unknown:
+                    result = typeof(AssertionVerificationFailedException);
+                    break;
+                case AssertionKind.Argument:
+                    result = argumentExceptionType;
+                    break;
+                case AssertionKind.Operation:
+                    result = typeof(InvalidOperationException);
+                    break;
+                case AssertionKind.Test:
+                    result = typeof(TestAssertionVerificationFailedException);
+                    break;
+                default:
+                    throw new NotSupportedException("this assertion kind is not supported: " + assertionKind);
             }
 
             return result;
@@ -10959,9 +10937,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             public VerificationHandler VerificationHandler { get; set; }
 
-            public Type ExceptionType { get; set; }
+            public Type ArgumentExceptionType { get; set; }
 
-            public Type EachExceptionType { get; set; }
+            public Type EachArgumentExceptionType { get; set; }
 
             public string ExceptionMessageSuffix { get; set; }
 
