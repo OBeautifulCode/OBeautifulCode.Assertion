@@ -47,6 +47,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="Exceptions\AssertionVerificationFailedException.cs" />
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
     <Compile Include="Framework\AssertionKind.cs" />
     <Compile Include="Framework\Actions.cs" />

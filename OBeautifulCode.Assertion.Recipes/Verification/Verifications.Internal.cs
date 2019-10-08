@@ -620,13 +620,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data).AddData(verification.Data);
+                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data).AddData(verification.Data);
+                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
 
                     throw exception;
                 }

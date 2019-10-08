@@ -11,7 +11,6 @@ namespace OBeautifulCode.Assertion.Recipes
 {
     using System;
     using System.Collections;
-    using System.Globalization;
     using System.Linq;
 
     using OBeautifulCode.Type.Recipes;
@@ -183,6 +182,60 @@ namespace OBeautifulCode.Assertion.Recipes
             }
 
             return exception;
+        }
+
+        private static Exception BuildException(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            string exceptionMessage,
+            ArgumentExceptionKind? argumentExceptionKind = null)
+        {
+            Exception result;
+
+            switch (assertionTracker.AssertionKind)
+            {
+                case AssertionKind.Unknown:
+                    result = new AssertionVerificationFailedException(exceptionMessage);
+                    break;
+                case AssertionKind.Argument:
+                    switch (argumentExceptionKind)
+                    {
+                        case ArgumentExceptionKind.ArgumentException:
+                            result = new ArgumentException(exceptionMessage);
+                            break;
+                        case ArgumentExceptionKind.ArgumentNullException:
+                            result = new ArgumentNullException(null, exceptionMessage);
+                            break;
+                        case ArgumentExceptionKind.ArgumentOutOfRangeException:
+                            result = new ArgumentOutOfRangeException(exceptionMessage, (Exception) null);
+                            break;
+                        default:
+                            throw new NotSupportedException(Invariant($"This {nameof(ArgumentExceptionKind)} is not supported: {argumentExceptionKind}."));
+                    }
+
+                    break;
+                case AssertionKind.Operation:
+                    result = new InvalidOperationException(exceptionMessage);
+                    break;
+                case AssertionKind.Test:
+                    result = new TestAssertionVerificationFailedException(exceptionMessage);
+                    break;
+                default:
+                    throw new NotSupportedException(Invariant($"This {nameof(AssertionKind)} is not supported: {assertionTracker.AssertionKind}."));
+            }
+
+            result.AddData(verification.Data);
+
+            return result;
+        }
+
+        private enum ArgumentExceptionKind
+        {
+            ArgumentException,
+
+            ArgumentNullException,
+
+            ArgumentOutOfRangeException,
         }
 
         [Flags]

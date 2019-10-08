@@ -10,6 +10,7 @@
   </metadata>
   <files>
     <file src="Exceptions\ImproperUseOfAssertionFrameworkException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\ImproperUseOfAssertionFrameworkException.cs" />
+    <file src="Exceptions\AssertionVerificationFailedException.cs"      target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionVerificationFailedException.cs" />
     <file src="Exceptions\TestAssertionVerificationFailedException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\TestAssertionVerificationFailedException.cs" />
     <file src="Framework\Actions.cs"                                    target="content\net462\.recipes\OBeautifulCode.Assertion\Actions.cs" />
     <file src="Framework\AssertionKind.cs"                              target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionKind.cs" />
