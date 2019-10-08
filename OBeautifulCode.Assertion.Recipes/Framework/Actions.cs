@@ -19,7 +19,6 @@ namespace OBeautifulCode.Assertion.Recipes
     /// </summary>
     [Flags]
 #if !OBeautifulCodeAssertionRecipesProject
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Assertion.Recipes", "See package version number")]
     internal
 #else
