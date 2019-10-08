@@ -33,7 +33,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeNullExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -50,13 +50,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentNullException(null, exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentNullException);
 
                     throw exception;
                 }
@@ -73,7 +73,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeTrueExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -89,7 +89,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeTrueExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -105,7 +105,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeFalseExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -121,7 +121,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeFalseExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -139,7 +139,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -155,7 +155,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeNullOrNotWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -171,7 +171,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -187,7 +187,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyGuidExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -205,7 +205,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyStringExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -223,7 +223,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyStringExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -251,7 +251,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyEnumerableExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -279,7 +279,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyEnumerableExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -301,7 +301,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyDictionaryExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -323,7 +323,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyDictionaryExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -353,7 +353,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainSomeNullElementsExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -383,7 +383,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyNullElementsExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -413,7 +413,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -443,7 +443,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -460,7 +460,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -477,7 +477,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -495,13 +495,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -520,13 +520,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -545,13 +545,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -570,13 +570,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -595,13 +595,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -620,13 +620,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -645,13 +645,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -670,13 +670,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -694,13 +694,13 @@ namespace OBeautifulCode.Assertion.Recipes
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -718,13 +718,13 @@ namespace OBeautifulCode.Assertion.Recipes
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -747,13 +747,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -776,13 +776,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 if (verifiableItem.IsElementInEnumerable)
                 {
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
                 else
                 {
-                    var exception = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
 
                     throw exception;
                 }
@@ -809,7 +809,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
-            var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+            var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
             throw exception;
         }
@@ -830,7 +830,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 {
                     var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
-                    var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                     throw exception;
                 }
@@ -886,7 +886,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -914,7 +914,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeAsciiPrintableExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -937,7 +937,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -960,7 +960,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeMatchedByRegexExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -986,7 +986,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, StartWithExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
@@ -1012,7 +1012,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotStartWithExceptionMessageSuffix, Include.FailingValue);
 
-                var exception = new ArgumentException(exceptionMessage).AddData(verification.Data);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }

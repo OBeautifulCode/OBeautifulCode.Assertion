@@ -188,7 +188,7 @@ namespace OBeautifulCode.Assertion.Recipes
             AssertionTracker assertionTracker,
             Verification verification,
             string exceptionMessage,
-            ArgumentExceptionKind? argumentExceptionKind = null)
+            ArgumentExceptionKind argumentExceptionKind)
         {
             Exception result;
 
