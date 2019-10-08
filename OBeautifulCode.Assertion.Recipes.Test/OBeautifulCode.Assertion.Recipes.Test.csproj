@@ -100,7 +100,7 @@
     <Compile Include="TestCommon.cs" />
     <Compile Include="AssertionTrackerEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="VerificationsTest.cs" />
+    <Compile Include="VerificationsTest.cs" />
     <Compile Include="AssertionExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>

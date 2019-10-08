@@ -22,5 +22,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             return result;
         }
+
+        public static AssertionTracker CloneWithActionVerifiedAtLeastOnce(
+            this AssertionTracker assertionTracker)
+        {
+            var result = assertionTracker.Clone();
+
+            result.Actions |= Actions.VerifiedAtLeastOnce;
+
+            return result;
+        }
     }
 }

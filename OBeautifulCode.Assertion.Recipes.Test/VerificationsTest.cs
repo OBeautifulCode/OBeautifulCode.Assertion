@@ -10716,8 +10716,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             string subjectName,
             IDictionary data)
         {
-            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.Named(subjectName).Must());
-            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.Named(subjectName).Must().Each());
+            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.AsArg(subjectName).Must());
+            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.AsArg(subjectName).Must().Each());
             var assertionTrackers = mustAssertionTrackers.Concat(muchEachAssertionTrackers).ToList();
 
             foreach (var assertionTracker in assertionTrackers)
@@ -10742,7 +10742,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var failingValue in testValues.MustFailingValues)
             {
                 // Arrange
-                var assertionTracker = failingValue.Named(subjectName).Must();
+                var assertionTracker = failingValue.AsArg(subjectName).Must();
 
                 string expectedExceptionMessage;
                 if (subjectName == null)
@@ -10779,7 +10779,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
                 // Arrange
-                var assertionTracker = eachFailingValue.Named(subjectName).Must().Each();
+                var assertionTracker = eachFailingValue.AsArg(subjectName).Must().Each();
 
                 string expectedExceptionMessage;
                 if (subjectName == null)
@@ -10817,7 +10817,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.Named(subjectName).Must();
+                var assertionTracker = invalidTypeValue.AsArg(subjectName).Must();
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.");
 
                 // Act
@@ -10839,7 +10839,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableGenericType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.Named(subjectName).Must().Each();
+                var assertionTracker = invalidTypeValue.AsArg(subjectName).Must().Each();
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.");
 
                 // Act
@@ -10859,12 +10859,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             // calling Each() on IEnumerable that is not IEnumerable OR a value that's null
             object notEnumerable = new object();
-            var assertionTracker1 = notEnumerable.Named(subjectName).Must();
+            var assertionTracker1 = notEnumerable.AsArg(subjectName).Must();
             assertionTracker1.Actions |= Actions.Eached;
             var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
 
             IEnumerable<string> nullEnumerable = null;
-            var assertionTracker2 = nullEnumerable.Named(subjectName).Must();
+            var assertionTracker2 = nullEnumerable.AsArg(subjectName).Must();
             assertionTracker2.Actions |= Actions.Eached;
             string expectedExceptionMessage2;
             if (subjectName == null)
@@ -10894,8 +10894,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             string subjectName,
             IDictionary data)
         {
-            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.Named(subjectName).Must());
-            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.Named(subjectName).Must().Each());
+            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.AsArg(subjectName).Must());
+            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.AsArg(subjectName).Must().Each());
             var assertionTrackers = mustAssertionTrackers.Concat(mustEachAssertionTrackers).ToList();
 
             foreach (var assertionTracker in assertionTrackers)
