@@ -10,6 +10,7 @@
 namespace OBeautifulCode.Assertion.Recipes
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// A validation that should be performed on the subject type and
@@ -33,6 +34,6 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Gets or sets some reference types required by the type validation.
         /// </summary>
-        public Type[] ReferenceTypes { get; set; }
+        public IReadOnlyList<Type> ReferenceTypes { get; set; }
     }
 }

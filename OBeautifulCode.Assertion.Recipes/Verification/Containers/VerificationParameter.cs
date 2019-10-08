@@ -37,7 +37,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Gets or sets the type of the parameter.
         /// </summary>
-        public Type Type { get; set; }
+        public Type ParameterType { get; set; }
 
         /// <summary>
         /// Gets or sets a func that can render the value as a string.

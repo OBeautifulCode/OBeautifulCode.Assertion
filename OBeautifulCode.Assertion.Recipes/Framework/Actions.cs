@@ -10,6 +10,9 @@
 namespace OBeautifulCode.Assertion.Recipes
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    using OBeautifulCode.Assertion.Recipes.Internal;
 
     /// <summary>
     /// The actions that have been performed in the lifecycle of an assertion.
@@ -52,12 +55,14 @@ namespace OBeautifulCode.Assertion.Recipes
         /// The subject should have been Must'ed with a call to
         /// <see cref="WorkflowExtensions.Must{TSubject}(TSubject)"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
         Musted = 4,
 
         /// <summary>
         /// The subject should have been Each'ed with a call to
         /// <see cref="WorkflowExtensions.Each(AssertionTracker)"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
         Eached = 8,
 
         /// <summary>

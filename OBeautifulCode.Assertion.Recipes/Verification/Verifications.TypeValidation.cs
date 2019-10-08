@@ -252,9 +252,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
-                if (verificationParameter.Type != valueType)
+                if (verificationParameter.ParameterType != valueType)
                 {
-                    ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.Type, verificationParameter.Name, valueType);
+                    ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.ParameterType, verificationParameter.Name, valueType);
                 }
             }
         }
@@ -268,9 +268,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
-                if (verificationParameter.Type != enumerableType)
+                if (verificationParameter.ParameterType != enumerableType)
                 {
-                    ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.Type, verificationParameter.Name, enumerableType);
+                    ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.ParameterType, verificationParameter.Name, enumerableType);
                 }
             }
         }
@@ -278,7 +278,7 @@ namespace OBeautifulCode.Assertion.Recipes
         private static void ThrowSubjectUnexpectedType(
             Verification verification,
             VerifiableItem verifiableItem,
-            params Type[] expectedTypes)
+            IReadOnlyList<Type> expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.ToStringReadable()).ToArray();
 

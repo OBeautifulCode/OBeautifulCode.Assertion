@@ -798,7 +798,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueAsEnumerable = (IEnumerable)verifiableItem.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
-            var elementType = verification.VerificationParameters[0].Type;
+            var elementType = verification.VerificationParameters[0].ParameterType;
             foreach (var element in valueAsEnumerable)
             {
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
@@ -823,7 +823,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueAsEnumerable = (IEnumerable)verifiableItem.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
-            var elementType = verification.VerificationParameters[0].Type;
+            var elementType = verification.VerificationParameters[0].ParameterType;
             foreach (var element in valueAsEnumerable)
             {
                 if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))

@@ -12,6 +12,9 @@ namespace OBeautifulCode.Assertion.Recipes
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+
+    using OBeautifulCode.Assertion.Recipes.Internal;
 
     /// <summary>
     /// Specifies a verification, a condition that the subject must satisfy.
@@ -49,7 +52,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Gets or sets the <see cref="VerificationParameter"/>s.
         /// </summary>
-        public VerificationParameter[] VerificationParameters { get; set; }
+        public IReadOnlyList<VerificationParameter> VerificationParameters { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="TypeValidation"/>s to apply.
@@ -60,6 +63,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// Gets or sets a collection of key/value pairs that provide additional user-defined information
         /// that is added to the exception's <see cref="Exception.Data"/> property, if thrown.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = ObcSuppressBecause.CA2227_CollectionPropertiesShouldBeReadOnly_PublicInterfaceNeverExposesTheObject)]
         public IDictionary Data { get; set; }
     }
 }

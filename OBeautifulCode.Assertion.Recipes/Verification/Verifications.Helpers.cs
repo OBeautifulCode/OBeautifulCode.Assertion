@@ -143,10 +143,10 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         private static void ThrowIfMalformedRange(
-            VerificationParameter[] verificationParameters)
+            IReadOnlyList<VerificationParameter> verificationParameters)
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
-            var rangeIsMalformed = CompareUsingDefaultComparer(verificationParameters[0].Type, verificationParameters[0].Value, verificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var rangeIsMalformed = CompareUsingDefaultComparer(verificationParameters[0].ParameterType, verificationParameters[0].Value, verificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (rangeIsMalformed)
             {
                 var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, verificationParameters[0].Name, verificationParameters[1].Name, verificationParameters[0].Value?.ToString() ?? NullValueToString, verificationParameters[1].Value?.ToString() ?? NullValueToString);

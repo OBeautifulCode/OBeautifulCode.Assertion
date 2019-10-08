@@ -16,6 +16,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.Assertion.Recipes.Test.Internal;
     using OBeautifulCode.AutoFakeItEasy;
     using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Math.Recipes;
@@ -520,7 +521,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_same_AssertionTracker_but_with_Actions_Musted_flag_raised___When_parameter_value_is_an_AssertionTracker_that_has_been_Categorized_and_not_Must_and_not_Each_and_not_VerifiedAtLeastOnce()
+        public static void Must___Should_return_same_AssertionTracker_but_with_Actions_Musted_bit_set___When_parameter_value_is_an_AssertionTracker_that_has_been_Categorized_and_not_Must_and_not_Each_and_not_VerifiedAtLeastOnce()
         {
             // Arrange
             var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState();
@@ -554,7 +555,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_AssertionTracker_with_SubjectValue_and_SubjectType_and_SubjectName_pulled_out_of_anonymous_object_property_and_Actions_Musted_flag_raised___When_parameter_value_is_an_anonymous_object_with_one_property()
+        public static void Must___Should_return_AssertionTracker_with_SubjectValue_and_SubjectType_and_SubjectName_pulled_out_of_anonymous_object_property_and_Actions_Musted_bit_set___When_parameter_value_is_an_anonymous_object_with_one_property()
         {
             // Arrange
             var value1 = A.Dummy<object>();
@@ -588,8 +589,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_AssertionTracker_with_null_SubjectValue_and_SubjectType_set_to_TSubject_and_null_Name_and_Actions_Musted_flag_raised___When_parameter_value_is_null()
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = ObcSuppressBecause.CA1702_CompoundWordsShouldBeCasedCorrectly_AnalyzerIsIncorrectlyDetectingCompoundWordsInUnitTestMethodName)]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void Must___Should_return_AssertionTracker_with_null_SubjectValue_and_SubjectType_set_to_TSubject_and_null_Name_and_Actions_Musted_bit_set___When_parameter_value_is_null()
         {
             // Arrange
             var value1 = new { someSubject = A.Dummy<object>() };
@@ -626,8 +628,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Typeset", Justification = ObcSuppressBecause.CA1702_CompoundWordsShouldBeCasedCorrectly_AnalyzerIsIncorrectlyDetectingCompoundWordsInUnitTestMethodName)]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_AssertionTracker_with_SubjectValue_set_to_parameter_value_and_SubjectType_set_to_TSubject_and_null_Name_and_Actions_Musted_flag_raised___When_parameter_value_is_not_an_anonymous_object_and_not_null()
+        public static void Must___Should_return_AssertionTracker_with_SubjectValue_set_to_parameter_value_and_SubjectType_set_to_TSubject_and_null_Name_and_Actions_Musted_bit_set___When_parameter_value_is_not_an_anonymous_object_and_not_null()
         {
             // Arrange
             var value = A.Dummy<string>();
@@ -821,7 +824,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
         public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_is_not_Musted()
         {
             // Arrange
@@ -841,7 +844,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
         public static void Each___Should_throw_ImproperUseOfAssertionFrameworkException___When_AssertionTracker_has_been_Eached()
         {
             // Arrange
@@ -861,9 +864,9 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "musted", Justification = "This is the best wording for this identifier.")]
-        public static void Each___Should_return_same_AssertionTracker_but_with_the_Actions_Eached_flag_raised___When_AssertionTracker_is_Musted_but_Not_Eached()
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void Each___Should_return_same_AssertionTracker_but_with_the_Actions_Eached_bit_set___When_AssertionTracker_is_Musted_but_Not_Eached()
         {
             // Arrange
             var assertionTrackers1 = BuildAssertionTrackersWithAllCombinationsOfFlags(subjectType: typeof(object))
