@@ -143,6 +143,18 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> BeSameReferenceAsTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                Handler = ThrowIfValueType,
+            },
+            new TypeValidation
+            {
+                Handler = ThrowIfAnyVerificationParameterTypeDoesNotEqualValueType,
+            },
+        };
+
         private static readonly IReadOnlyCollection<TypeValidation> EqualsTypeValidations = new[]
         {
             new TypeValidation
@@ -180,6 +192,17 @@ namespace OBeautifulCode.Assertion.Recipes
             var valueTypeString = verifiableItem.ValueType.ToStringReadable();
 
             throw new ImproperUseOfAssertionFrameworkException(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
+        }
+
+        private static void ThrowIfValueType(
+            Verification verification,
+            VerifiableItem verifiableItem,
+            TypeValidation typeValidation)
+        {
+            if (verifiableItem.ValueType.IsValueType)
+            {
+                ThrowSubjectUnexpectedType(verification, verifiableItem, AnyReferenceTypeName);
+            }
         }
 
         private static void ThrowIfTypeCannotBeNull(

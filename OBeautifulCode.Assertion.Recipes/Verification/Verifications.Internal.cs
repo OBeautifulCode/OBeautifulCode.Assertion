@@ -1017,5 +1017,37 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw exception;
             }
         }
+
+        private static void BeSameReferenceAsInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            var shouldThrow = !object.ReferenceEquals(verifiableItem.Value, verification.VerificationParameters[0].Value);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeSameReferenceAsExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        private static void NotBeSameReferenceAsInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            var shouldThrow = object.ReferenceEquals(verifiableItem.Value, verification.VerificationParameters[0].Value);
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeSameReferenceAsExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
     }
 }

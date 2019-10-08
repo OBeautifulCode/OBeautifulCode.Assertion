@@ -145,6 +145,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotStartWithExceptionMessageSuffix = "starts with the specified comparison value";
 
+        public const string BeSameReferenceAsExceptionMessageSuffix = "is not the same reference as the comparison value";
+
+        public const string NotBeSameReferenceAsExceptionMessageSuffix = "is the same reference as the comparison value";
+
 #pragma warning restore SA1600
 #pragma warning restore 1591
     }
