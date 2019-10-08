@@ -15,6 +15,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using OBeautifulCode.Equality.Recipes;
 
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
@@ -455,7 +456,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var defaultValue = GetDefaultValue(verifiableItem.ValueType);
-            var shouldThrow = !EqualUsingDefaultEqualityComparer(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+            var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
@@ -472,7 +473,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var defaultValue = GetDefaultValue(verifiableItem.ValueType);
-            var shouldThrow = EqualUsingDefaultEqualityComparer(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+            var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
@@ -688,7 +689,7 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = !EqualUsingDefaultEqualityComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+            var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
@@ -712,7 +713,7 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = EqualUsingDefaultEqualityComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+            var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
@@ -801,7 +802,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var elementType = verification.VerificationParameters[0].ParameterType;
             foreach (var element in valueAsEnumerable)
             {
-                if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
+                if (AreEqual(elementType, element, searchForItem))
                 {
                     return;
                 }
@@ -826,7 +827,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var elementType = verification.VerificationParameters[0].ParameterType;
             foreach (var element in valueAsEnumerable)
             {
-                if (EqualUsingDefaultEqualityComparer(elementType, element, searchForItem))
+                if (AreEqual(elementType, element, searchForItem))
                 {
                     var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 

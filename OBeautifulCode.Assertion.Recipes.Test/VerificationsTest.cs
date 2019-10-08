@@ -7857,6 +7857,102 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             verificationTest3.Run(decimalTestValues3);
+
+            // dictionary that contains a collection
+            IReadOnlyDictionary<string, IReadOnlyCollection<string>> comparisonValue4 =
+                new Dictionary<string, IReadOnlyCollection<string>>
+                {
+                    {
+                        "abc",
+                        new List<string> { "1", "2", "3" }
+                    },
+                    {
+                        "def",
+                        new List<string> { "4", null, "5" }
+                    },
+                };
+
+            var verificationTest4 = new VerificationTest
+            {
+                VerificationHandler = GetVerificationHandler(comparisonValue4),
+                VerificationName = verificationName,
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.BeEqualToExceptionMessageSuffix,
+            };
+
+            var testValues4 = new TestValues<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>
+            {
+                MustPassingValues = new[]
+                {
+                    comparisonValue4,
+                    new Dictionary<string, IReadOnlyCollection<string>>
+                    {
+                        {
+                            "def",
+                            new List<string> { "4", "5", null }
+                        },
+                        {
+                            "abc",
+                            new List<string> { "2", "3", "1" }
+                        },
+                    },
+                },
+                MustEachPassingValues = new IEnumerable<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>[]
+                {
+                    new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[] { },
+                    new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[]
+                    {
+                        comparisonValue4,
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "def",
+                                new List<string> { "4", "5", null }
+                            },
+                            {
+                                "abc",
+                                new List<string> { "2", "3", "1" }
+                            },
+                        },
+                    },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[]
+                {
+                    new Dictionary<string, IReadOnlyCollection<string>>
+                    {
+                        {
+                            "abc",
+                            new List<string> { "1", "2", "3" }
+                        },
+                        {
+                            "def",
+                            new List<string> { "4", null, "5", "6" }
+                        },
+                    },
+                },
+                MustEachFailingValues = new IEnumerable<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>[]
+                {
+                    new[]
+                    {
+                        comparisonValue4,
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "def",
+                                new List<string> { "4", null, "5", "6" }
+                            },
+                        },
+                        comparisonValue4,
+                    },
+                },
+            };
+
+            verificationTest4.Run(testValues4);
         }
 
         [Fact]
@@ -8000,6 +8096,143 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             verificationTest3.Run(decimalTestValues3);
+
+            // dictionary that contains a collection
+            IReadOnlyDictionary<string, IReadOnlyCollection<string>> comparisonValue4 =
+                new Dictionary<string, IReadOnlyCollection<string>>
+                {
+                    {
+                        "abc",
+                        new List<string> { "1", "2", "3" }
+                    },
+                    {
+                        "def",
+                        new List<string> { "4", null, "5" }
+                    },
+                };
+
+            var verificationTest4 = new VerificationTest
+            {
+                VerificationHandler = GetVerificationHandler(comparisonValue4),
+                VerificationName = verificationName,
+                ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeEqualToExceptionMessageSuffix,
+            };
+
+            var testValues4 = new TestValues<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>
+            {
+                MustPassingValues = new[]
+                {
+                    new Dictionary<string, IReadOnlyCollection<string>>
+                    {
+                        {
+                            "abc",
+                            new List<string> { "1", "2", "3" }
+                        },
+                        {
+                            "def",
+                            new List<string> { "4", null, "5", "6" }
+                        },
+                    },
+                },
+                MustEachPassingValues = new IEnumerable<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>[]
+                {
+                    new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[] { },
+                    new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[]
+                    {
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "def",
+                                new List<string> { "4", null, "5", "6" }
+                            },
+                        },
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "ghi",
+                                new List<string> { "4", null, "5", }
+                            },
+                        },
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "def",
+                                new List<string> { "4", "5" }
+                            },
+                        },
+                    },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, IReadOnlyCollection<string>>[]
+                {
+                    comparisonValue4,
+                    new Dictionary<string, IReadOnlyCollection<string>>
+                    {
+                        {
+                            "def",
+                            new List<string> { null, "5", "4" }
+                        },
+                        {
+                            "abc",
+                            new List<string> { "2", "3", "1" }
+                        },
+                    },
+                },
+                MustEachFailingValues = new IEnumerable<IReadOnlyDictionary<string, IReadOnlyCollection<string>>>[]
+                {
+                    new[]
+                    {
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "def",
+                                new List<string> { "4", null, "5", "6" }
+                            },
+                        },
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "def",
+                                new List<string> { null, "5", "4" }
+                            },
+                            {
+                                "abc",
+                                new List<string> { "2", "3", "1" }
+                            },
+                        },
+                        new Dictionary<string, IReadOnlyCollection<string>>
+                        {
+                            {
+                                "abc",
+                                new List<string> { "1", "2", "3" }
+                            },
+                            {
+                                "def",
+                                new List<string> { "4", null, "5", "6" }
+                            },
+                        },
+                    },
+                },
+            };
+
+            verificationTest4.Run(testValues4);
         }
 
         [Fact]
@@ -8839,6 +9072,95 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             verificationTest4.Run(decimalTestValues4);
+
+            // unordered collection
+            IReadOnlyCollection<string> comparisonValue5 = new[] { "a", null, "b" };
+
+            var verificationTest5 = new VerificationTest
+            {
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
+            };
+
+            var testValues5 = new TestValues<IEnumerable<IReadOnlyCollection<string>>>
+            {
+                MustPassingValues = new[]
+                {
+                    new[] { new[] { "a", null, "b" } },
+                    new[] { null, comparisonValue5, null },
+                    new[]
+                    {
+                        new[] { "d" },
+                        new[] { "b", "a", null },
+                        new[] { "e", "f" },
+                    },
+                },
+                MustEachPassingValues = new IEnumerable<IEnumerable<IReadOnlyCollection<string>>>[]
+                {
+                    new IEnumerable<IReadOnlyCollection<string>>[] { },
+                    new[]
+                    {
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "b", "a", null },
+                            new[] { "e", "f" },
+                        },
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { null, "a", "b" },
+                        },
+                        new[]
+                        {
+                            new[] { "b", "a", null },
+                        },
+                    },
+                },
+                MustFailingValues = new IEnumerable<IReadOnlyCollection<string>>[]
+                {
+                    new IReadOnlyCollection<string>[]
+                    {
+                    },
+                    new IReadOnlyCollection<string>[]
+                    {
+                        new[] { null, "b" },
+                        new[] { "a", null },
+                        new[] { "a", null, "b", null },
+                        new[] { "a", null, "b", "b" },
+                    },
+                },
+                MustEachFailingValues = new IEnumerable<IEnumerable<IReadOnlyCollection<string>>>[]
+                {
+                    new IEnumerable<IReadOnlyCollection<string>>[]
+                    {
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "a", null, "b" },
+                            new[] { "e", "f" },
+                        },
+                        new[]
+                        {
+                            new[] { null, "b" },
+                            new[] { "a", null },
+                            new[] { "a", null, "b", null },
+                            new[] { "a", null, "b", "b" },
+                        },
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "a", null, "b" },
+                            new[] { "e", "f" },
+                        },
+                    },
+                },
+            };
+
+            verificationTest5.Run(testValues5);
         }
 
         [Fact]
@@ -9033,6 +9355,100 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             };
 
             verificationTest4.Run(decimalTestValues4);
+
+            // unordered collection
+            IReadOnlyCollection<string> comparisonValue5 = new[] { "a", null, "b" };
+
+            var verificationTest5 = new VerificationTest
+            {
+                VerificationHandler = GetVerificationHandler(comparisonValue5),
+                VerificationName = verificationName,
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
+            };
+
+            var testValues5 = new TestValues<IEnumerable<IReadOnlyCollection<string>>>
+            {
+                MustPassingValues = new[]
+                {
+                    new IReadOnlyCollection<string>[]
+                    {
+                    },
+                    new IReadOnlyCollection<string>[]
+                    {
+                        new[] { null, "b" },
+                        new[] { "a", null },
+                        new[] { "a", null, "b", null },
+                        new[] { "a", null, "b", "b" },
+                    },
+                },
+                MustEachPassingValues = new IEnumerable<IEnumerable<IReadOnlyCollection<string>>>[]
+                {
+                    new IEnumerable<IReadOnlyCollection<string>>[] { },
+                    new IEnumerable<IReadOnlyCollection<string>>[]
+                    {
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "a", null, "b", null },
+                            new[] { "e", "f" },
+                        },
+                        new[]
+                        {
+                            new[] { null, "b" },
+                            new[] { "a", null },
+                            new[] { "a", null, "b", null },
+                            new[] { "a", null, "b", "b" },
+                        },
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "a", null, "b", null },
+                            new[] { "e", "f" },
+                        },
+                    },
+                },
+                MustFailingValues = new IEnumerable<IReadOnlyCollection<string>>[]
+                {
+                    new[] { new[] { "a", null, "b" } },
+                    new[] { null, comparisonValue5, null },
+                    new[]
+                    {
+                        new[] { "d" },
+                        new[] { "b", "a", null },
+                        new[] { "e", "f" },
+                    },
+                },
+                MustEachFailingValues = new IEnumerable<IEnumerable<IReadOnlyCollection<string>>>[]
+                {
+                    new[]
+                    {
+                        new[]
+                        {
+                            new[] { null, "b" },
+                            new[] { "a", null },
+                            new[] { "a", null, "b", null },
+                            new[] { "a", null, "b", "b" },
+                        },
+                        new[]
+                        {
+                            new[] { "d" },
+                            new[] { "a", "b", null },
+                            new[] { "e", "f" },
+                        },
+                        new[]
+                        {
+                            new[] { null, "b" },
+                            new[] { "a", null },
+                            new[] { "a", null, "b", null },
+                            new[] { "a", null, "b", "b" },
+                        },
+                    },
+                },
+            };
+
+            verificationTest5.Run(testValues5);
         }
 
         [Fact]

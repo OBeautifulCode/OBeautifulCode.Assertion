@@ -17,6 +17,8 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Linq;
     using System.Reflection;
 
+    using OBeautifulCode.Equality.Recipes;
+
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
     internal
@@ -29,9 +31,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
         private static readonly ConcurrentDictionary<Type, MethodInfo> GetDefaultValueTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
-        private static readonly MethodInfo EqualsUsingDefaultEqualityComparerOpenGenericMethodInfo = ((Func<object, object, bool>)EqualsUsingDefaultEqualityComparer).Method.GetGenericMethodDefinition();
+        private static readonly MethodInfo IsEqualToOpenGenericMethodInfo = typeof(EqualityExtensions).GetMethod(nameof(EqualityExtensions.IsEqualTo))?.GetGenericMethodDefinition();
 
-        private static readonly ConcurrentDictionary<Type, MethodInfo> EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
+        private static readonly ConcurrentDictionary<Type, MethodInfo> TypeToIsEqualToMethodInfoMap = new ConcurrentDictionary<Type, MethodInfo>();
 
         private static readonly MethodInfo CompareUsingDefaultComparerOpenGenericMethodInfo = ((Func<object, object, CompareOutcome>)CompareUsingDefaultComparer).Method.GetGenericMethodDefinition();
 
@@ -62,26 +64,17 @@ namespace OBeautifulCode.Assertion.Recipes
             return result;
         }
 
-        private static bool EqualsUsingDefaultEqualityComparer<T>(
-            T value1,
-            T value2)
-        {
-            var result = EqualityComparer<T>.Default.Equals(value1, value2);
-
-            return result;
-        }
-
-        private static bool EqualUsingDefaultEqualityComparer(
+        private static bool AreEqual(
             Type type,
             object value1,
             object value2)
         {
-            if (!EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap.ContainsKey(type))
+            if (!TypeToIsEqualToMethodInfoMap.ContainsKey(type))
             {
-                EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap.TryAdd(type, EqualsUsingDefaultEqualityComparerOpenGenericMethodInfo.MakeGenericMethod(type));
+                TypeToIsEqualToMethodInfoMap.TryAdd(type, IsEqualToOpenGenericMethodInfo.MakeGenericMethod(type));
             }
 
-            var result = (bool)EqualsUsingDefaultEqualityComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
+            var result = (bool)TypeToIsEqualToMethodInfoMap[type].Invoke(null, new[] { value1, value2, null });
 
             return result;
         }
