@@ -15,7 +15,6 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using OBeautifulCode.Equality.Recipes;
 
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
@@ -790,7 +789,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        private static void ContainInternal(
+        private static void ContainElementInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
@@ -808,14 +807,14 @@ namespace OBeautifulCode.Assertion.Recipes
                 }
             }
 
-            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainElementExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
             var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
             throw exception;
         }
 
-        private static void NotContainInternal(
+        private static void NotContainElementInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
@@ -829,7 +828,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 if (AreEqual(elementType, element, searchForItem))
                 {
-                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainElementExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
 
                     var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 

@@ -125,9 +125,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range using " + DefaultComparer;
 
-        public const string ContainExceptionMessageSuffix = "does not contain the item to search for using " + DefaultEqualityComparer;
+        public const string ContainElementExceptionMessageSuffix = "does not contain the item to search for using " + DefaultEqualityComparer;
 
-        public const string NotContainExceptionMessageSuffix = "contains the item to search for using " + DefaultEqualityComparer;
+        public const string NotContainElementExceptionMessageSuffix = "contains the item to search for using " + DefaultEqualityComparer;
 
         public const string BeAlphabeticExceptionMessageSuffix = "is not alphabetic";
 

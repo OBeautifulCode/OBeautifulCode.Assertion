@@ -43,16 +43,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected2 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type decimal, which is not one of the following expected type(s): string.";
 
             var subject3 = Some.ReadOnlyDummies<string>();
-            var expected3 = "Called Contain(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected3 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
 
             var subject4 = new[] { Some.ReadOnlyDummies<string>(), Some.ReadOnlyDummies<string>() };
-            var expected4 = "Called Contain(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected4 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeLessThan(A.Dummy<decimal>()));
             var actual2 = Record.Exception(() => new { subject2 }.Must().Each().BeLessThan(A.Dummy<decimal>()));
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Contain(A.Dummy<decimal>()));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().Contain(A.Dummy<decimal>()));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().ContainElement(A.Dummy<decimal>()));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().ContainElement(A.Dummy<decimal>()));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -8916,15 +8916,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Contain___Should_throw_or_not_throw_as_expected___When_called()
+        public static void ContainElement___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(T item)
             {
-                return (subject, because, applyBecause, data) => subject.Contain(item, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.ContainElement(item, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.Contain);
+            var verificationName = nameof(Verifications.ContainElement);
 
             var verificationTest1 = new VerificationTest
             {
@@ -9045,7 +9045,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.ContainElementExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<IEnumerable<decimal>>
@@ -9082,7 +9082,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.ContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.ContainElementExceptionMessageSuffix,
             };
 
             var testValues5 = new TestValues<IEnumerable<IReadOnlyCollection<string>>>
@@ -9164,7 +9164,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Contain___Should_throw_with_expected_Exception_message___When_called()
+        public static void ContainElement___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             var subject1 = new int?[] { 1, 2, 3 };
@@ -9184,11 +9184,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that does not contain the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().Contain(itemToSearchFor1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().Contain(itemToSearchFor2));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().ContainElement(itemToSearchFor1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().ContainElement(itemToSearchFor2));
 
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().Contain(itemToSearchFor3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().Contain(itemToSearchFor4));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().ContainElement(itemToSearchFor3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().ContainElement(itemToSearchFor4));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -9199,15 +9199,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotContain___Should_throw_or_not_throw_as_expected___When_called()
+        public static void NotContainElement___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(T item)
             {
-                return (subject, because, applyBecause, data) => subject.NotContain(item, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotContainElement(item, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.NotContain);
+            var verificationName = nameof(Verifications.NotContainElement);
 
             var verificationTest1 = new VerificationTest
             {
@@ -9327,7 +9327,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainElementExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<IEnumerable<decimal>>
@@ -9365,7 +9365,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotContainExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotContainElementExceptionMessageSuffix,
             };
 
             var testValues5 = new TestValues<IEnumerable<IReadOnlyCollection<string>>>
@@ -9452,7 +9452,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotContain___Should_throw_with_expected_Exception_message___When_called()
+        public static void NotContainElement___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             var subject1 = new int?[] { 1, null, 3 };
@@ -9472,11 +9472,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that contains the item to search for using EqualityComparer<T>.Default, where T: int.  Specified 'itemToSearchFor' is '10'.";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().NotContain(itemToSearchFor1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().NotContain(itemToSearchFor2));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotContainElement(itemToSearchFor1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().NotContainElement(itemToSearchFor2));
 
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotContain(itemToSearchFor3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotContain(itemToSearchFor4));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotContainElement(itemToSearchFor3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotContainElement(itemToSearchFor4));
 
             // Assert
             actual1.Message.Should().Be(expected1);

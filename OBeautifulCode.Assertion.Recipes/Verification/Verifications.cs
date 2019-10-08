@@ -1424,7 +1424,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker Contain<T>(
+        public static AssertionTracker ContainElement<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             T itemToSearchFor,
             string because = null,
@@ -1435,8 +1435,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = ContainInternal,
-                Name = nameof(Contain),
+                Handler = ContainElementInternal,
+                Name = nameof(ContainElement),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1467,7 +1467,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker NotContain<T>(
+        public static AssertionTracker NotContainElement<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             T itemToSearchFor,
             string because = null,
@@ -1478,8 +1478,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = NotContainInternal,
-                Name = nameof(NotContain),
+                Handler = NotContainElementInternal,
+                Name = nameof(NotContainElement),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
