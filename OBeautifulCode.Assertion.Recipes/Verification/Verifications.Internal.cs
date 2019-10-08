@@ -1049,5 +1049,49 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw exception;
             }
         }
+
+        private static void ContainStringInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var subjectValue = (string)verifiableItem.Value;
+            var comparisonValue = (string)verification.VerificationParameters[0].Value;
+
+            var shouldThrow = !subjectValue.Contains(comparisonValue);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainStringExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        private static void NotContainStringInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var subjectValue = (string)verifiableItem.Value;
+            var comparisonValue = (string)verification.VerificationParameters[0].Value;
+
+            var shouldThrow = subjectValue.Contains(comparisonValue);
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainStringExceptionMessageSuffix, Include.FailingValue);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
     }
 }

@@ -149,6 +149,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeSameReferenceAsExceptionMessageSuffix = "is the same reference as the comparison value";
 
+        public const string ContainStringExceptionMessageSuffix = "does not contain the specified comparison value";
+
+        public const string NotContainStringExceptionMessageSuffix = "contains the specified comparison value";
 #pragma warning restore SA1600
 #pragma warning restore 1591
     }
