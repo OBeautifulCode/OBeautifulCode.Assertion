@@ -285,7 +285,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                ThrowImproperUseOfFramework(Verifications.SubjectAndOperationSequencingMessage);
+                ThrowImproperUseOfFramework(Verifications.SubjectAndOperationSequencingErrorMessage);
             }
         }
 
@@ -306,7 +306,7 @@ namespace OBeautifulCode.Assertion.Recipes
             //   - if tracker != null then the user doesn't understand how the framework is designed to be used
             //     and what the framework's limitations are.  Some negative outcome might occur (throwing when
             //     not expected or not throwing when expected).
-            message = message == null ? Verifications.ImproperUseOfFrameworkExceptionMessage : message + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
+            message = message == null ? Verifications.ImproperUseOfFrameworkErrorMessage : message + "  " + Verifications.ImproperUseOfFrameworkErrorMessage;
 
             throw new ImproperUseOfAssertionFrameworkException(message);
         }
@@ -377,7 +377,7 @@ namespace OBeautifulCode.Assertion.Recipes
                     }
                     else
                     {
-                        var errorMessage = string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyMessage, properties.Length, string.Join(", ", properties.Select(_ => _.Name).ToArray()));
+                        var errorMessage = string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyErrorMessage, properties.Length, string.Join(", ", properties.Select(_ => _.Name).ToArray()));
 
                         ThrowImproperUseOfFramework(errorMessage);
                     }

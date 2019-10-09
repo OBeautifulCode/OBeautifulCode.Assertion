@@ -53,7 +53,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -65,17 +65,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var actual2 = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsOp());
             var actual3 = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsTest());
 
-            var exceptionMessagePrefix = string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyMessage, 2, "someSubject, someSubject2") + "  ";
+            var exceptionMessagePrefix = string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyErrorMessage, 2, "someSubject, someSubject2") + "  ";
 
             // Assert
             actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual1.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            actual1.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkErrorMessage);
 
             actual2.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual2.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            actual2.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkErrorMessage);
 
             actual3.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual3.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            actual3.Message.Should().Be(exceptionMessagePrefix + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
@@ -438,7 +438,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -461,7 +461,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -480,7 +480,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -499,7 +499,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -518,7 +518,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -553,7 +553,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be(string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyMessage, 2, "someSubject, someSubject2") + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+            actual.Message.Should().Be(string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyErrorMessage, 2, "someSubject, someSubject2") + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
@@ -822,7 +822,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -842,7 +842,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -862,7 +862,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -922,7 +922,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -942,7 +942,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 
@@ -961,7 +961,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingMessage + "  " + Verifications.ImproperUseOfFrameworkExceptionMessage);
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
             }
         }
 

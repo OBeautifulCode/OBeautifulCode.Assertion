@@ -321,7 +321,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{valueType.ToStringReadable()}>") : valueType.ToStringReadable();
 
-            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeMessage, verificationName, valueTypeMessage, expectedTypesMessage);
+            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeErrorMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
             WorkflowExtensions.ThrowImproperUseOfFramework(exceptionMessage);
         }
@@ -336,7 +336,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var expectedTypesMessage = string.Join(", ", expectedTypesStrings);
 
-            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterUnexpectedTypeMessage, verificationName, verificationParameterName, verificationParameterName, verificationParameterType.ToStringReadable(), expectedTypesMessage);
+            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterUnexpectedTypeErrorMessage, verificationName, verificationParameterName, verificationParameterName, verificationParameterType.ToStringReadable(), expectedTypesMessage);
 
             WorkflowExtensions.ThrowImproperUseOfFramework(exceptionMessage);
         }
