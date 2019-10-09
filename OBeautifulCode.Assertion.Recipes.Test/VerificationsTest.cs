@@ -2170,10 +2170,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var subject1 = new[] { A.Dummy<object>() };
-            var expected1 = "Provided value (name: 'subject1') is not an empty enumerable.";
+            var expected1 = "Provided value (name: 'subject1') is not an empty enumerable.  Enumerable has 1 element(s).";
 
-            var subject2 = new[] { new object[] { }, new[] { A.Dummy<object>() }, new object[] { } };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty enumerable.";
+            var subject2 = new[] { new object[] { }, new[] { A.Dummy<object>(), A.Dummy<object>() }, new object[] { } };
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty enumerable.  Enumerable has 2 element(s).";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeEmptyEnumerable());
@@ -2694,15 +2694,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeEmptyDictionary___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
-            var subject1 = new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } };
-            var expected1 = "Provided value (name: 'subject1') is not an empty dictionary.";
+            var subject1 = new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() }, { A.Dummy<string>(), A.Dummy<string>() } };
+            var expected1 = "Provided value (name: 'subject1') is not an empty dictionary.  Dictionary contains 2 key/value pair(s).";
 
             var subject2 = new IReadOnlyDictionary<string, string>[]
             {
                 new Dictionary<string, string>(),
                 new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
             };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty dictionary.";
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty dictionary.  Dictionary contains 1 key/value pair(s).";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeEmptyDictionary());
@@ -4224,11 +4224,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotContainAnyKeyValuePairsWithNullValue___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
-            var subject1 = new Dictionary<string, string>() { { A.Dummy<string>(), null } };
-            var expected1 = "Provided value (name: 'subject1') contains at least one key-value pair with a null value.";
+            var subject1 = new Dictionary<string, string>() { { "abc", A.Dummy<string>() }, { "def", null } };
+            var expected1 = "Provided value (name: 'subject1') contains at least one key-value pair with a null value.  For example, see this key: 'def'.";
 
-            var subject2 = new[] { new Dictionary<string, string>() { { A.Dummy<string>(), null } } };
-            var expected2 = "Provided value (name: 'subject2') contains an element that contains at least one key-value pair with a null value.";
+            var subject2 = new[] { new Dictionary<string, string>() { { "abc", A.Dummy<string>() }, { "def", null } } };
+            var expected2 = "Provided value (name: 'subject2') contains an element that contains at least one key-value pair with a null value.  For example, see this key: 'def'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotContainAnyKeyValuePairsWithNullValue());
@@ -5702,10 +5702,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int subject1 = 5;
-            var expected1 = "Provided value (name: 'subject1') is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  Provided value is '5'.";
+            var expected1 = "Provided value (name: 'subject1') is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  default(T) is '0'.  Provided value is '5'.";
 
-            var subject2 = new[] { 0, 1, 0 };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '1'.";
+            var subject2 = new[] { null, "abc", null };
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: string.  default(T) is '<null>'.  Element value is 'abc'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeDefault());
@@ -5878,10 +5878,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int?.";
+            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int?.  default(T) is '<null>'.";
 
             var subject2 = new[] { 1, 0, 1 };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.";
+            var expected2 = "Provided value (name: 'subject2') contains an element that is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  default(T) is '0'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeDefault());

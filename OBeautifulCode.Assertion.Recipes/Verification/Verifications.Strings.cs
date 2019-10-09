@@ -61,6 +61,14 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string EmptyEnumerableToString = "[<empty>]";
 
+        public const string EnumerableElementCountContextualInfo = "Enumerable has {0} element(s).";
+
+        public const string DictionaryCountContextualInfo = "Dictionary contains {0} key/value pair(s).";
+
+        public const string DictionaryKeyExampleContextualInfo = "For example, see this key: '{0}'.";
+
+        public const string DefaultValueContextualInfo = "default(T) is '{0}'.";
+
         public const string BeNullExceptionMessageSuffix = "is not null";
 
         public const string NotBeNullExceptionMessageSuffix = "is null";

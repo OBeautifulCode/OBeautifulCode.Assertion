@@ -13,6 +13,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -245,7 +246,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyEnumerableExceptionMessageSuffix);
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, EnumerableElementCountContextualInfo, elementCount);
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyEnumerableExceptionMessageSuffix, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -291,7 +294,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = valueAsDictionary.Count != 0;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyDictionaryExceptionMessageSuffix);
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryCountContextualInfo, valueAsDictionary.Count);
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyDictionaryExceptionMessageSuffix, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -422,18 +427,24 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = false;
 
             // ReSharper disable once PossibleNullReferenceException
+            object offendingKey = null;
             foreach (var keyValuePair in valueAsEnumerable)
             {
                 if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
                 {
                     shouldThrow = true;
+
+                    offendingKey = ((dynamic)keyValuePair).Key;
+
                     break;
                 }
             }
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryKeyExampleContextualInfo, offendingKey.ToStringInErrorMessage());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -447,10 +458,14 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var defaultValue = GetDefaultValue(verifiableItem.ValueType);
+
             var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -464,10 +479,14 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var defaultValue = GetDefaultValue(verifiableItem.ValueType);
+
             var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, Include.GenericType);
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, Include.GenericType, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -481,6 +500,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
@@ -506,6 +526,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);

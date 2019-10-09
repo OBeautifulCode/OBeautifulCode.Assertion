@@ -119,7 +119,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
 
-            var contextualInfoQualifier = contextualInfo == null ? null : " " + contextualInfo;
+            var contextualInfoQualifier = contextualInfo == null ? null : "  " + contextualInfo;
 
             var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is '{verifiableItem.Value.ToStringInErrorMessage()}'.") : string.Empty;
             
