@@ -258,6 +258,7 @@ namespace OBeautifulCode.Assertion.Recipes
             TypeValidation typeValidation)
         {
             var valueType = verifiableItem.ValueType;
+
             var validTypes = typeValidation.ReferenceTypes;
 
             if (!validTypes.Any(_ => valueType.IsAssignableTo(_, treatUnboundGenericAsAssignableTo: true)))
@@ -314,7 +315,9 @@ namespace OBeautifulCode.Assertion.Recipes
             params string[] expectedTypes)
         {
             var valueType = verifiableItem.ValueType;
+
             var verificationName = verification.Name;
+
             var isElementInEnumerable = verifiableItem.IsElementInEnumerable;
 
             var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));

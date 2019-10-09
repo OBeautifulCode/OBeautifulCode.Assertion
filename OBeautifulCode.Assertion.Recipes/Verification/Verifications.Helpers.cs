@@ -62,6 +62,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
 
             var result = GetDefaultValueTypeToMethodInfoMap[type].Invoke(null, null);
+
             return result;
         }
 
@@ -85,7 +86,9 @@ namespace OBeautifulCode.Assertion.Recipes
             T y)
         {
             var comparison = Comparer<T>.Default.Compare(x, y);
+
             CompareOutcome result;
+
             if (comparison < 0)
             {
                 result = CompareOutcome.Value1LessThanValue2;
@@ -133,6 +136,7 @@ namespace OBeautifulCode.Assertion.Recipes
         private static T GetDefaultValue<T>()
         {
             var result = default(T);
+
             return result;
         }
 
@@ -140,6 +144,7 @@ namespace OBeautifulCode.Assertion.Recipes
             IEnumerable value)
         {
             var result = 0;
+
             if (value is ICollection collection)
             {
                 result = collection.Count;
@@ -147,6 +152,7 @@ namespace OBeautifulCode.Assertion.Recipes
             else
             {
                 var enumerator = value.GetEnumerator();
+
                 while (enumerator.MoveNext())
                 {
                     ++result;
@@ -161,10 +167,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             // the public BeInRange/NotBeInRange is generic and guarantees that minimum and maximum are of the same type
             var rangeIsMalformed = CompareUsingDefaultComparer(verificationParameters[0].ParameterType, verificationParameters[0].Value, verificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2;
+
             if (rangeIsMalformed)
             {
-                var malformedRangeExceptionMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, verificationParameters[0].Name, verificationParameters[1].Name, verificationParameters[0].Value?.ToString() ?? NullValueToString, verificationParameters[1].Value?.ToString() ?? NullValueToString);
-                WorkflowExtensions.ThrowImproperUseOfFramework(malformedRangeExceptionMessage);
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, verificationParameters[0].Name, verificationParameters[1].Name, verificationParameters[0].Value.ToStringInErrorMessage(), verificationParameters[1].Value.ToStringInErrorMessage());
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
         }
 

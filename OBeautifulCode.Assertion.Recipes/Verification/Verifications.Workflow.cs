@@ -103,7 +103,8 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             string exceptionMessageSuffix,
             Include include = Include.None,
-            Type genericTypeOverride = null)
+            Type genericTypeOverride = null,
+            string contextualInfo = null)
         {
             if (verification.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
             {
@@ -113,11 +114,18 @@ namespace OBeautifulCode.Assertion.Recipes
             }
 
             var subjectNameQualifier = assertionTracker.SubjectName == null ? string.Empty : Invariant($" (name: '{assertionTracker.SubjectName}')");
+
             var enumerableQualifier = verifiableItem.IsElementInEnumerable ? " contains an element that" : string.Empty;
+
             var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is '{verifiableItem.Value?.ToString() ?? NullValueToString}'.") : string.Empty;
-            var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToExceptionMessageComponent()));
-            var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{failingValueQualifier}{verificationParametersQualifier}");
+
+            var contextualInfoQualifier = contextualInfo == null ? null : " " + contextualInfo;
+
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is '{verifiableItem.Value.ToStringInErrorMessage()}'.") : string.Empty;
+            
+            var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToStringInErrorMessage()));
+
+            var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{contextualInfoQualifier}{failingValueQualifier}{verificationParametersQualifier}");
 
             if (verification.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {
@@ -141,28 +149,24 @@ namespace OBeautifulCode.Assertion.Recipes
             return result;
         }
 
-        private static string ToExceptionMessageComponent(
+        private static string ToStringInErrorMessage(
             this VerificationParameter verificationParameter)
         {
             var result = Invariant($"  Specified '{verificationParameter.Name}' is");
-            if (verificationParameter.ValueToStringFunc == null)
-            {
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (verificationParameter.Value == null)
-                {
-                    result = Invariant($"{result} '{NullValueToString}'");
-                }
-                else
-                {
-                    result = Invariant($"{result} '{verificationParameter.Value}'");
-                }
-            }
-            else
-            {
-                result = Invariant($"{result} {verificationParameter.ValueToStringFunc()}");
-            }
+
+            result = verificationParameter.ValueToStringFunc == null
+                ? Invariant($"{result} '{verificationParameter.Value.ToStringInErrorMessage()}'")
+                : Invariant($"{result} {verificationParameter.ValueToStringFunc()}");
 
             result = Invariant($"{result}.");
+
+            return result;
+        }
+
+        private static string ToStringInErrorMessage(
+            this object value)
+        {
+            var result = value?.ToString() ?? NullValueToString;
 
             return result;
         }
