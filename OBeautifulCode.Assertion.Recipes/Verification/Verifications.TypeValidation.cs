@@ -191,7 +191,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             var valueTypeString = verifiableItem.ValueType.ToStringReadable();
 
-            throw new ImproperUseOfAssertionFrameworkException(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
+            WorkflowExtensions.ThrowImproperUseOfFramework(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {valueTypeString}"));
         }
 
         private static void ThrowIfValueType(
@@ -323,7 +323,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
-            throw new ImproperUseOfAssertionFrameworkException(exceptionMessage);
+            WorkflowExtensions.ThrowImproperUseOfFramework(exceptionMessage);
         }
 
         private static void ThrowVerificationParameterUnexpectedType(
@@ -338,7 +338,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var exceptionMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterUnexpectedTypeMessage, verificationName, verificationParameterName, verificationParameterName, verificationParameterType.ToStringReadable(), expectedTypesMessage);
 
-            throw new ImproperUseOfAssertionFrameworkException(exceptionMessage);
+            WorkflowExtensions.ThrowImproperUseOfFramework(exceptionMessage);
         }
 #pragma warning restore SA1201
     }

@@ -10,9 +10,13 @@
 namespace OBeautifulCode.Assertion.Recipes
 {
     using System.Collections;
+    using System.Globalization;
+    using System.Linq;
     using System.Runtime.CompilerServices;
 
     using OBeautifulCode.Type.Recipes;
+
+    using static System.FormattableString;
 
     /// <summary>
     /// Workflow related extension methods, excluding verification.
@@ -281,7 +285,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                ThrowImproperUseOfFramework();
+                ThrowImproperUseOfFramework(Verifications.SubjectAndOperationSequencingMessage);
             }
         }
 
@@ -373,7 +377,9 @@ namespace OBeautifulCode.Assertion.Recipes
                     }
                     else
                     {
-                        ThrowImproperUseOfFramework();
+                        var errorMessage = string.Format(CultureInfo.InvariantCulture, Verifications.AnonymousObjectDoesNotHaveSinglePropertyMessage, properties.Length, string.Join(", ", properties.Select(_ => _.Name).ToArray()));
+
+                        ThrowImproperUseOfFramework(errorMessage);
                     }
                 }
             }

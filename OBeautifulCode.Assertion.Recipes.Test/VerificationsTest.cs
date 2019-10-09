@@ -37,16 +37,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             var subject1 = A.Dummy<string>();
-            var expected1 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected1 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type decimal, which is not one of the following expected type(s): string.  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             var subject2 = Some.ReadOnlyDummies<string>();
-            var expected2 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected2 = "Called BeLessThan(comparisonValue:) where 'comparisonValue' is of type decimal, which is not one of the following expected type(s): string.  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             var subject3 = Some.ReadOnlyDummies<string>();
-            var expected3 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected3 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             var subject4 = new[] { Some.ReadOnlyDummies<string>(), Some.ReadOnlyDummies<string>() };
-            var expected4 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.";
+            var expected4 = "Called ContainElement(itemToSearchFor:) where 'itemToSearchFor' is of type decimal, which is not one of the following expected type(s): string.  " + Verifications.ImproperUseOfFrameworkExceptionMessage;
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeLessThan(A.Dummy<decimal>()));
@@ -11914,7 +11914,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // calling Each() on object that is not IEnumerable
             var notEnumerable = new object();
             var assertionTracker1 = notEnumerable.RunMust(assertionKind, subjectName, each: true);
-            var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.");
+            var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.  {Verifications.ImproperUseOfFrameworkExceptionMessage}");
 
             // calling Each() on object that is IEnumerable, but null
             IEnumerable<string> nullEnumerable = null;
@@ -11947,7 +11947,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
                 var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: false);
-                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.");
+                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.  {Verifications.ImproperUseOfFrameworkExceptionMessage}");
 
                 // Act
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
@@ -11970,7 +11970,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
                 var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: true);
-                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.");
+                var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.  {Verifications.ImproperUseOfFrameworkExceptionMessage}");
 
                 // Act
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
@@ -11997,7 +11997,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 // Arrange
                 testValues.GetType().GetGenericArguments().First().ToStringReadable();
                 var expectedStartOfMessage = Invariant($"Called {verificationTest.VerificationName}({verificationTest.VerificationParameterInvalidTypeName}:) where '{verificationTest.VerificationParameterInvalidTypeName}' is of type");
-                var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {verificationTest.VerificationParameterInvalidTypeExpectedTypes}.");
+                var expectedEndOfMessage = Invariant($"which is not one of the following expected type(s): {verificationTest.VerificationParameterInvalidTypeExpectedTypes}.  {Verifications.ImproperUseOfFrameworkExceptionMessage}");
 
                 // Act
                 var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));

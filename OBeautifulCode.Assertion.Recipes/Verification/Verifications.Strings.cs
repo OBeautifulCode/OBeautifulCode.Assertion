@@ -11,6 +11,8 @@ namespace OBeautifulCode.Assertion.Recipes
 {
     using System.Collections;
 
+    using static System.FormattableString;
+
 #if !OBeautifulCodeAssertionRecipesProject
     internal
 #else
@@ -26,6 +28,8 @@ namespace OBeautifulCode.Assertion.Recipes
         public const string SubjectUnexpectedTypeMessage = "Called {0}() on a value of type {1}, which is not one of the following expected type(s): {2}.";
 
         public const string VerificationParameterUnexpectedTypeMessage = "Called {0}({1}:) where '{2}' is of type {3}, which is not one of the following expected type(s): {4}.";
+
+        public const string AnonymousObjectDoesNotHaveSinglePropertyMessage = "Provided value is an anonymous object having {0} properties.  Only single-property anonymous objects are supported.  Found the following properties: {1}.";
 
         public const string AnyReferenceTypeName = "Any Reference Type";
 
@@ -152,6 +156,7 @@ namespace OBeautifulCode.Assertion.Recipes
         public const string ContainStringExceptionMessageSuffix = "does not contain the specified comparison value";
 
         public const string NotContainStringExceptionMessageSuffix = "contains the specified comparison value";
+        public static readonly string SubjectAndOperationSequencingMessage = Invariant($"There is an issue with sequencing of the provided value and the supported assertion operators: {nameof(WorkflowExtensions.AsArg)}, {nameof(WorkflowExtensions.AsOp)}, {nameof(WorkflowExtensions.AsTest)}, {nameof(WorkflowExtensions.Must)}, {nameof(WorkflowExtensions.MustForArg)}, {nameof(WorkflowExtensions.MustForOp)}, {nameof(WorkflowExtensions.MustForTest)}, {nameof(WorkflowExtensions.And)}, {nameof(WorkflowExtensions.Each)}.");
 #pragma warning restore SA1600
 #pragma warning restore 1591
     }
