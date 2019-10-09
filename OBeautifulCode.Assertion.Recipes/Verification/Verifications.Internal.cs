@@ -49,18 +49,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeNullExceptionMessageSuffix);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentNullException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentNullException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -426,8 +421,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
             var shouldThrow = false;
 
-            // ReSharper disable once PossibleNullReferenceException
             object offendingKey = null;
+
+            // ReSharper disable once PossibleNullReferenceException
             foreach (var keyValuePair in valueAsEnumerable)
             {
                 if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
@@ -505,18 +501,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -531,18 +522,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -556,18 +542,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -581,18 +562,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -606,18 +582,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -631,18 +602,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -656,18 +622,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -681,18 +642,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -705,18 +661,14 @@ namespace OBeautifulCode.Assertion.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
             }
         }
 
@@ -729,18 +681,14 @@ namespace OBeautifulCode.Assertion.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
             }
         }
 
@@ -758,18 +706,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeInRangeExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
@@ -787,18 +730,13 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, Include.GenericType);
 
-                if (verifiableItem.IsElementInEnumerable)
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
-                    throw exception;
-                }
-                else
-                {
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentOutOfRangeException);
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
-                    throw exception;
-                }
+                throw exception;
             }
         }
 
