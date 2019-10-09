@@ -1044,5 +1044,65 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw exception;
             }
         }
+
+        private static void HaveCountInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
+            var expectedCount = (int)verification.VerificationParameters[0].Value;
+
+            var actualCount = GetElementCount(valueAsEnumerable);
+
+            var shouldThrow = actualCount != expectedCount;
+
+            if (shouldThrow)
+            {
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, EnumerableElementCountContextualInfo, actualCount);
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, HaveCountExceptionMessageSuffix, contextualInfo: contextualInfo);
+
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
+        }
+
+        private static void NotHaveCountInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
+            var unexpectedCount = (int)verification.VerificationParameters[0].Value;
+
+            var actualCount = GetElementCount(valueAsEnumerable);
+
+            var shouldThrow = actualCount == unexpectedCount;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotHaveCountExceptionMessageSuffix);
+
+                var argumentExceptionKind = verifiableItem.IsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
+        }
     }
 }

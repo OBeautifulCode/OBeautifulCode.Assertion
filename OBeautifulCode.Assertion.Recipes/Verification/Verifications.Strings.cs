@@ -168,7 +168,13 @@ namespace OBeautifulCode.Assertion.Recipes
         public const string ContainStringExceptionMessageSuffix = "does not contain the specified comparison value";
 
         public const string NotContainStringExceptionMessageSuffix = "contains the specified comparison value";
+
+        public const string HaveCountExceptionMessageSuffix = "is an enumerable whose element count does not equal the expected count";
+
+        public const string NotHaveCountExceptionMessageSuffix = "is an enumerable whose element count equals the unexpected count";
+
         public static readonly string SubjectAndOperationSequencingErrorMessage = Invariant($"There is an issue with sequencing of the provided value and the supported assertion operators: {nameof(WorkflowExtensions.AsArg)}, {nameof(WorkflowExtensions.AsOp)}, {nameof(WorkflowExtensions.AsTest)}, {nameof(WorkflowExtensions.Must)}, {nameof(WorkflowExtensions.MustForArg)}, {nameof(WorkflowExtensions.MustForOp)}, {nameof(WorkflowExtensions.MustForTest)}, {nameof(WorkflowExtensions.And)}, {nameof(WorkflowExtensions.Each)}.");
+
 #pragma warning restore SA1600
 #pragma warning restore 1591
     }
