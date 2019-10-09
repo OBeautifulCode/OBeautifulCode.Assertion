@@ -238,14 +238,10 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
-            var shouldThrow = false;
 
-            // ReSharper disable once PossibleNullReferenceException
-            foreach (var unused in valueAsEnumerable)
-            {
-                shouldThrow = true;
-                break;
-            }
+            var elementCount = GetElementCount(valueAsEnumerable);
+
+            var shouldThrow = elementCount != 0;
 
             if (shouldThrow)
             {
@@ -266,14 +262,10 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
-            var shouldThrow = true;
 
-            // ReSharper disable once PossibleNullReferenceException
-            foreach (var unused in valueAsEnumerable)
-            {
-                shouldThrow = false;
-                break;
-            }
+            var elementCount = GetElementCount(valueAsEnumerable);
+
+            var shouldThrow = elementCount == 0;
 
             if (shouldThrow)
             {

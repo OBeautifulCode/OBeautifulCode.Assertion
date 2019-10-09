@@ -10,6 +10,7 @@
 namespace OBeautifulCode.Assertion.Recipes
 {
     using System;
+    using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -132,6 +133,26 @@ namespace OBeautifulCode.Assertion.Recipes
         private static T GetDefaultValue<T>()
         {
             var result = default(T);
+            return result;
+        }
+
+        private static int GetElementCount(
+            IEnumerable value)
+        {
+            var result = 0;
+            if (value is ICollection collection)
+            {
+                result = collection.Count;
+            }
+            else
+            {
+                var enumerator = value.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    ++result;
+                }
+            }
+
             return result;
         }
 
