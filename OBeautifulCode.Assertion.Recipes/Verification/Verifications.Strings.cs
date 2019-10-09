@@ -31,6 +31,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string AnonymousObjectDoesNotHaveSinglePropertyErrorMessage = "Provided value is an anonymous object having {0} properties.  Only single-property anonymous objects are supported.  Found the following properties: {1}.";
 
+        public const string VerificationParameterIsNullErrorMessage = "Called {0}({1}:) where parameter '{1}' is null.";
+
+        public const string VerificationParameterLessThanZeroErrorMessage = "Called {0}({1}:) where parameter '{1}' is < 0.  Specified value for '{1}' is {2}.";
+
         public const string AnyReferenceTypeName = "Any Reference Type";
 
         public const string AnyValueTypeName = "Any Value Type";

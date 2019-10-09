@@ -12,6 +12,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -1691,7 +1692,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (regex == null)
             {
-                throw new ArgumentNullException(nameof(regex));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeMatchedByRegex), nameof(regex));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -1739,7 +1742,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (regex == null)
             {
-                throw new ArgumentNullException(nameof(regex));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeMatchedByRegex), nameof(regex));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -1789,7 +1794,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValue == null)
             {
-                throw new ArgumentNullException(nameof(comparisonValue));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(StartWith), nameof(comparisonValue));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -1844,7 +1851,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValue == null)
             {
-                throw new ArgumentNullException(nameof(comparisonValue));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotStartWith), nameof(comparisonValue));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -1990,7 +1999,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValue == null)
             {
-                throw new ArgumentNullException(nameof(comparisonValue));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainString), nameof(comparisonValue));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2037,7 +2048,9 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValue == null)
             {
-                throw new ArgumentNullException(nameof(comparisonValue));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainString), nameof(comparisonValue));
+
+                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification

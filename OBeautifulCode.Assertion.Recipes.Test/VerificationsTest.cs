@@ -10267,15 +10267,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void BeMatchedByRegex___Should_throw_ArgumentNullException___When_parameter_regex_is_null()
+        public static void BeMatchedByRegex___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_regex_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().BeMatchedByRegex(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("regex");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called BeMatchedByRegex(regex:) where parameter 'regex' is null.");
         }
 
         [Fact]
@@ -10467,15 +10467,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeMatchedByRegex___Should_throw_ArgumentNullException___When_parameter_regex_is_null()
+        public static void NotBeMatchedByRegex___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_regex_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().NotBeMatchedByRegex(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("regex");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called NotBeMatchedByRegex(regex:) where parameter 'regex' is null.");
         }
 
         [Fact]
@@ -10667,15 +10667,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void StartWith___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        public static void StartWith___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValue_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().StartWith(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("comparisonValue");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called StartWith(comparisonValue:) where parameter 'comparisonValue' is null.");
         }
 
         [Fact]
@@ -10860,15 +10860,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotStartWith___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        public static void NotStartWith___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValue_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().NotStartWith(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("comparisonValue");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called NotStartWith(comparisonValue:) where parameter 'comparisonValue' is null.");
         }
 
         [Fact]
@@ -11464,15 +11464,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void ContainString___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        public static void ContainString___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValue_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().ContainString(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("comparisonValue");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called ContainString(comparisonValue:) where parameter 'comparisonValue' is null.");
         }
 
         [Fact]
@@ -11621,15 +11621,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotContainString___Should_throw_ArgumentNullException___When_parameter_comparisonValue_is_null()
+        public static void NotContainString___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValue_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
             var actual = Record.Exception(() => new { subject }.Must().NotContainString(null));
 
             // Assert
-            actual.Should().BeOfType<ArgumentNullException>();
-            actual.Message.Should().Contain("comparisonValue");
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called NotContainString(comparisonValue:) where parameter 'comparisonValue' is null.");
         }
 
         [Fact]
