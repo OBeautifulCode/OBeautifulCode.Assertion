@@ -117,37 +117,41 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string DefaultComparer = "Comparer<T>.Default";
 
-        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T) using " + IsEqualToMethod;
+        public const string UsingIsEqualToMethodology = "using " + IsEqualToMethod + ", where T: {0}";
 
-        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T) using " + IsEqualToMethod;
+        public const string UsingDefaultComparerMethodology = "using " + DefaultComparer + ", where T: {0}";
 
-        public const string BeLessThanExceptionMessageSuffix = "is not less than the comparison value using " + DefaultComparer;
+        public const string BeDefaultExceptionMessageSuffix = "is not equal to default(T)";
 
-        public const string NotBeLessThanExceptionMessageSuffix = "is less than the comparison value using " + DefaultComparer;
+        public const string NotBeDefaultExceptionMessageSuffix = "is equal to default(T)";
 
-        public const string BeGreaterThanExceptionMessageSuffix = "is not greater than the comparison value using " + DefaultComparer;
+        public const string BeLessThanExceptionMessageSuffix = "is not less than the comparison value";
 
-        public const string NotBeGreaterThanExceptionMessageSuffix = "is greater than the comparison value using " + DefaultComparer;
+        public const string NotBeLessThanExceptionMessageSuffix = "is less than the comparison value";
 
-        public const string BeLessThanOrEqualToExceptionMessageSuffix = "is not less than or equal to the comparison value using " + DefaultComparer;
+        public const string BeGreaterThanExceptionMessageSuffix = "is not greater than the comparison value";
 
-        public const string NotBeLessThanOrEqualToExceptionMessageSuffix = "is less than or equal to the comparison value using " + DefaultComparer;
+        public const string NotBeGreaterThanExceptionMessageSuffix = "is greater than the comparison value";
 
-        public const string BeGreaterThanOrEqualToExceptionMessageSuffix = "is not greater than or equal to the comparison value using " + DefaultComparer;
+        public const string BeLessThanOrEqualToExceptionMessageSuffix = "is not less than or equal to the comparison value";
 
-        public const string NotBeGreaterThanOrEqualToExceptionMessageSuffix = "is greater than or equal to the comparison value using " + DefaultComparer;
+        public const string NotBeLessThanOrEqualToExceptionMessageSuffix = "is less than or equal to the comparison value";
 
-        public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value using " + IsEqualToMethod;
+        public const string BeGreaterThanOrEqualToExceptionMessageSuffix = "is not greater than or equal to the comparison value";
 
-        public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value using " + IsEqualToMethod;
+        public const string NotBeGreaterThanOrEqualToExceptionMessageSuffix = "is greater than or equal to the comparison value";
 
-        public const string BeInRangeExceptionMessageSuffix = "is not within the specified range using " + DefaultComparer;
+        public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value";
 
-        public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range using " + DefaultComparer;
+        public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value";
 
-        public const string ContainElementExceptionMessageSuffix = "does not contain the item to search for using " + IsEqualToMethod;
+        public const string BeInRangeExceptionMessageSuffix = "is not within the specified range";
 
-        public const string NotContainElementExceptionMessageSuffix = "contains the item to search for using " + IsEqualToMethod;
+        public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range";
+
+        public const string ContainElementExceptionMessageSuffix = "does not contain the item to search for";
+
+        public const string NotContainElementExceptionMessageSuffix = "contains the item to search for";
 
         public const string BeAlphabeticExceptionMessageSuffix = "is not alphabetic";
 

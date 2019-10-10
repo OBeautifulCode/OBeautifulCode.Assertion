@@ -103,7 +103,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             string exceptionMessageSuffix,
             Include include = Include.None,
-            Type genericTypeOverride = null,
+            string methodologyInfo = null,
             string contextualInfo = null)
         {
             if (verification.ApplyBecause == ApplyBecause.InLieuOfDefaultMessage)
@@ -117,7 +117,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var enumerableQualifier = verifiableItem.IsElementInEnumerable ? " contains an element that" : string.Empty;
 
-            var genericTypeQualifier = include.HasFlag(Include.GenericType) ? ", where T: " + (genericTypeOverride?.ToStringReadable() ?? verifiableItem.ValueType.ToStringReadable()) : string.Empty;
+            var methodologyInfoQualifier = methodologyInfo == null ? null : " " + methodologyInfo;
 
             var contextualInfoQualifier = contextualInfo == null ? null : "  " + contextualInfo;
 
@@ -125,7 +125,7 @@ namespace OBeautifulCode.Assertion.Recipes
             
             var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToStringInErrorMessage()));
 
-            var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{genericTypeQualifier}.{contextualInfoQualifier}{failingValueQualifier}{verificationParametersQualifier}");
+            var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{methodologyInfoQualifier}.{contextualInfoQualifier}{failingValueQualifier}{verificationParametersQualifier}");
 
             if (verification.ApplyBecause == ApplyBecause.PrefixedToDefaultMessage)
             {
@@ -250,8 +250,6 @@ namespace OBeautifulCode.Assertion.Recipes
             None = 0,
 
             FailingValue = 1,
-
-            GenericType = 2,
         }
 #pragma warning restore SA1201
     }

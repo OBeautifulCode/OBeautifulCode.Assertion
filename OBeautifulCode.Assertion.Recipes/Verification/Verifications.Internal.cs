@@ -461,9 +461,11 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
 
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue | Include.GenericType, contextualInfo: contextualInfo);
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeDefaultExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -482,9 +484,11 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
 
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, Include.GenericType, contextualInfo: contextualInfo);
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeDefaultExceptionMessageSuffix, methodologyInfo: methodologyInfo, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -501,7 +505,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -522,7 +528,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -542,7 +550,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -562,7 +572,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -582,7 +594,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -600,9 +614,12 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
+
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -622,7 +639,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -642,7 +661,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -662,7 +683,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -682,7 +705,9 @@ namespace OBeautifulCode.Assertion.Recipes
             var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -706,7 +731,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeInRangeExceptionMessageSuffix, Include.FailingValue | Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeInRangeExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -730,7 +757,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (shouldThrow)
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, Include.GenericType);
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.IsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
@@ -760,7 +789,9 @@ namespace OBeautifulCode.Assertion.Recipes
                 }
             }
 
-            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainElementExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+            var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
+
+            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainElementExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
             var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
@@ -781,7 +812,9 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 if (AreEqual(elementType, element, searchForItem))
                 {
-                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainElementExceptionMessageSuffix, Include.GenericType, genericTypeOverride: elementType);
+                    var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
+
+                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainElementExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
                     var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
