@@ -69,6 +69,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string DefaultValueContextualInfo = "default(T) is {0}.";
 
+        public const string SubjectTypeContextualInfo = "The type of the provided value is '{0}'.";
+
+        public const string ElementTypeContextualInfo = "The type of the element is '{0}'.";
+
         public const string BeNullExceptionMessageSuffix = "is not null";
 
         public const string NotBeNullExceptionMessageSuffix = "is null";
@@ -172,6 +176,8 @@ namespace OBeautifulCode.Assertion.Recipes
         public const string HaveCountExceptionMessageSuffix = "is an enumerable whose element count does not equal the expected count";
 
         public const string NotHaveCountExceptionMessageSuffix = "is an enumerable whose element count equals the unexpected count";
+
+        public const string BeOfTypeExceptionMessageSuffix = "is not of the expected type";
 
         public static readonly string SubjectAndOperationSequencingErrorMessage = Invariant($"There is an issue with sequencing of the provided value and the supported assertion operators: {nameof(WorkflowExtensions.AsArg)}, {nameof(WorkflowExtensions.AsOp)}, {nameof(WorkflowExtensions.AsTest)}, {nameof(WorkflowExtensions.Must)}, {nameof(WorkflowExtensions.MustForArg)}, {nameof(WorkflowExtensions.MustForOp)}, {nameof(WorkflowExtensions.MustForTest)}, {nameof(WorkflowExtensions.And)}, {nameof(WorkflowExtensions.Each)}.");
 

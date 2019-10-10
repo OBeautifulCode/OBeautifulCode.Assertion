@@ -16,6 +16,8 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using OBeautifulCode.Type.Recipes;
+
     using static System.FormattableString;
 
     /// <summary>
@@ -2168,6 +2170,47 @@ namespace OBeautifulCode.Assertion.Recipes
                 },
                 TypeValidations = MustBeEnumerableTypeValidations,
                 Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the subject is of the specified type.
+        /// </summary>
+        /// <typeparam name="TExpected">The expected type.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeOfType<TExpected>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeOfTypeInternal,
+                Name = nameof(BeOfType),
+                Data = data,
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(TExpected),
+                        Value = typeof(TExpected),
+                        ParameterType = typeof(Type),
+                        ValueToStringFunc = () => "'" + typeof(TExpected).ToStringReadable() + "'",
+                    },
+                },
             };
 
             assertionTracker.ExecuteVerification(verification);

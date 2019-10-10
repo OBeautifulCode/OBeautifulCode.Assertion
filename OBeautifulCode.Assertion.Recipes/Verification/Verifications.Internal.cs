@@ -17,6 +17,8 @@ namespace OBeautifulCode.Assertion.Recipes
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using OBeautifulCode.Type.Recipes;
+
     [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "A generalized assertion library is going to require lots of types.")]
 #if !OBeautifulCodeAssertionRecipesProject
     internal
@@ -1100,6 +1102,33 @@ namespace OBeautifulCode.Assertion.Recipes
                     : ArgumentExceptionKind.ArgumentOutOfRangeException;
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
+        }
+
+        private static void BeOfTypeInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var expectedType = (Type)verification.VerificationParameters[0].Value;
+
+            // Note that we are NOT using verifiableItem.ValueType, which is the declared type.
+            // In this case we need the actual type of the value.
+            var actualType = verifiableItem.Value.GetType();
+
+            var shouldThrow = actualType != expectedType;
+
+            if (shouldThrow)
+            {
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, verifiableItem.IsElementInEnumerable ? ElementTypeContextualInfo : SubjectTypeContextualInfo, actualType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeOfTypeExceptionMessageSuffix, contextualInfo: contextualInfo);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
             }
