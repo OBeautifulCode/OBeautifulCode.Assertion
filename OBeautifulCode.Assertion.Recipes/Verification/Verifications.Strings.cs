@@ -33,7 +33,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string VerificationParameterIsNullErrorMessage = "Called {0}({1}:) where parameter '{1}' is null.";
 
-        public const string VerificationParameterLessThanZeroErrorMessage = "Called {0}({1}:) where parameter '{1}' is < 0.  Specified value for '{1}' is {2}.";
+        public const string VerificationParameterIsLessThanZeroErrorMessage = "Called {0}({1}:) where parameter '{1}' is < 0.  Specified value for '{1}' is {2}.";
 
         public const string AnyReferenceTypeName = "Any Reference Type";
 

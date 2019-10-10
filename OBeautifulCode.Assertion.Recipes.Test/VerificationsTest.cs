@@ -11,6 +11,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -18,6 +19,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using FluentAssertions;
 
+    using OBeautifulCode.Assertion.Recipes.Test.Internal;
     using OBeautifulCode.AutoFakeItEasy;
     using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Type.Recipes;
@@ -12389,6 +12391,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12431,24 +12434,24 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 MustPassingValues = new Exception[]
                 {
-                    new ArgumentException(),
+                    new ArgumentException(string.Empty),
                 },
                 MustEachPassingValues = new[]
                 {
                     new Exception[] { },
-                    new Exception[] { new ArgumentException(), new ArgumentException() },
+                    new Exception[] { new ArgumentException(string.Empty), new ArgumentException(string.Empty) },
                 },
                 MustFailingValues = new Exception[]
                 {
-                    new ArgumentNullException(),
-                    new ArgumentOutOfRangeException(),
+                    new ArgumentNullException(string.Empty),
+                    new ArgumentOutOfRangeException(string.Empty),
                     new InvalidOperationException(),
                 },
                 MustEachFailingValues = new[]
                 {
-                    new Exception[] { new ArgumentException(), new ArgumentNullException(), new ArgumentException() },
-                    new Exception[] { new ArgumentException(), new ArgumentOutOfRangeException(), new ArgumentException() },
-                    new Exception[] { new ArgumentException(), new InvalidOperationException(), new ArgumentException() },
+                    new Exception[] { new ArgumentException(string.Empty), new ArgumentNullException(string.Empty), new ArgumentException(string.Empty) },
+                    new Exception[] { new ArgumentException(string.Empty), new ArgumentOutOfRangeException(string.Empty), new ArgumentException(string.Empty) },
+                    new Exception[] { new ArgumentException(string.Empty), new InvalidOperationException(), new ArgumentException(string.Empty) },
                 },
             };
 
@@ -12468,22 +12471,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 MustPassingValues = new Exception[]
                 {
-                    new ArgumentOutOfRangeException(),
+                    new ArgumentOutOfRangeException(string.Empty),
                 },
                 MustEachPassingValues = new[]
                 {
                     new Exception[] { },
-                    new Exception[] { new ArgumentOutOfRangeException(), new ArgumentOutOfRangeException() },
+                    new Exception[] { new ArgumentOutOfRangeException(string.Empty), new ArgumentOutOfRangeException(string.Empty) },
                 },
                 MustFailingValues = new Exception[]
                 {
-                    new ArgumentException(),
-                    new Exception(),
+                    new ArgumentException(string.Empty),
+                    new Exception(string.Empty),
                 },
                 MustEachFailingValues = new[]
                 {
-                    new Exception[] { new ArgumentOutOfRangeException(), new ArgumentException(), new ArgumentOutOfRangeException() },
-                    new Exception[] { new ArgumentOutOfRangeException(), new Exception(), new ArgumentOutOfRangeException() },
+                    new Exception[] { new ArgumentOutOfRangeException(string.Empty), new ArgumentException(string.Empty), new ArgumentOutOfRangeException(string.Empty) },
+                    new Exception[] { new ArgumentOutOfRangeException(string.Empty), new Exception(string.Empty), new ArgumentOutOfRangeException(string.Empty) },
                 },
             };
 
@@ -12494,10 +12497,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void BeOfType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
-            var subject1 = new ArgumentException();
+            var subject1 = new ArgumentException(string.Empty);
             var expected1 = Invariant($"Provided value (name: 'subject1') is not of the expected type.  The type of the provided value is 'ArgumentException'.  Specified 'TExpected' is 'ArgumentOutOfRangeException'.");
 
-            var subject2 = new Exception[] { new ArgumentOutOfRangeException(), new ArgumentException(), new ArgumentOutOfRangeException() };
+            var subject2 = new Exception[] { new ArgumentOutOfRangeException(string.Empty), new ArgumentException(string.Empty), new ArgumentOutOfRangeException(string.Empty) };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not of the expected type.  The type of the element is 'ArgumentException'.  Specified 'TExpected' is 'ArgumentOutOfRangeException'.";
 
             // Act
@@ -12510,6 +12513,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12553,23 +12557,23 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 MustPassingValues = new Exception[]
                 {
                     new InvalidOperationException(),
-                    new ArgumentOutOfRangeException(),
-                    new ArgumentNullException(),
+                    new ArgumentOutOfRangeException(string.Empty),
+                    new ArgumentNullException(string.Empty),
                 },
                 MustEachPassingValues = new[]
                 {
                     new Exception[] { },
-                    new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(), new ArgumentNullException() },
+                    new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(string.Empty), new ArgumentNullException(string.Empty) },
                 },
                 MustFailingValues = new Exception[]
                 {
-                    new ArgumentException(),
+                    new ArgumentException(string.Empty),
                 },
                 MustEachFailingValues = new[]
                 {
-                    new Exception[] { new InvalidOperationException(), new ArgumentException(), new InvalidOperationException() },
-                    new Exception[] { new ArgumentOutOfRangeException(), new ArgumentException(), new ArgumentOutOfRangeException() },
-                    new Exception[] { new ArgumentNullException(), new ArgumentException(), new ArgumentNullException() },
+                    new Exception[] { new InvalidOperationException(), new ArgumentException(string.Empty), new InvalidOperationException() },
+                    new Exception[] { new ArgumentOutOfRangeException(string.Empty), new ArgumentException(string.Empty), new ArgumentOutOfRangeException(string.Empty) },
+                    new Exception[] { new ArgumentNullException(string.Empty), new ArgumentException(string.Empty), new ArgumentNullException(string.Empty) },
                 },
             };
 
@@ -12589,22 +12593,22 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 MustPassingValues = new Exception[]
                 {
-                    new ArgumentException(),
-                    new Exception(),
+                    new ArgumentException(string.Empty),
+                    new Exception(string.Empty),
                 },
                 MustEachPassingValues = new[]
                 {
                     new Exception[] { },
-                    new Exception[] { new ArgumentException(), new Exception() },
+                    new Exception[] { new ArgumentException(string.Empty), new Exception(string.Empty) },
                 },
                 MustFailingValues = new Exception[]
                 {
-                    new ArgumentOutOfRangeException(),
+                    new ArgumentOutOfRangeException(string.Empty),
                 },
                 MustEachFailingValues = new[]
                 {
-                    new Exception[] { new ArgumentException(), new ArgumentOutOfRangeException(), new ArgumentException() },
-                    new Exception[] { new Exception(), new ArgumentOutOfRangeException(), new Exception() },
+                    new Exception[] { new ArgumentException(string.Empty), new ArgumentOutOfRangeException(string.Empty), new ArgumentException(string.Empty) },
+                    new Exception[] { new Exception(string.Empty), new ArgumentOutOfRangeException(string.Empty), new Exception(string.Empty) },
                 },
             };
 
@@ -12615,10 +12619,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         public static void NotBeOfType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
-            var subject1 = new ArgumentOutOfRangeException();
+            var subject1 = new ArgumentOutOfRangeException(string.Empty);
             var expected1 = Invariant($"Provided value (name: 'subject1') is of the unexpected type.  Specified 'TUnexpected' is 'ArgumentOutOfRangeException'.");
 
-            var subject2 = new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(), new InvalidOperationException() };
+            var subject2 = new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(string.Empty), new InvalidOperationException() };
             var expected2 = "Provided value (name: 'subject2') contains an element that is of the unexpected type.  Specified 'TUnexpected' is 'ArgumentOutOfRangeException'.";
 
             // Act

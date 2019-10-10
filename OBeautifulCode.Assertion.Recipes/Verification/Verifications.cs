@@ -2099,7 +2099,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (expectedCount < 0)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterLessThanZeroErrorMessage, nameof(HaveCount), nameof(expectedCount), expectedCount);
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(HaveCount), nameof(expectedCount), expectedCount);
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
@@ -2148,7 +2148,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (unexpectedCount < 0)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterLessThanZeroErrorMessage, nameof(NotHaveCount), nameof(unexpectedCount), unexpectedCount);
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(NotHaveCount), nameof(unexpectedCount), unexpectedCount);
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
