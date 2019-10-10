@@ -67,6 +67,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = ReferenceEquals(verifiableItem.Value, null) || ((bool)verifiableItem.Value != true);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeTrueExceptionMessageSuffix, Include.FailingValue);
@@ -83,6 +84,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldNotThrow = ReferenceEquals(verifiableItem.Value, null) || ((bool)verifiableItem.Value == false);
+
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeTrueExceptionMessageSuffix);
@@ -99,6 +101,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = ReferenceEquals(verifiableItem.Value, null) || (bool)verifiableItem.Value;
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeFalseExceptionMessageSuffix, Include.FailingValue);
@@ -115,6 +118,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldNotThrow = ReferenceEquals(verifiableItem.Value, null) || (bool)verifiableItem.Value;
+
             if (!shouldNotThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeFalseExceptionMessageSuffix);
@@ -133,6 +137,7 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var shouldThrow = string.IsNullOrWhiteSpace((string)verifiableItem.Value);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeNullNorWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
@@ -149,6 +154,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = !ReferenceEquals(verifiableItem.Value, null) && string.IsNullOrWhiteSpace((string)verifiableItem.Value);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeNullOrNotWhiteSpaceExceptionMessageSuffix, Include.FailingValue);
@@ -165,6 +171,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = ReferenceEquals(verifiableItem.Value, null) || ((Guid)verifiableItem.Value != Guid.Empty);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEmptyGuidExceptionMessageSuffix, Include.FailingValue);
@@ -181,6 +188,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = (!ReferenceEquals(verifiableItem.Value, null)) && ((Guid)verifiableItem.Value == Guid.Empty);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyGuidExceptionMessageSuffix);
@@ -289,6 +297,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             // ReSharper disable once PossibleNullReferenceException
             var shouldThrow = valueAsDictionary.Count != 0;
+
             if (shouldThrow)
             {
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryCountContextualInfo, valueAsDictionary.Count);
@@ -313,6 +322,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             // ReSharper disable once PossibleNullReferenceException
             var shouldThrow = valueAsDictionary.Count == 0;
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyDictionaryExceptionMessageSuffix);
@@ -331,6 +341,7 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
             var shouldThrow = true;
 
             // ReSharper disable once PossibleNullReferenceException
@@ -361,6 +372,7 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
             var shouldThrow = false;
 
             // ReSharper disable once PossibleNullReferenceException
@@ -391,6 +403,7 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
             var shouldThrow = true;
 
             // ReSharper disable once PossibleNullReferenceException
@@ -421,6 +434,7 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
             var valueAsEnumerable = verifiableItem.Value as IEnumerable;
+
             var shouldThrow = false;
 
             object offendingKey = null;
@@ -548,6 +562,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -570,6 +585,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -592,6 +608,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -637,6 +654,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -659,6 +677,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -681,6 +700,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -703,6 +723,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+
             if (shouldThrow)
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
@@ -781,6 +802,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var valueAsEnumerable = (IEnumerable)verifiableItem.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
             var elementType = verification.VerificationParameters[0].ParameterType;
+
             foreach (var element in valueAsEnumerable)
             {
                 if (AreEqual(elementType, element, searchForItem))
@@ -808,6 +830,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var valueAsEnumerable = (IEnumerable)verifiableItem.Value;
             var searchForItem = verification.VerificationParameters[0].Value;
             var elementType = verification.VerificationParameters[0].ParameterType;
+
             foreach (var element in valueAsEnumerable)
             {
                 if (AreEqual(elementType, element, searchForItem))
@@ -853,6 +876,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var stringValue = (string)verifiableItem.Value;
 
             bool shouldThrow;
+
             if (otherAllowedCharacters == null)
             {
                 shouldThrow = stringValue.Any(_ => !allowedCharactersHashSet.Contains(_));
@@ -860,6 +884,7 @@ namespace OBeautifulCode.Assertion.Recipes
             else
             {
                 allowedCharactersHashSet = new HashSet<char>(allowedCharactersHashSet);
+
                 foreach (var otherAllowedCharacter in otherAllowedCharacters)
                 {
                     allowedCharactersHashSet.Add(otherAllowedCharacter);
@@ -966,7 +991,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var shouldThrow = comparisonType == null
                 ? !subjectValue.StartsWith(comparisonValue)
-                : !subjectValue.StartsWith(comparisonValue, (StringComparison) comparisonType);
+                : !subjectValue.StartsWith(comparisonValue, (StringComparison)comparisonType);
 
             if (shouldThrow)
             {
@@ -1010,6 +1035,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = !object.ReferenceEquals(verifiableItem.Value, verification.VerificationParameters[0].Value);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeSameReferenceAsExceptionMessageSuffix, Include.FailingValue);
@@ -1026,6 +1052,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem)
         {
             var shouldThrow = object.ReferenceEquals(verifiableItem.Value, verification.VerificationParameters[0].Value);
+
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeSameReferenceAsExceptionMessageSuffix, Include.FailingValue);

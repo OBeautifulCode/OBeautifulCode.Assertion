@@ -53,6 +53,15 @@ namespace OBeautifulCode.Assertion.Recipes
                     .Concat(Enumerable.Range(65, 26).Select(Convert.ToChar))
                     .Concat(Enumerable.Range(97, 26).Select(Convert.ToChar)));
 
+        private enum CompareOutcome
+        {
+            Value1LessThanValue2,
+
+            Value1EqualsValue2,
+
+            Value1GreaterThanValue2,
+        }
+
         private static object GetDefaultValue(
             Type type)
         {
@@ -174,15 +183,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
-        }
-
-        private enum CompareOutcome
-        {
-            Value1LessThanValue2,
-
-            Value1EqualsValue2,
-
-            Value1GreaterThanValue2,
         }
     }
 }

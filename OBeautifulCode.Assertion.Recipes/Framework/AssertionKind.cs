@@ -49,6 +49,6 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <remarks>
         /// When assertions of this kind fail, they throw an <see cref="TestAssertionVerificationFailedException"/>.
         /// </remarks>
-        Test
+        Test,
     }
 }

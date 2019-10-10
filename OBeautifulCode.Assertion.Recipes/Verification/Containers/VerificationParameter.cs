@@ -12,7 +12,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using System;
 
     /// <summary>
-    /// A parameter of the verification (e.g. the comparison value when verifying that a subject is greater than some comparison value)"/>
+    /// A parameter of the verification (e.g. the comparison value when verifying that a subject is greater than some comparison value)"/>.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]

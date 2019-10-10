@@ -15,7 +15,7 @@ namespace OBeautifulCode.Assertion.Recipes
     /// Specifies a item that is verifiable.  The verification is directly applied to this item.
     /// This is not always the subject.  If the assertion includes a call to <see cref="WorkflowExtensions.Each(AssertionTracker)"/>
     /// then the <see cref="Verification"/>s after that call are applied to the elements of the enumerable.
-    /// Those elements are the verifiable items. 
+    /// Those elements are the verifiable items.
     /// </summary>
 #if !OBeautifulCodeAssertionRecipesProject
     [System.Diagnostics.DebuggerStepThrough]

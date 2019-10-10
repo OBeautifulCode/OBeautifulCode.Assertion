@@ -122,7 +122,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var contextualInfoQualifier = contextualInfo == null ? null : "  " + contextualInfo;
 
             var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is {verifiableItem.Value.ToStringInErrorMessage()}.") : string.Empty;
-            
+
             var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToStringInErrorMessage()));
 
             var result = Invariant($"Provided value{subjectNameQualifier}{enumerableQualifier} {exceptionMessageSuffix}{methodologyInfoQualifier}.{contextualInfoQualifier}{failingValueQualifier}{verificationParametersQualifier}");
@@ -166,8 +166,8 @@ namespace OBeautifulCode.Assertion.Recipes
         private static string ToStringInErrorMessage(
             this object value)
         {
-            var result = value == null 
-                ? NullValueToString 
+            var result = value == null
+                ? NullValueToString
                 : Invariant($"'{value}'");
 
             return result;
@@ -213,7 +213,7 @@ namespace OBeautifulCode.Assertion.Recipes
                             result = new ArgumentNullException(null, exceptionMessage);
                             break;
                         case ArgumentExceptionKind.ArgumentOutOfRangeException:
-                            result = new ArgumentOutOfRangeException(exceptionMessage, (Exception) null);
+                            result = new ArgumentOutOfRangeException(exceptionMessage, (Exception)null);
                             break;
                         default:
                             throw new NotSupportedException(Invariant($"This {nameof(ArgumentExceptionKind)} is not supported: {argumentExceptionKind}."));

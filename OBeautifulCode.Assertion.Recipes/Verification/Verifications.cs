@@ -1891,6 +1891,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Verifies that the reference-type subject is the exact same object as the specified comparison value.
         /// </summary>
+        /// <typeparam name="T">The type of subject.</typeparam>
         /// <remarks>
         /// Value types are boxed as object and thus they are never the same reference.
         /// This verification will throw for value types.
