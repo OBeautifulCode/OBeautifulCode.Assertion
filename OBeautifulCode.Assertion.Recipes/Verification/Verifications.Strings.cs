@@ -65,9 +65,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string DictionaryCountContextualInfo = "Dictionary contains {0} key/value pair(s).";
 
-        public const string DictionaryKeyExampleContextualInfo = "For example, see this key: '{0}'.";
+        public const string DictionaryKeyExampleContextualInfo = "For example, see this key: {0}.";
 
-        public const string DefaultValueContextualInfo = "default(T) is '{0}'.";
+        public const string DefaultValueContextualInfo = "default(T) is {0}.";
 
         public const string BeNullExceptionMessageSuffix = "is not null";
 
@@ -155,7 +155,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeMatchedByRegexExceptionMessageSuffix = "is matched by the specified regex";
 
-        public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{1}' is less than '{0}'.  Specified '{0}' is '{2}'.  Specified '{1}' is '{3}'.";
+        public const string MalformedRangeExceptionMessage = "The specified range is invalid because '{1}' is less than '{0}'.  Specified '{0}' is {2}.  Specified '{1}' is {3}.";
 
         public const string StartWithExceptionMessageSuffix = "does not start with the specified comparison value";
 

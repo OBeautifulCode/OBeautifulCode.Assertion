@@ -121,7 +121,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var contextualInfoQualifier = contextualInfo == null ? null : "  " + contextualInfo;
 
-            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is '{verifiableItem.Value.ToStringInErrorMessage()}'.") : string.Empty;
+            var failingValueQualifier = include.HasFlag(Include.FailingValue) ? (verifiableItem.IsElementInEnumerable ? "  Element value" : "  Provided value") + Invariant($" is {verifiableItem.Value.ToStringInErrorMessage()}.") : string.Empty;
             
             var verificationParametersQualifier = verification.VerificationParameters == null || !verification.VerificationParameters.Any() ? string.Empty : string.Join(string.Empty, verification.VerificationParameters.Select(_ => _.ToStringInErrorMessage()));
 
@@ -155,7 +155,7 @@ namespace OBeautifulCode.Assertion.Recipes
             var result = Invariant($"  Specified '{verificationParameter.Name}' is");
 
             result = verificationParameter.ValueToStringFunc == null
-                ? Invariant($"{result} '{verificationParameter.Value.ToStringInErrorMessage()}'")
+                ? Invariant($"{result} {verificationParameter.Value.ToStringInErrorMessage()}")
                 : Invariant($"{result} {verificationParameter.ValueToStringFunc()}");
 
             result = Invariant($"{result}.");
@@ -166,7 +166,9 @@ namespace OBeautifulCode.Assertion.Recipes
         private static string ToStringInErrorMessage(
             this object value)
         {
-            var result = value?.ToString() ?? NullValueToString;
+            var result = value == null 
+                ? NullValueToString 
+                : Invariant($"'{value}'");
 
             return result;
         }

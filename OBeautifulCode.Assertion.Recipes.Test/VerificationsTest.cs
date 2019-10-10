@@ -66,7 +66,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is <null>.";
 
             var subject2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
@@ -85,7 +85,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is <null>.";
 
             var subject2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
@@ -106,7 +106,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var because = A.Dummy<string>();
 
             Guid? subject1 = null;
-            var expected1 = because + "  Provided value (name: 'subject1') is not an empty guid.  Provided value is '<null>'.";
+            var expected1 = because + "  Provided value (name: 'subject1') is not an empty guid.  Provided value is <null>.";
 
             var subject2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
             var expected2 = because + "  Provided value (name: 'subject2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
@@ -127,7 +127,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var because = A.Dummy<string>();
 
             Guid? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is '<null>'.  " + because;
+            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is <null>.  " + because;
 
             var subject2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.  " + because;
@@ -558,7 +558,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not true.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not true.  Provided value is <null>.";
 
             var subject2 = new[] { true, false, true };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not true.  Element value is 'False'.";
@@ -858,7 +858,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             bool? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not false.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not false.  Provided value is <null>.";
 
             var subject2 = new[] { false, true, false };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not false.  Element value is 'True'.";
@@ -1424,7 +1424,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             Guid? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not an empty guid.  Provided value is <null>.";
 
             var subject2 = new Guid[] { Guid.Empty, Guid.Parse("6d062b50-03c1-4fa4-af8c-097b711214e7"), Guid.Empty };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty guid.  Element value is '6d062b50-03c1-4fa4-af8c-097b711214e7'.";
@@ -1753,7 +1753,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not an empty string.  Provided value is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not an empty string.  Provided value is <null>.";
 
             var subject2 = new[] { string.Empty, "abcd", string.Empty };
             var expected2 = "Provided value (name: 'subject2') contains an element that is not an empty string.  Element value is 'abcd'.";
@@ -5705,7 +5705,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected1 = "Provided value (name: 'subject1') is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  default(T) is '0'.  Provided value is '5'.";
 
             var subject2 = new[] { null, "abc", null };
-            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: string.  default(T) is '<null>'.  Element value is 'abc'.";
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: string.  default(T) is <null>.  Element value is 'abc'.";
 
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().BeDefault());
@@ -5878,7 +5878,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             int? subject1 = null;
-            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int?.  default(T) is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int?.  default(T) is <null>.";
 
             var subject2 = new[] { 1, 0, 1 };
             var expected2 = "Provided value (name: 'subject2') contains an element that is equal to default(T) using EqualityExtensions.IsEqualTo<T>, where T: int.  default(T) is '0'.";
@@ -6091,11 +6091,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Provided value (name: 'subject1') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is <null>.";
 
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 10;
             int comparisonValue3 = 5;
@@ -6103,11 +6103,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = null;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is <null>.";
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 10 };
             int comparisonValue6 = 5;
@@ -6330,7 +6330,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is less than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is '10'.";
 
             int subject3 = 10;
             int comparisonValue3 = 20;
@@ -6338,7 +6338,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is less than the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is '10'.";
 
             var subject6 = new int[] { 10 };
             int comparisonValue6 = 20;
@@ -6559,11 +6559,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is '10'.";
 
             int? subject2 = null;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 5;
             int comparisonValue3 = 10;
@@ -6571,11 +6571,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is '10'.";
 
             var subject5 = new int?[] { null };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 5 };
             int comparisonValue6 = 10;
@@ -6798,7 +6798,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is greater than the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 10;
             int comparisonValue3 = 5;
@@ -6806,7 +6806,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is greater than the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 10 };
             int comparisonValue6 = 5;
@@ -7025,7 +7025,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 20;
             int comparisonValue3 = 10;
@@ -7033,7 +7033,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 20 };
             int comparisonValue6 = 10;
@@ -7254,11 +7254,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is '10'.";
 
             int? subject2 = null;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 5;
             int comparisonValue3 = 10;
@@ -7266,11 +7266,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is '10'.";
 
             var subject5 = new int?[] { null };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is less than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 5 };
             int comparisonValue6 = 10;
@@ -7493,7 +7493,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is '10'.";
 
             int subject3 = 5;
             int comparisonValue3 = 10;
@@ -7501,7 +7501,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is '10'.";
 
             var subject6 = new int[] { 5 };
             int comparisonValue6 = 10;
@@ -7721,11 +7721,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Provided value (name: 'subject1') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is <null>.";
 
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 20;
             int comparisonValue3 = 10;
@@ -7733,11 +7733,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = null;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is <null>.";
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is greater than or equal to the comparison value using Comparer<T>.Default, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 20 };
             int comparisonValue6 = 10;
@@ -7961,11 +7961,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = 10;
-            var expected1 = "Provided value (name: 'subject1') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected1 = "Provided value (name: 'subject1') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is <null>.  Specified 'comparisonValue' is '10'.";
 
             int? subject2 = 10;
             int? comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Provided value is '10'.  Specified 'comparisonValue' is <null>.";
 
             int subject3 = 10;
             int comparisonValue3 = 20;
@@ -7973,11 +7973,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new int?[] { null };
             int? comparisonValue4 = 10;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is '<null>'.  Specified 'comparisonValue' is '10'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is <null>.  Specified 'comparisonValue' is '10'.";
 
             var subject5 = new int?[] { 10 };
             int? comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Element value is '10'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new int[] { 10 };
             int comparisonValue6 = 20;
@@ -8241,7 +8241,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             int? subject1 = null;
             int? comparisonValue1 = null;
-            var expected1 = "Provided value (name: 'subject1') is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is <null>.";
 
             int subject2 = 10;
             int comparisonValue2 = 10;
@@ -8249,7 +8249,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject3 = new int?[] { null };
             int? comparisonValue3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that is equal to the comparison value using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'comparisonValue' is <null>.";
 
             var subject4 = new int[] { 10 };
             int comparisonValue4 = 10;
@@ -8494,7 +8494,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var verificationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().BeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             verificationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is <null>.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
 
             decimal? maximum9 = 20m;
             var verificationTest9 = new VerificationTest
@@ -8575,12 +8575,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             int? subject1 = null;
             int? minimum1 = 10;
             int? maximum1 = 20;
-            var expected1 = "Provided value (name: 'subject1') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected1 = "Provided value (name: 'subject1') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is <null>.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             int? subject2 = 5;
             int? minimum2 = null;
             int? maximum2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not within the specified range using Comparer<T>.Default, where T: int?.  Provided value is '5'.  Specified 'minimum' is <null>.  Specified 'maximum' is <null>.";
 
             int subject3 = 5;
             int minimum3 = 10;
@@ -8590,12 +8590,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var subject4 = new int?[] { null };
             int? minimum4 = 10;
             int? maximum4 = 20;
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '<null>'.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is <null>.  Specified 'minimum' is '10'.  Specified 'maximum' is '20'.";
 
             var subject5 = new int?[] { 5 };
             int? minimum5 = null;
             int? maximum5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '5'.  Specified 'minimum' is '<null>'.  Specified 'maximum' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not within the specified range using Comparer<T>.Default, where T: int?.  Element value is '5'.  Specified 'minimum' is <null>.  Specified 'maximum' is <null>.";
 
             var subject6 = new int[] { 5 };
             int minimum6 = 10;
@@ -8841,7 +8841,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var verificationTest8Actual = Record.Exception(() => A.Dummy<decimal?>().Must().NotBeInRange(10m, (decimal?)null, because: A.Dummy<string>()));
             verificationTest8Actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is '<null>'.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            verificationTest8Actual.Message.Should().Be("The specified range is invalid because 'maximum' is less than 'minimum'.  Specified 'minimum' is '10'.  Specified 'maximum' is <null>.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
 
             decimal? maximum9 = 20m;
             var verificationTest9 = new VerificationTest
@@ -9169,7 +9169,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var subject1 = new int?[] { 1, 2, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Provided value (name: 'subject1') does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is <null>.";
 
             var subject2 = new int[] { 1, 2, 3 };
             int itemToSearchFor2 = 10;
@@ -9177,7 +9177,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject3 = new int?[][] { new int?[] { 1, 2, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that does not contain the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is <null>.";
 
             var subject4 = new int[][] { new int[] { 1, 2, 3 } };
             int itemToSearchFor4 = 10;
@@ -9457,7 +9457,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             var subject1 = new int?[] { 1, null, 3 };
             int? itemToSearchFor1 = null;
-            var expected1 = "Provided value (name: 'subject1') contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is <null>.";
 
             var subject2 = new int[] { 1, 10, 3 };
             int itemToSearchFor2 = 10;
@@ -9465,7 +9465,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject3 = new int?[][] { new int?[] { 1, null, 3 } };
             int? itemToSearchFor3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that contains the item to search for using EqualityExtensions.IsEqualTo<T>, where T: int?.  Specified 'itemToSearchFor' is <null>.";
 
             var subject4 = new int[][] { new int[] { 1, 10, 3 } };
             int itemToSearchFor4 = 10;
@@ -10845,7 +10845,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string subject1 = "some-string";
-            var expected1 = Invariant($"Provided value (name: 'subject1') does not start with the specified comparison value.  Provided value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+            var expected1 = Invariant($"Provided value (name: 'subject1') does not start with the specified comparison value.  Provided value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is <null>.");
 
             var subject2 = new[] { "starter", "some-string", "starter" };
             var expected2 = "Provided value (name: 'subject2') contains an element that does not start with the specified comparison value.  Element value is 'some-string'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
@@ -11039,7 +11039,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         {
             // Arrange
             string subject1 = "starter-something";
-            var expected1 = Invariant($"Provided value (name: 'subject1') starts with the specified comparison value.  Provided value is 'starter-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is '<null>'.");
+            var expected1 = Invariant($"Provided value (name: 'subject1') starts with the specified comparison value.  Provided value is 'starter-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is <null>.");
 
             var subject2 = new[] { "something", "STARTER-something", "something" };
             var expected2 = "Provided value (name: 'subject2') contains an element that starts with the specified comparison value.  Element value is 'STARTER-something'.  Specified 'comparisonValue' is 'starter'.  Specified 'comparisonType' is 'OrdinalIgnoreCase'.";
@@ -11224,11 +11224,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             EquatableTestClass subject1 = null;
             EquatableTestClass comparisonValue1 = new EquatableTestClass();
-            var expected1 = "Provided value (name: 'subject1') is not the same reference as the comparison value.  Provided value is '<null>'.  Specified 'comparisonValue' is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.";
+            var expected1 = "Provided value (name: 'subject1') is not the same reference as the comparison value.  Provided value is <null>.  Specified 'comparisonValue' is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.";
 
             EquatableTestClass subject2 = new EquatableTestClass();
             EquatableTestClass comparisonValue2 = null;
-            var expected2 = "Provided value (name: 'subject2') is not the same reference as the comparison value.  Provided value is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.  Specified 'comparisonValue' is '<null>'.";
+            var expected2 = "Provided value (name: 'subject2') is not the same reference as the comparison value.  Provided value is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.  Specified 'comparisonValue' is <null>.";
 
             EquatableTestClass subject3 = new EquatableTestClass();
             EquatableTestClass comparisonValue3 = new EquatableTestClass();
@@ -11236,11 +11236,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject4 = new EquatableTestClass[] { null };
             var comparisonValue4 = new EquatableTestClass();
-            var expected4 = "Provided value (name: 'subject4') contains an element that is not the same reference as the comparison value.  Element value is '<null>'.  Specified 'comparisonValue' is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.";
+            var expected4 = "Provided value (name: 'subject4') contains an element that is not the same reference as the comparison value.  Element value is <null>.  Specified 'comparisonValue' is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.";
 
             var subject5 = new EquatableTestClass[] { new EquatableTestClass() };
             EquatableTestClass comparisonValue5 = null;
-            var expected5 = "Provided value (name: 'subject5') contains an element that is not the same reference as the comparison value.  Element value is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.  Specified 'comparisonValue' is '<null>'.";
+            var expected5 = "Provided value (name: 'subject5') contains an element that is not the same reference as the comparison value.  Element value is 'OBeautifulCode.Assertion.Recipes.Test.VerificationsTest+EquatableTestClass'.  Specified 'comparisonValue' is <null>.";
 
             var subject6 = new EquatableTestClass[] { new EquatableTestClass() };
             var comparisonValue6 = new EquatableTestClass();
@@ -11435,7 +11435,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Arrange
             EquatableTestClass subject1 = null;
             EquatableTestClass comparisonValue1 = null;
-            var expected1 = "Provided value (name: 'subject1') is the same reference as the comparison value.  Provided value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected1 = "Provided value (name: 'subject1') is the same reference as the comparison value.  Provided value is <null>.  Specified 'comparisonValue' is <null>.";
 
             EquatableTestClass subject2 = new EquatableTestClass();
             EquatableTestClass comparisonValue2 = subject2;
@@ -11443,7 +11443,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var subject3 = new EquatableTestClass[] { new EquatableTestClass(), null, new EquatableTestClass() };
             EquatableTestClass comparisonValue3 = null;
-            var expected3 = "Provided value (name: 'subject3') contains an element that is the same reference as the comparison value.  Element value is '<null>'.  Specified 'comparisonValue' is '<null>'.";
+            var expected3 = "Provided value (name: 'subject3') contains an element that is the same reference as the comparison value.  Element value is <null>.  Specified 'comparisonValue' is <null>.";
 
             var subject4 = new EquatableTestClass[] { null, new EquatableTestClass(), null };
             EquatableTestClass comparisonValue4 = subject4.Skip(1).First();

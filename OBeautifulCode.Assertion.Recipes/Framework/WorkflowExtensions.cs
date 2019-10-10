@@ -16,8 +16,6 @@ namespace OBeautifulCode.Assertion.Recipes
 
     using OBeautifulCode.Type.Recipes;
 
-    using static System.FormattableString;
-
     /// <summary>
     /// Workflow related extension methods, excluding verification.
     /// </summary>
