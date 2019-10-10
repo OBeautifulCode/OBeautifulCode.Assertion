@@ -1166,5 +1166,30 @@ namespace OBeautifulCode.Assertion.Recipes
                 throw exception;
             }
         }
+
+        private static void NotBeOfTypeInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var unexpectedType = (Type)verification.VerificationParameters[0].Value;
+
+            // Note that we are NOT using verifiableItem.ValueType, which is the declared type.
+            // In this case we need the actual type of the value.
+            var actualType = verifiableItem.Value.GetType();
+
+            var shouldThrow = actualType == unexpectedType;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeOfTypeExceptionMessageSuffix);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
     }
 }

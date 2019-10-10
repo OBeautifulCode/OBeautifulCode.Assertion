@@ -12509,6 +12509,127 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             actual2.Message.Should().Be(expected2);
         }
 
+        [Fact]
+        public static void NotBeOfType___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+
+            // null subjects
+            var verificationTest1 = new VerificationTest
+            {
+                VerificationHandler = Verifications.NotBeOfType<int?>,
+                VerificationName = nameof(Verifications.NotBeOfType),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
+            };
+
+            var testValues1 = new TestValues<string>
+            {
+                MustFailingValues = new string[]
+                {
+                    null,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { "starter", null, "starter" },
+                },
+            };
+
+            verificationTest1.Run(testValues1);
+
+            // the passing values are of a different type or more derived
+            var verificationTest2 = new VerificationTest
+            {
+                VerificationHandler = Verifications.NotBeOfType<ArgumentException>,
+                VerificationName = nameof(Verifications.NotBeOfType),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeOfTypeExceptionMessageSuffix,
+            };
+
+            var testValues2 = new TestValues<Exception>
+            {
+                MustPassingValues = new Exception[]
+                {
+                    new InvalidOperationException(),
+                    new ArgumentOutOfRangeException(),
+                    new ArgumentNullException(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Exception[] { },
+                    new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(), new ArgumentNullException() },
+                },
+                MustFailingValues = new Exception[]
+                {
+                    new ArgumentException(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Exception[] { new InvalidOperationException(), new ArgumentException(), new InvalidOperationException() },
+                    new Exception[] { new ArgumentOutOfRangeException(), new ArgumentException(), new ArgumentOutOfRangeException() },
+                    new Exception[] { new ArgumentNullException(), new ArgumentException(), new ArgumentNullException() },
+                },
+            };
+
+            verificationTest2.Run(testValues2);
+
+            // the passing values are less derived
+            var verificationTest3 = new VerificationTest
+            {
+                VerificationHandler = Verifications.NotBeOfType<ArgumentOutOfRangeException>,
+                VerificationName = nameof(Verifications.NotBeOfType),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeOfTypeExceptionMessageSuffix,
+            };
+
+            var testValues3 = new TestValues<Exception>
+            {
+                MustPassingValues = new Exception[]
+                {
+                    new ArgumentException(),
+                    new Exception(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Exception[] { },
+                    new Exception[] { new ArgumentException(), new Exception() },
+                },
+                MustFailingValues = new Exception[]
+                {
+                    new ArgumentOutOfRangeException(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Exception[] { new ArgumentException(), new ArgumentOutOfRangeException(), new ArgumentException() },
+                    new Exception[] { new Exception(), new ArgumentOutOfRangeException(), new Exception() },
+                },
+            };
+
+            verificationTest3.Run(testValues3);
+        }
+
+        [Fact]
+        public static void NotBeOfType___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var subject1 = new ArgumentOutOfRangeException();
+            var expected1 = Invariant($"Provided value (name: 'subject1') is of the unexpected type.  Specified 'TUnexpected' is 'ArgumentOutOfRangeException'.");
+
+            var subject2 = new Exception[] { new InvalidOperationException(), new ArgumentOutOfRangeException(), new InvalidOperationException() };
+            var expected2 = "Provided value (name: 'subject2') contains an element that is of the unexpected type.  Specified 'TUnexpected' is 'ArgumentOutOfRangeException'.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeOfType<ArgumentOutOfRangeException>());
+            var actual2 = Record.Exception(() => new { subject2 }.Must().Each().NotBeOfType<ArgumentOutOfRangeException>());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
         private static void Run<T>(
             this VerificationTest verificationTest,
             TestValues<T> testValues)
