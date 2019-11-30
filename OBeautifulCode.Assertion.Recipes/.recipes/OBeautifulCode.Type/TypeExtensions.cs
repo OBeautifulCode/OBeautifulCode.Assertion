@@ -16,6 +16,7 @@ namespace OBeautifulCode.Type.Recipes
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
@@ -44,7 +45,7 @@ namespace OBeautifulCode.Type.Recipes
                 typeof(IReadOnlyCollection<>),
                 typeof(List<>),
                 typeof(IList<>),
-                typeof(IReadOnlyList<>)
+                typeof(IReadOnlyList<>),
             });
 
         private static readonly HashSet<Type> OrderedCollectionTypes =
@@ -54,7 +55,14 @@ namespace OBeautifulCode.Type.Recipes
                 typeof(ReadOnlyCollection<>),
                 typeof(List<>),
                 typeof(IList<>),
-                typeof(IReadOnlyList<>)
+                typeof(IReadOnlyList<>),
+            });
+
+        private static readonly HashSet<Type> UnorderedCollectionTypes =
+            new HashSet<Type>(new[]
+            {
+                typeof(ICollection<>),
+                typeof(IReadOnlyCollection<>),
             });
 
         private static readonly HashSet<Type> DictionaryTypes =
@@ -66,6 +74,10 @@ namespace OBeautifulCode.Type.Recipes
                 typeof(IReadOnlyDictionary<,>),
                 typeof(ConcurrentDictionary<,>),
             });
+
+        private static readonly Type ComparableType = typeof(IComparable);
+
+        private static readonly Type UnboundGenericComparableType = typeof(IComparable<>);
 
         private static readonly Regex GenericBracketsRegex = new Regex("<.*>", RegexOptions.Compiled);
 
@@ -175,7 +187,7 @@ namespace OBeautifulCode.Type.Recipes
 
             var result = Attribute.IsDefined(type, typeof(CompilerGeneratedAttribute), false)
                              && type.Namespace == null
-                             && type.IsGenericType 
+                             && type.IsGenericType
                              && type.Name.Contains("AnonymousType")
                              && (type.Name.StartsWith("<>", StringComparison.Ordinal) || type.Name.StartsWith("VB$", StringComparison.Ordinal))
                              && type.Attributes.HasFlag(TypeAttributes.NotPublic);
@@ -277,6 +289,92 @@ namespace OBeautifulCode.Type.Recipes
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Determines if the specified type is assignable to null.
+        /// </summary>
+        /// <remarks>Adapted from: <a href="https://stackoverflow.com/a/1770232/356790" />.</remarks>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the specified type is assignable to null, otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsAssignableToNull(
+            this Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            var result = (!type.IsValueType) || type.IsNullableType();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified type is comparable.
+        /// </summary>
+        /// <typeparam name="T">The type.</typeparam>
+        /// <returns>
+        /// true if the type is comparable, otherwise false.
+        /// </returns>
+        public static bool IsComparableType<T>()
+        {
+            var type = typeof(T);
+
+            var result = IsComparableType(type);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified type is comparable.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the type is comparable, otherwise false.
+        /// </returns>
+        public static bool IsComparableType(
+            this Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            // Previously, we called Comparer<T>.Default and checked whether that was equal to ObjectComparer<T>.
+            // If so, we considered the type to be NOT comparable.  Comparer<T>.Default checks, among other things,
+            // whether T is IComparable<T>.  Unfortunately, types like Enum don't implement IComparable<T>,
+            // but are IComparable.  So for enums, Comparer<T>.Default returns ObjectComparer<T>.  It turns out,
+            // ObjectComparer<T> doesn't just check for reference equality.  Among other things, it checks whether
+            // the type is IComparable.  So we combined the approach taken by Comparer<T>.Default and ObjectComparer<T>
+            // into the follow...
+            bool result;
+
+            var genericComparableType = UnboundGenericComparableType.MakeGenericType(type);
+
+            if (type.IsAssignableTo(genericComparableType))
+            {
+                result = true;
+            }
+            else if (type.IsAssignableTo(ComparableType))
+            {
+                result = true;
+            }
+            else if (type.IsNullableType())
+            {
+                var underlyingType = type.GetGenericArguments()[0];
+
+                result = IsComparableType(underlyingType);
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -385,12 +483,12 @@ namespace OBeautifulCode.Type.Recipes
         }
 
         /// <summary>
-        /// Determines if the specified type is a <see cref="System"/> ordered <see cref="IEnumerable{T}"/>:
-        /// Either an <see cref="Array"/> or one of these types: <see cref="OrderedCollectionTypes"/>.
+        /// Determines if the specified type is one of the following <see cref="System"/>
+        /// ordered collection types: <see cref="OrderedCollectionTypes"/>.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// true if the specified type is a <see cref="System"/> ordered <see cref="IEnumerable{T}"/>.
+        /// true if the specified type is an ordered <see cref="System"/> collection type; otherwise false.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         public static bool IsSystemOrderedCollectionType(
@@ -401,9 +499,33 @@ namespace OBeautifulCode.Type.Recipes
                 throw new ArgumentNullException(nameof(type));
             }
 
-            if (type.IsArray)
+            if (!type.IsGenericType)
             {
-                return true;
+                return false;
+            }
+
+            var genericType = type.GetGenericTypeDefinition();
+
+            var result = OrderedCollectionTypes.Contains(genericType);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Determines if the specified type is one of the following <see cref="System"/>
+        /// unordered collection types: <see cref="UnorderedCollectionTypes"/>.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// true if the specified type is an unordered <see cref="System"/> collection type; otherwise false.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
+        public static bool IsSystemUnorderedCollectionType(
+            this Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
             }
 
             if (!type.IsGenericType)
@@ -413,7 +535,7 @@ namespace OBeautifulCode.Type.Recipes
 
             var genericType = type.GetGenericTypeDefinition();
 
-            var result = OrderedCollectionTypes.Contains(genericType);
+            var result = UnorderedCollectionTypes.Contains(genericType);
 
             return result;
         }
@@ -530,7 +652,7 @@ namespace OBeautifulCode.Type.Recipes
         /// <param name="type">The type.</param>
         /// <param name="options">The options to use when generating the string representation.</param>
         /// <returns>
-        /// A readability-optimized string representation of the specified type
+        /// A readability-optimized string representation of the specified type.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null.</exception>
         public static string ToStringReadable(
@@ -678,7 +800,7 @@ namespace OBeautifulCode.Type.Recipes
                     string[] genericParameters;
                     if (isAnonymous && type.IsGenericTypeDefinition)
                     {
-                        genericParameters = type.GetGenericArguments().Select((_, i) => "T" + (i + 1)).ToArray();
+                        genericParameters = type.GetGenericArguments().Select((_, i) => "T" + (i + 1).ToString(CultureInfo.InvariantCulture)).ToArray();
                     }
                     else
                     {
