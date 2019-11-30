@@ -12391,6 +12391,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType_TExpected___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12493,6 +12494,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType_TExpected___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -12512,6 +12514,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType_expectedType___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_expectedType_is_null()
         {
             // Arrange, Act
@@ -12524,6 +12527,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType_expectedType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12630,6 +12634,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeOfType_expectedType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -12649,6 +12654,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType_TUnexpected___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12751,6 +12757,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType_TUnexpected___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -12770,6 +12777,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType_unexpectedType___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_unexpectedType_is_null()
         {
             // Arrange, Act
@@ -12782,6 +12790,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType_unexpectedType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12888,6 +12897,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeOfType_unexpectedType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -12907,6 +12917,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeAssignableToType_TAssignable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -12977,6 +12988,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeAssignableToType_TAssignable___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -12996,6 +13008,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeAssignableToType_assignableType___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_expectedType_is_null()
         {
             // Arrange, Act
@@ -13013,6 +13026,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeAssignableToType_assignableType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -13143,6 +13157,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void BeAssignableToType_assignableType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -13173,6 +13188,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeAssignableToType_TAssignable___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -13245,6 +13261,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeAssignableToType_TAssignable___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
@@ -13264,6 +13281,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeAssignableToType_assignableType___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_expectedType_is_null()
         {
             // Arrange, Act
@@ -13281,6 +13299,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeAssignableToType_assignableType___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange
@@ -13414,6 +13433,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = ObcSuppressBecause.CA2201_DoNotRaiseReservedExceptionTypes_UsedForUnitTesting)]
         public static void NotBeAssignableToType_assignableType___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
