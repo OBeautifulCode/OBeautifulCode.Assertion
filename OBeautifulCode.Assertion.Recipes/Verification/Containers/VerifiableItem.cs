@@ -35,7 +35,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <summary>
         /// Gets or sets the type of the verifiable item.
         /// </summary>
-        public Type ValueType { get; set; }
+        public Type Type { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this verifiable item is an element in an enumerable.

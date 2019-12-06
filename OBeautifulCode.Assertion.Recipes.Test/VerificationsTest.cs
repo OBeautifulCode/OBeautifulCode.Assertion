@@ -5911,8 +5911,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -6151,8 +6151,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -6378,8 +6378,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -6619,8 +6619,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -6846,8 +6846,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -7073,8 +7073,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -7314,8 +7314,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -7541,8 +7541,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -8296,8 +8296,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>(), A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -8647,8 +8647,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             {
                 VerificationHandler = GetVerificationHandler(A.Dummy<object>(), A.Dummy<object>()),
                 VerificationName = verificationName,
-                SubjectInvalidTypeExpectedTypes = "IComparable, IComparable<T>, Nullable<T>",
-                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IComparable>, IEnumerable<IComparable<T>>, IEnumerable<Nullable<T>>",
+                SubjectInvalidTypeExpectedTypes = "Any Type With A Working (Non-Throwing) Default Comparer",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<Any Type With A Working (Non-Throwing) Default Comparer>",
             };
 
             var customClassTestValues1 = new TestValues<TestClass>
@@ -13634,7 +13634,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var invalidTypeValue in testValues.MustSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetClosedEnumerableElementType().ToStringReadable();
                 var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: false);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.  {Verifications.ImproperUseOfFrameworkErrorMessage}");
 
@@ -13657,7 +13657,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             foreach (var invalidTypeValue in testValues.MustEachSubjectInvalidTypeValues)
             {
                 // Arrange
-                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetEnumerableElementType().ToStringReadable();
+                var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetClosedEnumerableElementType().ToStringReadable();
                 var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: true);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.  {Verifications.ImproperUseOfFrameworkErrorMessage}");
 

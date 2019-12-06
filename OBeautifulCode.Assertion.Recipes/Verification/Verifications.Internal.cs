@@ -469,13 +469,13 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var defaultValue = GetDefaultValue(verifiableItem.ValueType);
+            var defaultValue = GetDefaultValue(verifiableItem.Type);
 
-            var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+            var shouldThrow = !AreEqual(verifiableItem.Type, verifiableItem.Value, defaultValue);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.Type.ToStringReadable());
 
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
 
@@ -492,13 +492,13 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var defaultValue = GetDefaultValue(verifiableItem.ValueType);
+            var defaultValue = GetDefaultValue(verifiableItem.Type);
 
-            var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, defaultValue);
+            var shouldThrow = AreEqual(verifiableItem.Type, verifiableItem.Value, defaultValue);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.Type.ToStringReadable());
 
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DefaultValueContextualInfo, defaultValue.ToStringInErrorMessage());
 
@@ -515,11 +515,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -538,11 +538,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -561,11 +561,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -584,11 +584,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -607,11 +607,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1GreaterThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -630,11 +630,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1GreaterThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeLessThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -653,11 +653,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -676,11 +676,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
+            var shouldThrow = CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2;
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeGreaterThanOrEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -699,11 +699,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = !AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+            var shouldThrow = !AreEqual(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -722,11 +722,11 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = AreEqual(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value);
+            var shouldThrow = AreEqual(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
@@ -747,12 +747,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             ThrowIfMalformedRange(verification.VerificationParameters);
 
-            var shouldThrow = (CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2) ||
-                              (CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2);
+            var shouldThrow = (CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) == CompareOutcome.Value1LessThanValue2) ||
+                              (CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[1].Value) == CompareOutcome.Value1GreaterThanValue2);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeInRangeExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
 
@@ -773,12 +773,12 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             ThrowIfMalformedRange(verification.VerificationParameters);
 
-            var shouldThrow = (CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2) &&
-                              (CompareUsingDefaultComparer(verifiableItem.ValueType, verifiableItem.Value, verification.VerificationParameters[1].Value) != CompareOutcome.Value1GreaterThanValue2);
+            var shouldThrow = (CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[0].Value) != CompareOutcome.Value1LessThanValue2) &&
+                              (CompareUsingDefaultComparer(verifiableItem.Type, verifiableItem.Value, verification.VerificationParameters[1].Value) != CompareOutcome.Value1GreaterThanValue2);
 
             if (shouldThrow)
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ValueType.ToStringReadable());
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.Type.ToStringReadable());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, methodologyInfo: methodologyInfo);
 
