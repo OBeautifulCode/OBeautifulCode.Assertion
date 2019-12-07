@@ -182,9 +182,9 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemTypeReadableString = verifiableItem.Type.ToStringReadable();
+            var verifiableItemTypeReadableString = verifiableItem.ItemType.ToStringReadable();
 
-            WorkflowExtensions.ThrowImproperUseOfFramework(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.IsElementInEnumerable}, verifiableItemTypeName: {verifiableItemTypeReadableString}"));
+            WorkflowExtensions.ThrowImproperUseOfFramework(Invariant($"verificationName: {verification.Name}, isElementInEnumerable: {verifiableItem.ItemIsElementInEnumerable}, verifiableItemTypeName: {verifiableItemTypeReadableString}"));
         }
 
         private static void ThrowIfValueType(
@@ -192,7 +192,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            if (verifiableItem.Type.IsValueType)
+            if (verifiableItem.ItemType.IsValueType)
             {
                 ThrowSubjectUnexpectedType(verification, verifiableItem, AnyReferenceTypeName);
             }
@@ -203,7 +203,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             if (!verifiableItemType.IsAssignableToNull())
             {
@@ -216,7 +216,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             var elementType = verifiableItemType.GetClosedEnumerableElementType();
 
@@ -231,7 +231,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             var dictionaryValueType = verifiableItemType.GetClosedDictionaryValueType();
 
@@ -246,7 +246,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             var validTypes = typeValidation.ReferenceTypes;
 
@@ -261,7 +261,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            if (!verifiableItem.Type.HasWorkingDefaultComparer())
+            if (!verifiableItem.ItemType.HasWorkingDefaultComparer())
             {
                 ThrowSubjectUnexpectedType(verification, verifiableItem, AnyTypeWithWorkingDefaultComparerName);
             }
@@ -272,7 +272,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
@@ -288,7 +288,7 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
-            var elementType = verifiableItem.Type.GetClosedEnumerableElementType();
+            var elementType = verifiableItem.ItemType.GetClosedEnumerableElementType();
 
             foreach (var verificationParameter in verification.VerificationParameters)
             {
@@ -314,11 +314,11 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             params string[] expectedTypes)
         {
-            var verifiableItemType = verifiableItem.Type;
+            var verifiableItemType = verifiableItem.ItemType;
 
             var verificationName = verification.Name;
 
-            var isElementInEnumerable = verifiableItem.IsElementInEnumerable;
+            var isElementInEnumerable = verifiableItem.ItemIsElementInEnumerable;
 
             var expectedTypesMessage = string.Join(", ", expectedTypes.Select(_ => isElementInEnumerable ? Invariant($"IEnumerable<{_}>") : _));
 
