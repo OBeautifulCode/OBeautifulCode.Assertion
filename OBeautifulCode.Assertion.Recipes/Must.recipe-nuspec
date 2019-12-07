@@ -5,8 +5,8 @@
     <tags>assertion assertions parameter parameters argument arguments unit test</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Assertion/master/OBeautifulCode.Assertion.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.31" />
-      <dependency id="OBeautifulCode.Equality.Recipes.EqualityHelpers" version="1.0.16" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.32" />
+      <dependency id="OBeautifulCode.Equality.Recipes.EqualityHelpers" version="1.0.17" />
     </dependencies>
   </metadata>
   <files>
