@@ -19,7 +19,7 @@
     <file src="Framework\AssertionTracker.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTracker.cs" />
     <file src="Framework\AssertionTrackerShould.cs"                     target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTrackerShould.cs" />
     <file src="Framework\ValidatedNotNullAttribute.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\ValidatedNotNullAttribute.cs" />
-    <file src="Framework\WorkflowExtensions.cs"                         target="content\net462\.recipes\OBeautifulCode.Assertion\WorkflowExtensions" />
+    <file src="Framework\WorkflowExtensions.cs"                         target="content\net462\.recipes\OBeautifulCode.Assertion\WorkflowExtensions.cs" />
     <file src="Verification\Containers\TypeValidation.cs"               target="content\net462\.recipes\OBeautifulCode.Assertion\TypeValidation.cs" />
     <file src="Verification\Containers\VerifiableItem.cs"               target="content\net462\.recipes\OBeautifulCode.Assertion\VerifiableItem.cs" />
     <file src="Verification\Containers\Verification.cs"                 target="content\net462\.recipes\OBeautifulCode.Assertion\Verification.cs" />
