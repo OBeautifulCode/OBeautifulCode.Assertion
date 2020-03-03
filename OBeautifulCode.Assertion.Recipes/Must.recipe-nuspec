@@ -1,37 +1,37 @@
-﻿<package>
+<package>
   <metadata>
     <id>OBeautifulCode.Assertion.Recipes.Must</id>
     <description>Generalized assertion library, covering argument, operation, and unit test assertions.</description>
     <tags>assertion assertions parameter parameters argument arguments unit test</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Assertion/master/OBeautifulCode.Assertion.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.33" />
-      <dependency id="OBeautifulCode.Equality.Recipes.EqualityHelpers" version="1.0.18" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.39" />
+      <dependency id="OBeautifulCode.Equality.Recipes.EqualityHelpers" version="1.0.19" />
     </dependencies>
   </metadata>
   <files>
-    <file src=".analyzers\SuppressBecause.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\SuppressBecause.cs" />
-    <file src="Exceptions\AssertionVerificationFailedException.cs"      target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionVerificationFailedException.cs" />
-    <file src="Exceptions\ImproperUseOfAssertionFrameworkException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\ImproperUseOfAssertionFrameworkException.cs" />
-    <file src="Exceptions\TestAssertionVerificationFailedException.cs"  target="content\net462\.recipes\OBeautifulCode.Assertion\TestAssertionVerificationFailedException.cs" />
-    <file src="Framework\Actions.cs"                                    target="content\net462\.recipes\OBeautifulCode.Assertion\Actions.cs" />
-    <file src="Framework\AssertionKind.cs"                              target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionKind.cs" />
-    <file src="Framework\AssertionTracker.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTracker.cs" />
-    <file src="Framework\AssertionTrackerShould.cs"                     target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTrackerShould.cs" />
-    <file src="Framework\ValidatedNotNullAttribute.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\ValidatedNotNullAttribute.cs" />
-    <file src="Framework\WorkflowExtensions.cs"                         target="content\net462\.recipes\OBeautifulCode.Assertion\WorkflowExtensions.cs" />
-    <file src="Verification\Containers\TypeValidation.cs"               target="content\net462\.recipes\OBeautifulCode.Assertion\TypeValidation.cs" />
-    <file src="Verification\Containers\VerifiableItem.cs"               target="content\net462\.recipes\OBeautifulCode.Assertion\VerifiableItem.cs" />
-    <file src="Verification\Containers\Verification.cs"                 target="content\net462\.recipes\OBeautifulCode.Assertion\Verification.cs" />
-    <file src="Verification\Containers\VerificationParameter.cs"        target="content\net462\.recipes\OBeautifulCode.Assertion\VerificationParameter.cs" />
-    <file src="Verification\CustomParameters\ApplyBecause.cs"           target="content\net462\.recipes\OBeautifulCode.Assertion\ApplyBecause.cs" />
-    <file src="Verification\CustomParameters\Range.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Range.cs" />
-    <file src="Verification\Delegates.cs"                               target="content\net462\.recipes\OBeautifulCode.Assertion\Delegates.cs" />
-    <file src="Verification\Verifications.cs"                           target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.cs" />
-    <file src="Verification\Verifications.Helpers.cs"                   target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Helpers.cs" />
-    <file src="Verification\Verifications.Internal.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Internal.cs" />
-    <file src="Verification\Verifications.Strings.cs"                   target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Strings.cs" />
-    <file src="Verification\Verifications.TypeValidation.cs"            target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.TypeValidation.cs" />
-    <file src="Verification\Verifications.Workflow.cs"                  target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Workflow.cs" />
+    <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\SuppressBecause.cs" />
+    <file src="Exceptions\AssertionVerificationFailedException.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionVerificationFailedException.cs" />
+    <file src="Exceptions\ImproperUseOfAssertionFrameworkException.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ImproperUseOfAssertionFrameworkException.cs" />
+    <file src="Exceptions\TestAssertionVerificationFailedException.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\TestAssertionVerificationFailedException.cs" />
+    <file src="Framework\Actions.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Actions.cs" />
+    <file src="Framework\AssertionKind.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionKind.cs" />
+    <file src="Framework\AssertionTracker.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTracker.cs" />
+    <file src="Framework\AssertionTrackerShould.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\AssertionTrackerShould.cs" />
+    <file src="Framework\ValidatedNotNullAttribute.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ValidatedNotNullAttribute.cs" />
+    <file src="Framework\WorkflowExtensions.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\WorkflowExtensions.cs" />
+    <file src="Verification\Containers\TypeValidation.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\TypeValidation.cs" />
+    <file src="Verification\Containers\VerifiableItem.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\VerifiableItem.cs" />
+    <file src="Verification\Containers\Verification.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verification.cs" />
+    <file src="Verification\Containers\VerificationParameter.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\VerificationParameter.cs" />
+    <file src="Verification\CustomParameters\ApplyBecause.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\ApplyBecause.cs" />
+    <file src="Verification\CustomParameters\Range.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Range.cs" />
+    <file src="Verification\Delegates.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Delegates.cs" />
+    <file src="Verification\Verifications.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.cs" />
+    <file src="Verification\Verifications.Helpers.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Helpers.cs" />
+    <file src="Verification\Verifications.Internal.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Internal.cs" />
+    <file src="Verification\Verifications.Strings.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Strings.cs" />
+    <file src="Verification\Verifications.TypeValidation.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.TypeValidation.cs" />
+    <file src="Verification\Verifications.Workflow.cs" target="content\net462\.recipes\OBeautifulCode.Assertion\Verifications.Workflow.cs" />
   </files>
 </package>
