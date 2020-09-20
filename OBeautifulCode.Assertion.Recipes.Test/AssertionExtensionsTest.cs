@@ -16,8 +16,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
     using FluentAssertions;
 
-    using OBeautifulCode.Assertion.Recipes.Test.Internal;
     using OBeautifulCode.AutoFakeItEasy;
+    using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Math.Recipes;
 
