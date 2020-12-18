@@ -155,6 +155,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotContainElementExceptionMessageSuffix = "contains the item to search for";
 
+        public const string ContainElementWhenNotNullExceptionMessageSuffix = "is not null and does not contain the item to search for";
+
+        public const string NotContainElementWhenNotNullExceptionMessageSuffix = "is not null and contains the item to search for";
+
         public const string BeAlphabeticExceptionMessageSuffix = "is not alphabetic";
 
         public const string BeAlphanumericExceptionMessageSuffix = "is not alphanumeric";

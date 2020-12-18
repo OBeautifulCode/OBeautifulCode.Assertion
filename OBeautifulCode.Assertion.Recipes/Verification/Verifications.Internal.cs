@@ -799,25 +799,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsEnumerable = (IEnumerable)verifiableItem.ItemValue;
-            var searchForItem = verification.VerificationParameters[0].Value;
-            var elementType = verification.VerificationParameters[0].ParameterType;
-
-            foreach (var element in valueAsEnumerable)
-            {
-                if (AreEqual(elementType, element, searchForItem))
-                {
-                    return;
-                }
-            }
-
-            var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
-
-            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, ContainElementExceptionMessageSuffix, methodologyInfo: methodologyInfo);
-
-            var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-            throw exception;
+            ContainElementInternalInternal(assertionTracker, verification, verifiableItem, ContainElementExceptionMessageSuffix);
         }
 
         private static void NotContainElementInternal(
@@ -827,23 +809,33 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsEnumerable = (IEnumerable)verifiableItem.ItemValue;
-            var searchForItem = verification.VerificationParameters[0].Value;
-            var elementType = verification.VerificationParameters[0].ParameterType;
+            NotContainElementInternalInternal(assertionTracker, verification, verifiableItem, NotContainElementExceptionMessageSuffix);
+        }
 
-            foreach (var element in valueAsEnumerable)
+        private static void ContainElementWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                if (AreEqual(elementType, element, searchForItem))
-                {
-                    var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
-
-                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainElementExceptionMessageSuffix, methodologyInfo: methodologyInfo);
-
-                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-                    throw exception;
-                }
+                return;
             }
+
+            ContainElementInternalInternal(assertionTracker, verification, verifiableItem, ContainElementWhenNotNullExceptionMessageSuffix);
+        }
+
+        private static void NotContainElementWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
+            {
+                return;
+            }
+
+            NotContainElementInternalInternal(assertionTracker, verification, verifiableItem, NotContainElementWhenNotNullExceptionMessageSuffix);
         }
 
         private static void BeAlphabeticInternal(
@@ -1316,6 +1308,58 @@ namespace OBeautifulCode.Assertion.Recipes
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
                 throw exception;
+            }
+        }
+
+        private static void ContainElementInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = (IEnumerable)verifiableItem.ItemValue;
+            var searchForItem = verification.VerificationParameters[0].Value;
+            var elementType = verification.VerificationParameters[0].ParameterType;
+
+            foreach (var element in valueAsEnumerable)
+            {
+                if (AreEqual(elementType, element, searchForItem))
+                {
+                    return;
+                }
+            }
+
+            var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
+
+            var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, methodologyInfo: methodologyInfo);
+
+            var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+            throw exception;
+        }
+
+        private static void NotContainElementInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = (IEnumerable)verifiableItem.ItemValue;
+            var searchForItem = verification.VerificationParameters[0].Value;
+            var elementType = verification.VerificationParameters[0].ParameterType;
+
+            foreach (var element in valueAsEnumerable)
+            {
+                if (AreEqual(elementType, element, searchForItem))
+                {
+                    var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
+
+                    var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, methodologyInfo: methodologyInfo);
+
+                    var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                    throw exception;
+                }
             }
         }
 
