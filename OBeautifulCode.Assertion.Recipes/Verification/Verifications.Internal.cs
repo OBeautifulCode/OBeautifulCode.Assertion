@@ -838,6 +838,30 @@ namespace OBeautifulCode.Assertion.Recipes
             NotContainElementInternalInternal(assertionTracker, verification, verifiableItem, NotContainElementWhenNotNullExceptionMessageSuffix);
         }
 
+        private static void ContainOnlyDistinctElementsInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            ContainOnlyDistinctElementsInternalInternal(assertionTracker, verification, verifiableItem, ContainOnlyDistinctElementsExceptionMessageSuffix);
+        }
+
+        private static void ContainOnlyDistinctElementsWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
+            {
+                return;
+            }
+
+            ContainOnlyDistinctElementsInternalInternal(assertionTracker, verification, verifiableItem, ContainOnlyDistinctElementsWhenNotNullExceptionMessageSuffix);
+        }
+
+
         private static void BeAlphabeticInternal(
             AssertionTracker assertionTracker,
             Verification verification,
@@ -1363,5 +1387,35 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
+        private static void ContainOnlyDistinctElementsInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = (IEnumerable)verifiableItem.ItemValue;
+            var elementType = valueAsEnumerable.GetType().GetClosedEnumerableElementType();
+
+            var distinctSet = new List<object>();
+
+            foreach (var element in valueAsEnumerable)
+            {
+                foreach (var distinctElement in distinctSet)
+                {
+                    if (AreEqual(elementType, element, distinctElement))
+                    {
+                        var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, elementType.ToStringReadable());
+
+                        var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, methodologyInfo: methodologyInfo);
+
+                        var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                        throw exception;
+                    }
+                }
+
+                distinctSet.Add(element);
+            }
+        }
     }
 }
