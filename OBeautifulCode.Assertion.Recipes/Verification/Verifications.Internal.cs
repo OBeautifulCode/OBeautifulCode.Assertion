@@ -699,22 +699,7 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = !AreEqual(verifiableItem.ItemType, verifiableItem.ItemValue, verification.VerificationParameters[0].Value);
-
-            if (shouldThrow)
-            {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ItemType.ToStringReadable());
-
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
-
-                var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
-                    ? ArgumentExceptionKind.ArgumentException
-                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
-
-                throw exception;
-            }
+            BeEqualToInternalInternal(assertionTracker, verification, verifiableItem, BeEqualToExceptionMessageSuffix);
         }
 
         private static void NotBeEqualToInternal(
@@ -722,22 +707,33 @@ namespace OBeautifulCode.Assertion.Recipes
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            var shouldThrow = AreEqual(verifiableItem.ItemType, verifiableItem.ItemValue, verification.VerificationParameters[0].Value);
+            NotBeEqualToInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix);
+        }
 
-            if (shouldThrow)
+        private static void BeEqualToWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ItemType.ToStringReadable());
-
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEqualToExceptionMessageSuffix, methodologyInfo: methodologyInfo);
-
-                var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
-                    ? ArgumentExceptionKind.ArgumentException
-                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
-
-                throw exception;
+                return;
             }
+
+            BeEqualToInternalInternal(assertionTracker, verification, verifiableItem, BeEqualToWhenNotNullExceptionMessageSuffix);
+        }
+
+        private static void NotBeEqualToWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
+            {
+                return;
+            }
+
+            NotBeEqualToInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToWhenNotNullExceptionMessageSuffix);
         }
 
         private static void BeInRangeInternal(
@@ -1360,6 +1356,54 @@ namespace OBeautifulCode.Assertion.Recipes
             var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
             throw exception;
+        }
+
+        private static void BeEqualToInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var shouldThrow = !AreEqual(verifiableItem.ItemType, verifiableItem.ItemValue, verification.VerificationParameters[0].Value);
+
+            if (shouldThrow)
+            {
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ItemType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, Include.FailingValue, methodologyInfo: methodologyInfo);
+
+                var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
+        }
+
+        private static void NotBeEqualToInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var shouldThrow = AreEqual(verifiableItem.ItemType, verifiableItem.ItemValue, verification.VerificationParameters[0].Value);
+
+            if (shouldThrow)
+            {
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsEqualToMethodology, verifiableItem.ItemType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, methodologyInfo: methodologyInfo);
+
+                var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
+                    ? ArgumentExceptionKind.ArgumentException
+                    : ArgumentExceptionKind.ArgumentOutOfRangeException;
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
         }
 
         private static void NotContainElementInternalInternal(

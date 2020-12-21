@@ -147,6 +147,10 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value";
 
+        public const string BeEqualToWhenNotNullExceptionMessageSuffix = "is not null and is not equal to the comparison value";
+
+        public const string NotBeEqualToWhenNotNullExceptionMessageSuffix = "is not null and is equal to the comparison value";
+
         public const string BeInRangeExceptionMessageSuffix = "is not within the specified range";
 
         public const string NotBeInRangeExceptionMessageSuffix = "is within the specified range";
