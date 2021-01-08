@@ -2884,5 +2884,68 @@ namespace OBeautifulCode.Assertion.Recipes
 
             return assertionTracker;
         }
+
+        /// <summary>
+        /// Verifies that the DateTime or DateTime? subject has <see cref="DateTimeKind.Utc"/>.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeUtcDateTime(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeUtcDateTimeInternal,
+                Name = nameof(BeUtcDateTime),
+                TypeValidations = MustBeDateTimeOrNullableDateTimeTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the DateTime? subject has <see cref="DateTimeKind.Utc"/>, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeUtcDateTimeWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeUtcDateTimeWhenNotNullInternal,
+                Name = nameof(BeUtcDateTimeWhenNotNull),
+                TypeValidations = MustBeNullableDateTimeTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
     }
 }
