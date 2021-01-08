@@ -116,7 +116,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeTrueInternal,
                 Name = nameof(BeTrue),
-                TypeValidations = MustBeBooleanTypeValidations,
+                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -147,7 +147,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeTrueInternal,
                 Name = nameof(NotBeTrue),
-                TypeValidations = MustBeBooleanTypeValidations,
+                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -178,7 +178,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeFalseInternal,
                 Name = nameof(BeFalse),
-                TypeValidations = MustBeBooleanTypeValidations,
+                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -209,7 +209,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeFalseInternal,
                 Name = nameof(NotBeFalse),
-                TypeValidations = MustBeBooleanTypeValidations,
+                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -302,7 +302,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyGuidInternal,
                 Name = nameof(BeEmptyGuid),
-                TypeValidations = MustBeGuidTypeValidations,
+                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 
@@ -333,7 +333,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyGuidInternal,
                 Name = nameof(NotBeEmptyGuid),
-                TypeValidations = MustBeGuidTypeValidations,
+                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 

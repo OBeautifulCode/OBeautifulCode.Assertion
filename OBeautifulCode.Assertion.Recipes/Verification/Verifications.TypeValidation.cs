@@ -53,7 +53,7 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeBooleanTypeValidations = new[]
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeBooleanOrNullableBooleanTypeValidations = new[]
         {
             new TypeValidation
             {
@@ -71,7 +71,7 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
-        private static readonly IReadOnlyCollection<TypeValidation> MustBeGuidTypeValidations = new[]
+        private static readonly IReadOnlyCollection<TypeValidation> MustBeGuidOrNullableGuidTypeValidations = new[]
         {
             new TypeValidation
             {

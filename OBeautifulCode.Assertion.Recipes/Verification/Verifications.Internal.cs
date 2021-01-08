@@ -857,7 +857,6 @@ namespace OBeautifulCode.Assertion.Recipes
             ContainOnlyDistinctElementsInternalInternal(assertionTracker, verification, verifiableItem, ContainOnlyDistinctElementsWhenNotNullExceptionMessageSuffix);
         }
 
-
         private static void BeAlphabeticInternal(
             AssertionTracker assertionTracker,
             Verification verification,
