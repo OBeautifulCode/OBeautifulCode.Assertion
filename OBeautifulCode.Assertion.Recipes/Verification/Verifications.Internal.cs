@@ -371,28 +371,20 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+            NotContainAnyNullElementsInternalInternal(assertionTracker, verification, verifiableItem, NotContainAnyNullElementsExceptionMessageSuffix);
+        }
 
-            var shouldThrow = false;
-
-            // ReSharper disable once PossibleNullReferenceException
-            foreach (var unused in valueAsEnumerable)
+        private static void NotContainAnyNullElementsWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                if (ReferenceEquals(unused, null))
-                {
-                    shouldThrow = true;
-                    break;
-                }
+                return;
             }
 
-            if (shouldThrow)
-            {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyNullElementsExceptionMessageSuffix);
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-                throw exception;
-            }
+            NotContainAnyNullElementsInternalInternal(assertionTracker, verification, verifiableItem, NotContainAnyNullElementsWhenNotNullExceptionMessageSuffix);
         }
 
         private static void ContainSomeKeyValuePairsWithNullValueInternal(
@@ -1497,6 +1489,36 @@ namespace OBeautifulCode.Assertion.Recipes
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DateTimeKindContextualInfo, valueAsDateTime.Kind);
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, contextualInfo: contextualInfo);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        private static void NotContainAnyNullElementsInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+
+            var shouldThrow = false;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var unused in valueAsEnumerable)
+            {
+                if (ReferenceEquals(unused, null))
+                {
+                    shouldThrow = true;
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 

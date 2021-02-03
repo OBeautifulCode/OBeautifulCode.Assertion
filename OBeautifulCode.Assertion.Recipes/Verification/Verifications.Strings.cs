@@ -113,6 +113,8 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotContainAnyNullElementsExceptionMessageSuffix = "contains at least one null element";
 
+        public const string NotContainAnyNullElementsWhenNotNullExceptionMessageSuffix = "is not null and contains at least one null element";
+
         public const string ContainSomeKeyValuePairsWithNullValueExceptionMessageSuffix = "contains no key-value pairs with a null value";
 
         public const string NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix = "contains at least one key-value pair with a null value";
