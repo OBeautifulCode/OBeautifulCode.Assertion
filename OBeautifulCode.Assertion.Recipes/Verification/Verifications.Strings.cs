@@ -119,6 +119,14 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix = "contains at least one key-value pair with a null value";
 
+        public const string ContainKeyExceptionMessageSuffix = "does not contain the key to search for";
+
+        public const string NotContainKeyExceptionMessageSuffix = "contains the key to search for";
+
+        public const string ContainKeyWhenNotNullExceptionMessageSuffix = "is not null and does not contain the key to search for";
+
+        public const string NotContainKeyWhenNotNullExceptionMessageSuffix = "is not null and contains the key to search for";
+
         public const string IsEqualToMethod = "EqualityExtensions.IsEqualTo<T>";
 
         public const string DefaultComparer = "Comparer<T>.Default";

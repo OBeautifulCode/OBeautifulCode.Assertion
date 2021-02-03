@@ -200,6 +200,19 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> DictionaryKeyContainmentTypeValidations = new[]
+        {
+            new TypeValidation
+            {
+                Handler = ThrowIfNotAssignableToType,
+                ReferenceTypes = new[] { DictionaryType, UnboundGenericDictionaryType, UnboundGenericReadOnlyDictionaryType },
+            },
+            new TypeValidation
+            {
+                Handler = ThrowIfDictionaryKeyTypeDoesNotEqualAllVerificationParameterTypes,
+            },
+        };
+
         private static void Throw(
             Verification verification,
             VerifiableItem verifiableItem,
@@ -333,6 +346,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 if (verificationParameter.ParameterType != elementType)
                 {
                     ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.ParameterType, verificationParameter.Name, elementType);
+                }
+            }
+        }
+
+        private static void ThrowIfDictionaryKeyTypeDoesNotEqualAllVerificationParameterTypes(
+            Verification verification,
+            VerifiableItem verifiableItem,
+            TypeValidation typeValidation)
+        {
+            var keyType = verifiableItem.ItemType.GetClosedDictionaryKeyType();
+
+            foreach (var verificationParameter in verification.VerificationParameters)
+            {
+                if (verificationParameter.ParameterType != keyType)
+                {
+                    ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.ParameterType, verificationParameter.Name, keyType);
                 }
             }
         }
