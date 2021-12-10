@@ -862,23 +862,23 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeEqualToInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToWhenNotNullExceptionMessageSuffix);
         }
 
-        private static void BeEqualToAnyOfInternal(
+        private static void BeElementInInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            BeEqualToAnyOfInternalInternal(assertionTracker, verification, verifiableItem, BeEqualToAnyOfExceptionMessageSuffix);
+            BeElementInInternalInternal(assertionTracker, verification, verifiableItem, BeElementInExceptionMessageSuffix);
         }
 
-        private static void NotBeEqualToAnyOfInternal(
+        private static void NotBeElementInInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
         {
-            NotBeEqualToAnyOfInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToAnyOfExceptionMessageSuffix);
+            NotBeElementInInternalInternal(assertionTracker, verification, verifiableItem, NotBeElementInExceptionMessageSuffix);
         }
 
-        private static void BeEqualToAnyOfWhenNotNullInternal(
+        private static void BeElementInWhenNotNullInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
@@ -888,10 +888,10 @@ namespace OBeautifulCode.Assertion.Recipes
                 return;
             }
 
-            BeEqualToAnyOfInternalInternal(assertionTracker, verification, verifiableItem, BeEqualToAnyOfWhenNotNullExceptionMessageSuffix);
+            BeElementInInternalInternal(assertionTracker, verification, verifiableItem, BeElementInWhenNotNullExceptionMessageSuffix);
         }
 
-        private static void NotBeEqualToAnyOfWhenNotNullInternal(
+        private static void NotBeElementInWhenNotNullInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem)
@@ -901,7 +901,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 return;
             }
 
-            NotBeEqualToAnyOfInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToAnyOfWhenNotNullExceptionMessageSuffix);
+            NotBeElementInInternalInternal(assertionTracker, verification, verifiableItem, NotBeElementInWhenNotNullExceptionMessageSuffix);
         }
 
         private static void BeInRangeInternal(
@@ -1569,7 +1569,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        private static void BeEqualToAnyOfInternalInternal(
+        private static void BeElementInInternalInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem,
@@ -1605,7 +1605,7 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
 
-        private static void NotBeEqualToAnyOfInternalInternal(
+        private static void NotBeElementInInternalInternal(
             AssertionTracker assertionTracker,
             Verification verification,
             VerifiableItem verifiableItem,

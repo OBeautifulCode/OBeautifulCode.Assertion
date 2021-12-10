@@ -10489,27 +10489,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void BeEqualToAnyOf___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
+        public static void BeElementIn___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
-            var actual = Record.Exception(() => new { subject }.Must().BeEqualToAnyOf<string>(null));
+            var actual = Record.Exception(() => new { subject }.Must().BeElementIn<string>(null));
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be("Called BeEqualToAnyOf(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            actual.Message.Should().Be("Called BeElementIn(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
-        public static void BeEqualToAnyOf___Should_throw_or_not_throw_as_expected___When_called()
+        public static void BeElementIn___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(IReadOnlyCollection<T> comparisonValues)
             {
-                return (subject, because, applyBecause, data) => subject.BeEqualToAnyOf(comparisonValues, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeElementIn(comparisonValues, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.BeEqualToAnyOf);
+            var verificationName = nameof(Verifications.BeElementIn);
 
             // comparisonValues is wrong type
             var verificationTest1 = new VerificationTest
@@ -10571,7 +10571,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.BeEqualToAnyOfExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeElementInExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -10596,7 +10596,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.BeEqualToAnyOfExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeElementInExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -10626,7 +10626,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void BeEqualToAnyOf___Should_throw_with_expected_Exception_message___When_called()
+        public static void BeElementIn___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             int? subject1 = null;
@@ -10646,10 +10646,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that is not equal to any of the comparison values using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '130'.  Specified 'comparisonValues' is ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', ...].";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().BeEqualToAnyOf(comparisonValues1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().BeEqualToAnyOf(comparisonValues2));
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().BeEqualToAnyOf(comparisonValues3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().BeEqualToAnyOf(comparisonValues4));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().BeElementIn(comparisonValues1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().BeElementIn(comparisonValues2));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().BeElementIn(comparisonValues3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().BeElementIn(comparisonValues4));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -10659,27 +10659,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOf___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
+        public static void NotBeElementIn___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
-            var actual = Record.Exception(() => new { subject }.Must().NotBeEqualToAnyOf<string>(null));
+            var actual = Record.Exception(() => new { subject }.Must().NotBeElementIn<string>(null));
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be("Called NotBeEqualToAnyOf(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            actual.Message.Should().Be("Called NotBeElementIn(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOf___Should_throw_or_not_throw_as_expected___When_called()
+        public static void NotBeElementIn___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(IReadOnlyCollection<T> comparisonValues)
             {
-                return (subject, because, applyBecause, data) => subject.NotBeEqualToAnyOf(comparisonValues, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeElementIn(comparisonValues, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.NotBeEqualToAnyOf);
+            var verificationName = nameof(Verifications.NotBeElementIn);
 
             // comparisonValues is wrong type
             var verificationTest1 = new VerificationTest
@@ -10741,7 +10741,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotBeEqualToAnyOfExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeElementInExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -10766,7 +10766,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotBeEqualToAnyOfExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeElementInExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<decimal>
@@ -10796,7 +10796,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOf___Should_throw_with_expected_Exception_message___When_called()
+        public static void NotBeElementIn___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             int? subject1 = null;
@@ -10816,10 +10816,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that is equal to one or more of the comparison values using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '30'.  Specified 'comparisonValues' is ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', ...].";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEqualToAnyOf(comparisonValues1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().NotBeEqualToAnyOf(comparisonValues2));
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotBeEqualToAnyOf(comparisonValues3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotBeEqualToAnyOf(comparisonValues4));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeElementIn(comparisonValues1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().NotBeElementIn(comparisonValues2));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotBeElementIn(comparisonValues3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotBeElementIn(comparisonValues4));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -10829,27 +10829,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void BeEqualToAnyOfWhenNotNull___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
+        public static void BeElementInWhenNotNull___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
-            var actual = Record.Exception(() => new { subject }.Must().BeEqualToAnyOfWhenNotNull<string>(null));
+            var actual = Record.Exception(() => new { subject }.Must().BeElementInWhenNotNull<string>(null));
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be("Called BeEqualToAnyOfWhenNotNull(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            actual.Message.Should().Be("Called BeElementInWhenNotNull(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
-        public static void BeEqualToAnyOfWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
+        public static void BeElementInWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(IReadOnlyCollection<T> comparisonValues)
             {
-                return (subject, because, applyBecause, data) => subject.BeEqualToAnyOfWhenNotNull(comparisonValues, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.BeElementInWhenNotNull(comparisonValues, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.BeEqualToAnyOfWhenNotNull);
+            var verificationName = nameof(Verifications.BeElementInWhenNotNull);
 
             // comparisonValues is wrong type
             var verificationTest1 = new VerificationTest
@@ -10911,7 +10911,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.BeEqualToAnyOfWhenNotNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeElementInWhenNotNullExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -10936,7 +10936,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.BeEqualToAnyOfWhenNotNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.BeElementInWhenNotNullExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<string>
@@ -10967,7 +10967,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void BeEqualToAnyOfWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
+        public static void BeElementInWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             int? subject1 = 5;
@@ -10987,10 +10987,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that is not null and is not equal to any of the comparison values using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '130'.  Specified 'comparisonValues' is ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', ...].";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().BeEqualToAnyOfWhenNotNull(comparisonValues1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().BeEqualToAnyOfWhenNotNull(comparisonValues2));
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().BeEqualToAnyOfWhenNotNull(comparisonValues3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().BeEqualToAnyOfWhenNotNull(comparisonValues4));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().BeElementInWhenNotNull(comparisonValues1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().BeElementInWhenNotNull(comparisonValues2));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().BeElementInWhenNotNull(comparisonValues3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().BeElementInWhenNotNull(comparisonValues4));
 
             // Assert
             actual1.Message.Should().Be(expected1);
@@ -11000,27 +11000,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOfWhenNotNull___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
+        public static void NotBeElementInWhenNotNull___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_comparisonValues_is_null()
         {
             // Arrange, Act
             var subject = A.Dummy<string>();
-            var actual = Record.Exception(() => new { subject }.Must().NotBeEqualToAnyOfWhenNotNull<string>(null));
+            var actual = Record.Exception(() => new { subject }.Must().NotBeElementInWhenNotNull<string>(null));
 
             // Assert
             actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual.Message.Should().Be("Called NotBeEqualToAnyOfWhenNotNull(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            actual.Message.Should().Be("Called NotBeElementInWhenNotNull(comparisonValues:) where parameter 'comparisonValues' is null.  " + Verifications.ImproperUseOfFrameworkErrorMessage);
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOfWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
+        public static void NotBeElementInWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
             VerificationHandler GetVerificationHandler<T>(IReadOnlyCollection<T> comparisonValues)
             {
-                return (subject, because, applyBecause, data) => subject.NotBeEqualToAnyOfWhenNotNull(comparisonValues, because, applyBecause, data);
+                return (subject, because, applyBecause, data) => subject.NotBeElementInWhenNotNull(comparisonValues, because, applyBecause, data);
             }
 
-            var verificationName = nameof(Verifications.NotBeEqualToAnyOfWhenNotNull);
+            var verificationName = nameof(Verifications.NotBeElementInWhenNotNull);
 
             // comparisonValues is wrong type
             var verificationTest1 = new VerificationTest
@@ -11082,7 +11082,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotBeEqualToAnyOfWhenNotNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeElementInWhenNotNullExceptionMessageSuffix,
             };
 
             var decimalTestValues3 = new TestValues<decimal>
@@ -11107,7 +11107,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 VerificationName = verificationName,
                 ArgumentExceptionType = typeof(ArgumentOutOfRangeException),
                 EachArgumentExceptionType = typeof(ArgumentException),
-                ExceptionMessageSuffix = Verifications.NotBeEqualToAnyOfWhenNotNullExceptionMessageSuffix,
+                ExceptionMessageSuffix = Verifications.NotBeElementInWhenNotNullExceptionMessageSuffix,
             };
 
             var decimalTestValues4 = new TestValues<string>
@@ -11138,7 +11138,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void NotBeEqualToAnyOfWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
+        public static void NotBeElementInWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
         {
             // Arrange
             int? subject1 = 5;
@@ -11158,10 +11158,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             var expected4 = "Provided value (name: 'subject4') contains an element that is not null and is equal to one or more of the comparison values using EqualityExtensions.IsEqualTo<T>, where T: int.  Element value is '30'.  Specified 'comparisonValues' is ['20', '30', '40', '50', '60', '70', '80', '90', '100', '110', ...].";
 
             // Act
-            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEqualToAnyOfWhenNotNull(comparisonValues1));
-            var actual2 = Record.Exception(() => new { subject2 }.Must().NotBeEqualToAnyOfWhenNotNull(comparisonValues2));
-            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotBeEqualToAnyOfWhenNotNull(comparisonValues3));
-            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotBeEqualToAnyOfWhenNotNull(comparisonValues4));
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeElementInWhenNotNull(comparisonValues1));
+            var actual2 = Record.Exception(() => new { subject2 }.Must().NotBeElementInWhenNotNull(comparisonValues2));
+            var actual3 = Record.Exception(() => new { subject3 }.Must().Each().NotBeElementInWhenNotNull(comparisonValues3));
+            var actual4 = Record.Exception(() => new { subject4 }.Must().Each().NotBeElementInWhenNotNull(comparisonValues4));
 
             // Assert
             actual1.Message.Should().Be(expected1);

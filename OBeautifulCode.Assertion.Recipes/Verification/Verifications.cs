@@ -1750,7 +1750,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is equal to any of the specified values.
+        /// Verifies that the subject is an element of the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
@@ -1761,7 +1761,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker BeEqualToAnyOf<T>(
+        public static AssertionTracker BeElementIn<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1770,7 +1770,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeEqualToAnyOf), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementIn), nameof(comparisonValues));
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
@@ -1779,8 +1779,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = BeEqualToAnyOfInternal,
-                Name = nameof(BeEqualToAnyOf),
+                Handler = BeElementInInternal,
+                Name = nameof(BeElementIn),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1801,7 +1801,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is not equal to any of the specified values.
+        /// Verifies that the subject is not an element of the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
@@ -1812,7 +1812,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker NotBeEqualToAnyOf<T>(
+        public static AssertionTracker NotBeElementIn<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1821,7 +1821,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeEqualToAnyOf), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementIn), nameof(comparisonValues));
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
@@ -1830,8 +1830,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = NotBeEqualToAnyOfInternal,
-                Name = nameof(NotBeEqualToAnyOf),
+                Handler = NotBeElementInInternal,
+                Name = nameof(NotBeElementIn),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1852,7 +1852,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is equal to any of the specified values, when not null.
+        /// Verifies that the subject is an element of the specified collection, when not null.
         /// If null, no exception is thrown.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
@@ -1864,7 +1864,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker BeEqualToAnyOfWhenNotNull<T>(
+        public static AssertionTracker BeElementInWhenNotNull<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1873,7 +1873,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeEqualToAnyOfWhenNotNull), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementInWhenNotNull), nameof(comparisonValues));
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
@@ -1882,8 +1882,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = BeEqualToAnyOfWhenNotNullInternal,
-                Name = nameof(BeEqualToAnyOfWhenNotNull),
+                Handler = BeElementInWhenNotNullInternal,
+                Name = nameof(BeElementInWhenNotNull),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1904,7 +1904,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is not equal to any of the specified values, when not null.
+        /// Verifies that the subject is not an element of the specified collection, when not null.
         /// If null, no exception is thrown.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
@@ -1916,7 +1916,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker NotBeEqualToAnyOfWhenNotNull<T>(
+        public static AssertionTracker NotBeElementInWhenNotNull<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1925,7 +1925,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeEqualToAnyOfWhenNotNull), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementInWhenNotNull), nameof(comparisonValues));
 
                 WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
             }
@@ -1934,8 +1934,8 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = NotBeEqualToAnyOfWhenNotNullInternal,
-                Name = nameof(NotBeEqualToAnyOfWhenNotNull),
+                Handler = NotBeElementInWhenNotNullInternal,
+                Name = nameof(NotBeElementInWhenNotNull),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
