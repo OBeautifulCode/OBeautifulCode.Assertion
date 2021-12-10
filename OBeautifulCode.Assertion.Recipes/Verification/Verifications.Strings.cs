@@ -163,6 +163,22 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeGreaterThanOrEqualToExceptionMessageSuffix = "is greater than or equal to the comparison value";
 
+        public const string BeLessThanWhenNotNullExceptionMessageSuffix = "is not null and is not less than the comparison value";
+
+        public const string NotBeLessThanWhenNotNullExceptionMessageSuffix = "is not null and is less than the comparison value";
+
+        public const string BeGreaterThanWhenNotNullExceptionMessageSuffix = "is not null and is not greater than the comparison value";
+
+        public const string NotBeGreaterThanWhenNotNullExceptionMessageSuffix = "is not null and is greater than the comparison value";
+
+        public const string BeLessThanOrEqualToWhenNotNullExceptionMessageSuffix = "is not null and is not less than or equal to the comparison value";
+
+        public const string NotBeLessThanOrEqualToWhenNotNullExceptionMessageSuffix = "is not null and is less than or equal to the comparison value";
+
+        public const string BeGreaterThanOrEqualToWhenNotNullExceptionMessageSuffix = "is not null and is not greater than or equal to the comparison value";
+
+        public const string NotBeGreaterThanOrEqualToWhenNotNullExceptionMessageSuffix = "is not null and is greater than or equal to the comparison value";
+
         public const string BeEqualToExceptionMessageSuffix = "is not equal to the comparison value";
 
         public const string NotBeEqualToExceptionMessageSuffix = "is equal to the comparison value";
