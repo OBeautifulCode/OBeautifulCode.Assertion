@@ -53,13 +53,14 @@
     <Reference Include="FluentAssertions, Version=5.9.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.9.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="OBeautifulCode.AutoFakeItEasy, Version=1.0.134.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OBeautifulCode.AutoFakeItEasy.1.0.134\lib\net462\OBeautifulCode.AutoFakeItEasy.dll</HintPath>
+    <Reference Include="OBeautifulCode.AutoFakeItEasy, Version=1.0.138.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OBeautifulCode.AutoFakeItEasy.1.0.138\lib\net462\OBeautifulCode.AutoFakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -84,6 +85,7 @@
     <Compile Include=".recipes\OBeautifulCode.Collection\EnumerableExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Enum\EnumExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ByteArrayEqualityComparer.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\ColorEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\DateTimeEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\DictionaryEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\EnumerableEqualityComparer.cs" />
@@ -93,9 +95,11 @@
     <Compile Include=".recipes\OBeautifulCode.Equality\HashCodeHelper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\LambdaBackedEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\NativeMethods.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\NullableColorEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\NullableDateTimeEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ObjectEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ReadOnlyDictionaryEqualityComparer.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\ReferenceEqualityComparer{T}.cs" />
     <Compile Include=".recipes\OBeautifulCode.Math\ThreadSafeRandom.cs" />
     <Compile Include=".recipes\OBeautifulCode.String\StringExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ArrayKind.cs" />

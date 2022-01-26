@@ -41,10 +41,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".recipes\OBeautifulCode.CodeAnalysis\ObcSuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ByteArrayEqualityComparer.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\ColorEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\DateTimeEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\DictionaryEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\EnumerableEqualityComparer.cs" />
@@ -54,9 +56,11 @@
     <Compile Include=".recipes\OBeautifulCode.Equality\HashCodeHelper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\LambdaBackedEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\NativeMethods.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\NullableColorEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\NullableDateTimeEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ObjectEqualityComparer.cs" />
     <Compile Include=".recipes\OBeautifulCode.Equality\ReadOnlyDictionaryEqualityComparer.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Equality\ReferenceEqualityComparer{T}.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ArrayKind.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
