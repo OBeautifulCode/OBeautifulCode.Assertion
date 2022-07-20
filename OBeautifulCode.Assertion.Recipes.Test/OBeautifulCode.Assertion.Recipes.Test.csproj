@@ -112,7 +112,34 @@
     <Compile Include="TestCommon.cs" />
     <Compile Include="AssertionTrackerEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VerificationsTest.cs" />
+    <Compile Include="Verifications\VerificationsTest.Null.cs" />
+    <Compile Include="Verifications\VerificationsTest.NullOrWhiteSpace.cs" />
+    <Compile Include="Verifications\VerificationsTest.Empty.cs" />
+    <Compile Include="Verifications\VerificationsTest.NullElement.cs" />
+    <Compile Include="Verifications\VerificationsTest.KeyValuePairWithNullValue.cs" />
+    <Compile Include="Verifications\VerificationsTest.ContainKey.cs" />
+    <Compile Include="Verifications\VerificationsTest.NullOrEmpty.cs" />
+    <Compile Include="Verifications\VerificationsTest.Default.cs" />
+    <Compile Include="Verifications\VerificationsTest.Inequality.cs" />
+    <Compile Include="Verifications\VerificationsTest.Boolean.cs" />
+    <Compile Include="Verifications\VerificationsTest.EqualTo.cs" />
+    <Compile Include="Verifications\VerificationsTest.ElementInSet.cs" />
+    <Compile Include="Verifications\VerificationsTest.Range.cs" />
+    <Compile Include="Verifications\VerificationsTest.Alphanumeric.cs" />
+    <Compile Include="Verifications\VerificationsTest.ContainElement.cs" />
+    <Compile Include="Verifications\VerificationsTest.ContainDistinctElements.cs" />
+    <Compile Include="Verifications\VerificationsTest.AsciiPrintable.cs" />
+    <Compile Include="Verifications\VerificationsTest.Alphabetic.cs" />
+    <Compile Include="Verifications\VerificationsTest.Regex.cs" />
+    <Compile Include="Verifications\VerificationsTest.SameReference.cs" />
+    <Compile Include="Verifications\VerificationsTest.ContainString.cs" />
+    <Compile Include="Verifications\VerificationsTest.Count.cs" />
+    <Compile Include="Verifications\VerificationsTest.Email.cs" />
+    <Compile Include="Verifications\VerificationsTest.DateTime.cs" />
+    <Compile Include="Verifications\VerificationsTest.Type.cs" />
+    <Compile Include="Verifications\VerificationsTest.StartOrEndWith.cs" />
+    <Compile Include="Verifications\VerificationsTest.SequenceEqual.cs" />
+    <Compile Include="Verifications\VerificationsTest.cs" />
     <Compile Include="AssertionExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +162,7 @@
   <ItemGroup>
     <Content Include=".analyzers\dictionary.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

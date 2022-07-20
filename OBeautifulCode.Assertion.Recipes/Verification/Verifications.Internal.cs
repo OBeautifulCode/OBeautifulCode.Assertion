@@ -928,7 +928,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingDefaultComparerMethodology, verifiableItem.ItemType.ToStringReadable());
 
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, methodologyInfo: methodologyInfo);
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeInRangeExceptionMessageSuffix, Include.FailingValue, methodologyInfo);
 
                 var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
