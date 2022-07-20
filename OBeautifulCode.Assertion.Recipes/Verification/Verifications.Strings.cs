@@ -27,6 +27,8 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string SubjectNotEqualToItemInSetOfExpectedTypesErrorMessage = "Called {0}() on a value of type {1}, which is not one of the following expected type(s): {2}.";
 
+        public const string SubjectCantBeAssignedToTypeErrorMessage = "Called {0}() on a value of type {1}, which is not assignable to one of the following type(s): {2}.";
+
         public const string VerificationParameterUnexpectedTypeErrorMessage = "Called {0}({1}:) where '{2}' is of type {3}, which is not one of the following expected type(s): {4}.";
 
         public const string AnonymousObjectDoesNotHaveSinglePropertyErrorMessage = "Provided value is an anonymous object having {0} properties.  Only single-property anonymous objects are supported.  Found the following properties: {1}.";

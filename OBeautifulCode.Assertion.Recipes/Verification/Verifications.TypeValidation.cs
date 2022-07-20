@@ -211,6 +211,14 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
+        private static readonly IReadOnlyCollection<TypeValidation> VerifiableItemTypeMustBeAssignableToAllVerificationParameterTypesValidations = new[]
+        {
+            new TypeValidation
+            {
+                Handler = ThrowIfVerifiableItemTypeIsNotAssignableToAllVerificationParameterTypes,
+            },
+        };
+
         private static readonly IReadOnlyCollection<TypeValidation> VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations = new[]
         {
             new TypeValidation
@@ -362,6 +370,22 @@ namespace OBeautifulCode.Assertion.Recipes
                 if (verificationParameter.ParameterType != verifiableItemType)
                 {
                     ThrowVerificationParameterUnexpectedType(verification.Name, verificationParameter.ParameterType, verificationParameter.Name, verifiableItemType);
+                }
+            }
+        }
+        
+        private static void ThrowIfVerifiableItemTypeIsNotAssignableToAllVerificationParameterTypes(
+            Verification verification,
+            VerifiableItem verifiableItem,
+            TypeValidation typeValidation)
+        {
+            var verifiableItemType = verifiableItem.ItemType;
+
+            foreach (var verificationParameter in verification.VerificationParameters)
+            {
+                if (!verifiableItemType.IsAssignableTo(verificationParameter.ParameterType))
+                {
+                    ThrowSubjectNotAssignableToExpectedTypes(verification, verifiableItem, new[] { verificationParameter.ParameterType });
                 }
             }
         }

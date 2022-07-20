@@ -64,6 +64,35 @@ namespace OBeautifulCode.Assertion.Recipes
             VerifiableItem verifiableItem,
             params string[] expectedTypes)
         {
+            var exceptionMessage = GetExceptionMessageToThrowOnSubjectTypeComparedToExpectedTypes(
+                SubjectNotEqualToItemInSetOfExpectedTypesErrorMessage,
+                verification,
+                verifiableItem,
+                expectedTypes);
+
+            ThrowImproperUseOfFramework(exceptionMessage);
+        }
+
+        private static void ThrowSubjectNotAssignableToExpectedTypes(
+            Verification verification,
+            VerifiableItem verifiableItem,
+            IReadOnlyCollection<Type> expectedTypes)
+        {
+            var exceptionMessage = GetExceptionMessageToThrowOnSubjectTypeComparedToExpectedTypes(
+                SubjectCantBeAssignedToTypeErrorMessage,
+                verification,
+                verifiableItem,
+                expectedTypes.Select(_ => _.ToStringReadable()).ToArray());
+
+            ThrowImproperUseOfFramework(exceptionMessage);
+        }
+
+        private static string GetExceptionMessageToThrowOnSubjectTypeComparedToExpectedTypes(
+            string templateErrorMessage,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            IReadOnlyList<string> expectedTypes)
+        {
             var verifiableItemType = verifiableItem.ItemType;
 
             var verificationName = verification.Name;
@@ -74,9 +103,9 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{verifiableItemType.ToStringReadable()}>") : verifiableItemType.ToStringReadable();
 
-            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectNotEqualToItemInSetOfExpectedTypesErrorMessage, verificationName, valueTypeMessage, expectedTypesMessage);
+            var result = string.Format(CultureInfo.InvariantCulture, templateErrorMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
-            ThrowImproperUseOfFramework(exceptionMessage);
+            return result;
         }
 
         private static void ThrowVerificationParameterUnexpectedType(
