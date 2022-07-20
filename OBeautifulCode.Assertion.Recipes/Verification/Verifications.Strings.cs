@@ -25,7 +25,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string ImproperUseOfFrameworkErrorMessage = "The assertion framework is being used improperly; see: https://github.com/OBeautifulCode/OBeautifulCode.Assertion for documentation on proper usage.";
 
-        public const string SubjectUnexpectedTypeErrorMessage = "Called {0}() on a value of type {1}, which is not one of the following expected type(s): {2}.";
+        public const string SubjectNotEqualToItemInSetOfExpectedTypesErrorMessage = "Called {0}() on a value of type {1}, which is not one of the following expected type(s): {2}.";
 
         public const string VerificationParameterUnexpectedTypeErrorMessage = "Called {0}({1}:) where '{2}' is of type {3}, which is not one of the following expected type(s): {4}.";
 

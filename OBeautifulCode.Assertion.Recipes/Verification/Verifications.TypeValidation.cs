@@ -262,7 +262,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (verifiableItem.ItemType.IsValueType)
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, AnyReferenceTypeName);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, AnyReferenceTypeName);
             }
         }
 
@@ -275,7 +275,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (!verifiableItemType.IsClosedTypeAssignableToNull())
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, AnyReferenceTypeName, NullableGenericTypeName);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, AnyReferenceTypeName, NullableGenericTypeName);
             }
         }
 
@@ -290,7 +290,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (!elementType.IsClosedTypeAssignableToNull())
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, EnumerableOfAnyReferenceTypeName, EnumerableOfNullableGenericTypeName, EnumerableWhenNotEnumerableOfAnyValueTypeName);
             }
         }
 
@@ -305,7 +305,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (!dictionaryValueType.IsClosedTypeAssignableToNull())
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, DictionaryTypeName, DictionaryWithValueOfAnyReferenceTypeName, DictionaryWithValueOfNullableGenericTypeName, ReadOnlyDictionaryWithValueOfAnyReferenceTypeName, ReadOnlyDictionaryWithValueOfNullableGenericTypeName);
             }
         }
 
@@ -320,7 +320,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (!validTypes.Any(_ => verifiableItemType.IsAssignableTo(_, treatGenericTypeDefinitionAsAssignableTo: true)))
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, validTypes);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, validTypes);
             }
         }
 
@@ -335,7 +335,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (validTypes.All(_ => verifiableItemType != _))
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, validTypes);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, validTypes);
             }
         }
 
@@ -346,7 +346,7 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (!verifiableItem.ItemType.HasWorkingDefaultComparer())
             {
-                ThrowSubjectUnexpectedType(verification, verifiableItem, AnyTypeWithWorkingDefaultComparerName);
+                ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, AnyTypeWithWorkingDefaultComparerName);
             }
         }
 

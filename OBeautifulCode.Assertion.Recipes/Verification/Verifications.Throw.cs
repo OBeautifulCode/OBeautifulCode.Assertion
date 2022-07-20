@@ -49,17 +49,17 @@ namespace OBeautifulCode.Assertion.Recipes
             throw new ImproperUseOfAssertionFrameworkException(message);
         }
 
-        private static void ThrowSubjectUnexpectedType(
+        private static void ThrowSubjectNotEqualToItemInSetOfExpectedTypes(
             Verification verification,
             VerifiableItem verifiableItem,
             IReadOnlyList<Type> expectedTypes)
         {
             var expectedTypeStrings = expectedTypes.Select(_ => _.ToStringReadable()).ToArray();
 
-            ThrowSubjectUnexpectedType(verification, verifiableItem, expectedTypeStrings);
+            ThrowSubjectNotEqualToItemInSetOfExpectedTypes(verification, verifiableItem, expectedTypeStrings);
         }
 
-        private static void ThrowSubjectUnexpectedType(
+        private static void ThrowSubjectNotEqualToItemInSetOfExpectedTypes(
             Verification verification,
             VerifiableItem verifiableItem,
             params string[] expectedTypes)
@@ -74,7 +74,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             var valueTypeMessage = isElementInEnumerable ? Invariant($"IEnumerable<{verifiableItemType.ToStringReadable()}>") : verifiableItemType.ToStringReadable();
 
-            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectUnexpectedTypeErrorMessage, verificationName, valueTypeMessage, expectedTypesMessage);
+            var exceptionMessage = string.Format(CultureInfo.InvariantCulture, SubjectNotEqualToItemInSetOfExpectedTypesErrorMessage, verificationName, valueTypeMessage, expectedTypesMessage);
 
             ThrowImproperUseOfFramework(exceptionMessage);
         }
