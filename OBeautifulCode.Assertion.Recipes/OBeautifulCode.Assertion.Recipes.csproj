@@ -79,6 +79,7 @@
     <Compile Include="Exceptions\ImproperUseOfAssertionFrameworkException.cs" />
     <Compile Include="Verification\Verifications.Helpers.cs" />
     <Compile Include="Verification\Verifications.Strings.cs" />
+    <Compile Include="Verification\Verifications.Throw.cs" />
     <Compile Include="Verification\Verifications.TypeValidation.cs" />
     <Compile Include="Verification\Verifications.Workflow.cs" />
     <Compile Include="Verification\Verifications.Internal.cs" />

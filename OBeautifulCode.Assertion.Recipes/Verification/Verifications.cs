@@ -54,7 +54,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeNullInternal,
                 Name = nameof(BeNull),
-                TypeValidations = MustBeAssignableToNullTypeValidations,
+                TypeValidations = VerifiableItemMustBeAssignableToNullTypeValidations,
                 Data = data,
             };
 
@@ -85,7 +85,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeNullInternal,
                 Name = nameof(NotBeNull),
-                TypeValidations = MustBeAssignableToNullTypeValidations,
+                TypeValidations = VerifiableItemMustBeAssignableToNullTypeValidations,
                 Data = data,
             };
 
@@ -116,7 +116,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeTrueInternal,
                 Name = nameof(BeTrue),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -147,7 +147,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeTrueInternal,
                 Name = nameof(NotBeTrue),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -178,7 +178,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeFalseInternal,
                 Name = nameof(BeFalse),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -209,7 +209,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeFalseInternal,
                 Name = nameof(NotBeFalse),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -241,7 +241,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeTrueWhenNotNullInternal,
                 Name = nameof(BeTrueWhenNotNull),
-                TypeValidations = MustBeNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -273,7 +273,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeTrueWhenNotNullInternal,
                 Name = nameof(NotBeTrueWhenNotNull),
-                TypeValidations = MustBeNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -305,7 +305,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeFalseWhenNotNullInternal,
                 Name = nameof(BeFalseWhenNotNull),
-                TypeValidations = MustBeNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -337,7 +337,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeFalseWhenNotNullInternal,
                 Name = nameof(NotBeFalseWhenNotNull),
-                TypeValidations = MustBeNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -368,7 +368,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeNullNorWhiteSpaceInternal,
                 Name = nameof(NotBeNullNorWhiteSpace),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -399,7 +399,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeNullOrNotWhiteSpaceInternal,
                 Name = nameof(BeNullOrNotWhiteSpace),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -430,7 +430,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyGuidInternal,
                 Name = nameof(BeEmptyGuid),
-                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
+                TypeValidations = VerifiableItemMustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 
@@ -461,7 +461,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyGuidInternal,
                 Name = nameof(NotBeEmptyGuid),
-                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
+                TypeValidations = VerifiableItemMustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 
@@ -492,7 +492,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyStringInternal,
                 Name = nameof(BeEmptyString),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -523,7 +523,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyStringInternal,
                 Name = nameof(NotBeEmptyString),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -554,7 +554,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyEnumerableInternal,
                 Name = nameof(BeEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -585,7 +585,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = nameof(NotBeEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -616,7 +616,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyDictionaryInternal,
                 Name = nameof(BeEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -647,7 +647,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = nameof(NotBeEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -678,7 +678,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainSomeNullElementsInternal,
                 Name = nameof(ContainSomeNullElements),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -709,7 +709,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyNullElementsInternal,
                 Name = nameof(NotContainAnyNullElements),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -741,7 +741,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyNullElementsWhenNotNullInternal,
                 Name = nameof(NotContainAnyNullElementsWhenNotNull),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -772,7 +772,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainSomeKeyValuePairsWithNullValueInternal,
                 Name = nameof(ContainSomeKeyValuePairsWithNullValue),
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -803,7 +803,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyKeyValuePairsWithNullValueInternal,
                 Name = nameof(NotContainAnyKeyValuePairsWithNullValue),
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -835,7 +835,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainKey), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -853,7 +853,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -885,7 +885,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainKey), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -903,7 +903,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -936,7 +936,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainKeyWhenNotNull), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -954,7 +954,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -987,7 +987,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainKeyWhenNotNull), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -1005,7 +1005,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1039,7 +1039,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = nameof(NotBeNullNorEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -1072,7 +1072,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = verificationName,
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -1115,7 +1115,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = verificationName,
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -1159,7 +1159,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = nameof(NotBeNullNorEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -1264,7 +1264,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1307,7 +1307,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1350,7 +1350,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1393,7 +1393,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1436,7 +1436,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1479,7 +1479,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1522,7 +1522,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1565,7 +1565,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1609,7 +1609,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1653,7 +1653,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1697,7 +1697,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1741,7 +1741,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1785,7 +1785,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1829,7 +1829,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1873,7 +1873,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1917,7 +1917,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = NullableInequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1960,7 +1960,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2003,7 +2003,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2047,7 +2047,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2091,7 +2091,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2123,7 +2123,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementIn), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2142,7 +2142,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -2174,7 +2174,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementIn), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2193,7 +2193,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -2226,7 +2226,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementInWhenNotNull), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2245,7 +2245,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -2278,7 +2278,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementInWhenNotNull), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2297,7 +2297,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -2355,7 +2355,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2413,7 +2413,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2456,7 +2456,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2499,7 +2499,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2543,7 +2543,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2587,7 +2587,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2618,7 +2618,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainOnlyDistinctElementsInternal,
                 Name = nameof(ContainOnlyDistinctElements),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2650,7 +2650,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainOnlyDistinctElementsWhenNotNullInternal,
                 Name = nameof(ContainOnlyDistinctElementsWhenNotNull),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2715,7 +2715,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         },
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2780,7 +2780,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         },
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2825,7 +2825,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(bool),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2856,7 +2856,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeMatchedByRegex), nameof(regex));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2877,7 +2877,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = regex.ToString,
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2908,7 +2908,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeMatchedByRegex), nameof(regex));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2929,7 +2929,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = regex.ToString,
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2962,7 +2962,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(StartWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2986,7 +2986,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3019,7 +3019,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotStartWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3043,7 +3043,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3076,7 +3076,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(EndWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3100,7 +3100,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3133,7 +3133,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotEndWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3157,7 +3157,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3204,7 +3204,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = BeSameReferenceAsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeSameReferenceAsAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -3251,7 +3251,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = BeSameReferenceAsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeSameReferenceAsAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -3282,7 +3282,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainString), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3300,7 +3300,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(string),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3331,7 +3331,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainString), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3349,7 +3349,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(string),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3380,7 +3380,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(HaveCount), nameof(expectedCount), expectedCount);
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3398,7 +3398,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(int),
                     },
                 },
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -3429,7 +3429,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(NotHaveCount), nameof(unexpectedCount), unexpectedCount);
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3447,7 +3447,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(int),
                     },
                 },
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -3560,7 +3560,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeOfType), nameof(expectedType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3609,7 +3609,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeOfType), nameof(unexpectedType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3742,7 +3742,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeAssignableToType), nameof(assignableType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3799,7 +3799,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeAssignableToType), nameof(unassignableType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3854,7 +3854,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeValidEmailAddressInternal,
                 Name = nameof(BeValidEmailAddress),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3885,7 +3885,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeValidEmailAddressInternal,
                 Name = nameof(NotBeValidEmailAddress),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3916,7 +3916,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeUtcDateTimeInternal,
                 Name = nameof(BeUtcDateTime),
-                TypeValidations = MustBeDateTimeOrNullableDateTimeTypeValidations,
+                TypeValidations = VerifiableItemMustBeDateTimeOrNullableDateTimeTypeValidations,
                 Data = data,
             };
 
@@ -3948,7 +3948,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeUtcDateTimeWhenNotNullInternal,
                 Name = nameof(BeUtcDateTimeWhenNotNull),
-                TypeValidations = MustBeNullableDateTimeTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableDateTimeTypeValidations,
                 Data = data,
             };
 

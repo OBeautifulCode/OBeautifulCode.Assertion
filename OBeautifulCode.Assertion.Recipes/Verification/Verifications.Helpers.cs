@@ -143,7 +143,7 @@ namespace OBeautifulCode.Assertion.Recipes
 
             // otherwise, if reflection is able to call Compare(T, T), then ArgumentException can be thrown if
             // Type T does not have a working default comparer (see TypeExtensions.HasDefaultWorkingComparer())
-            // However we already check for this upfront in ThrowIfTypeDoesNotHaveWorkingDefaultComparer
+            // However we already check for this upfront in ThrowIfVerifiableItemTypeDoesNotHaveWorkingDefaultComparer
             var result = (CompareOutcome)CachedCompareUsingDefaultComparerTypeToMethodInfoMap[type].Invoke(null, new[] { value1, value2 });
 
             return result;
@@ -188,7 +188,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, MalformedRangeExceptionMessage, verificationParameters[0].Name, verificationParameters[1].Name, verificationParameters[0].Value.ToStringInErrorMessage(), verificationParameters[1].Value.ToStringInErrorMessage());
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
         }
 
