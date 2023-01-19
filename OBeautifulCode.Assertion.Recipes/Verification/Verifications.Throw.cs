@@ -79,7 +79,7 @@ namespace OBeautifulCode.Assertion.Recipes
             IReadOnlyCollection<Type> expectedTypes)
         {
             var exceptionMessage = GetExceptionMessageToThrowOnSubjectTypeComparedToExpectedTypes(
-                SubjectCantBeAssignedToTypeErrorMessage,
+                SubjectCannotBeAssignedToTypeErrorMessage,
                 verification,
                 verifiableItem,
                 expectedTypes.Select(_ => _.ToStringReadable()).ToArray());
