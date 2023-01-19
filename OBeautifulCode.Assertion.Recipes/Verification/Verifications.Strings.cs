@@ -195,6 +195,12 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string BeSequenceEqualToExceptionMessageSuffix = "is not sequence equal to the comparison value";
 
+        public const string NotBeSequenceEqualToExceptionMessageSuffix = "is sequence equal to the comparison value";
+
+        public const string BeSequenceEqualToWhenNotNullExceptionMessageSuffix = "is not null and is not sequence equal to the comparison value";
+
+        public const string NotBeSequenceEqualToWhenNotNullExceptionMessageSuffix = "is not null and is sequence equal to the comparison value";
+
         public const string BeElementInExceptionMessageSuffix = "is not equal to any of the comparison values";
 
         public const string NotBeElementInExceptionMessageSuffix = "is equal to one or more of the comparison values";
