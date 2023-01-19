@@ -139,9 +139,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string IsEqualToMethod = "EqualityExtensions.IsEqualTo<T>";
 
+        public const string IsSequenceEqualToMethod = "EqualityExtensions.IsSequenceEqualTo<TElement>";
+
         public const string DefaultComparer = "Comparer<T>.Default";
 
         public const string UsingIsEqualToMethodology = "using " + IsEqualToMethod + ", where T: {0}";
+
+        public const string UsingIsSequenceEqualToMethodology = "using " + IsSequenceEqualToMethod + ", where TElement: {0}";
 
         public const string UsingDefaultComparerMethodology = "using " + DefaultComparer + ", where T: {0}";
 
@@ -188,6 +192,8 @@ namespace OBeautifulCode.Assertion.Recipes
         public const string BeEqualToWhenNotNullExceptionMessageSuffix = "is not null and is not equal to the comparison value";
 
         public const string NotBeEqualToWhenNotNullExceptionMessageSuffix = "is not null and is equal to the comparison value";
+
+        public const string BeSequenceEqualToExceptionMessageSuffix = "is not sequence equal to the comparison value";
 
         public const string BeElementInExceptionMessageSuffix = "is not equal to any of the comparison values";
 

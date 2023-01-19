@@ -211,14 +211,6 @@ namespace OBeautifulCode.Assertion.Recipes
             },
         };
 
-        private static readonly IReadOnlyCollection<TypeValidation> VerifiableItemTypeMustBeAssignableToAllVerificationParameterTypesValidations = new[]
-        {
-            new TypeValidation
-            {
-                Handler = ThrowIfVerifiableItemTypeIsNotAssignableToAllVerificationParameterTypes,
-            },
-        };
-
         private static readonly IReadOnlyCollection<TypeValidation> VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations = new[]
         {
             new TypeValidation
@@ -250,6 +242,14 @@ namespace OBeautifulCode.Assertion.Recipes
             new TypeValidation
             {
                 Handler = ThrowIfVerifiableItemDictionaryKeyTypeDoesNotEqualAllVerificationParameterTypes,
+            },
+        };
+
+        private static readonly IReadOnlyCollection<TypeValidation> VerifiableItemTypeMustBeAssignableToFirstVerificationParameterType = new[]
+        {
+            new TypeValidation
+            {
+                Handler = ThrowIfVerifiableItemTypeIsNotAssignableToFirstVerificationParameterType,
             },
         };
 
@@ -374,19 +374,18 @@ namespace OBeautifulCode.Assertion.Recipes
             }
         }
         
-        private static void ThrowIfVerifiableItemTypeIsNotAssignableToAllVerificationParameterTypes(
+        private static void ThrowIfVerifiableItemTypeIsNotAssignableToFirstVerificationParameterType(
             Verification verification,
             VerifiableItem verifiableItem,
             TypeValidation typeValidation)
         {
             var verifiableItemType = verifiableItem.ItemType;
 
-            foreach (var verificationParameter in verification.VerificationParameters)
+            var verificationParameter = verification.VerificationParameters.First();
+
+            if (!verifiableItemType.IsAssignableTo(verificationParameter.ParameterType))
             {
-                if (!verifiableItemType.IsAssignableTo(verificationParameter.ParameterType))
-                {
-                    ThrowSubjectNotAssignableToExpectedTypes(verification, verifiableItem, new[] { verificationParameter.ParameterType });
-                }
+                ThrowSubjectNotAssignableToExpectedTypes(verification, verifiableItem, new[] { verificationParameter.ParameterType });
             }
         }
 

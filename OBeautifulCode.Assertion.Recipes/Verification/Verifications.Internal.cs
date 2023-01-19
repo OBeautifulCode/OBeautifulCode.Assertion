@@ -846,6 +846,14 @@ namespace OBeautifulCode.Assertion.Recipes
             NotBeEqualToInternalInternal(assertionTracker, verification, verifiableItem, NotBeEqualToWhenNotNullExceptionMessageSuffix);
         }
 
+        private static void BeSequenceEqualToInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            BeSequenceEqualToInternalInternal(assertionTracker, verification, verifiableItem, BeSequenceEqualToExceptionMessageSuffix);
+        }
+
         private static void BeElementInInternal(
             AssertionTracker assertionTracker,
             Verification verification,
@@ -1790,6 +1798,30 @@ namespace OBeautifulCode.Assertion.Recipes
                 var argumentExceptionKind = verifiableItem.ItemIsElementInEnumerable
                     ? ArgumentExceptionKind.ArgumentException
                     : ArgumentExceptionKind.ArgumentOutOfRangeException;
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
+
+                throw exception;
+            }
+        }
+
+        private static void BeSequenceEqualToInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var elementType = verifiableItem.ItemType.GetClosedEnumerableElementType();
+
+            var shouldThrow = !AreSequenceEqual(elementType, verifiableItem.ItemValue, verification.VerificationParameters[0].Value, verification.VerificationParameters[1].Value);
+
+            if (shouldThrow)
+            {
+                var methodologyInfo = string.Format(CultureInfo.InvariantCulture, UsingIsSequenceEqualToMethodology, elementType.ToStringReadable());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, methodologyInfo: methodologyInfo);
+
+                var argumentExceptionKind = ArgumentExceptionKind.ArgumentException;
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, argumentExceptionKind);
 
