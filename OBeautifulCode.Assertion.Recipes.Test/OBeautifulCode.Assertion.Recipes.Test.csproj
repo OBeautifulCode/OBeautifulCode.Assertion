@@ -136,6 +136,7 @@
     <Compile Include="Verifications\VerificationsTest.Count.cs" />
     <Compile Include="Verifications\VerificationsTest.Email.cs" />
     <Compile Include="Verifications\VerificationsTest.DateTime.cs" />
+    <Compile Include="Verifications\VerificationsTest.UnorderedEqual.cs" />
     <Compile Include="Verifications\VerificationsTest.Type.cs" />
     <Compile Include="Verifications\VerificationsTest.StartOrEndWith.cs" />
     <Compile Include="Verifications\VerificationsTest.SequenceEqual.cs" />
