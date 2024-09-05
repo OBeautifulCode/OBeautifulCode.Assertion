@@ -5,10 +5,10 @@
     <tags>assertion assertions parameter parameters argument arguments unit test</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Assertion/master/OBeautifulCode.Assertion.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.122" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.126" />
       <dependency id="OBeautifulCode.Equality.Recipes.EqualityHelpers" version="1.0.36" />
       <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.19" />
-      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.62" />
+      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.63" />
     </dependencies>
   </metadata>
   <files>
