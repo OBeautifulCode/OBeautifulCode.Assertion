@@ -1146,6 +1146,50 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
+        /// Verifies that the IEnumerable subject not empty nor contains any null elements, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeEmptyEnumerableNorContainAnyNullsWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verificationName = nameof(NotBeEmptyEnumerableNorContainAnyNullsWhenNotNull);
+
+            var verification1 = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeEmptyEnumerableWhenNotNullInternal,
+                Name = verificationName,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
+                Data = data,
+            };
+
+            var verification2 = new Verification
+            {
+                Because = because,
+                Handler = NotContainAnyNullElementsWhenNotNullInternal,
+                Name = verificationName,
+                TypeValidations = null,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification1);
+            assertionTracker.ExecuteVerification(verification2);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
         /// Verifies that the IEnumerable subject is not null nor empty nor contains any null elements.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
@@ -1177,6 +1221,50 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 Because = because,
                 Handler = NotContainAnyNullElementsInternal,
+                Name = verificationName,
+                TypeValidations = null,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification1);
+            assertionTracker.ExecuteVerification(verification2);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IDictionary, IDictionary{TKey,TValue}, or IReadOnlyDictionary{TKey,TValue} subject is not empty nor contains any null values, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeEmptyDictionaryNorContainAnyNullValuesWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verificationName = nameof(NotBeEmptyDictionaryNorContainAnyNullValuesWhenNotNull);
+
+            var verification1 = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeEmptyDictionaryWhenNotNullInternal,
+                Name = verificationName,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                Data = data,
+            };
+
+            var verification2 = new Verification
+            {
+                Because = because,
+                Handler = NotContainAnyKeyValuePairsWithNullValueWhenNotNullInternal,
                 Name = verificationName,
                 TypeValidations = null,
                 Data = data,
