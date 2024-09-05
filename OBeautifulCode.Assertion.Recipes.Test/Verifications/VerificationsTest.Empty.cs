@@ -1181,6 +1181,240 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        public static void NotBeEmptyEnumerableWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange
+            var verificationTest1 = new VerificationTest
+            {
+                VerificationHandler = Verifications.NotBeEmptyEnumerableWhenNotNull,
+                VerificationName = nameof(Verifications.NotBeEmptyEnumerableWhenNotNull),
+                ArgumentExceptionType = typeof(ArgumentNullException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeNullExceptionMessageSuffix,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var verificationTest2 = new VerificationTest
+            {
+                VerificationHandler = Verifications.NotBeEmptyEnumerableWhenNotNull,
+                VerificationName = nameof(Verifications.NotBeEmptyEnumerableWhenNotNull),
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeEmptyEnumerableWhenNotNullExceptionMessageSuffix,
+                SubjectInvalidTypeExpectedTypes = "IEnumerable",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IEnumerable>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustSubjectInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustSubjectInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues2 = new TestValues<string>
+            {
+                MustPassingValues = new string[]
+                {
+                    null,
+                    "   ",
+                    "   \r\n ",
+                    A.Dummy<string>(),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new string[] { },
+                    new string[] { null },
+                    new string[] { "    ", "    ", "  \r\n ", A.Dummy<string>(), null },
+                },
+                MustFailingValues = new[]
+                {
+                    string.Empty,
+                },
+                MustEachFailingValues = new[]
+                {
+                    new string[] { A.Dummy<string>(), string.Empty, A.Dummy<string>() },
+                },
+            };
+
+            var enumerableTestValues2A = new TestValues<IEnumerable>
+            {
+                MustPassingValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IEnumerable[] { },
+                    new IEnumerable[] { null },
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty }, null },
+                },
+                MustFailingValues = new IEnumerable[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IEnumerable[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2B = new TestValues<IList>
+            {
+                MustPassingValues = new IList[]
+                {
+                    null,
+                    new List<string> { string.Empty },
+                    new string[] { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IList[] { },
+                    new IList[] { null },
+                    new IList[] { new string[] { A.Dummy<string>() }, new List<string> { null }, new string[] { string.Empty }, null },
+                },
+                MustFailingValues = new IList[]
+                {
+                    new List<string>(),
+                    new string[] { },
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IList[] { new List<string>(), new string[] { } },
+                },
+            };
+
+            var enumerableTestValues2C = new TestValues<List<string>>
+            {
+                MustPassingValues = new List<string>[]
+                {
+                    null,
+                    new List<string>() { string.Empty },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new List<string>[] { },
+                    new List<string>[] { null },
+                    new List<string>[] { new List<string> { A.Dummy<string>() }, new List<string> { null }, new List<string> { string.Empty }, null },
+                },
+                MustFailingValues = new List<string>[]
+                {
+                    new List<string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new List<string>[] { new List<string>(), new List<string>() },
+                },
+            };
+
+            var objectTestValues = new TestValues<object>
+            {
+                MustSubjectInvalidTypeValues = new object[]
+                {
+                    null,
+                    A.Dummy<object>(),
+                    new List<string>() { null },
+                },
+                MustEachSubjectInvalidTypeValues = new IEnumerable<object>[]
+                {
+                    new object[] { },
+                    new object[] { A.Dummy<object>(), A.Dummy<object>() },
+                    new object[] { A.Dummy<object>(), null, A.Dummy<object>() },
+                },
+            };
+
+            var boolTestValues = new TestValues<bool>
+            {
+                MustSubjectInvalidTypeValues = new bool[]
+                {
+                    true,
+                    false,
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new bool[] { },
+                    new bool[] { true },
+                },
+            };
+
+            var nullableBoolTestValues = new TestValues<bool?>
+            {
+                MustSubjectInvalidTypeValues = new bool?[]
+                {
+                    true,
+                    false,
+                    null,
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new bool?[] { },
+                    new bool?[] { true },
+                    new bool?[] { null },
+                },
+            };
+
+            // Act, Assert
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(objectTestValues);
+            verificationTest1.Run(boolTestValues);
+            verificationTest1.Run(nullableBoolTestValues);
+
+            verificationTest2.Run(stringTestValues2);
+            verificationTest2.Run(enumerableTestValues2A);
+            verificationTest2.Run(enumerableTestValues2B);
+            verificationTest2.Run(enumerableTestValues2C);
+        }
+
+        [Fact]
+        public static void NotBeEmptyEnumerableWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var subject1 = new object[] { };
+            var expected1 = "Provided value (name: 'subject1') is not null and is an empty enumerable.";
+
+            var subject2 = new[] { new[] { A.Dummy<object>() }, new object[] { }, new[] { A.Dummy<object>() } };
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not null and is an empty enumerable.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEmptyEnumerableWhenNotNull());
+            var actual2 = Record.Exception(() => new { subject2 }.Must().Each().NotBeEmptyEnumerableWhenNotNull());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
         public static void BeEmptyDictionary___Should_throw_or_not_throw_as_expected___When_called()
         {
             // Arrange, Act, Assert
@@ -1728,6 +1962,270 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             // Act
             var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEmptyDictionary());
             var actual2 = Record.Exception(() => new { subject2 }.Must().Each().NotBeEmptyDictionary());
+
+            // Assert
+            actual1.Message.Should().Be(expected1);
+            actual2.Message.Should().Be(expected2);
+        }
+
+        [Fact]
+        public static void NotBeEmptyDictionaryWhenNotNull___Should_throw_or_not_throw_as_expected___When_called()
+        {
+            // Arrange, Act, Assert
+            VerificationHandler verificationHandler = Verifications.NotBeEmptyDictionaryWhenNotNull;
+            var verificationName = nameof(Verifications.NotBeEmptyDictionaryWhenNotNull);
+
+            var verificationTest1 = new VerificationTest
+            {
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                SubjectInvalidTypeExpectedTypes = "IDictionary, IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>",
+                SubjectInvalidTypeExpectedEnumerableTypes = "IEnumerable<IDictionary>, IEnumerable<IDictionary<TKey, TValue>>, IEnumerable<IReadOnlyDictionary<TKey, TValue>>",
+            };
+
+            var guidTestValues = new TestValues<Guid>
+            {
+                MustSubjectInvalidTypeValues = new[]
+                {
+                    Guid.Empty,
+                    Guid.NewGuid(),
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new Guid[] { },
+                    new Guid[] { Guid.Empty, Guid.Empty },
+                    new Guid[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var nullableGuidTestValues = new TestValues<Guid?>
+            {
+                MustSubjectInvalidTypeValues = new Guid?[]
+                {
+                    Guid.Empty,
+                    null,
+                    Guid.NewGuid(),
+                },
+                MustEachSubjectInvalidTypeValues = new IEnumerable<Guid?>[]
+                {
+                    new Guid?[] { },
+                    new Guid?[] { }, new Guid?[] { Guid.Empty, Guid.Empty },
+                    new Guid?[] { Guid.Empty, null, Guid.Empty },
+                    new Guid?[] { Guid.Empty, Guid.NewGuid(), Guid.Empty },
+                },
+            };
+
+            var stringTestValues = new TestValues<string>
+            {
+                MustSubjectInvalidTypeValues = new string[]
+                {
+                    A.Dummy<string>(),
+                    string.Empty,
+                    null,
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new string[] { },
+                    new string[] { A.Dummy<string>(), string.Empty, null },
+                },
+            };
+
+            var enumerableTestValues = new TestValues<IEnumerable>
+            {
+                MustSubjectInvalidTypeValues = new IEnumerable[]
+                {
+                    null,
+                    new List<string> { A.Dummy<string>() },
+                },
+                MustEachSubjectInvalidTypeValues = new[]
+                {
+                    new IEnumerable[] { new string[] { A.Dummy<string>() }, null, new string[] { } },
+                },
+            };
+
+            verificationTest1.Run(stringTestValues);
+            verificationTest1.Run(guidTestValues);
+            verificationTest1.Run(nullableGuidTestValues);
+            verificationTest1.Run(enumerableTestValues);
+
+            var verificationTest3 = new VerificationTest
+            {
+                VerificationHandler = verificationHandler,
+                VerificationName = verificationName,
+                ArgumentExceptionType = typeof(ArgumentException),
+                EachArgumentExceptionType = typeof(ArgumentException),
+                ExceptionMessageSuffix = Verifications.NotBeEmptyDictionaryWhenNotNullExceptionMessageSuffix,
+            };
+
+            var dictionaryTest3A = new TestValues<IDictionary>
+            {
+                MustPassingValues = new IDictionary[]
+                {
+                    null,
+                    new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary[] { },
+                    new IDictionary[] { null },
+                    new IDictionary[] { new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), null },
+                },
+                MustFailingValues = new IDictionary[]
+                {
+                    new ListDictionary(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary[]
+                    {
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new ListDictionary(),
+                        new ListDictionary() { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3B = new TestValues<IDictionary<string, string>>
+            {
+                MustPassingValues = new IDictionary<string, string>[]
+                {
+                    null,
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IDictionary<string, string>[] { },
+                    new IDictionary<string, string>[] { null },
+                    new IDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), null },
+                },
+                MustFailingValues = new IDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3C = new TestValues<Dictionary<string, string>>
+            {
+                MustPassingValues = new Dictionary<string, string>[]
+                {
+                    null,
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new Dictionary<string, string>[] { },
+                    new Dictionary<string, string>[] { null },
+                    new Dictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, null },
+                },
+                MustFailingValues = new Dictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new Dictionary<string, string>(),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new Dictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3D = new TestValues<IReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    null,
+                    new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } },
+                },
+                MustEachPassingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[] { },
+                    new IReadOnlyDictionary<string, string>[] { null },
+                    new IReadOnlyDictionary<string, string>[] { new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }, new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), null },
+                },
+                MustFailingValues = new IReadOnlyDictionary<string, string>[]
+                {
+                    new Dictionary<string, string>(),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new IReadOnlyDictionary<string, string>[]
+                    {
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                        new Dictionary<string, string>(),
+                        new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                    },
+                },
+            };
+
+            var dictionaryTest3E = new TestValues<ReadOnlyDictionary<string, string>>
+            {
+                MustPassingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    null,
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }),
+                },
+                MustEachPassingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[] { },
+                    new ReadOnlyDictionary<string, string>[] { null },
+                    new ReadOnlyDictionary<string, string>[] { new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), new ReadOnlyDictionary<string, string>(new Dictionary<string, string>() { { A.Dummy<string>(), A.Dummy<string>() } }), null },
+                },
+                MustFailingValues = new ReadOnlyDictionary<string, string>[]
+                {
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                    new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                },
+                MustEachFailingValues = new[]
+                {
+                    new ReadOnlyDictionary<string, string>[]
+                    {
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string>()),
+                        new ReadOnlyDictionary<string, string>(new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } }),
+                    },
+                },
+            };
+
+            verificationTest3.Run(dictionaryTest3A);
+            verificationTest3.Run(dictionaryTest3B);
+            verificationTest3.Run(dictionaryTest3C);
+            verificationTest3.Run(dictionaryTest3D);
+            verificationTest3.Run(dictionaryTest3E);
+        }
+
+        [Fact]
+        public static void NotBeEmptyDictionaryWhenNotNull___Should_throw_with_expected_Exception_message___When_called()
+        {
+            // Arrange
+            var subject1 = new Dictionary<string, string>();
+            var expected1 = "Provided value (name: 'subject1') is not null and is an empty dictionary.";
+
+            var subject2 = new IReadOnlyDictionary<string, string>[]
+            {
+                new Dictionary<string, string>(), new Dictionary<string, string> { { A.Dummy<string>(), A.Dummy<string>() } },
+                new Dictionary<string, string>(),
+            };
+            var expected2 = "Provided value (name: 'subject2') contains an element that is not null and is an empty dictionary.";
+
+            // Act
+            var actual1 = Record.Exception(() => new { subject1 }.Must().NotBeEmptyDictionaryWhenNotNull());
+            var actual2 = Record.Exception(() => new { subject2 }.Must().Each().NotBeEmptyDictionaryWhenNotNull());
 
             // Assert
             actual1.Message.Should().Be(expected1);

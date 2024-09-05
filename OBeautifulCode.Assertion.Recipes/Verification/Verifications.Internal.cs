@@ -357,20 +357,21 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+            NotBeEmptyEnumerableInternalInternal(assertionTracker, verification, verifiableItem, NotBeEmptyEnumerableExceptionMessageSuffix);
+        }
 
-            var elementCount = GetElementCount(valueAsEnumerable);
-
-            var shouldThrow = elementCount == 0;
-
-            if (shouldThrow)
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void NotBeEmptyEnumerableWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyEnumerableExceptionMessageSuffix);
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-                throw exception;
+                return;
             }
+
+            NotBeEmptyEnumerableInternalInternal(assertionTracker, verification, verifiableItem, NotBeEmptyEnumerableWhenNotNullExceptionMessageSuffix);
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
@@ -406,19 +407,21 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsDictionary = verifiableItem.ItemValue as IDictionary;
+            NotBeEmptyDictionaryInternalInternal(assertionTracker, verification, verifiableItem, NotBeEmptyDictionaryExceptionMessageSuffix);
+        }
 
-            // ReSharper disable once PossibleNullReferenceException
-            var shouldThrow = valueAsDictionary.Count == 0;
-
-            if (shouldThrow)
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void NotBeEmptyDictionaryWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotBeEmptyDictionaryExceptionMessageSuffix);
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-                throw exception;
+                return;
             }
+
+            NotBeEmptyDictionaryInternalInternal(assertionTracker, verification, verifiableItem, NotBeEmptyDictionaryWhenNotNullExceptionMessageSuffix);
         }
 
         private static void ContainSomeNullElementsInternal(
@@ -2226,6 +2229,53 @@ namespace OBeautifulCode.Assertion.Recipes
                 var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryKeyExampleContextualInfo, offendingKey.ToStringInErrorMessage());
 
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, contextualInfo: contextualInfo);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void NotBeEmptyEnumerableInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+
+            var elementCount = GetElementCount(valueAsEnumerable);
+
+            var shouldThrow = elementCount == 0;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Cannot iterate without a local")]
+        private static void NotBeEmptyDictionaryInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            NotBeNullInternal(assertionTracker, verification, verifiableItem);
+
+            var valueAsDictionary = verifiableItem.ItemValue as IDictionary;
+
+            // ReSharper disable once PossibleNullReferenceException
+            var shouldThrow = valueAsDictionary.Count == 0;
+
+            if (shouldThrow)
+            {
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 

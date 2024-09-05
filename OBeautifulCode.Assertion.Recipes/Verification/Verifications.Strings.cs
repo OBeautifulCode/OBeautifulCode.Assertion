@@ -115,9 +115,13 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotBeEmptyEnumerableExceptionMessageSuffix = "is an empty enumerable";
 
+        public const string NotBeEmptyEnumerableWhenNotNullExceptionMessageSuffix = "is not null and is an empty enumerable";
+
         public const string BeEmptyDictionaryExceptionMessageSuffix = "is not an empty dictionary";
 
         public const string NotBeEmptyDictionaryExceptionMessageSuffix = "is an empty dictionary";
+
+        public const string NotBeEmptyDictionaryWhenNotNullExceptionMessageSuffix = "is not null and is an empty dictionary";
 
         public const string ContainSomeNullElementsExceptionMessageSuffix = "contains no null elements";
 
