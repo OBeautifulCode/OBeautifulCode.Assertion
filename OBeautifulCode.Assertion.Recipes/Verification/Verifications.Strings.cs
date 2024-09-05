@@ -129,6 +129,8 @@ namespace OBeautifulCode.Assertion.Recipes
 
         public const string NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix = "contains at least one key-value pair with a null value";
 
+        public const string NotContainAnyKeyValuePairsWithNullValueWhenNotNullExceptionMessageSuffix = "is not null and contains at least one key-value pair with a null value";
+
         public const string ContainKeyExceptionMessageSuffix = "does not contain the key to search for";
 
         public const string NotContainKeyExceptionMessageSuffix = "contains the key to search for";

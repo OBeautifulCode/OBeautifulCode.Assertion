@@ -513,35 +513,20 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             NotBeNullInternal(assertionTracker, verification, verifiableItem);
 
-            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+            NotContainAnyKeyValuePairsWithNullValueInternalInternal(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix);
+        }
 
-            var shouldThrow = false;
-
-            object offendingKey = null;
-
-            // ReSharper disable once PossibleNullReferenceException
-            foreach (var keyValuePair in valueAsEnumerable)
+        private static void NotContainAnyKeyValuePairsWithNullValueWhenNotNullInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem)
+        {
+            if (ReferenceEquals(verifiableItem.ItemValue, null))
             {
-                if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
-                {
-                    shouldThrow = true;
-
-                    offendingKey = ((dynamic)keyValuePair).Key;
-
-                    break;
-                }
+                return;
             }
 
-            if (shouldThrow)
-            {
-                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryKeyExampleContextualInfo, offendingKey.ToStringInErrorMessage());
-
-                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueExceptionMessageSuffix, contextualInfo: contextualInfo);
-
-                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
-
-                throw exception;
-            }
+            NotContainAnyKeyValuePairsWithNullValueInternalInternal(assertionTracker, verification, verifiableItem, NotContainAnyKeyValuePairsWithNullValueWhenNotNullExceptionMessageSuffix);
         }
 
         private static void ContainKeyInternal(
@@ -2204,6 +2189,43 @@ namespace OBeautifulCode.Assertion.Recipes
             if (shouldThrow)
             {
                 var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix);
+
+                var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
+
+                throw exception;
+            }
+        }
+
+        private static void NotContainAnyKeyValuePairsWithNullValueInternalInternal(
+            AssertionTracker assertionTracker,
+            Verification verification,
+            VerifiableItem verifiableItem,
+            string exceptionMessageSuffix)
+        {
+            var valueAsEnumerable = verifiableItem.ItemValue as IEnumerable;
+
+            var shouldThrow = false;
+
+            object offendingKey = null;
+
+            // ReSharper disable once PossibleNullReferenceException
+            foreach (var keyValuePair in valueAsEnumerable)
+            {
+                if (ReferenceEquals(((dynamic)keyValuePair).Value, null))
+                {
+                    shouldThrow = true;
+
+                    offendingKey = ((dynamic)keyValuePair).Key;
+
+                    break;
+                }
+            }
+
+            if (shouldThrow)
+            {
+                var contextualInfo = string.Format(CultureInfo.InvariantCulture, DictionaryKeyExampleContextualInfo, offendingKey.ToStringInErrorMessage());
+
+                var exceptionMessage = BuildVerificationFailedExceptionMessage(assertionTracker, verification, verifiableItem, exceptionMessageSuffix, contextualInfo: contextualInfo);
 
                 var exception = BuildException(assertionTracker, verification, exceptionMessage, ArgumentExceptionKind.ArgumentException);
 
