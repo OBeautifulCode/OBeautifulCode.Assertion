@@ -31,7 +31,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 (x.SubjectType == y.SubjectType) &&
                 (x.SubjectName == y.SubjectName) &&
                 (x.Actions == y.Actions) &&
-                (x.AssertionKind == y.AssertionKind);
+                (x.AssertionKind == y.AssertionKind) &&
+                (x.VerificationException == y.VerificationException);
             return result;
         }
 
@@ -43,6 +44,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 .Hash(obj.SubjectName)
                 .Hash(obj.Actions)
                 .Hash(obj.AssertionKind)
+                .Hash(obj.VerificationException)
                 .Value;
     }
 }

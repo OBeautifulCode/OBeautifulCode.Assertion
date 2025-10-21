@@ -30,7 +30,19 @@ namespace OBeautifulCode.Assertion.Recipes
             this AssertionTracker assertionTracker,
             Verification verification)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(
+                AssertionTrackerShould.Exist, 
+                AssertionTrackerShould.BeMusted);
+
+            if (assertionTracker.VerificationException != null)
+            {
+                // Short-circuit if a prior verification has failed and we are recording
+                // instead of throwing exceptions.  Note that if there's an improper use of the
+                // framework with subsequent verifications (e.g. attempting to each() a value that
+                // is not enumerable), those will not surface because of the short-circuit.
+                // They would also have not surfaced if we were throwing instead of recording.
+                return;
+            }
 
             // ReSharper disable once IdentifierTypo
             var hasBeenEached = assertionTracker.Actions.HasFlag(Actions.Eached);
@@ -60,6 +72,12 @@ namespace OBeautifulCode.Assertion.Recipes
                     // handle here
                     NotBeNullInternal(assertionTracker, eachVerification, eachVerifiableItem);
 
+                    // short-circuit if exception was recorded
+                    if (assertionTracker.VerificationException != null)
+                    {
+                        return;
+                    }
+
                     assertionTracker.Actions |= Actions.EachedValueVerifiedForIteration;
                 }
 
@@ -83,6 +101,12 @@ namespace OBeautifulCode.Assertion.Recipes
                     verifiableItem.ItemValue = element;
 
                     verification.Handler(assertionTracker, verification, verifiableItem);
+
+                    // short-circuit if exception was recorded
+                    if (assertionTracker.VerificationException != null)
+                    {
+                        return;
+                    }
                 }
             }
             else

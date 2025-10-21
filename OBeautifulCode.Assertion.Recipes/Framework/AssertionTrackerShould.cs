@@ -59,6 +59,16 @@ namespace OBeautifulCode.Assertion.Recipes
         NotBeNamed,
 
         /// <summary>
+        /// The tracker should be <see cref="Actions.PutIntoRecordingMode"/>.
+        /// </summary>
+        BeRecording,
+
+        /// <summary>
+        /// The tracker should not be <see cref="Actions.PutIntoRecordingMode"/>.
+        /// </summary>
+        NotBeRecording,
+
+        /// <summary>
         /// The tracker should be <see cref="Actions.Musted"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]

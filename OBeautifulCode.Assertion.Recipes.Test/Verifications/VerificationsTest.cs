@@ -9,10 +9,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using FakeItEasy;
     using FluentAssertions;
     using OBeautifulCode.AutoFakeItEasy;
+    using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Type.Recipes;
     using Xunit;
@@ -171,7 +173,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void AnyVerification___Should_throw_AssertionVerificationFailedException___After_subject_has_passed_another_verification_and_is_eached_but_is_null()
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void AnyVerification___Should_throw_AssertionVerificationFailedException___After_subject_has_passed_another_verification_and_is_Eached_but_is_null()
         {
             // Note that the verification tests we perform on all verifications check for this if the subject's first verification
             // is run after an each().  Here we are specifically testing what happens if the subject is verified before an each()
@@ -189,7 +192,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void AnyVerification___Should_throw_ImproperUseOfAssertionFrameworkException___After_subject_has_passed_another_verification_and_is_eached_but_subject_type_is_not_IEnumerable()
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void AnyVerification___Should_throw_ImproperUseOfAssertionFrameworkException___After_subject_has_passed_another_verification_and_is_Eached_but_subject_type_is_not_IEnumerable()
         {
             // Note that the verification tests we perform on all verifications check for this if the subject's first verification
             // is run after an each().  Here we are specifically testing what happens if the subject is verified before an each()
@@ -216,29 +220,34 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
             var userData = new[] { null, A.Dummy<Dictionary<string, string>>() };
 
+            var forRecordings = new[] { false, true };
+
             foreach (var assertionKind in assertionKinds)
             {
                 foreach (var subjectName in subjectNames)
                 {
                     foreach (var data in userData)
                     {
-                        // the only way to specify a subject name in an uncategorized assertion is to use
-                        // an anonymous object and none of these tests do that...
-                        var subjectNameToUse = assertionKind == AssertionKind.Unknown ? null : subjectName;
+                        foreach (var forRecording in forRecordings)
+                        {
+                            // the only way to specify a subject name in an uncategorized assertion is to use
+                            // an anonymous object and none of these tests do that...
+                            var subjectNameToUse = assertionKind == AssertionKind.Unknown ? null : subjectName;
 
-                        verificationTest.RunPassingScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunPassingScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunMustFailingScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunMustFailingScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunMustEachFailingScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunMustEachFailingScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunMustEachImproperUseOfFrameworkScenarios(assertionKind, subjectNameToUse, data);
+                            verificationTest.RunMustEachImproperUseOfFrameworkScenarios(assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunMustInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunMustInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunMustEachInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunMustEachInvalidSubjectTypeScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
 
-                        verificationTest.RunInvalidVerificationParameterTypeScenarios(testValues, assertionKind, subjectNameToUse, data);
+                            verificationTest.RunInvalidVerificationParameterTypeScenarios(testValues, assertionKind, subjectNameToUse, data, forRecording);
+                        }
                     }
                 }
             }
@@ -249,9 +258,10 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
-            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false));
+            var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false, forRecording: forRecording));
             foreach (var assertionTracker in mustAssertionTrackers)
             {
                 // Arrange
@@ -264,7 +274,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 AssertionTrackerComparer.Equals(actual, expected).Should().BeTrue();
             }
 
-            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
+            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording));
             foreach (var assertionTracker in muchEachAssertionTrackers)
             {
                 // Arrange
@@ -283,12 +293,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
             foreach (var failingValue in testValues.MustFailingValues)
             {
                 // Arrange
-                var assertionTracker = failingValue.RunMust(assertionKind, subjectName, each: false);
+                var assertionTracker = failingValue.RunMust(assertionKind, subjectName, each: false, forRecording: forRecording);
 
                 var expectedExceptionMessage = subjectName == null
                     ? "Provided value " + verificationTest.ExceptionMessageSuffix
@@ -296,16 +307,33 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
                 var expectedData = data ?? new Hashtable();
 
-                // Act
-                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
-
-                // Assert
-                actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.ArgumentExceptionType));
-                actual.Message.Should().StartWith(expectedExceptionMessage);
-                actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
-                foreach (var dataKey in actual.Data.Keys)
+                if (forRecording)
                 {
-                    actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    // Act
+                    var actual = verificationTest.VerificationHandler(assertionTracker, data: data);
+
+                    // Assert
+                    actual.VerificationException.Should().NotBeNull();
+                    actual.VerificationException.Message.Should().StartWith(expectedExceptionMessage);
+                    actual.VerificationException.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                    foreach (var dataKey in actual.VerificationException.Data.Keys)
+                    {
+                        actual.VerificationException.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    }
+                }
+                else
+                {
+                    // Act
+                    var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
+
+                    // Assert
+                    actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.ArgumentExceptionType));
+                    actual.Message.Should().StartWith(expectedExceptionMessage);
+                    actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                    foreach (var dataKey in actual.Data.Keys)
+                    {
+                        actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    }
                 }
             }
         }
@@ -315,12 +343,13 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
             foreach (var eachFailingValue in testValues.MustEachFailingValues)
             {
                 // Arrange
-                var assertionTracker = eachFailingValue.RunMust(assertionKind, subjectName, each: true);
+                var assertionTracker = eachFailingValue.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording);
 
                 var expectedExceptionMessage = subjectName == null
                     ? "Provided value contains an element that " + verificationTest.ExceptionMessageSuffix
@@ -328,16 +357,33 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
                 var expectedData = data ?? new Hashtable();
 
-                // Act
-                var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
-
-                // Assert
-                actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.EachArgumentExceptionType));
-                actual.Message.Should().StartWith(expectedExceptionMessage);
-                actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
-                foreach (var dataKey in actual.Data.Keys)
+                if (forRecording)
                 {
-                    actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    // Act
+                    var actual = verificationTest.VerificationHandler(assertionTracker, data: data);
+
+                    // Assert
+                    actual.VerificationException.Should().NotBeNull();
+                    actual.VerificationException.Message.Should().StartWith(expectedExceptionMessage);
+                    actual.VerificationException.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                    foreach (var dataKey in actual.VerificationException.Data.Keys)
+                    {
+                        actual.VerificationException.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    }
+                }
+                else
+                {
+                    // Act
+                    var actual = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker, data: data));
+
+                    // Assert
+                    actual.Should().BeOfType(assertionKind.GetExpectedExceptionType(verificationTest.EachArgumentExceptionType));
+                    actual.Message.Should().StartWith(expectedExceptionMessage);
+                    actual.Data.Keys.Should().BeEquivalentTo(expectedData.Keys);
+                    foreach (var dataKey in actual.Data.Keys)
+                    {
+                        actual.Data[dataKey].Should().Be(expectedData[dataKey]);
+                    }
                 }
             }
         }
@@ -346,24 +392,27 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             this VerificationTest verificationTest,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
             // Arrange
             // calling Each() on object that is not IEnumerable
             var notEnumerable = new object();
-            var assertionTracker1 = notEnumerable.RunMust(assertionKind, subjectName, each: true);
+            var assertionTracker1 = notEnumerable.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording);
             var expectedExceptionMessage1 = Invariant($"Called Each() on a value of type object, which is not one of the following expected type(s): IEnumerable.  {Verifications.ImproperUseOfFrameworkErrorMessage}");
 
             // calling Each() on object that is IEnumerable, but null
             IEnumerable<string> nullEnumerable = null;
-            var assertionTracker2 = nullEnumerable.RunMust(assertionKind, subjectName, each: true);
+            var assertionTracker2 = nullEnumerable.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording);
             var expectedExceptionMessage2 = subjectName == null
                 ? "Provided value " + Verifications.NotBeNullExceptionMessageSuffix + "."
                 : "Provided value (name: '" + subjectName + "') " + Verifications.NotBeNullExceptionMessageSuffix + ".";
 
             // Act
             var actual1 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker1, data: data));
-            var actual2 = Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
+            var actual2 = forRecording
+                ? verificationTest.VerificationHandler(assertionTracker2, data: data).VerificationException
+                : Record.Exception(() => verificationTest.VerificationHandler(assertionTracker2, data: data));
 
             // Assert
             actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
@@ -378,13 +427,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
             foreach (var invalidTypeValue in testValues.MustSubjectInvalidTypeValues)
             {
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetClosedEnumerableElementType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: false);
+                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: false, forRecording: forRecording);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type {valueTypeName}, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedTypes}.  {Verifications.ImproperUseOfFrameworkErrorMessage}");
 
                 // Act
@@ -401,13 +451,14 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
             foreach (var invalidTypeValue in testValues.MustEachSubjectInvalidTypeValues)
             {
                 // Arrange
                 var valueTypeName = testValues.MustSubjectInvalidTypeValues.GetType().GetClosedEnumerableElementType().ToStringReadable();
-                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: true);
+                var assertionTracker = invalidTypeValue.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording);
                 var expectedMessage = Invariant($"Called {verificationTest.VerificationName}() on a value of type IEnumerable<{valueTypeName}>, which is not one of the following expected type(s): {verificationTest.SubjectInvalidTypeExpectedEnumerableTypes}.  {Verifications.ImproperUseOfFrameworkErrorMessage}");
 
                 // Act
@@ -424,10 +475,11 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             TestValues<T> testValues,
             AssertionKind assertionKind,
             string subjectName,
-            IDictionary data)
+            IDictionary data,
+            bool forRecording)
         {
-            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false));
-            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
+            var mustAssertionTrackers = testValues.MustVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false, forRecording: forRecording));
+            var mustEachAssertionTrackers = testValues.MustEachVerificationParameterInvalidTypeValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true, forRecording: forRecording));
             var assertionTrackers = mustAssertionTrackers.Concat(mustEachAssertionTrackers).ToList();
 
             foreach (var assertionTracker in assertionTrackers)
@@ -451,23 +503,32 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             this T value,
             AssertionKind assertionKind,
             string subjectName,
-            bool each)
+            bool each,
+            bool forRecording)
         {
             AssertionTracker result;
 
             switch (assertionKind)
             {
                 case AssertionKind.Unknown:
-                    result = value.Must();
+                    result = forRecording
+                        ? value.ForRecording().Must()
+                        : value.Must();
                     break;
                 case AssertionKind.Argument:
-                    result = value.AsArg(subjectName).Must();
+                    result = forRecording
+                        ? value.AsArg(subjectName).ForRecording().Must()
+                        : value.AsArg(subjectName).Must();
                     break;
                 case AssertionKind.Operation:
-                    result = value.AsOp(subjectName).Must();
+                    result = forRecording
+                        ? value.AsOp(subjectName).ForRecording().Must()
+                        : value.AsOp(subjectName).Must();
                     break;
                 case AssertionKind.Test:
-                    result = value.AsTest(subjectName).Must();
+                    result = forRecording
+                        ? value.AsTest(subjectName).ForRecording().Must()
+                        : value.AsTest(subjectName).Must();
                     break;
                 default:
                     throw new NotSupportedException("this assertion kind is not supported: " + assertionKind);

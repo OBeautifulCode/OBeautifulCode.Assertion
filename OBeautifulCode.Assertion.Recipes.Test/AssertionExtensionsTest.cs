@@ -11,16 +11,12 @@ namespace OBeautifulCode.Assertion.Recipes.Test
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-
     using FakeItEasy;
-
     using FluentAssertions;
-
     using OBeautifulCode.AutoFakeItEasy;
     using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.Enum.Recipes;
     using OBeautifulCode.Math.Recipes;
-
     using Xunit;
 
     public static class AssertionExtensionsTest
@@ -37,18 +33,15 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void As___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_of_type_AssertionTracker()
+        public static void AsArg___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_of_type_AssertionTracker()
         {
             // Arrange
             var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags();
 
             // Act
-            var actuals1 = assertionTrackers.Select(_ => Record.Exception(() => _.AsArg(A.Dummy<string>())));
-            var actuals2 = assertionTrackers.Select(_ => Record.Exception(() => _.AsOp(A.Dummy<string>())));
-            var actuals3 = assertionTrackers.Select(_ => Record.Exception(() => _.AsTest(A.Dummy<string>())));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.AsArg(A.Dummy<string>())));
 
             // Assert
-            var actuals = new Exception[0].Concat(actuals1).Concat(actuals2).Concat(actuals3);
             foreach (var actual in actuals)
             {
                 actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
@@ -57,24 +50,16 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void As___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
+        public static void AsArg___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
         {
             // Arrange, Act
-            var actual1 = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsArg());
-            var actual2 = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsOp());
-            var actual3 = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsTest());
+            var actual = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsArg());
 
             var expectedExceptionMessage = "Provided value is an anonymous object having 2 properties.  Only single-property anonymous objects are supported.  Found the following properties: someSubject, someSubject2.  " + Verifications.ImproperUseOfFrameworkErrorMessage;
 
             // Assert
-            actual1.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual1.Message.Should().Be(expectedExceptionMessage);
-
-            actual2.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual2.Message.Should().Be(expectedExceptionMessage);
-
-            actual3.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
-            actual3.Message.Should().Be(expectedExceptionMessage);
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Be(expectedExceptionMessage);
         }
 
         [Fact]
@@ -192,6 +177,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        public static void AsOp___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_of_type_AssertionTracker()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.AsOp(A.Dummy<string>())));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void AsOp___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsOp());
+
+            var expectedExceptionMessage = "Provided value is an anonymous object having 2 properties.  Only single-property anonymous objects are supported.  Found the following properties: someSubject, someSubject2.  " + Verifications.ImproperUseOfFrameworkErrorMessage;
+
+            // Assert
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Be(expectedExceptionMessage);
+        }
+
+        [Fact]
         public static void AsOp___Should_create_AssertionTracker_in_the_expected_state___When_parameter_value_is_not_of_type_AssertionTracker()
         {
             // Arrange
@@ -303,6 +318,36 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             AssertionTrackerComparer.Equals(actual2, expected2).Should().BeTrue();
             AssertionTrackerComparer.Equals(actual3, expected3).Should().BeTrue();
             AssertionTrackerComparer.Equals(actual4, expected4).Should().BeTrue();
+        }
+
+        [Fact]
+        public static void AsTest___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_of_type_AssertionTracker()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.AsTest(A.Dummy<string>())));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void AsTest___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.AsTest());
+
+            var expectedExceptionMessage = "Provided value is an anonymous object having 2 properties.  Only single-property anonymous objects are supported.  Found the following properties: someSubject, someSubject2.  " + Verifications.ImproperUseOfFrameworkErrorMessage;
+
+            // Assert
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Be(expectedExceptionMessage);
         }
 
         [Fact]
@@ -420,7 +465,94 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_with_null_SubjectType()
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_anonymous_object_with_multiple_properties()
+        {
+            // Arrange, Act
+            var actual = Record.Exception(() => new { someSubject = A.Dummy<object>(), someSubject2 = A.Dummy<object>() }.ForRecording());
+
+            var expectedExceptionMessage = "Provided value is an anonymous object having 2 properties.  Only single-property anonymous objects are supported.  Found the following properties: someSubject, someSubject2.  " + Verifications.ImproperUseOfFrameworkErrorMessage;
+
+            // Assert
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Be(expectedExceptionMessage);
+        }
+
+        [Fact]
+        public static void ForRecording___Should_create_AssertionTracker_in_the_expected_state___When_parameter_value_is_not_of_type_AssertionTracker_and_not_an_anonymous_object()
+        {
+            // Arrange
+            var nullValue = (string)null;
+            var value = A.Dummy<decimal?>();
+            var name = A.Dummy<string>();
+
+            var expected1 = new AssertionTracker
+            {
+                SubjectValue = nullValue,
+                SubjectType = typeof(string),
+                SubjectName = null,
+                Actions = Actions.PutIntoRecordingMode,
+                AssertionKind = AssertionKind.Unknown,
+            };
+
+            var expected2 = new AssertionTracker
+            {
+                SubjectValue = nullValue,
+                SubjectType = typeof(string),
+                SubjectName = name,
+                Actions = Actions.PutIntoRecordingMode | Actions.Named,
+                AssertionKind = AssertionKind.Unknown,
+            };
+
+            var expected3 = new AssertionTracker
+            {
+                SubjectValue = value,
+                SubjectType = typeof(decimal?),
+                SubjectName = null,
+                Actions = Actions.PutIntoRecordingMode,
+                AssertionKind = AssertionKind.Unknown,
+            };
+
+            var expected4 = new AssertionTracker
+            {
+                SubjectValue = value,
+                SubjectType = typeof(decimal?),
+                SubjectName = name,
+                Actions = Actions.PutIntoRecordingMode | Actions.Named,
+                AssertionKind = AssertionKind.Unknown,
+            };
+
+            // Act
+            var actual1 = nullValue.ForRecording();
+            var actual2 = nullValue.ForRecording(name);
+            var actual3 = value.ForRecording();
+            var actual4 = value.ForRecording(name);
+
+            // Assert
+            AssertionTrackerComparer.Equals(actual1, expected1).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual2, expected2).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual3, expected3).Should().BeTrue();
+            AssertionTrackerComparer.Equals(actual4, expected4).Should().BeTrue();
+        }
+
+        [Fact]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_and_parameter_name_is_not_null_nor_white_space()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording(A.Dummy<string>())));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectInitializedAndCannotBeNamedErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_with_null_SubjectType()
         {
             // Arrange
             var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState();
@@ -431,7 +563,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             }
 
             // Act
-            var actuals = assertionTrackers.Select(_ => Record.Exception(_.Must));
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
 
             // Assert
             foreach (var actual in actuals)
@@ -442,16 +574,137 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
-        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_not_been_Categorized()
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_ForRecording()
         {
             // Arrange
-            var assertionTrackers1 = BuildAssertionTrackersWithAllCombinationsOfFlags()
-                .Where(_ => !_.Actions.HasFlag(Actions.Categorized))
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.PutIntoRecordingMode))
                 .ToList();
 
-            var assertionTrackers2 = BuildAssertionTrackersWithActionsInMustableState(assertionKind: AssertionKind.Unknown);
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
 
-            var assertionTrackers = new AssertionTracker[0].Concat(assertionTrackers1).Concat(assertionTrackers2);
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_Must()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.Musted))
+                .ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_Each()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.Eached))
+                .ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_been_VerifiedAtLeastOnce()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
+                .ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void ForRecording___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_EachedValueVerifiedForIteration()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.EachedValueVerifiedForIteration))
+                .ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(() => _.ForRecording()));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void ForRecording___Should_return_same_AssertionTracker_but_with_Actions_PutIntoRecordingMode_bit_set___When_parameter_value_is_an_AssertionTracker_that_has_not_been_PutIntoRecordingMode_and_not_Musted_and_not_Eached_and_not_VerifiedAtLeastOnce_and_not_EachedValueVerifiedForIteration()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState()
+                .Where(_ => !_.Actions.HasFlag(Actions.PutIntoRecordingMode))
+                .ToList();
+
+            var expecteds = assertionTrackers.Select(_ =>
+            {
+                var result = _.Clone();
+
+                result.Actions |= Actions.PutIntoRecordingMode;
+
+                return result;
+            }).ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => _.ForRecording()).ToList();
+
+            // Assert
+            actuals.Should().Equal(expecteds, (expected, actual) => AssertionTrackerComparer.Equals(expected, actual));
+        }
+
+        [Fact]
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_with_null_SubjectType()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState();
+
+            foreach (var assertionTracker in assertionTrackers)
+            {
+                assertionTracker.SubjectType = null;
+            }
 
             // Act
             var actuals = assertionTrackers.Select(_ => Record.Exception(_.Must));
@@ -522,6 +775,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
         public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_EachedValueVerifiedForIteration()
         {
             // Arrange
@@ -542,7 +796,8 @@ namespace OBeautifulCode.Assertion.Recipes.Test
 
         [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
-        public static void Must___Should_return_same_AssertionTracker_but_with_Actions_Musted_bit_set___When_parameter_value_is_an_AssertionTracker_that_has_been_Categorized_and_not_Must_and_not_Each_and_not_VerifiedAtLeastOnce()
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = ObcSuppressBecause.CA1704_IdentifiersShouldBeSpelledCorrectly_SpellingIsCorrectInContextOfTheDomain)]
+        public static void Must___Should_return_same_AssertionTracker_but_with_Actions_Musted_bit_set___When_parameter_value_is_an_AssertionTracker_that_has_not_been_Musted_and_not_Eached_and_not_VerifiedAtLeastOnce_and_not_EachedValueVerifiedForIteration()
         {
             // Arrange
             var assertionTrackers = BuildAssertionTrackersWithActionsInMustableState();
@@ -1006,7 +1261,6 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             AssertionKind? assertionKind = null)
         {
             var result = BuildAssertionTrackersWithAllCombinationsOfFlags(subjectType, subjectValueNullOption, assertionKind)
-                .Where(_ => _.Actions.HasFlag(Actions.Categorized))
                 .Where(_ => !_.Actions.HasFlag(Actions.Musted))
                 .Where(_ => !_.Actions.HasFlag(Actions.Eached))
                 .Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
