@@ -37,8 +37,8 @@ namespace OBeautifulCode.Assertion.Recipes
 
             if (hasBeenEached)
             {
-                // check that the subject is an IEnumerable and not null
-                if (!assertionTracker.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
+                // If we haven't checked already, check that the subject is an IEnumerable and not null.
+                if (!assertionTracker.Actions.HasFlag(Actions.EachedValueVerifiedForIteration))
                 {
                     var eachVerification = new Verification
                     {
@@ -52,9 +52,15 @@ namespace OBeautifulCode.Assertion.Recipes
                         ItemIsElementInEnumerable = false,
                     };
 
-                    ThrowIfVerifiableItemTypeNotAssignableToSpecifiedTypes(eachVerification, eachVerifiableItem, VerifiableItemMustBeEnumerableTypeValidations.Single());
+                    ThrowIfVerifiableItemTypeNotAssignableToSpecifiedTypes(
+                        eachVerification, 
+                        eachVerifiableItem, 
+                        VerifiableItemMustBeEnumerableTypeValidations.Single());
 
+                    // handle here
                     NotBeNullInternal(assertionTracker, eachVerification, eachVerifiableItem);
+
+                    assertionTracker.Actions |= Actions.EachedValueVerifiedForIteration;
                 }
 
                 var valueAsEnumerable = (IEnumerable)assertionTracker.SubjectValue;

@@ -170,6 +170,42 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             actual2.Message.Should().Be(because);
         }
 
+        [Fact]
+        public static void AnyVerification___Should_throw_AssertionVerificationFailedException___After_subject_has_passed_another_verification_and_is_eached_but_is_null()
+        {
+            // Note that the verification tests we perform on all verifications check for this if the subject's first verification
+            // is run after an each().  Here we are specifically testing what happens if the subject is verified before an each()
+            // and then verified again after, to ensure that the first verification doesn't put us in some state that messes with the expectation.
+
+            // Arrange
+            string subject = null;
+
+            // Act
+            var actual = Record.Exception(() => subject.Must().BeNull().And().Each().NotBeEqualTo('a'));
+
+            // Assert
+            actual.Should().BeOfType<AssertionVerificationFailedException>();
+            actual.Message.Should().Contain("Provided value is null");
+        }
+
+        [Fact]
+        public static void AnyVerification___Should_throw_ImproperUseOfAssertionFrameworkException___After_subject_has_passed_another_verification_and_is_eached_but_subject_type_is_not_IEnumerable()
+        {
+            // Note that the verification tests we perform on all verifications check for this if the subject's first verification
+            // is run after an each().  Here we are specifically testing what happens if the subject is verified before an each()
+            // and then verified again after, to ensure that the first verification doesn't put us in some state that messes with the expectation.
+
+            // Arrange
+            var subject = 10;
+
+            // Act
+            var actual = Record.Exception(() => subject.Must().BeGreaterThan(1).And().Each().NotBeEqualTo(2));
+
+            // Assert
+            actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+            actual.Message.Should().Contain("Called Each() on a value of type int, which is not one of the following expected type(s): IEnumerable.");
+        }
+
         private static void Run<T>(
             this VerificationTest verificationTest,
             TestValues<T> testValues)
@@ -216,17 +252,23 @@ namespace OBeautifulCode.Assertion.Recipes.Test
             IDictionary data)
         {
             var mustAssertionTrackers = testValues.MustPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: false));
-            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
-
-            var assertionTrackers = new AssertionTracker[0]
-                .Concat(mustAssertionTrackers)
-                .Concat(muchEachAssertionTrackers)
-                .ToList();
-
-            foreach (var assertionTracker in assertionTrackers)
+            foreach (var assertionTracker in mustAssertionTrackers)
             {
                 // Arrange
-                var expected = assertionTracker.CloneWithActionVerifiedAtLeastOnce();
+                var expected = assertionTracker.CloneWithActionVerifiedAtLeastOnce(eachValueVerifiedForIteration: false);
+
+                // Act
+                var actual = verificationTest.VerificationHandler(assertionTracker, data: data);
+
+                // Assert
+                AssertionTrackerComparer.Equals(actual, expected).Should().BeTrue();
+            }
+
+            var muchEachAssertionTrackers = testValues.MustEachPassingValues.Select(_ => _.RunMust(assertionKind, subjectName, each: true));
+            foreach (var assertionTracker in muchEachAssertionTrackers)
+            {
+                // Arrange
+                var expected = assertionTracker.CloneWithActionVerifiedAtLeastOnce(eachValueVerifiedForIteration: true);
 
                 // Act
                 var actual = verificationTest.VerificationHandler(assertionTracker, data: data);

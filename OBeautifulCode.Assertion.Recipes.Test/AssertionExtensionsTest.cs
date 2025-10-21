@@ -522,6 +522,25 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         [Fact]
+        public static void Must___Should_throw_ImproperUseOfAssertionFrameworkException___When_parameter_value_is_an_AssertionTracker_that_has_EachedValueVerifiedForIteration()
+        {
+            // Arrange
+            var assertionTrackers = BuildAssertionTrackersWithAllCombinationsOfFlags()
+                .Where(_ => _.Actions.HasFlag(Actions.EachedValueVerifiedForIteration))
+                .ToList();
+
+            // Act
+            var actuals = assertionTrackers.Select(_ => Record.Exception(_.Must));
+
+            // Assert
+            foreach (var actual in actuals)
+            {
+                actual.Should().BeOfType<ImproperUseOfAssertionFrameworkException>();
+                actual.Message.Should().Be(Verifications.SubjectAndOperationSequencingErrorMessage + "  " + Verifications.ImproperUseOfFrameworkErrorMessage);
+            }
+        }
+
+        [Fact]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Musted", Justification = "This is the best wording for this identifier.")]
         public static void Must___Should_return_same_AssertionTracker_but_with_Actions_Musted_bit_set___When_parameter_value_is_an_AssertionTracker_that_has_been_Categorized_and_not_Must_and_not_Each_and_not_VerifiedAtLeastOnce()
         {
@@ -991,6 +1010,7 @@ namespace OBeautifulCode.Assertion.Recipes.Test
                 .Where(_ => !_.Actions.HasFlag(Actions.Musted))
                 .Where(_ => !_.Actions.HasFlag(Actions.Eached))
                 .Where(_ => !_.Actions.HasFlag(Actions.VerifiedAtLeastOnce))
+                .Where(_ => !_.Actions.HasFlag(Actions.EachedValueVerifiedForIteration))
                 .ToList();
 
             return result;

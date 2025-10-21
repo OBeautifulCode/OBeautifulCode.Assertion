@@ -68,5 +68,11 @@ namespace OBeautifulCode.Assertion.Recipes
         /// The subject should have been verified by at least one verification.
         /// </summary>
         VerifiedAtLeastOnce = 16,
+
+        /// <summary>
+        /// The <see cref="Eached"/> value has been verified as an enumerable
+        /// that is not null and is thus ready for iteration.
+        /// </summary>
+        EachedValueVerifiedForIteration = 64,
     }
 }

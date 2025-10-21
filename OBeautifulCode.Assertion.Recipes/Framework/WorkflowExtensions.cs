@@ -160,7 +160,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 // As... has already been called
                 result = tracker;
 
-                result.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeCategorized, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified);
+                result.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeCategorized, AssertionTrackerShould.NotBeMusted, AssertionTrackerShould.NotBeEached, AssertionTrackerShould.NotBeVerified, AssertionTrackerShould.NotHaveEachedValueVerifiedForIteration);
             }
             else
             {
@@ -189,7 +189,10 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker Each(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted, AssertionTrackerShould.NotBeEached);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(
+                AssertionTrackerShould.Exist, 
+                AssertionTrackerShould.BeMusted, 
+                AssertionTrackerShould.NotBeEached);
 
             assertionTracker.Actions |= Actions.Eached;
 
@@ -206,7 +209,10 @@ namespace OBeautifulCode.Assertion.Recipes
         public static AssertionTracker And(
             [ValidatedNotNull] this AssertionTracker assertionTracker)
         {
-            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(AssertionTrackerShould.Exist, AssertionTrackerShould.BeMusted, AssertionTrackerShould.BeVerifiedAtLeastOnce);
+            assertionTracker.ThrowImproperUseOfFrameworkIfDetected(
+                AssertionTrackerShould.Exist, 
+                AssertionTrackerShould.BeMusted,
+                AssertionTrackerShould.BeVerifiedAtLeastOnce);
 
             return assertionTracker;
         }
@@ -267,6 +273,12 @@ namespace OBeautifulCode.Assertion.Recipes
                             break;
                         case AssertionTrackerShould.NotBeVerified:
                             shouldThrow = assertionTracker.Actions.HasFlag(Actions.VerifiedAtLeastOnce);
+                            break;
+                        case AssertionTrackerShould.HaveEachedValueVerifiedForIteration:
+                            shouldThrow = !assertionTracker.Actions.HasFlag(Actions.EachedValueVerifiedForIteration);
+                            break;
+                        case AssertionTrackerShould.NotHaveEachedValueVerifiedForIteration:
+                            shouldThrow = assertionTracker.Actions.HasFlag(Actions.EachedValueVerifiedForIteration);
                             break;
                         default:
                             shouldThrow = true;

@@ -91,5 +91,17 @@ namespace OBeautifulCode.Assertion.Recipes
         /// The tracker should not be <see cref="Actions.VerifiedAtLeastOnce"/>.
         /// </summary>
         NotBeVerified,
+
+        /// <summary>
+        /// The tracker should have <see cref="Actions.EachedValueVerifiedForIteration"/>.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
+        HaveEachedValueVerifiedForIteration,
+
+        /// <summary>
+        /// The tracker should not have <see cref="Actions.EachedValueVerifiedForIteration"/>.
+        /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Eached", Justification = "This is the best wording for this identifier.")]
+        NotHaveEachedValueVerifiedForIteration,
     }
 }

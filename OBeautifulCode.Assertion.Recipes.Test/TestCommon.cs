@@ -24,11 +24,17 @@ namespace OBeautifulCode.Assertion.Recipes.Test
         }
 
         public static AssertionTracker CloneWithActionVerifiedAtLeastOnce(
-            this AssertionTracker assertionTracker)
+            this AssertionTracker assertionTracker,
+            bool eachValueVerifiedForIteration)
         {
             var result = assertionTracker.Clone();
 
             result.Actions |= Actions.VerifiedAtLeastOnce;
+
+            if (eachValueVerifiedForIteration)
+            {
+                result.Actions |= Actions.EachedValueVerifiedForIteration;
+            }
 
             return result;
         }
