@@ -39,6 +39,9 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OBeautifulCode.Type, Version=1.0.151.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OBeautifulCode.Type.1.0.151\lib\net462\OBeautifulCode.Type.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
@@ -68,6 +71,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="Exceptions\AssertionVerificationFailedException.cs" />
     <Compile Include="Exceptions\TestAssertionVerificationFailedException.cs" />
+    <Compile Include="External\AssertionTrackerExtensions.cs" />
     <Compile Include="Framework\AssertionKind.cs" />
     <Compile Include="Framework\Actions.cs" />
     <Compile Include="Properties\ProjectInfo.cs" />
@@ -95,6 +99,7 @@
   <ItemGroup>
     <AdditionalFiles Include=".analyzers\stylecop.json" />
     <None Include=".analyzers\release.ruleset" />
+    <None Include="AssertionTrackerExtensions.recipe-nuspec" />
     <None Include="nuget-icon.png" />
     <None Include="packages.config" />
     <None Include="Must.recipe-nuspec" />
@@ -106,6 +111,7 @@
   <ItemGroup>
     <Content Include=".analyzers\dictionary.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\OBeautifulCode.Build.Analyzers.1.1.141\build\OBeautifulCode.Build.Analyzers.targets" Condition="Exists('..\packages\OBeautifulCode.Build.Analyzers.1.1.141\build\OBeautifulCode.Build.Analyzers.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
